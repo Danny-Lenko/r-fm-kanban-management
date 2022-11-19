@@ -62,6 +62,10 @@ const assembleThemeObj = (mode: any, theme: any) => ({
       light: '#A8A4FF'
     },
     secondaryCustom: {
+      main: 'rgba(99, 95, 199, 0.25)',
+      light: 'rgba(99, 95, 199, 0.1)'
+    },
+    destructCustom: {
       main: '#EA5555',
       light: '#FF9898'
     },

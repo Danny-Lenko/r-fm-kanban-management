@@ -1,7 +1,11 @@
 // import { Routes, Route } from 'react-router-dom'
 import { CssBaseline, ThemeProvider, Typography } from '@mui/material'
 import { ToggleColorMode } from './library/utilities/ToggleColorMode'
+import PersistentDrawerLeft from './library/common/components/Drawer/Drawer';
+import Main from './library/common/components/Main/Main';
 // modules
+
+import CustomBtn from './library/common/components/CustomBtn/CustomBtn';
 
 
 function App() {
@@ -11,15 +15,8 @@ function App() {
     <ThemeProvider theme = { myColorMode.theme } >
       <CssBaseline />
 
-      <Typography variant='h1'>hello App</Typography>
-      <br/>
-      <br/>
-
-
-      <Typography variant='h2'>Typography variant h2</Typography>
-      <Typography variant='h3'>Typography variant h3</Typography>
-      <Typography variant='h4'>Typography variant h4</Typography>
-      <Typography variant='h5'>Typography variant h5</Typography>
+      <PersistentDrawerLeft />
+      <Main />
 
       {/* 
         <Routes>
