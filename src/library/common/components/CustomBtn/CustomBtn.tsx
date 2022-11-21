@@ -1,9 +1,12 @@
 import Button from "@mui/material/Button";
+import SvgIcon from '@mui/material/SvgIcon'
 import { ICustomBtn } from "../../../interfaces/interfaces";
 import { BTNWIDTH } from "../../constants/constants";
 import { useTheme } from '@mui/material/styles';
 
-const CustomBtn = ({sizeSm, color, text}: ICustomBtn) => {
+// import { ReactComponent as ShowDrawerIcon } from '../../../../resources/assets/icon-show-sidebar.svg'
+
+const CustomBtn = ({sizeSm, color, text, styles, icon, iconStyles }: ICustomBtn) => {
    const theme = useTheme()
 
    const customBtnStyles = {
@@ -23,7 +26,8 @@ const CustomBtn = ({sizeSm, color, text}: ICustomBtn) => {
             : color === 'secondary' && theme.palette.mode === 'light' ? 'secondaryCustom.main'
             : color === 'secondary' && theme.palette.mode === 'dark' ? 'secondaryCustom.light'
             : 'destructCustom.light',
-      }
+      },
+      ...styles
    }
 
    return (  
@@ -31,8 +35,12 @@ const CustomBtn = ({sizeSm, color, text}: ICustomBtn) => {
          disableElevation
          variant="contained"
          sx={customBtnStyles}
+         // endIcon={<ShowDrawerIcon />}
       >
          {text}
+         {
+            icon && <SvgIcon sx={iconStyles} component={icon} />
+         }
       </Button>
    );
 }

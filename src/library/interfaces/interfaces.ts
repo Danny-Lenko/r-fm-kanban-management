@@ -5,6 +5,9 @@ export interface ICustomBtn {
    sizeSm: boolean
    color: string
    text: string
+   styles?: Record<string, string | number>
+   icon?: any
+   iconStyles?: Record<string, string>
 }
 
 export interface AppBarProps extends MuiAppBarProps {

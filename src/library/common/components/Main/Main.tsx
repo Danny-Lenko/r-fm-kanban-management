@@ -1,69 +1,41 @@
-import { DRAWERWIDTHSM, DRAWERWIDTHMD } from "../../constants/constants";
-import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../../hooks/hooks";
 import DrawerHeader from "../Drawer/DrawerHeader";
-
-// mui docs: Persistent Drawer
-const MainEl = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-   open?: boolean;
-}>(({ theme, open }) => ({
-   flexGrow: 1,
-   padding: theme.spacing(3),
-   backgroundColor: '#F2F2F2',
-   transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-   }),
-   marginLeft: `-${DRAWERWIDTHMD}`,
-   [theme.breakpoints.down('md')]: {
-      marginLeft: `-${DRAWERWIDTHSM}`
-   },
-   [theme.breakpoints.down('sm')]: {
-      marginLeft: 0
-   },
-   ...(open && {
-      transition: theme.transitions.create('margin', {
-         easing: theme.transitions.easing.easeOut,
-         duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: '0 !important',
-   }),
-}));
+import MainEl from "./MainEl";
+import CustomBtn from "../CustomBtn/CustomBtn";
+import { ReactComponent as eyeIcon } from '../../../../resources/assets/icon-show-sidebar.svg'
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
 
+   const eyeBtnStyles = {
+      width: '80px',
+      pr: 2,
+      pl: 5,
+      position: 'absolute',
+      bottom: '20px',
+      left: -25,
+      minHeight: '40px'
+   }
+
+   const eyeIconStyles = {
+      transform: 'translateY(25%)'
+   }
+
    return (
       <MainEl open={open}>
          <DrawerHeader />
-         <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-         </Typography>
-         <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-         </Typography>
+
+         <CustomBtn sizeSm={false} color='primary' text='' />
+
+         <CustomBtn
+            sizeSm={false}
+            color='primary'
+            text=''
+            icon={eyeIcon}
+            styles={eyeBtnStyles}
+            iconStyles={eyeIconStyles}
+         />
       </MainEl>
    );
 }
