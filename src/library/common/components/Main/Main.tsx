@@ -1,35 +1,42 @@
-import { DRAWERWIDTH } from "../../constants/constants";
-import { styled, useTheme } from '@mui/material/styles';
+import { DRAWERWIDTHSM, DRAWERWIDTHMD } from "../../constants/constants";
+import { styled } from '@mui/material/styles';
 import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../../hooks/hooks";
+import DrawerHeader from "../Drawer/DrawerHeader";
+
+// mui docs: Persistent Drawer
+const MainEl = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+   open?: boolean;
+}>(({ theme, open }) => ({
+   flexGrow: 1,
+   padding: theme.spacing(3),
+   backgroundColor: '#F2F2F2',
+   transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+   }),
+   marginLeft: `-${DRAWERWIDTHMD}`,
+   [theme.breakpoints.down('md')]: {
+      marginLeft: `-${DRAWERWIDTHSM}`
+   },
+   [theme.breakpoints.down('sm')]: {
+      marginLeft: 0
+   },
+   ...(open && {
+      transition: theme.transitions.create('margin', {
+         easing: theme.transitions.easing.easeOut,
+         duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: '0 !important',
+   }),
+}));
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
-   console.log(open)
-
-   // MUI docs Drawer
-   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-      open?: boolean;
-   }>(({ theme, open }) => ({
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-         easing: theme.transitions.easing.sharp,
-         duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: `-${DRAWERWIDTH}px`,
-      ...(open && {
-         transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-         }),
-         marginLeft: 0,
-      }),
-   }));
 
    return (
-      <Main open={open}>
-         {/* <DrawerHeader /> */}
+      <MainEl open={open}>
+         <DrawerHeader />
          <Typography paragraph>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
@@ -57,7 +64,7 @@ const Main = () => {
             eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
             posuere sollicitudin aliquam ultrices sagittis orci a.
          </Typography>
-      </Main>
+      </MainEl>
    );
 }
 
