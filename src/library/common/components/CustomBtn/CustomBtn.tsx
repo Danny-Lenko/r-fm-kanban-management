@@ -3,10 +3,19 @@ import SvgIcon from '@mui/material/SvgIcon'
 import { ICustomBtn } from "../../../interfaces/interfaces";
 import { BTNWIDTH } from "../../constants/constants";
 import { useTheme } from '@mui/material/styles';
+import { useAppDispatch } from "../../hooks/hooks";
 
-// import { ReactComponent as ShowDrawerIcon } from '../../../../resources/assets/icon-show-sidebar.svg'
+const CustomBtn = ({
+   sizeSm, 
+   color, 
+   text, 
+   onclick, 
+   styles, 
+   icon, 
+   iconStyles 
+}: ICustomBtn) => {
 
-const CustomBtn = ({sizeSm, color, text, styles, icon, iconStyles }: ICustomBtn) => {
+   const dispatch = useAppDispatch()
    const theme = useTheme()
 
    const customBtnStyles = {
@@ -35,7 +44,7 @@ const CustomBtn = ({sizeSm, color, text, styles, icon, iconStyles }: ICustomBtn)
          disableElevation
          variant="contained"
          sx={customBtnStyles}
-         // endIcon={<ShowDrawerIcon />}
+         onClick={onclick ? () => dispatch( onclick('open') ) : () => null}
       >
          {text}
          {

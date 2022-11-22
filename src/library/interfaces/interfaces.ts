@@ -5,6 +5,7 @@ export interface ICustomBtn {
    sizeSm: boolean
    color: string
    text: string
+   onclick?: any
    styles?: Record<string, string | number>
    icon?: any
    iconStyles?: Record<string, string>

@@ -1,46 +1,60 @@
-import { useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import Box from '@mui/material/Box';
+import { useAppSelector } from '../../hooks/hooks';
 import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
-import { closeDrawer } from './drawerSlice';
 import DrawerHeader from './DrawerHeader';
+import DrawerBlindBtn from './DrawerBlindBtn';
+import logoDark from '../../../../resources/assets/logo-dark.svg'
 
 export default function PersistentDrawerLeft() {
-  const theme = useTheme();
   const open = useAppSelector(state => state.drawer.open)
-  const dispatch = useAppDispatch()
+
+  const drawerStyles = {
+    position: 'relative',
+    width: { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD },
+    flexShrink: 0,
+    '& .MuiDrawer-paper': {
+      width: { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD },
+      boxSizing: 'border-box',
+    },
+    '& .blind-btn': {
+      position: 'absolute',
+      left: -20,
+      bottom: '20px',
+      mx: '11px',
+      pl: 3,
+      justifyContent: 'flex-start',
+      textTransform: 'capitalize',
+      '& .MuiSvgIcon-root': {
+        transform: 'translateY(15%)',
+        mr: 1
+      }
+    }
+  }
 
   return (
     <Drawer
-      sx={{
-        width: {xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD},
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: {xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD},
-          boxSizing: 'border-box',
-        },
-      }}
+      sx={drawerStyles}
       variant="persistent"
       anchor="left"
       open={open}
     >
       <DrawerHeader>
-        <IconButton onClick={() => dispatch(closeDrawer('close'))}>
-          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
+        <Box
+          component='img'
+          sx={{ width: '153px' }}
+          src={logoDark}
+          alt='kanban'
+        ></Box>
       </DrawerHeader>
-      <Divider />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -53,19 +67,8 @@ export default function PersistentDrawerLeft() {
           </ListItem>
         ))}
       </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+
+      <DrawerBlindBtn />
     </Drawer>
   );
 }

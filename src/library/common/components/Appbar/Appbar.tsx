@@ -1,13 +1,13 @@
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
-import IconButton from '@mui/material/IconButton';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { useAppSelector } from '../../hooks/hooks';
 import { AppBarProps } from '../../../interfaces/interfaces';
-import { openDrawer } from '../Drawer/drawerSlice';
+import Box from '@mui/material/Box/Box';
+import logoDark from '../../../../resources/assets/logo-dark.svg'
+import logoLight from '../../../../resources/assets/logo-light.svg'
 
 // mui docs: Persistent Drawer
 const AppBar = styled(MuiAppBar, {
@@ -33,33 +33,44 @@ const AppBar = styled(MuiAppBar, {
    })
 }));
 
-const appbarStyles = (open:any) => ({
+const appbarStyles = (open: any) => ({
    borderBottom: '2px solid #E4EBFA',
-   marginLeft: open ? {xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD} : 0,
+   marginLeft: open ? { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD } : 0,
    '& .MuiToolbar-root': {
-      minHeight: {xs: '64px', sm: '81px', md: '97px'}
+      minHeight: { xs: '64px', sm: '81px', md: '97px' },
+      position: 'relative',
+      '& .logo-wrapper': {
+         lineHeight: 1,
+         display: !open ? 'block' : 'none',
+         mr: '50px',
+         '&:after': {
+            content: '""',
+            position: 'absolute',
+            width: '2px',
+            height: '100%',
+            backgroundColor: 'linesCustom.light',
+            bottom: -0.5,
+            left: '200px',
+         }
+      }
    }
 })
 
 const Appbar = () => {
    const open = useAppSelector(state => state.drawer.open)
-   const dispatch = useAppDispatch()
 
    return (
       <AppBar sx={() => appbarStyles(open)} color='inherit' elevation={0} position="fixed" open={open}>
          <Toolbar>
-            <IconButton
-               color="inherit"
-               aria-label="open drawer"
-               onClick={() => {
-                  dispatch(openDrawer('open'))
-               }}
-               edge="start"
-               sx={{ mr: 2, ...(open && { display: 'none' }) }}
-            >
-               <MenuIcon />
-            </IconButton>
-            <Typography variant="h2" noWrap component="div">
+            <Box className='logo-wrapper'>
+               <Box
+                  component='img'
+                  sx={{ width: '153px'}}
+                  src={logoDark}
+                  alt='kanban'
+               ></Box>
+            </Box>
+            <Typography variant="h2" noWrap component="div" >
                Platform Launch
             </Typography>
          </Toolbar>

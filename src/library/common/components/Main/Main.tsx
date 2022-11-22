@@ -1,9 +1,9 @@
-import Typography from "@mui/material/Typography";
 import { useAppSelector } from "../../hooks/hooks";
 import DrawerHeader from "../Drawer/DrawerHeader";
 import MainEl from "./MainEl";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import { ReactComponent as eyeIcon } from '../../../../resources/assets/icon-show-sidebar.svg'
+import { openDrawer } from "../Drawer/drawerSlice";
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
@@ -35,6 +35,7 @@ const Main = () => {
             icon={eyeIcon}
             styles={eyeBtnStyles}
             iconStyles={eyeIconStyles}
+            onclick={openDrawer}
          />
       </MainEl>
    );
