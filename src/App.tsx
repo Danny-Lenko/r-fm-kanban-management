@@ -1,6 +1,6 @@
 // import { Routes, Route } from 'react-router-dom'
 import { CssBaseline, ThemeProvider, Box } from '@mui/material'
-import { ToggleColorMode } from './library/utilities/ToggleColorMode'
+import { ColorModeToggler, ColorModeContext } from './library/utilities/ColorModeToggler'
 import Appbar from './library/common/components/Appbar/Appbar';
 import PersistentDrawerLeft from './library/common/components/Drawer/Drawer';
 import Main from './library/common/components/Main/Main';
@@ -8,23 +8,25 @@ import Main from './library/common/components/Main/Main';
 
 
 function App() {
-  const myColorMode = ToggleColorMode()
+  const myTheme = ColorModeToggler()
 
   return (
-    <ThemeProvider theme={myColorMode.theme} >
+    <ThemeProvider theme={myTheme.theme}>
       <CssBaseline />
 
       <Box sx={{ display: 'flex' }}>
         <Appbar />
-        <PersistentDrawerLeft />
-        <Main />
 
+        <ColorModeContext.Provider value={myTheme.colorMode}>
+          <PersistentDrawerLeft />
+        </ColorModeContext.Provider>
+        
+        <Main />
       </Box>
       {/* 
         <Routes>
         </Routes> 
       */}
-
     </ThemeProvider >
   );
 }

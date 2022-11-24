@@ -47,11 +47,21 @@ const assembleThemeObj = (mode: any, theme: any) => ({
           text: {
             primary: '#2B2C37',
           },
+          background: {
+            paper: '#FFFFFF',
+            default: '#F4F7FD'
+          },
+          divider: '#E4EBFA'
         }
       : {
           text: {
             primary: '#FFFFFF'
-          }
+          },
+          background: {
+            paper: '#2B2C37',
+            default: '#20212C'
+          },
+          divider: '#3E3F4E'
         }),
     common: {
       black: '#000112',

@@ -1,7 +1,7 @@
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+import { styled, Theme, useTheme } from '@mui/material/styles';
 import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
 import { useAppSelector } from '../../hooks/hooks';
 import { AppBarProps } from '../../../interfaces/interfaces';
@@ -33,8 +33,9 @@ const AppBar = styled(MuiAppBar, {
    })
 }));
 
-const appbarStyles = (open: any) => ({
-   borderBottom: '2px solid #E4EBFA',
+const appbarStyles = (open: any, theme: Theme) => ({
+   borderBottom: '1.2px solid',
+   borderBottomColor: theme.palette.divider,
    marginLeft: open ? { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD } : 0,
    '& .MuiToolbar-root': {
       minHeight: { xs: '64px', sm: '81px', md: '97px' },
@@ -46,9 +47,9 @@ const appbarStyles = (open: any) => ({
          '&:after': {
             content: '""',
             position: 'absolute',
-            width: '2px',
+            width: '1.5px',
             height: '100%',
-            backgroundColor: 'linesCustom.light',
+            backgroundColor: theme.palette.divider,
             bottom: -0.5,
             left: '200px',
          }
@@ -58,15 +59,16 @@ const appbarStyles = (open: any) => ({
 
 const Appbar = () => {
    const open = useAppSelector(state => state.drawer.open)
+   const theme = useTheme()
 
    return (
-      <AppBar sx={() => appbarStyles(open)} color='inherit' elevation={0} position="fixed" open={open}>
+      <AppBar sx={() => appbarStyles(open, theme)} color='inherit' elevation={0} position="fixed" open={open}>
          <Toolbar>
             <Box className='logo-wrapper'>
                <Box
                   component='img'
                   sx={{ width: '153px'}}
-                  src={logoDark}
+                  src={theme.palette.mode === 'light' ? logoDark : logoLight}
                   alt='kanban'
                ></Box>
             </Box>

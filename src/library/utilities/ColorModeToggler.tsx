@@ -4,7 +4,7 @@ import { assembleThemeObj } from './themeConstructor';
 
 const ColorModeContext = createContext({ toggleClrMode: () => { } });
 
-function ToggleColorMode() {
+function ColorModeToggler() {
    const [mode, setMode] = useState<'light' | 'dark'>('light');
    const defaultTheme = createTheme()
 
@@ -22,4 +22,4 @@ function ToggleColorMode() {
    return { colorMode, theme }
 }
 
-export { ColorModeContext, ToggleColorMode }
+export { ColorModeContext, ColorModeToggler }

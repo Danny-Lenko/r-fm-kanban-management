@@ -13,10 +13,13 @@ import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
 import DrawerHeader from './DrawerHeader';
 import DrawerBlindBtn from './DrawerBlindBtn';
 import logoDark from '../../../../resources/assets/logo-dark.svg'
+import logoLight from '../../../../resources/assets/logo-light.svg'
 import DrawerModeBtn from './DrawerModeBtn';
+import useTheme from '@mui/material/styles/useTheme';
 
 export default function PersistentDrawerLeft() {
   const open = useAppSelector(state => state.drawer.open)
+  const theme = useTheme()
 
   const drawerStyles = {
     position: 'relative',
@@ -34,7 +37,7 @@ export default function PersistentDrawerLeft() {
       left: '50%',
       transform: 'translateX(-50%)',
       borderRadius: '6px',
-      backgroundColor: 'greyCustom.100',
+      backgroundColor: theme.palette.background.default,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -49,6 +52,7 @@ export default function PersistentDrawerLeft() {
       bottom: '5%',
       mx: '11px',
       pl: 3,
+      pr: 2,
       justifyContent: 'flex-start',
       textTransform: 'capitalize',
       color: 'greyCustom.200',
@@ -71,7 +75,7 @@ export default function PersistentDrawerLeft() {
         <Box
           component='img'
           sx={{ width: '153px' }}
-          src={logoDark}
+          src={theme.palette.mode === 'light' ? logoDark : logoLight}
           alt='kanban'
         ></Box>
       </DrawerHeader>
