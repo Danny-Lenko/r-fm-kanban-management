@@ -13,7 +13,7 @@ const Main = () => {
       pr: 2,
       pl: 5,
       position: 'absolute',
-      bottom: '20px',
+      bottom: '5%',
       left: -25,
       minHeight: '40px'
    }

@@ -13,6 +13,7 @@ import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
 import DrawerHeader from './DrawerHeader';
 import DrawerBlindBtn from './DrawerBlindBtn';
 import logoDark from '../../../../resources/assets/logo-dark.svg'
+import DrawerModeBtn from './DrawerModeBtn';
 
 export default function PersistentDrawerLeft() {
   const open = useAppSelector(state => state.drawer.open)
@@ -25,16 +26,35 @@ export default function PersistentDrawerLeft() {
       width: { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD },
       boxSizing: 'border-box',
     },
+    '& .mode-btn': {
+      position: 'absolute',
+      bottom: '12%',
+      minHeight: '48px',
+      width: '85%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      borderRadius: '6px',
+      backgroundColor: 'greyCustom.100',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      py: '0.1rem',
+      '& .MuiSvgIcon-root': {
+        transform: 'translateY(12%)'
+      }
+    },
     '& .blind-btn': {
       position: 'absolute',
       left: -20,
-      bottom: '20px',
+      bottom: '5%',
       mx: '11px',
       pl: 3,
       justifyContent: 'flex-start',
       textTransform: 'capitalize',
+      color: 'greyCustom.200',
+      fontSize: 15/16 + 'rem',
       '& .MuiSvgIcon-root': {
-        transform: 'translateY(15%)',
+        transform: 'translateY(20%)',
         mr: 1
       }
     }
@@ -68,6 +88,7 @@ export default function PersistentDrawerLeft() {
         ))}
       </List>
 
+      <DrawerModeBtn />
       <DrawerBlindBtn />
     </Drawer>
   );

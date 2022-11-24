@@ -4,6 +4,7 @@ import { ReactComponent as BlindIcon } from '../../../../resources/assets/icon-h
 import { useAppDispatch } from "../../hooks/hooks";
 import { closeDrawer } from "./drawerSlice";
 
+
 const DrawerBlindBtn = () => {
    const dispatch = useAppDispatch()
 
