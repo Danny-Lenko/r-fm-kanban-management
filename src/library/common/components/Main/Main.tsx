@@ -3,10 +3,14 @@ import DrawerHeader from "../Drawer/DrawerHeader";
 import MainEl from "./MainEl";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import { ReactComponent as eyeIcon } from '../../../../resources/assets/icon-show-sidebar.svg'
-import { openDrawer } from "../Drawer/drawerSlice";
+import { openDrawer } from "../../../../main/slices/drawerSlice";
+import { Routes, Route } from 'react-router-dom'
+import ZeroBoard from "../../../../modules/ZeroBoard/ZeroBoard";
+import UsualBoard from "../../../../modules/UsualBoard/UsualBoard";
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
+   const boards = useAppSelector(state => state.data.data)
 
    const eyeBtnStyles = {
       width: '80px',
@@ -27,6 +31,12 @@ const Main = () => {
          <DrawerHeader />
 
          <CustomBtn sizeSm={false} color='primary' text='' />
+
+         <Routes>
+            <Route path="/" element={boards[0] ? <UsualBoard /> : <ZeroBoard />}>
+               <Route path=':name' element={<UsualBoard />} />
+            </Route>
+         </Routes>
 
          <CustomBtn
             sizeSm={false}
