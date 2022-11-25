@@ -9,17 +9,15 @@ const data = rowData.boards.map(board => ({
 export const dataSlice = createSlice({
    name: 'data',
    initialState: {
-      data: data
+      boards: data,
+      activeBoard: data[0]
    },
    reducers: {
-      //  openDrawer: (state, action) => {
-      //    state.open = true
-      //  },
-      //  closeDrawer: (state, action) => {
-      //    state.open = false
-      //  }
+      assignActiveBoard: (state, action) => {
+         state.activeBoard = state.boards.find(board => board.path === action.payload)!
+      }
    }
 })
 
-// export const { openDrawer, closeDrawer } = drawerSlice.actions
+export const { assignActiveBoard } = dataSlice.actions
 export default dataSlice.reducer

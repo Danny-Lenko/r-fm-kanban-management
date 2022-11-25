@@ -59,6 +59,7 @@ const appbarStyles = (open: any, theme: Theme) => ({
 
 const Appbar = () => {
    const open = useAppSelector(state => state.drawer.open)
+   const activeBoard = useAppSelector(state => state.data.activeBoard)
    const theme = useTheme()
 
    return (
@@ -73,7 +74,7 @@ const Appbar = () => {
                ></Box>
             </Box>
             <Typography variant="h2" noWrap component="div" >
-               Platform Launch
+               {activeBoard.name}
             </Typography>
          </Toolbar>
       </AppBar>

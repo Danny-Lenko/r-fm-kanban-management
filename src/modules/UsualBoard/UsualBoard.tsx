@@ -1,17 +1,27 @@
-import { useParams } from 'react-router-dom'
 import { useAppSelector } from '../../library/common/hooks/hooks';
+import TaskCard from './TaskCard';
+import Stack from '@mui/material/Stack'
 
 
 const UsualBoard = () => {
-   const params = useParams()
-   const allBoards = useAppSelector(state => state.data.data)
-   const currentBoard = params.name ? allBoards.find(board => board.path === params.name) : allBoards[0]
+   const activeBoard = useAppSelector(state => state.data.activeBoard)
+   const columns = activeBoard.columns
 
-   console.log(currentBoard)
+   console.log(columns)
 
-   return (  
-      <h2>hello UsualBoard</h2>
+   return (
+      <>
+         <Stack direction='row' spacing={3}>
+            {
+               columns.map(col => <Stack spacing={2.5} sx={{width: '280px'}}>
+                  {
+                     col.tasks.map(task => <TaskCard task={task} />)
+                  }
+               </Stack>)
+            }
+         </Stack>
+      </>
    );
 }
- 
+
 export default UsualBoard;

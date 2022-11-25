@@ -5,7 +5,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
-import { useAppSelector } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import DrawerHeader from './DrawerHeader';
 import DrawerBlindBtn from './DrawerBlindBtn';
 import logoDark from '../../../../resources/assets/logo-dark.svg'
@@ -17,14 +17,15 @@ import { ReactComponent as IconBoard } from '../../../../resources/assets/icon-b
 import SvgIcon from '@mui/material/SvgIcon';
 import { useNavigate } from 'react-router-dom'
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { assignActiveBoard } from '../../../../main/slices/dataSlice';
 
 export default function PersistentDrawerLeft() {
   const open = useAppSelector(state => state.drawer.open)
-  const data = useAppSelector(state => state.data.data)
+  const boards = useAppSelector(state => state.data.boards)
+  const activeBoard = useAppSelector(state => state.data.activeBoard)
+  const dispatch = useAppDispatch()
   const theme = useTheme()
   const navigate = useNavigate()
-  const [activeBoard, setActiveBoard] = useState(data[0].path)
 
   return (
     <Drawer
@@ -42,16 +43,16 @@ export default function PersistentDrawerLeft() {
         ></Box>
       </DrawerHeader>
 
-      <Typography variant='h5' textTransform='uppercase' mt={2}>all boards ({data.length})</Typography>
+      <Typography variant='h5' textTransform='uppercase' mt={2}>all boards ({boards.length})</Typography>
       <List>
-        {data.map( board => (
+        {boards.map( board => (
           <ListItem key={board.name} disablePadding>
             <ListItemButton
               onClick={() => {
-                setActiveBoard(board.path)
+                dispatch( assignActiveBoard(board.path) )
                 navigate(`${board.path}`)
               }}
-              className={ activeBoard === board.path ? 'Mui-active' : '' }
+              className={ activeBoard.path === board.path ? 'Mui-active' : '' }
             >
               <ListItemIcon>
                 <SvgIcon component={IconBoard} />

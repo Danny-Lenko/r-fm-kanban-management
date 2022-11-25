@@ -10,7 +10,7 @@ import UsualBoard from "../../../../modules/UsualBoard/UsualBoard";
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
-   const boards = useAppSelector(state => state.data.data)
+   const boards = useAppSelector(state => state.data.boards)
 
    const eyeBtnStyles = {
       width: '80px',
@@ -29,8 +29,6 @@ const Main = () => {
    return (
       <MainEl open={open}>
          <DrawerHeader />
-
-         <CustomBtn sizeSm={false} color='primary' text='' />
 
          <Routes>
             <Route path="/" element={boards[0] ? <UsualBoard /> : <ZeroBoard />}>
