@@ -13,8 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={myTheme.theme}>
       <CssBaseline />
-
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', overflowX: 'hidden'}}>
         <Appbar />
 
         <ColorModeContext.Provider value={myTheme.colorMode}>
@@ -23,10 +22,6 @@ function App() {
         
         <Main />
       </Box>
-      {/* 
-        <Routes>
-        </Routes> 
-      */}
     </ThemeProvider >
   );
 }

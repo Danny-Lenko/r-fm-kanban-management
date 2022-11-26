@@ -6,8 +6,9 @@ const MainEl = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<
    open?: boolean;
 }>(({ theme, open }) => ({
    flexGrow: 1,
-   height: '100vh',
    padding: theme.spacing(3),
+   zIndex: 50,
+   paddingBottom: 0,
    transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

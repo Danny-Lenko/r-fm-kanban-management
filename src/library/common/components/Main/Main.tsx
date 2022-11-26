@@ -13,6 +13,7 @@ const Main = () => {
    const boards = useAppSelector(state => state.data.boards)
 
    const eyeBtnStyles = {
+      zIndex: 1000,
       width: '80px',
       pr: 2,
       pl: 5,
