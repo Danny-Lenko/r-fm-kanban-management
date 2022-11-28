@@ -22,6 +22,9 @@ const UsualBoard = () => {
          maxWidth: { xs: '100vw', sm: drawerOpen ? '70vw' : '100vw', md: drawerOpen ? '55vw' : '70vw' },
          pb: 1,
          pr: 1,
+         '& .MuiTypography-h5': {
+            textTransform: 'uppercase'
+         }
       },
       '& .rows-stack': {
          minWidth: '280px',
@@ -42,10 +45,12 @@ const UsualBoard = () => {
       <Stack direction='row' sx={usualBoardStyles} spacing={3}>
          <Stack className='cols-stack' direction='row' spacing={3}>
             {
-               columns.map(col => <Stack className='rows-stack' spacing={2.5}>
-                  <Box>{col.name}</Box>
+               columns.map(col => <Stack key={col.name} className='rows-stack' spacing={2.5}>
+                  <Box>
+                     <Typography variant='h5'>{col.name} ({col.tasks.length})</Typography>
+                  </Box>
                   {
-                     col.tasks.map(task => <TaskCard task={task} />)
+                     col.tasks.map(task => <TaskCard key={task.title} task={task} />)
                   }
                </Stack>)
             }

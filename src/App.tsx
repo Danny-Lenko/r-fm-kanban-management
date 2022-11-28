@@ -4,11 +4,14 @@ import { ColorModeToggler, ColorModeContext } from './library/utilities/ColorMod
 import Appbar from './library/common/components/Appbar/Appbar';
 import PersistentDrawerLeft from './library/common/components/Drawer/Drawer';
 import Main from './library/common/components/Main/Main';
+import { useAppSelector } from './library/common/hooks/hooks';
+import TaskManage from './library/common/components/TaskManager/TaskManager';
 // modules
 
 
 function App() {
   const myTheme = ColorModeToggler()
+  const taskManaging = useAppSelector(state => state.data.taskManaging)
 
   return (
     <ThemeProvider theme={myTheme.theme}>
@@ -22,6 +25,10 @@ function App() {
         
         <Main />
       </Box>
+
+      {
+        taskManaging && <TaskManage />
+      }
     </ThemeProvider >
   );
 }

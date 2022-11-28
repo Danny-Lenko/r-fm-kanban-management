@@ -2,11 +2,12 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { ITask } from "../../library/interfaces/interfaces";
 import useTheme from '@mui/material/styles/useTheme';
+import { useAppDispatch } from '../../library/common/hooks/hooks';
+import { openTaskManage } from "../../main/slices/dataSlice";
 
 const TaskCard = ({task}: {task:ITask}) => {
+   const dispatch = useAppDispatch()
    const theme = useTheme()
-   let completed = 0
-   task.subtasks.forEach(subtask => subtask.isCompleted ? completed = completed + 1 : completed)
 
    const taskCardStyles = {
       py: 3,
@@ -23,9 +24,9 @@ const TaskCard = ({task}: {task:ITask}) => {
    }
 
    return (  
-      <Paper sx={taskCardStyles}>
+      <Paper sx={taskCardStyles} onClick={() => dispatch(openTaskManage(task))}>
          <Typography variant='h4'>{task.title}</Typography>
-         <Typography variant='body2'>{completed} of {task.subtasks.length} subtasks</Typography>
+         <Typography variant='body2'>{task.completedSubtasks} of {task.subtasks.length} subtasks</Typography>
       </Paper>
    );
 }
