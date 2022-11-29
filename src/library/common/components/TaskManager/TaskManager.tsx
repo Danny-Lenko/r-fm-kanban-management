@@ -1,3 +1,4 @@
+import Button from '@mui/material/Button';
 import Overlay from '../Overlay/Overlay';
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
@@ -5,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../hooks/hooks';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
+import { assembleTaskManagerStyles, assembleCheckboxStyles } from './taskManagerStyles';
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -27,13 +29,14 @@ import { useFormik } from 'formik';
 
 const TaskManager = () => {
    const task = useAppSelector(state => state.data.managedTask)
+   const colId = useAppSelector(state => state.data.activeColId)
+   const taskId = useAppSelector(state => state.data.activeTaskId)
    const theme = useTheme()
-   console.log(task)
+   console.log(colId)
 
    const formik = useFormik({
       initialValues: {
-         email: 'foobar@example.com',
-         password: 'foobar',
+         checked: task.subtasks.filter(sub => sub.isCompleted).map(sub => sub.title),
       },
       validationSchema: null,
       onSubmit: (values) => {
@@ -41,58 +44,11 @@ const TaskManager = () => {
       },
    });
 
-   const taskManageStyles = {
-      zIndex: 11000,
-      p: { xs: 3, sm: 4 },
-      borderRadius: '8px',
-      width: { sm: '480px' },
-      '& .heading': {
-         display: 'flex',
-         justifyContent: 'space-between',
-         alignItems: 'center',
-         gap: '1rem',
-         mb: 3,
-         '& .MuiTypography-h3': {
-            color: theme.palette.text.primary
-         },
-      },
-      '& .MuiTypography-body1': {
-         color: 'greyCustom.200',
-         mb: 3
-      },
-      '& .subtasks-heading': {
-         color: theme.palette.mode === 'light' ? 'greyCustom.200' : 'common.white',
-         mb: 2
-      }
-   }
 
-   const assembleCheckboxStyles = (subtask:any) => ({
-      backgroundColor: theme.palette.background.default,
-      mt: 1,
-      borderRadius: 1,
-      '& .MuiCheckbox-root': {
-         '& .MuiSvgIcon-root': {
-            color: theme.palette.divider,
-            backgroundColor: theme.palette.background.paper,
-         },
-         '&.Mui-checked': {
-            '& .MuiSvgIcon-root': {
-               color: 'primary.main'
-            }
-         }
-      },
-      '& .MuiTypography-root': {
-         mb: 0,
-         fontSize: 12/16 + 'rem',
-         fontWeight: 700,
-         color: !subtask.isCompleted ? theme.palette.text.primary : 'greyCustom.200',
-         textDecoration: subtask.isCompleted && 'line-through'
-      }
-   })
 
    return (
       <Overlay>
-         <Paper elevation={0} sx={taskManageStyles}>
+         <Paper elevation={0} sx={assembleTaskManagerStyles(theme)}>
             <Box className='heading'>
                <Typography variant='h3'>{task.title}</Typography>
                <DotsMenu />
@@ -106,18 +62,25 @@ const TaskManager = () => {
             </Typography>
 
             <div>
-               <form onSubmit={formik.handleSubmit}>
+               <form onSubmit={formik.handleSubmit} >
 
                   <FormGroup>
                      {
-                        task.subtasks.map(sub => 
-                           <FormControlLabel 
-                              sx={ assembleCheckboxStyles(sub) }
-                              control={<Checkbox defaultChecked={sub.isCompleted} />} 
-                              label={sub.title} 
+                        task.subtasks.map(sub =>
+                           <FormControlLabel
+                              key={sub.title}
+                              sx={assembleCheckboxStyles(sub, theme)}
+                              control={<Checkbox value={sub.title} defaultChecked={sub.isCompleted} />}
+                              label={sub.title}
+                              name='checked'
+                              onChange={formik.handleChange}
                            />
                         )
                      }
+
+                     <Button color="primary" variant="contained" fullWidth type="submit">
+                        Submit
+                     </Button>
                   </FormGroup>
 
 
