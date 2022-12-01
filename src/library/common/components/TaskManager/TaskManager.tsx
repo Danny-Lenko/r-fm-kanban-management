@@ -2,6 +2,8 @@ import Overlay from '../Overlay/Overlay';
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
@@ -9,7 +11,7 @@ import { assembleTaskManagerStyles, assembleCheckboxStyles } from './taskManager
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FormikProps, FormikValues, useFormik, Formik } from 'formik';
+import { FormikProps, FormikValues, useFormik, Formik, Field } from 'formik';
 import { useRef } from 'react';
 import { manageActiveTask, assignActiveBoard } from '../../../../main/slices/dataSlice';
 import { countComletedSubtasks } from '../../../utilities/utils';
@@ -23,13 +25,14 @@ const TaskManager = () => {
    const formRef = useRef<FormikProps<FormikValues>>(null)
    const handleSubmit = () => {
       if (formRef.current) {
-        formRef.current.handleSubmit()
+         formRef.current.handleSubmit()
       }
    }
 
    const formik = useFormik({
       initialValues: {
          checked: task.subtasks.filter(sub => sub.isCompleted).map(sub => sub.title),
+         status: task.status
       },
       validationSchema: null,
       onSubmit: (values) => {
@@ -43,6 +46,7 @@ const TaskManager = () => {
          }
          dispatch(manageActiveTask(editedTask))
          dispatch(assignActiveBoard(activeBoardId))
+         console.log(values.status)
       },
    });
 
@@ -54,12 +58,7 @@ const TaskManager = () => {
                <DotsMenu />
             </Box>
             <Typography variant='body1'>{task.description}</Typography>
-            <Typography
-               className='subtasks-heading'
-               variant='body2'
-            >
-               Subtasks ({task.completedSubtasks} of {task.subtasks.length})
-            </Typography>
+
 
             <div>
                <Formik
@@ -69,6 +68,12 @@ const TaskManager = () => {
                >
                   {props => (
                      <form onSubmit={formik.handleSubmit} >
+                        <Typography
+                           className='subtasks-heading'
+                           variant='body2'
+                        >
+                           Subtasks ({task.completedSubtasks} of {task.subtasks.length})
+                        </Typography>
                         <FormGroup>
                            {
                               task.subtasks.map(sub =>
@@ -83,12 +88,38 @@ const TaskManager = () => {
                               )
                            }
                         </FormGroup>
+                        <Typography
+                           style={{ margin: '24px 0 8px' }}
+                           className='subtasks-heading'
+                           variant='body2'
+                        >
+                           Current Status
+                        </Typography>
+
+                        <Select
+                           value={formik.values.status}
+                           id="status"
+                           name="status"
+                           MenuProps={{ sx: { zIndex: 12000 } }}
+                           sx={{width: '100%', fontWeight: 700, borderColor: 'primary.main', '.MuiOutlinedInput-notchedOutline': {borderColor: 'linesCustom.light'}}}
+                           size='small'
+                           onChange={formik.handleChange}
+                        >
+                           <MenuItem value="Todo">Todo</MenuItem>
+                           <MenuItem value="Doing">Doing</MenuItem>
+                           <MenuItem value="Done">Done</MenuItem>
+                           {/* <option value="New York">New York</option>
+                           <option value="San Francisco">San Francisco</option>
+                           <option value="Chicago">Chicago</option>
+                           <option value="OTHER">Other</option> */}
+                        </Select>
+
                      </form>
                   )}
                </Formik>
             </div>
          </Paper>
-      </Overlay >
+      </Overlay>
    );
 }
 
