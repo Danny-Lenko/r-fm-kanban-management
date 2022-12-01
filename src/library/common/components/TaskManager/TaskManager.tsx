@@ -11,7 +11,7 @@ import { assembleTaskManagerStyles, assembleCheckboxStyles } from './taskManager
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FormikProps, FormikValues, useFormik, Formik, Field } from 'formik';
+import { FormikProps, FormikValues, useFormik, Formik } from 'formik';
 import { useRef } from 'react';
 import { manageActiveTask, assignActiveBoard } from '../../../../main/slices/dataSlice';
 import { countComletedSubtasks } from '../../../utilities/utils';
@@ -19,6 +19,7 @@ import { countComletedSubtasks } from '../../../utilities/utils';
 const TaskManager = () => {
    const task = useAppSelector(state => state.data.managedTask)
    const activeBoardId = useAppSelector(state => state.data.activeBoardId)
+   const activeColId = useAppSelector(state => state.data.activeColId)
    const theme = useTheme()
    const dispatch = useAppDispatch()
 
@@ -29,6 +30,9 @@ const TaskManager = () => {
       }
    }
 
+   const cols = useAppSelector(state => state.data.activeBoard.columns)
+   const activeCol = cols.find(col => col.id === activeColId)
+
    const formik = useFormik({
       initialValues: {
          checked: task.subtasks.filter(sub => sub.isCompleted).map(sub => sub.title),
@@ -38,15 +42,17 @@ const TaskManager = () => {
       onSubmit: (values) => {
          const managedSubs = {
             ...task,
+            status: values.status,
             subtasks: task.subtasks.map(sub => values.checked.some(val => val === sub.title) ? { ...sub, isCompleted: true } : { ...sub, isCompleted: false })
          }
          const editedTask = {
             ...managedSubs,
             completedSubtasks: countComletedSubtasks(managedSubs)
          }
+         const taskIsAlien = editedTask.status !== activeCol?.name
+         console.log(taskIsAlien)
          dispatch(manageActiveTask(editedTask))
          dispatch(assignActiveBoard(activeBoardId))
-         console.log(values.status)
       },
    });
 
@@ -58,7 +64,6 @@ const TaskManager = () => {
                <DotsMenu />
             </Box>
             <Typography variant='body1'>{task.description}</Typography>
-
 
             <div>
                <Formik
@@ -105,13 +110,9 @@ const TaskManager = () => {
                            size='small'
                            onChange={formik.handleChange}
                         >
-                           <MenuItem value="Todo">Todo</MenuItem>
-                           <MenuItem value="Doing">Doing</MenuItem>
-                           <MenuItem value="Done">Done</MenuItem>
-                           {/* <option value="New York">New York</option>
-                           <option value="San Francisco">San Francisco</option>
-                           <option value="Chicago">Chicago</option>
-                           <option value="OTHER">Other</option> */}
+                           { 
+                              cols.map( col => <MenuItem key={col.id} value={col.name}>{col.name}</MenuItem> ) 
+                           }
                         </Select>
 
                      </form>

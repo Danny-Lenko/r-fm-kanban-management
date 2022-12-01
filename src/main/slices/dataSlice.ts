@@ -47,7 +47,6 @@ export const dataSlice = createSlice({
          state.taskManaging = false
       },
       manageActiveTask: (state, action) => {
-         console.log(action.payload)
          state.boards = state.boards.map(board => board.id !== state.activeBoardId ? board : {
             ...board,
             columns: board.columns.map(col => col.id !== state.activeColId ? col : {
@@ -55,7 +54,7 @@ export const dataSlice = createSlice({
                tasks: col.tasks.map(task => task.id !== state.activeTaskId ? task : action.payload)
             })
          })
-      }
+      },
    }
 })
 
