@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import rowData from '../../resources/data/data.json'
+import { countComletedSubtasks } from '../../library/utilities/utils'
 
 const data = rowData.boards.map((board, i) => ({
    ...board,
@@ -14,7 +15,7 @@ const data = rowData.boards.map((board, i) => ({
          return ({
             ...task,
             id: i,
-            completedSubtasks: completed
+            completedSubtasks: countComletedSubtasks(task)
          })
       })
    }))
@@ -33,7 +34,7 @@ export const dataSlice = createSlice({
    },
    reducers: {
       assignActiveBoard: (state, action) => {
-         state.activeBoard = state.boards.find(board => board.path === action.payload)!
+         state.activeBoard = state.boards.find(board => board.id === action.payload)!
          state.activeBoardId = state.activeBoard.id
       },
       openTaskManage: (state, action) => {
@@ -42,15 +43,21 @@ export const dataSlice = createSlice({
          state.activeTaskId = action.payload.id
          state.activeColId = state.activeBoard.columns.find(col => col.tasks.find(task => task.title === action.payload.title))!.id
       },
-      closeTaskManage: (state, action) => {
-         // state.boards = state.boards.map(board => board.name !== state.activeBoard.name ? board : {
-         //    ...board,
-         //    columns: board.columns
-         // })
+      closeTaskManager: (state, action) => {
          state.taskManaging = false
+      },
+      manageActiveTask: (state, action) => {
+         console.log(action.payload)
+         state.boards = state.boards.map(board => board.id !== state.activeBoardId ? board : {
+            ...board,
+            columns: board.columns.map(col => col.id !== state.activeColId ? col : {
+               ...col,
+               tasks: col.tasks.map(task => task.id !== state.activeTaskId ? task : action.payload)
+            })
+         })
       }
    }
 })
 
-export const { assignActiveBoard, openTaskManage, closeTaskManage } = dataSlice.actions
+export const { assignActiveBoard, openTaskManage, closeTaskManager, manageActiveTask } = dataSlice.actions
 export default dataSlice.reducer

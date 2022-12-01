@@ -49,7 +49,7 @@ export default function PersistentDrawerLeft() {
           <ListItem key={board.name} disablePadding>
             <ListItemButton
               onClick={() => {
-                dispatch( assignActiveBoard(board.path) )
+                dispatch( assignActiveBoard(board.id) )
                 navigate(`${board.path}`)
               }}
               className={ activeBoard.path === board.path ? 'Mui-active' : '' }

@@ -25,6 +25,7 @@ export const assembleTaskManagerStyles = (theme:any) => ({
 
 export const assembleCheckboxStyles = (subtask:any, theme:any) => ({
    backgroundColor: theme.palette.background.default,
+   m: 0,
    mt: 1,
    borderRadius: 1,
    '& .MuiCheckbox-root': {

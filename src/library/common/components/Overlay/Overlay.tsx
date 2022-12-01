@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { useAppDispatch } from '../../hooks/hooks';
-import { closeTaskManage } from '../../../../main/slices/dataSlice';
+import { closeTaskManager } from '../../../../main/slices/dataSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()
@@ -24,7 +24,8 @@ const Overlay = (props:any) => {
          onClick={(e) => {
             const target = e.target as HTMLElement
             if (target.classList.contains('overlay')) {
-               dispatch(closeTaskManage('close'))
+               dispatch(closeTaskManager('close'))
+               props.submitHandler()
             }
          }}
          className='overlay'
