@@ -14,6 +14,7 @@ const TaskCard = ({task}: {task:ITask}) => {
       px: 2,
       cursor: 'pointer',
       zIndex: 100,
+      boxShadow: '0px 4px 6px rgba(54, 78, 126, 0.101545)',
       '& .MuiTypography-h4': {
          color: theme.palette.text.primary,
          mb: 1
@@ -24,7 +25,7 @@ const TaskCard = ({task}: {task:ITask}) => {
    }
 
    return (  
-      <Paper sx={taskCardStyles} onClick={() => dispatch(openTaskManage(task))}>
+      <Paper  sx={taskCardStyles} onClick={() => dispatch(openTaskManage(task))}>
          <Typography variant='h4'>{task.title}</Typography>
          <Typography variant='body2'>{task.completedSubtasks} of {task.subtasks.length} subtasks</Typography>
       </Paper>

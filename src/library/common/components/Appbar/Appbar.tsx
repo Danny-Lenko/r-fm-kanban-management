@@ -8,6 +8,8 @@ import { AppBarProps } from '../../../interfaces/interfaces';
 import Box from '@mui/material/Box/Box';
 import logoDark from '../../../../resources/assets/logo-dark.svg'
 import logoLight from '../../../../resources/assets/logo-light.svg'
+import CustomBtn from '../CustomBtn/CustomBtn';
+import DotsMenu from '../DotsMenu/DotsMenu';
 
 // mui docs: Persistent Drawer
 const AppBar = styled(MuiAppBar, {
@@ -53,6 +55,16 @@ const appbarStyles = (open: any, theme: Theme) => ({
             bottom: -0.5,
             left: '200px',
          }
+      },
+      '& .btns-box': {
+         marginLeft: 'auto',
+         display: 'flex',
+         alignItems: 'center',
+         gap: 3,
+         '& .MuiButton-root': {
+            padding: '0.6rem 1.5rem',
+             width: 'unset'
+         }
       }
    }
 })
@@ -68,7 +80,7 @@ const Appbar = () => {
             <Box className='logo-wrapper'>
                <Box
                   component='img'
-                  sx={{ width: '153px'}}
+                  sx={{ width: '153px' }}
                   src={theme.palette.mode === 'light' ? logoDark : logoLight}
                   alt='kanban'
                ></Box>
@@ -76,6 +88,16 @@ const Appbar = () => {
             <Typography variant="h2" noWrap component="div" >
                {activeBoard.name}
             </Typography>
+            <Box className='btns-box'>
+               <CustomBtn
+                  sizeSm={false}
+                  color='primary'
+                  text='+ Add New Task'
+                  // onclick={openDrawer}
+               />
+
+               <DotsMenu />
+            </Box>
          </Toolbar>
       </AppBar>
    );

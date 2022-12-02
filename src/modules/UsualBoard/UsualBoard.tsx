@@ -14,12 +14,11 @@ const UsualBoard = () => {
    const usualBoardStyles = {
       height: { xs: 'calc(100vh - 95px)', sm: 'calc(100vh - 110px)', md: 'calc(100vh - 130px)' },
       '& .cols-stack': {
-         maxHeight: {xs: '100vh', md: '100vh'},
          overflowY: 'auto',
          overflowX: 'auto',
          maxWidth: { xs: '100vw', sm: drawerOpen ? '70vw' : '100vw', md: drawerOpen ? '55vw' : '70vw' },
-         pb: 1,
          pr: 1,
+         pb: 5,
          '& .MuiTypography-h5': {
             textTransform: 'uppercase'
          }
@@ -41,17 +40,21 @@ const UsualBoard = () => {
 
    return (
       <Stack direction='row' sx={usualBoardStyles} spacing={3}>
-         <Stack className='cols-stack' direction='row' spacing={3}>
-            {
-               columns.map(col => <Stack key={col.name} className='rows-stack' spacing={2.5}>
-                  <Box>
-                     <Typography variant='h5'>{col.name} ({col.tasks.length})</Typography>
-                  </Box>
-                  {
-                     col.tasks.map(task => <TaskCard key={task.title} task={task} />)
-                  }
-               </Stack>)
-            }
+         <Stack className='cols-stack'>
+            <Stack  direction='row' spacing={3} >
+               {
+                  columns.map(col => <Stack key={col.name} className='rows-stack' spacing={2.5} >
+                     <Box>
+                        <Typography variant='h5'>{col.name} ({col.tasks.length})</Typography>
+                     </Box>
+                     {
+                        col.tasks.map(task => <TaskCard key={task.title} task={task} />)
+                     }
+                  </Stack>)
+               }
+               <Box>&nbsp;</Box>
+            </Stack>
+            <Box>&nbsp;</Box>
          </Stack>
          <Button
             className='add-col-btn'

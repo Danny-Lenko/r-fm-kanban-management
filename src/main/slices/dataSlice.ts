@@ -64,7 +64,7 @@ export const dataSlice = createSlice({
    }
 })
 
-export const { 
+export const {
    assignActiveBoard, 
    openTaskManage, 
    closeTaskManager, 
