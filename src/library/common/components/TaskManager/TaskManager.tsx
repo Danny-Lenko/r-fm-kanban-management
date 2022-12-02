@@ -13,7 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { FormikProps, FormikValues, useFormik, Formik } from 'formik';
 import { useRef } from 'react';
-import { manageActiveTask, assignActiveBoard } from '../../../../main/slices/dataSlice';
+import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../../../main/slices/dataSlice';
 import { countComletedSubtasks } from '../../../utilities/utils';
 
 const TaskManager = () => {
@@ -39,6 +39,7 @@ const TaskManager = () => {
          status: task.status
       },
       validationSchema: null,
+      // submission on overlay clicks
       onSubmit: (values) => {
          const managedSubs = {
             ...task,
@@ -49,9 +50,27 @@ const TaskManager = () => {
             ...managedSubs,
             completedSubtasks: countComletedSubtasks(managedSubs)
          }
-         const taskIsAlien = editedTask.status !== activeCol?.name
-         console.log(taskIsAlien)
          dispatch(manageActiveTask(editedTask))
+         
+         // task status changing logic
+         const taskIsAlien = editedTask.status !== activeCol?.name
+         let editedCols = [...cols]
+         if (taskIsAlien) {
+            editedCols = cols.map(col => 
+               col.id === activeColId ? { 
+                  ...col, 
+                  tasks: col.tasks.filter(task => task.id !== editedTask.id)
+                     .map((task, i) => ( {...task, id: i} )) 
+               } 
+               : col.name === editedTask.status ? { 
+                  ...col, 
+                  tasks: [editedTask, ...col.tasks].map((task, i) => ( {...task, id: i} ))
+               }
+               : col
+            )
+            dispatch(manageColumnsChange(editedCols))
+         }
+         // changes the state responsible for render
          dispatch(assignActiveBoard(activeBoardId))
       },
    });

@@ -55,8 +55,21 @@ export const dataSlice = createSlice({
             })
          })
       },
+      manageColumnsChange: (state, action) => {
+         state.boards = state.boards.map(board => board.id !== state.activeBoardId ? board : {
+            ...board,
+            columns: action.payload
+         })
+      }
    }
 })
 
-export const { assignActiveBoard, openTaskManage, closeTaskManager, manageActiveTask } = dataSlice.actions
+export const { 
+   assignActiveBoard, 
+   openTaskManage, 
+   closeTaskManager, 
+   manageActiveTask,
+   manageColumnsChange 
+} = dataSlice.actions
+
 export default dataSlice.reducer

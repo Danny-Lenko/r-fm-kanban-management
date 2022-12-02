@@ -11,8 +11,6 @@ const UsualBoard = () => {
    const columns = activeBoard.columns
    const theme = useTheme()
 
-   console.log(columns)
-
    const usualBoardStyles = {
       height: { xs: 'calc(100vh - 95px)', sm: 'calc(100vh - 110px)', md: 'calc(100vh - 130px)' },
       '& .cols-stack': {
