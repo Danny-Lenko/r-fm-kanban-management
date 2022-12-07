@@ -28,6 +28,9 @@ export const assembleCheckboxStyles = (subtask:any, theme:any) => ({
    m: 0,
    mt: 1,
    borderRadius: 1,
+   '&:hover': {
+      backgroundColor: 'rgba(99, 95, 199, 0.25)'
+   },
    '& .MuiCheckbox-root': {
       '& .MuiSvgIcon-root': {
          fontSize: '16px',
@@ -47,6 +50,7 @@ export const assembleCheckboxStyles = (subtask:any, theme:any) => ({
       }
    },
    '& .MuiTypography-root': {
+      py: 1,
       mb: 0,
       fontSize: 12 / 16 + 'rem',
       fontWeight: 700,

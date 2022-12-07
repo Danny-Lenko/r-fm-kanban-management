@@ -80,7 +80,7 @@ const TaskManager = () => {
          <Paper elevation={0} sx={assembleTaskManagerStyles(theme)}>
             <Box className='heading'>
                <Typography variant='h3'>{task.title}</Typography>
-               <DotsMenu />
+               <DotsMenu isTaskMenu={true} />
             </Box>
             <Typography variant='body1'>{task.description}</Typography>
 

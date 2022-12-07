@@ -96,7 +96,7 @@ const Appbar = () => {
                   // onclick={openDrawer}
                />
 
-               <DotsMenu />
+               <DotsMenu isTaskMenu={false} />
             </Box>
          </Toolbar>
       </AppBar>

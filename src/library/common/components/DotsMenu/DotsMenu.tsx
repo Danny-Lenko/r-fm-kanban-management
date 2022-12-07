@@ -3,17 +3,18 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { TASKMENU, BOARDMENU } from '../../constants/constants';
 
-const options = [
-   'None',
-   'Atria',
-   'Callisto',
-   'Dione'
-];
+// const options = [
+//    'None',
+//    'Remove',
+//    'Callisto',
+//    'Dione'
+// ];
 
 // const ITEM_HEIGHT = 48;
 
-const DotsMenu = () => {
+const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -22,6 +23,8 @@ const DotsMenu = () => {
    const handleClose = () => {
       setAnchorEl(null);
    };
+
+   const options = isTaskMenu ? TASKMENU : BOARDMENU
 
    return (
       <div>
@@ -53,7 +56,12 @@ const DotsMenu = () => {
             }}
          >
             {options.map((option) => (
-               <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+               <MenuItem 
+                  sx={{color: option.split(' ')[0] === 'Delete' ? 'destructCustom.main' : 'inherit'}} 
+                  key={option} 
+                  selected={option === 'Pyxis'} 
+                  onClick={handleClose}
+               >
                   {option}
                </MenuItem>
             ))}
