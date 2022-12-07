@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
-import { assembleTaskManagerStyles, assembleCheckboxStyles } from './taskManagerStyles';
+import { assembleManageTaskModalStyles, assembleCheckboxStyles } from './manageTaskModalStyles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,7 +16,7 @@ import { useRef } from 'react';
 import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../../../main/slices/dataSlice';
 import { countComletedSubtasks } from '../../../utilities/utils';
 
-const TaskManager = () => {
+const ManageTaskModal = () => {
    const task = useAppSelector(state => state.data.managedTask)
    const activeBoardId = useAppSelector(state => state.data.activeBoardId)
    const activeColId = useAppSelector(state => state.data.activeColId)
@@ -77,7 +77,7 @@ const TaskManager = () => {
 
    return (
       <Overlay submitHandler={handleSubmit}>
-         <Paper elevation={0} sx={assembleTaskManagerStyles(theme)}>
+         <Paper elevation={0} sx={assembleManageTaskModalStyles(theme)}>
             <Box className='heading'>
                <Typography variant='h3'>{task.title}</Typography>
                <DotsMenu isTaskMenu={true} />
@@ -143,4 +143,4 @@ const TaskManager = () => {
    );
 }
 
-export default TaskManager;
+export default ManageTaskModal;

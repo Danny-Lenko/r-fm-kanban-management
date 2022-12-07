@@ -64,10 +64,10 @@ export const dataSlice = createSlice({
 })
 
 export const {
-   assignActiveBoard, 
-   assignActiveTaskCol, 
+   assignActiveBoard,
+   assignActiveTaskCol,
    manageActiveTask,
-   manageColumnsChange 
+   manageColumnsChange
 } = dataSlice.actions
 
 export default dataSlice.reducer
