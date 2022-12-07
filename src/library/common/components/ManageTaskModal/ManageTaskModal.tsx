@@ -2,25 +2,20 @@ import Overlay from '../Overlay/Overlay';
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
 import { assembleManageTaskModalStyles, assembleCheckboxStyles } from './manageTaskModalStyles';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { FormikProps, FormikValues, useFormik, Formik } from 'formik';
+import { FormikProps, FormikValues, Formik } from 'formik';
 import { useRef } from 'react';
-import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../../../main/slices/dataSlice';
-import { countComletedSubtasks } from '../../../utilities/utils';
 import SelectEl from '../SelectEl/SelectEl';
+import useManageTaskModalFormik from '../../hooks/useManageTaskModalFomik';
 
 const ManageTaskModal = () => {
-   const task = useAppSelector(state => state.data.managedTask)
-   const activeBoardId = useAppSelector(state => state.data.activeBoardId)
-   const activeColId = useAppSelector(state => state.data.activeColId)
    const theme = useTheme()
-   const dispatch = useAppDispatch()
+   const { formik, cols, task } = useManageTaskModalFormik()
 
    const formRef = useRef<FormikProps<FormikValues>>(null)
    const handleSubmit = () => {
@@ -28,51 +23,6 @@ const ManageTaskModal = () => {
          formRef.current.handleSubmit()
       }
    }
-
-   const cols = useAppSelector(state => state.data.activeBoard.columns)
-   const activeCol = cols.find(col => col.id === activeColId)
-
-   const formik = useFormik({
-      initialValues: {
-         checked: task.subtasks.filter(sub => sub.isCompleted).map(sub => sub.title),
-         status: task.status
-      },
-      validationSchema: null,
-      // submission on overlay clicks
-      onSubmit: (values) => {
-         const managedSubs = {
-            ...task,
-            status: values.status,
-            subtasks: task.subtasks.map(sub => values.checked.some(val => val === sub.title) ? { ...sub, isCompleted: true } : { ...sub, isCompleted: false })
-         }
-         const editedTask = {
-            ...managedSubs,
-            completedSubtasks: countComletedSubtasks(managedSubs)
-         }
-         dispatch(manageActiveTask(editedTask))
-         
-         // task status changing logic
-         const taskIsAlien = editedTask.status !== activeCol?.name
-         let editedCols = [...cols]
-         if (taskIsAlien) {
-            editedCols = cols.map(col => 
-               col.id === activeColId ? { 
-                  ...col, 
-                  tasks: col.tasks.filter(task => task.id !== editedTask.id)
-                     .map((task, i) => ( {...task, id: i} )) 
-               } 
-               : col.name === editedTask.status ? { 
-                  ...col, 
-                  tasks: [editedTask, ...col.tasks].map((task, i) => ( {...task, id: i} ))
-               }
-               : col
-            )
-            dispatch(manageColumnsChange(editedCols))
-         }
-         // changes the state responsible for render
-         dispatch(assignActiveBoard(activeBoardId))
-      },
-   });
 
    return (
       <Overlay submitHandler={handleSubmit}>
