@@ -1,18 +1,16 @@
-// import { Routes, Route } from 'react-router-dom'
 import { CssBaseline, ThemeProvider, Box } from '@mui/material'
 import { ColorModeToggler, ColorModeContext } from './library/utilities/ColorModeToggler'
 import Appbar from './library/common/components/Appbar/Appbar';
 import PersistentDrawerLeft from './library/common/components/Drawer/Drawer';
 import Main from './library/common/components/Main/Main';
 import { useAppSelector } from './library/common/hooks/hooks';
-import TaskManage from './library/common/components/TaskManager/ManageTaskModal';
-// modules
-
+import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
+import AddEditTaskModal from './library/common/components/AddEditTaskModal/AddEditTaskModal';
 
 function App() {
   const myTheme = ColorModeToggler()
-  // const taskManaging = useAppSelector(state => state.data.taskManaging)
   const taskManaging = useAppSelector(state => state.modals.taskManaging)
+  const taskEditing = useAppSelector(state => state.modals.taskEditing)
 
   return (
     <ThemeProvider theme={myTheme.theme}>
@@ -29,6 +27,9 @@ function App() {
 
       {
         taskManaging && <TaskManage />
+      }
+      {
+        taskEditing && <AddEditTaskModal />
       }
     </ThemeProvider >
   );

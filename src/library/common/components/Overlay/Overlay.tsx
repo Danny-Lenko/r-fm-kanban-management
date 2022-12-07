@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box'
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { closeTaskManager } from '../../../../main/slices/modalElsSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()
+   const isManagingTask = useAppSelector(state => state.modals.taskManaging)
 
    const overlayStyles = {
       position: 'absolute',
@@ -18,12 +19,12 @@ const Overlay = (props:any) => {
       zIndex: 10000
    }
 
-   return (  
+   return (
       <Box
          sx={overlayStyles}
          onClick={(e) => {
             const target = e.target as HTMLElement
-            if (target.classList.contains('overlay')) {
+            if (isManagingTask && target.classList.contains('overlay')) {
                dispatch(closeTaskManager('close'))
                props.submitHandler()
             }

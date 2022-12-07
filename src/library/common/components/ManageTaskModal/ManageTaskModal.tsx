@@ -2,8 +2,6 @@ import Overlay from '../Overlay/Overlay';
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
@@ -15,6 +13,7 @@ import { FormikProps, FormikValues, useFormik, Formik } from 'formik';
 import { useRef } from 'react';
 import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../../../main/slices/dataSlice';
 import { countComletedSubtasks } from '../../../utilities/utils';
+import SelectEl from '../SelectEl/SelectEl';
 
 const ManageTaskModal = () => {
    const task = useAppSelector(state => state.data.managedTask)
@@ -120,20 +119,11 @@ const ManageTaskModal = () => {
                            Current Status
                         </Typography>
 
-                        <Select
+                        <SelectEl
                            value={formik.values.status}
-                           id="status"
-                           name="status"
-                           MenuProps={{ sx: { zIndex: 12000 } }}
-                           sx={{width: '100%', fontWeight: 700, borderColor: 'primary.main', '.MuiOutlinedInput-notchedOutline': {borderColor: 'linesCustom.light'}}}
-                           size='small'
                            onChange={formik.handleChange}
-                        >
-                           { 
-                              cols.map( col => <MenuItem key={col.id} value={col.name}>{col.name}</MenuItem> ) 
-                           }
-                        </Select>
-
+                           cols={cols}
+                        />
                      </form>
                   )}
                </Formik>
