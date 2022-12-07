@@ -11,7 +11,8 @@ import TaskManage from './library/common/components/TaskManager/TaskManager';
 
 function App() {
   const myTheme = ColorModeToggler()
-  const taskManaging = useAppSelector(state => state.data.taskManaging)
+  // const taskManaging = useAppSelector(state => state.data.taskManaging)
+  const taskManaging = useAppSelector(state => state.modals.taskManaging)
 
   return (
     <ThemeProvider theme={myTheme.theme}>

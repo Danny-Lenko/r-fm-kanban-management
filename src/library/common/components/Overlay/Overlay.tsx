@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { useAppDispatch } from '../../hooks/hooks';
-import { closeTaskManager } from '../../../../main/slices/dataSlice';
+import { closeTaskManager } from '../../../../main/slices/modalElsSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()

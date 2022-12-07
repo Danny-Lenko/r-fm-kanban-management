@@ -3,7 +3,8 @@ import Typography from "@mui/material/Typography";
 import { ITask } from "../../library/interfaces/interfaces";
 import useTheme from '@mui/material/styles/useTheme';
 import { useAppDispatch } from '../../library/common/hooks/hooks';
-import { openTaskManage } from "../../main/slices/dataSlice";
+import { assignActiveTaskCol } from "../../main/slices/dataSlice";
+import { openTaskManager } from "../../main/slices/modalElsSlice";
 
 const TaskCard = ({task}: {task:ITask}) => {
    const dispatch = useAppDispatch()
@@ -25,7 +26,13 @@ const TaskCard = ({task}: {task:ITask}) => {
    }
 
    return (  
-      <Paper  sx={taskCardStyles} onClick={() => dispatch(openTaskManage(task))}>
+      <Paper 
+         sx={taskCardStyles} 
+         onClick={() => {
+            dispatch(openTaskManager('open'))
+            dispatch(assignActiveTaskCol(task))
+         }}
+      >
          <Typography variant='h4'>{task.title}</Typography>
          <Typography variant='body2'>{task.completedSubtasks} of {task.subtasks.length} subtasks</Typography>
       </Paper>

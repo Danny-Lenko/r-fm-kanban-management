@@ -29,23 +29,21 @@ export const dataSlice = createSlice({
       activeBoardId: 0,
       activeColId: 0,
       activeTaskId: 0,
-      taskManaging: false,
       managedTask: data[0].columns[0].tasks[0]
    },
+
    reducers: {
       assignActiveBoard: (state, action) => {
          state.activeBoard = state.boards.find(board => board.id === action.payload)!
          state.activeBoardId = state.activeBoard.id
       },
-      openTaskManage: (state, action) => {
-         state.taskManaging = true
+
+      assignActiveTaskCol: (state, action) => {
          state.managedTask = action.payload
          state.activeTaskId = action.payload.id
          state.activeColId = state.activeBoard.columns.find(col => col.tasks.find(task => task.title === action.payload.title))!.id
       },
-      closeTaskManager: (state, action) => {
-         state.taskManaging = false
-      },
+
       manageActiveTask: (state, action) => {
          state.boards = state.boards.map(board => board.id !== state.activeBoardId ? board : {
             ...board,
@@ -55,6 +53,7 @@ export const dataSlice = createSlice({
             })
          })
       },
+
       manageColumnsChange: (state, action) => {
          state.boards = state.boards.map(board => board.id !== state.activeBoardId ? board : {
             ...board,
@@ -66,8 +65,7 @@ export const dataSlice = createSlice({
 
 export const {
    assignActiveBoard, 
-   openTaskManage, 
-   closeTaskManager, 
+   assignActiveTaskCol, 
    manageActiveTask,
    manageColumnsChange 
 } = dataSlice.actions
