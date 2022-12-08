@@ -9,6 +9,7 @@ export interface ICustomBtn {
    styles?: Record<string, string | number>
    icon?: any
    iconStyles?: Record<string, string>
+   type?: "button" | "submit" | "reset" | undefined
 }
 
 export interface AppBarProps extends MuiAppBarProps {

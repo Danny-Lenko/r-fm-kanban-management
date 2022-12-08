@@ -12,7 +12,8 @@ const CustomBtn = ({
    onclick, 
    styles, 
    icon, 
-   iconStyles 
+   iconStyles,
+   type
 }: ICustomBtn) => {
 
    const dispatch = useAppDispatch()
@@ -45,6 +46,7 @@ const CustomBtn = ({
          variant="contained"
          sx={customBtnStyles}
          onClick={onclick ? () => dispatch( onclick('open') ) : () => null}
+         type={type}
       >
          {text}
          {
