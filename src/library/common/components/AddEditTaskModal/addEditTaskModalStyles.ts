@@ -25,8 +25,20 @@ export const assembleManageTaskModalStyles = (theme:any) => ({
    '& .MuiOutlinedInput-root': {
       fontSize: 13/16 + 'rem',
       'input': {
-         py: 1.35
+         py: 1.3
       }
+   },
+   '& .subtasks-list': {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 1.5,   
+   },
+   '& .subtask-container': {
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      justifyContent: 'space-between',
+      gap: 4
    }
 })
 

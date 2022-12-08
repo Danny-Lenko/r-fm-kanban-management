@@ -45,7 +45,11 @@ const CustomBtn = ({
          disableElevation
          variant="contained"
          sx={customBtnStyles}
-         onClick={onclick ? () => dispatch( onclick('open') ) : () => null}
+         onClick={
+            typeof onclick === 'object' ? () => dispatch( onclick('open') ) 
+            : type === 'submit' ? () => null
+            : () => onclick()
+         }
          type={type}
       >
          {text}
