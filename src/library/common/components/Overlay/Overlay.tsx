@@ -1,10 +1,11 @@
 import Box from '@mui/material/Box'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { closeTaskManager } from '../../../../main/slices/modalElsSlice';
+import { closeTaskEditor, closeTaskManager } from '../../../../main/slices/modalElsSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()
    const isManagingTask = useAppSelector(state => state.modals.taskManaging)
+   const isEditingTask = useAppSelector(state => state.modals.taskEditing)
 
    const overlayStyles = {
       position: 'absolute',
@@ -27,6 +28,9 @@ const Overlay = (props:any) => {
             if (isManagingTask && target.classList.contains('overlay')) {
                dispatch(closeTaskManager('close'))
                props.submitHandler()
+            }
+            if (isEditingTask && target.classList.contains('overlay')) {
+               dispatch(closeTaskEditor('close'))
             }
          }}
          className='overlay'
