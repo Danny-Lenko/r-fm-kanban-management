@@ -4,14 +4,12 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { useTheme } from '@mui/material/styles';
-import { assembleManageTaskModalStyles, assembleCheckboxStyles } from './manageTaskModalStyles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import { assembleManageTaskModalStyles } from './manageTaskModalStyles';
 import { FormikProps, FormikValues, Formik } from 'formik';
 import { useRef } from 'react';
-import SelectEl from '../SelectEl/SelectEl';
-import useManageTaskModalFormik from '../../hooks/useManageTaskModalFomik';
+import useManageTaskModalFormik from '../../hooks/useManagerFomik';
+import ManagerCheckbox from './ManagerCheckbox/ManagerCheckbox';
+import ManagerSelect from './ManagerSelect/ManagerSelect';
 
 const ManageTaskModal = () => {
    const theme = useTheme()
@@ -33,51 +31,23 @@ const ManageTaskModal = () => {
             </Box>
             <Typography variant='body1'>{task.description}</Typography>
 
-            <div>
-               <Formik
-                  initialValues={formik.values}
-                  onSubmit={formik.submitForm}
-                  innerRef={formRef}
-               >
-                  {props => (
-                     <form onSubmit={formik.handleSubmit} >
-                        <Typography
-                           className='subtasks-heading'
-                           variant='body2'
-                        >
-                           Subtasks ({task.completedSubtasks} of {task.subtasks.length})
-                        </Typography>
-                        <FormGroup>
-                           {
-                              task.subtasks.map(sub =>
-                                 <FormControlLabel
-                                    key={sub.title}
-                                    sx={assembleCheckboxStyles(sub, theme)}
-                                    control={<Checkbox value={sub.title} defaultChecked={sub.isCompleted} />}
-                                    label={sub.title}
-                                    name='checked'
-                                    onChange={formik.handleChange}
-                                 />
-                              )
-                           }
-                        </FormGroup>
-                        <Typography
-                           style={{ margin: '24px 0 8px' }}
-                           className='subtasks-heading'
-                           variant='body2'
-                        >
-                           Current Status
-                        </Typography>
-
-                        <SelectEl
-                           value={formik.values.status}
-                           onChange={formik.handleChange}
-                           cols={cols}
-                        />
-                     </form>
-                  )}
-               </Formik>
-            </div>
+            <Formik
+               initialValues={formik.values}
+               onSubmit={formik.submitForm}
+               innerRef={formRef}
+            >
+               <form onSubmit={formik.handleSubmit} >
+                  <ManagerCheckbox
+                     formik={formik}
+                     task={task}
+                     theme={theme}
+                  />
+                  <ManagerSelect
+                     formik={formik}
+                     cols={cols}
+                  />
+               </form>
+            </Formik>
          </Paper>
       </Overlay>
    );

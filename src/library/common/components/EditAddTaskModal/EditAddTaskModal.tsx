@@ -3,14 +3,14 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../hooks/hooks';
 import { useTheme } from '@mui/material/styles';
-import { assembleManageTaskModalStyles } from './addEditTaskModalStyles';
+import { assembleManageTaskModalStyles } from './EditAddTaskModalStyles';
 import { Form } from 'formik';
 import CustomBtn from '../CustomBtn/CustomBtn';
-import TitleField from './TitleField/TitleField';
-import DescriptionField from './DescriptionField/DescriptionField';
-import SubtasksFieldArr from './SubtasksFieldArr/SubtasksFieldArr';
-import SelectField from './SelectField/SelectField';
-import AddEditTaskFormik from './AddEditTaskFormik/AddEditTaskFormik';
+import TitleField from './EditorTitleField/EditorTitleField';
+import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
+import SubtasksFieldArr from './EditorSubtasksFieldArr/EditorSubtasksFieldArr';
+import SelectField from './EditorSelectField/EditorSelectField';
+import AddEditTaskFormik from './EditorFormik/EditorFormik';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector(state => state.data.activeBoard.columns)

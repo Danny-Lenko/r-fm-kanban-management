@@ -5,7 +5,7 @@ import PersistentDrawerLeft from './library/common/components/Drawer/Drawer';
 import Main from './library/common/components/Main/Main';
 import { useAppSelector } from './library/common/hooks/hooks';
 import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
-import AddEditTaskModal from './library/common/components/AddEditTaskModal/AddEditTaskModal';
+import AddEditTaskModal from './library/common/components/EditAddTaskModal/EditAddTaskModal';
 
 function App() {
   const myTheme = ColorModeToggler()
@@ -15,13 +15,13 @@ function App() {
   return (
     <ThemeProvider theme={myTheme.theme}>
       <CssBaseline />
-      <Box sx={{ display: 'flex', overflowX: 'hidden'}}>
+      <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
         <Appbar />
 
         <ColorModeContext.Provider value={myTheme.colorMode}>
           <PersistentDrawerLeft />
         </ColorModeContext.Provider>
-        
+
         <Main />
       </Box>
 

@@ -1,7 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
 import { Formik } from 'formik';
 import { closeTaskEditor } from '../../../../../main/slices/modalElsSlice';
-import { schema } from './validationYup';
+import { schema } from './editorValidationYup';
 import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 
 const AddEditTaskFormik = (props: any) => {
@@ -19,7 +19,9 @@ const AddEditTaskFormik = (props: any) => {
             subtasks: ['', ''],
             status: cols[0].name
          }}
+
          validationSchema={schema}
+
          onSubmit={(values) => {
             const activeCol = cols.find(col => col.name === values.status)
             const newTask = {
