@@ -2,6 +2,8 @@ import Typography from '@mui/material/Typography'
 import { FieldArray } from 'formik';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import TextField from '@mui/material/TextField'
+import ClearIcon from '@mui/icons-material/Clear';
+import IconButton from '@mui/material/IconButton';
 
 const SubtasksFieldArr = ({
    subtasks,
@@ -36,12 +38,13 @@ const SubtasksFieldArr = ({
                            error={tochedSubtasks && Boolean(errorsSubtasks ? errorsSubtasks[index] : '')}
                            helperText={tochedSubtasks && errorsSubtasks ? errorsSubtasks[index] : ''}
                         />
-                        <button
-                           type="button"
+                        <IconButton
+                           // type="button"
+                           sx={{p: 0}}
                            onClick={() => arrayHelpers.remove(index)} // remove a sub from the list
                         >
-                           -
-                        </button>
+                           <ClearIcon fontSize='small' />
+                        </IconButton>
                      </div>
                   )) }
                   <CustomBtn

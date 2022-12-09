@@ -64,7 +64,7 @@ const AddEditTaskModal = () => {
                      <SelectField
                         value={props.values.status}
                         onChange={props.handleChange}
-                        cols={cols}                     
+                        cols={cols}
                      />
 
                      <CustomBtn

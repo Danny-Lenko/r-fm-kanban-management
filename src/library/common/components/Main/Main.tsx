@@ -45,6 +45,7 @@ const Main = () => {
             styles={eyeBtnStyles}
             iconStyles={eyeIconStyles}
             onclick={openDrawer}
+            isAction={true}
          />
       </MainEl>
    );
