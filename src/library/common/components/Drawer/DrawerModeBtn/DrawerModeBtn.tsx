@@ -2,10 +2,10 @@ import SvgIcon from '@mui/material/SvgIcon';
 import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles';
-import { ReactComponent as LightModeIcon } from '../../../../resources/assets/icon-light-theme.svg'
-import { ReactComponent as DarkModeIcon } from '../../../../resources/assets/icon-dark-theme.svg'
+import { ReactComponent as LightModeIcon } from '../../../../../resources/assets/icon-light-theme.svg'
+import { ReactComponent as DarkModeIcon } from '../../../../../resources/assets/icon-dark-theme.svg'
 import { useContext } from 'react';
-import { ColorModeContext } from '../../../utilities/ColorModeToggler';
+import { ColorModeContext } from '../../../../utilities/ColorModeToggler';
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
    padding: 8,
@@ -28,7 +28,7 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
       opacity: '1 !important'
    },
    '& .MuiSwitch-thumb': {
-      backgroundColor: '#fff', 
+      backgroundColor: '#fff',
       boxShadow: 'none',
       width: 16,
       height: 16,

@@ -1,16 +1,16 @@
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
 import { Formik } from 'formik';
-import { closeTaskEditor } from '../../../../main/slices/modalElsSlice';
+import { closeTaskEditor } from '../../../../../main/slices/modalElsSlice';
 import { schema } from './validationYup';
-import { setBoards, assignActiveBoard } from '../../../../main/slices/dataSlice';
+import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 
-const AddEditTaskFormik = (props:any) => {
+const AddEditTaskFormik = (props: any) => {
    const boards = useAppSelector(state => state.data.boards)
    const activeBoard = useAppSelector(state => state.data.activeBoard)
    const activeBoardId = useAppSelector(state => state.data.activeBoardId)
    const cols = useAppSelector(state => state.data.activeBoard.columns)
    const dispatch = useAppDispatch()
-   
+
    return (
       <Formik
          initialValues={{
@@ -42,7 +42,7 @@ const AddEditTaskFormik = (props:any) => {
             dispatch(closeTaskEditor('close'))
          }}
       >
-         { props.children }
+         {props.children}
       </Formik>
    );
 }

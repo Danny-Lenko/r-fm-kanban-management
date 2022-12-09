@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../hooks/hooks";
-import DrawerHeader from "../Drawer/DrawerHeader";
+import DrawerHeader from "../Drawer/DrawerHeader/DrawerHeader";
 import MainEl from "./MainEl";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import { ReactComponent as eyeIcon } from '../../../../resources/assets/icon-show-sidebar.svg'

@@ -1,11 +1,11 @@
 import Typography from '@mui/material/Typography'
-import SelectEl from '../SelectEl/SelectEl';
+import SelectEl from '../../SelectEl/SelectEl';
 
 const SelectField = ({
    value,
    onChange,
    cols
-}:any) => {
+}: any) => {
    return (
       <>
          <Typography

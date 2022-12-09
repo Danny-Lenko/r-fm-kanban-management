@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography'
 import { FieldArray } from 'formik';
-import CustomBtn from '../CustomBtn/CustomBtn';
+import CustomBtn from '../../CustomBtn/CustomBtn';
 import TextField from '@mui/material/TextField'
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
@@ -11,7 +11,7 @@ const SubtasksFieldArr = ({
    onChange,
    tochedSubtasks,
    errorsSubtasks
-}:any) => {
+}: any) => {
    const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee and smile', 'e.g. Make coffee to friends', 'e.g. Invite friends for coffee', 'e.g. Drink coffee with friends']
    return (
       <>
@@ -28,10 +28,10 @@ const SubtasksFieldArr = ({
             render={arrayHelpers => (
                <div className='subtasks-list'>
 
-                  { subtasks.map((sub:any, index:number) => (
+                  {subtasks.map((sub: any, index: number) => (
                      <div key={index} className='subtask-container'>
                         <TextField
-                           placeholder={ placeholders[index] ? placeholders[index] : 'e.g. Seems like no time for coffee anymore' }
+                           placeholder={placeholders[index] ? placeholders[index] : 'e.g. Seems like no time for coffee anymore'}
                            name={`subtasks.${index}`}
                            fullWidth
                            id={`subtasks.${index}`}
@@ -41,13 +41,13 @@ const SubtasksFieldArr = ({
                            helperText={tochedSubtasks && errorsSubtasks ? errorsSubtasks[index] : ''}
                         />
                         <IconButton
-                           sx={{p: 0}}
+                           sx={{ p: 0 }}
                            onClick={() => arrayHelpers.remove(index)} // remove a sub from the list
                         >
                            <ClearIcon fontSize='small' />
                         </IconButton>
                      </div>
-                  )) }
+                  ))}
                   <CustomBtn
                      onclick={() => arrayHelpers.push('')} // add a sub to the list
                      sizeSm={true}

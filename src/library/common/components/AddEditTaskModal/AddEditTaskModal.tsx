@@ -6,11 +6,11 @@ import { useTheme } from '@mui/material/styles';
 import { assembleManageTaskModalStyles } from './addEditTaskModalStyles';
 import { Form } from 'formik';
 import CustomBtn from '../CustomBtn/CustomBtn';
-import TitleField from './TitleField';
-import DescriptionField from './DescriptionField';
-import SubtasksFieldArr from './SubtasksFieldArr';
-import SelectField from './SelectField';
-import AddEditTaskFormik from './AddEditTaskFormik';
+import TitleField from './TitleField/TitleField';
+import DescriptionField from './DescriptionField/DescriptionField';
+import SubtasksFieldArr from './SubtasksFieldArr/SubtasksFieldArr';
+import SelectField from './SelectField/SelectField';
+import AddEditTaskFormik from './AddEditTaskFormik/AddEditTaskFormik';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector(state => state.data.activeBoard.columns)
