@@ -13,7 +13,7 @@ const SelectField = ({
             className='subtasks-heading'
             variant='body2'
          >
-            Current Status
+            Status
          </Typography>
 
          <SelectEl

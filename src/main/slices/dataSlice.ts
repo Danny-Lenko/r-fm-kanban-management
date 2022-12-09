@@ -59,6 +59,10 @@ export const dataSlice = createSlice({
             ...board,
             columns: action.payload
          })
+      },
+
+      setBoards: (state, action) => {
+         state.boards = action.payload
       }
    }
 })
@@ -67,7 +71,8 @@ export const {
    assignActiveBoard,
    assignActiveTaskCol,
    manageActiveTask,
-   manageColumnsChange
+   manageColumnsChange,
+   setBoards
 } = dataSlice.actions
 
 export default dataSlice.reducer

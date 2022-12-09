@@ -12,6 +12,7 @@ const SubtasksFieldArr = ({
    tochedSubtasks,
    errorsSubtasks
 }:any) => {
+   const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee and smile', 'e.g. Make coffee to friends', 'e.g. Invite friends for coffee', 'e.g. Drink coffee with friends']
    return (
       <>
          <Typography
@@ -30,6 +31,7 @@ const SubtasksFieldArr = ({
                   { subtasks.map((sub:any, index:number) => (
                      <div key={index} className='subtask-container'>
                         <TextField
+                           placeholder={ placeholders[index] ? placeholders[index] : 'e.g. Seems like no time for coffee anymore' }
                            name={`subtasks.${index}`}
                            fullWidth
                            id={`subtasks.${index}`}
@@ -39,7 +41,6 @@ const SubtasksFieldArr = ({
                            helperText={tochedSubtasks && errorsSubtasks ? errorsSubtasks[index] : ''}
                         />
                         <IconButton
-                           // type="button"
                            sx={{p: 0}}
                            onClick={() => arrayHelpers.remove(index)} // remove a sub from the list
                         >
@@ -48,7 +49,7 @@ const SubtasksFieldArr = ({
                      </div>
                   )) }
                   <CustomBtn
-                     onclick={() => arrayHelpers.push('')}
+                     onclick={() => arrayHelpers.push('')} // add a sub to the list
                      sizeSm={true}
                      color='secondary'
                      text='+ Add New Subtask'
