@@ -4,7 +4,8 @@ export const drawerSlice = createSlice({
    name: 'modals',
    initialState: {
       taskManaging: false,
-      taskEditing: false
+      taskEditing: false,
+      isExistingTask: false
    },
 
    reducers: {
@@ -22,8 +23,15 @@ export const drawerSlice = createSlice({
 
       closeTaskEditor: (state, action) => {
          state.taskEditing = false
-      }
+      },
 
+      enableEditorExisting: (state, action) => {
+         state.isExistingTask = true
+      },
+
+      disableEditorExisting: (state, action) => {
+         state.isExistingTask = false
+      }
    }
 })
 
@@ -31,6 +39,8 @@ export const {
    openTaskManager, 
    closeTaskManager,
    openTaskEditor,
-   closeTaskEditor
+   closeTaskEditor,
+   disableEditorExisting,
+   enableEditorExisting
  } = drawerSlice.actions
 export default drawerSlice.reducer

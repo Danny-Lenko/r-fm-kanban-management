@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../hooks/hooks';
 import { useTheme } from '@mui/material/styles';
-import { assembleManageTaskModalStyles } from './EditAddTaskModalStyles';
+import { assembleManageTaskModalStyles } from './editAddTaskModalStyles';
 import { Form } from 'formik';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import TitleField from './EditorTitleField/EditorTitleField';
@@ -14,12 +14,16 @@ import AddEditTaskFormik from './EditorFormik/EditorFormik';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector(state => state.data.activeBoard.columns)
+   const activeTask = useAppSelector(state => state.data.managedTask)
+   const isExisting = useAppSelector(state => state.modals.isExistingTask)
    const theme = useTheme()
 
    return (
       <Overlay>
          <Paper elevation={0} sx={assembleManageTaskModalStyles(theme)}>
-            <Typography variant='h3'>Add new task</Typography>
+            <Typography variant='h3'>
+               {  isExisting ? 'Edit task' : 'Add new task' }
+            </Typography>
 
             <AddEditTaskFormik>
                {(props: any) => (

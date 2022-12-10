@@ -4,15 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { TASKMENU, BOARDMENU } from '../../constants/constants';
-
-// const options = [
-//    'None',
-//    'Remove',
-//    'Callisto',
-//    'Dione'
-// ];
-
-// const ITEM_HEIGHT = 48;
+import DotsMenuItem from './DotsMenuItem';
 
 const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,21 +42,17 @@ const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
             onClose={handleClose}
             PaperProps={{
                style: {
-                  // maxHeight: ITEM_HEIGHT * 4.5,
                   width: '20ch',
                },
             }}
          >
-            {options.map((option) => (
-               <MenuItem 
-                  sx={{color: option.split(' ')[0] === 'Delete' ? 'destructCustom.main' : 'inherit'}} 
-                  key={option} 
-                  selected={option === 'Pyxis'} 
-                  onClick={handleClose}
-               >
-                  {option}
-               </MenuItem>
-            ))}
+            { options.map(option => (
+               <DotsMenuItem
+                  key={option}
+                  option={option}
+                  handleClose={handleClose}
+               />
+            )) }
          </Menu>
       </div>
    );

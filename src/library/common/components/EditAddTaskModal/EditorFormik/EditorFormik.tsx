@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
 import { Formik } from 'formik';
-import { closeTaskEditor } from '../../../../../main/slices/modalElsSlice';
+import { closeTaskEditor, disableEditorExisting } from '../../../../../main/slices/modalElsSlice';
 import { schema } from './editorValidationYup';
 import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 
@@ -9,16 +9,28 @@ const AddEditTaskFormik = (props: any) => {
    const activeBoard = useAppSelector(state => state.data.activeBoard)
    const activeBoardId = useAppSelector(state => state.data.activeBoardId)
    const cols = useAppSelector(state => state.data.activeBoard.columns)
+   const activeTask = useAppSelector(state => state.data.managedTask)
+   const isExisting = useAppSelector(state => state.modals.isExistingTask)
    const dispatch = useAppDispatch()
+
+   console.log(activeTask)
 
    return (
       <Formik
-         initialValues={{
-            title: '',
-            description: '',
-            subtasks: ['', ''],
-            status: cols[0].name
-         }}
+         initialValues={
+            isExisting ? {
+               title: activeTask.title,
+               description: activeTask.description,
+               subtasks: activeTask.subtasks.map(sub => sub.title),
+               status: activeTask.status
+            }
+            : {
+               title: '',
+               description: '',
+               subtasks: ['', ''],
+               status: cols[0].name
+            }
+         }
 
          validationSchema={schema}
 
@@ -42,6 +54,7 @@ const AddEditTaskFormik = (props: any) => {
             dispatch(setBoards(boardsUpdated))
             dispatch(assignActiveBoard(activeBoardId))
             dispatch(closeTaskEditor('close'))
+            dispatch(disableEditorExisting('disable'))
          }}
       >
          {props.children}
