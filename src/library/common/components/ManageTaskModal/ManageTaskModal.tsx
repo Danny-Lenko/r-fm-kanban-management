@@ -7,13 +7,13 @@ import { useTheme } from '@mui/material/styles';
 import { assembleManageTaskModalStyles } from './manageTaskModalStyles';
 import { FormikProps, FormikValues, Formik } from 'formik';
 import { useRef } from 'react';
-import useManageTaskModalFormik from '../../hooks/useManagerFomik';
 import ManagerCheckbox from './ManagerCheckbox/ManagerCheckbox';
 import ManagerSelect from './ManagerSelect/ManagerSelect';
+import useManagerFormik from '../../hooks/useManagerFomik';
 
 const ManageTaskModal = () => {
    const theme = useTheme()
-   const { formik, cols, task } = useManageTaskModalFormik()
+   const { formik, cols, task } = useManagerFormik()
 
    const formRef = useRef<FormikProps<FormikValues>>(null)
    const handleSubmit = () => {

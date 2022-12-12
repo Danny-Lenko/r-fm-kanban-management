@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { closeTaskEditor, closeTaskManager } from '../../../../main/slices/modalElsSlice';
+import { closeTaskEditor, closeTaskManager, disableEditorExisting } from '../../../../main/slices/modalElsSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()
@@ -31,6 +31,7 @@ const Overlay = (props:any) => {
             }
             if (isEditingTask && target.classList.contains('overlay')) {
                dispatch(closeTaskEditor('close'))
+               dispatch(disableEditorExisting('disable'))
             }
          }}
          className='overlay'

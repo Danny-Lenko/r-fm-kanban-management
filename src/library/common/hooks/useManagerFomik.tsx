@@ -3,7 +3,7 @@ import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../
 import { countComletedSubtasks } from '../../utilities/utils';
 import { useAppSelector, useAppDispatch } from './hooks';
 
-const useManageTaskModalFormik = () => {
+const useManagerFormik = () => {
    const task = useAppSelector(state => state.data.managedTask)
    const activeBoardId = useAppSelector(state => state.data.activeBoardId)
    const activeColId = useAppSelector(state => state.data.activeColId)
@@ -57,4 +57,4 @@ const useManageTaskModalFormik = () => {
    return { formik, cols, task };
 }
 
-export default useManageTaskModalFormik;
+export default useManagerFormik;

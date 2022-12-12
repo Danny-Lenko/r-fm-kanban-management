@@ -10,11 +10,10 @@ import TitleField from './EditorTitleField/EditorTitleField';
 import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
 import SubtasksFieldArr from './EditorSubtasksFieldArr/EditorSubtasksFieldArr';
 import SelectField from './EditorSelectField/EditorSelectField';
-import AddEditTaskFormik from './EditorFormik/EditorFormik';
+import EditorFormik from './EditorFormik/EditorFormik';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector(state => state.data.activeBoard.columns)
-   const activeTask = useAppSelector(state => state.data.managedTask)
    const isExisting = useAppSelector(state => state.modals.isExistingTask)
    const theme = useTheme()
 
@@ -25,7 +24,7 @@ const AddEditTaskModal = () => {
                {  isExisting ? 'Edit task' : 'Add new task' }
             </Typography>
 
-            <AddEditTaskFormik>
+            <EditorFormik>
                {(props: any) => (
                   <Form>
                      <TitleField
@@ -60,12 +59,12 @@ const AddEditTaskModal = () => {
                         type='submit'
                         sizeSm={true}
                         color='primary'
-                        text='Create Task'
+                        text={ isExisting ? 'Save Changes' : 'Create Task' }
                         styles={{ width: '100%', mt: 4 }}
                      />
                   </Form>
                )}
-            </AddEditTaskFormik>
+            </EditorFormik>
          </Paper>
       </Overlay>
    );

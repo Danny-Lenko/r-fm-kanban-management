@@ -1,20 +1,21 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
 import { Formik } from 'formik';
-import { closeTaskEditor, disableEditorExisting } from '../../../../../main/slices/modalElsSlice';
-import { schema } from './editorValidationYup';
-import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
+import { schema } from './editorFormikValidation';
+import { createTask } from './editorCreateTask';
+import { saveChanges } from './editorSaveChanges';
 
-const AddEditTaskFormik = (props: any) => {
-   const boards = useAppSelector(state => state.data.boards)
-   const activeBoard = useAppSelector(state => state.data.activeBoard)
-   const activeBoardId = useAppSelector(state => state.data.activeBoardId)
-   const cols = useAppSelector(state => state.data.activeBoard.columns)
-   const activeTask = useAppSelector(state => state.data.managedTask)
+const EditorFormik = (props: any) => {
+   const { 
+      boards, 
+      activeBoard, 
+      activeBoardId,
+      activeColId,
+      managedTask: activeTask
+   } = useAppSelector(state => state.data)
+   const { columns: cols } = activeBoard
    const isExisting = useAppSelector(state => state.modals.isExistingTask)
    const dispatch = useAppDispatch()
-
-   console.log(activeTask)
-
+   
    return (
       <Formik
          initialValues={
@@ -34,27 +35,9 @@ const AddEditTaskFormik = (props: any) => {
 
          validationSchema={schema}
 
-         onSubmit={(values) => {
-            const activeCol = cols.find(col => col.name === values.status)
-            const newTask = {
-               ...values,
-               subtasks: values.subtasks.map(sub => ({ title: sub, isCompleted: false })),
-               completedSubtasks: 0,
-               id: activeCol!.tasks.length
-            }
-
-            const boardsUpdated = boards.map(board => board.id !== activeBoard.id ? board : {
-               ...board,
-               columns: board.columns.map(col => col.id !== activeCol!.id ? col : {
-                  ...col,
-                  tasks: [...col.tasks, newTask]
-               })
-            })
-
-            dispatch(setBoards(boardsUpdated))
-            dispatch(assignActiveBoard(activeBoardId))
-            dispatch(closeTaskEditor('close'))
-            dispatch(disableEditorExisting('disable'))
+         onSubmit={ (values) => {
+            const submissionParams = {values, cols, boards, activeBoard, activeBoardId, dispatch, activeTask, activeColId}
+            return isExisting ? saveChanges(submissionParams) : createTask(submissionParams)
          }}
       >
          {props.children}
@@ -62,5 +45,5 @@ const AddEditTaskFormik = (props: any) => {
    );
 }
 
-export default AddEditTaskFormik;
+export default EditorFormik;
 
