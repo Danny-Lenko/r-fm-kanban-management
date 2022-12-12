@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { manageActiveTask, assignActiveBoard, manageColumnsChange } from '../../../main/slices/dataSlice';
-import { countComletedSubtasks } from '../../utilities/utils';
+import { countCompletedSubtasks } from '../../utilities/utils';
 import { useAppSelector, useAppDispatch } from './hooks';
 
 const useManagerFormik = () => {
@@ -27,7 +27,7 @@ const useManagerFormik = () => {
          }
          const editedTask = {
             ...managedSubs,
-            completedSubtasks: countComletedSubtasks(managedSubs)
+            completedSubtasks: countCompletedSubtasks(managedSubs)
          }
          dispatch(manageActiveTask(editedTask))
 

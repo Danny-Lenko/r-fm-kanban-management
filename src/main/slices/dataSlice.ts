@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import rowData from '../../resources/data/data.json'
-import { countComletedSubtasks } from '../../library/utilities/utils'
+import { countCompletedSubtasks } from '../../library/utilities/utils'
 
 const data = rowData.boards.map((board, i) => ({
    ...board,
@@ -15,7 +15,7 @@ const data = rowData.boards.map((board, i) => ({
          return ({
             ...task,
             id: i,
-            completedSubtasks: countComletedSubtasks(task)
+            completedSubtasks: countCompletedSubtasks(task)
          })
       })
    }))
