@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import Typography from '@mui/material/Typography';
 import { assignActiveBoard } from '../../../../main/slices/dataSlice';
 import DrawerBoardBtn from './DrawerBoardBtn/DrawerBoardBtn';
+import { openBoardManager } from '../../../../main/slices/modalElsSlice';
 
 export default function PersistentDrawerLeft() {
   const open = useAppSelector(state => state.drawer.open)
@@ -24,6 +25,10 @@ export default function PersistentDrawerLeft() {
   const handleOldBoardClick = (board:any) => {
     dispatch(assignActiveBoard(board.id))
     navigate(`${board.path}`)
+  }
+
+  const handleCreateBoardClick = () => {
+    dispatch(openBoardManager('open'))
   }
 
   return (
@@ -54,7 +59,13 @@ export default function PersistentDrawerLeft() {
             }}
           />
         ))}
-
+        <DrawerBoardBtn
+          props={{
+            board: null,
+            btnClick: () => handleCreateBoardClick(),
+            btnText: '+ Create New Board'
+          }}
+        />
       </List>
 
       <DrawerModeBtn />

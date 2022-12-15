@@ -37,13 +37,11 @@ const assembleDrawerStyles = (theme: Theme) => ({
          mr: 2
       },
       '& .MuiSvgIcon-root': {
-         color: 'greyCustom.200',
          transform: 'translateY(20%) translateX(25%)',
       },
       '& .MuiTypography-root': {
          fontSize: 15/16 + 'rem',
          fontWeight: 700,
-         color: 'greyCustom.200'
       }
    },
    // mode btn

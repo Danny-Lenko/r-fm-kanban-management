@@ -14,12 +14,12 @@ const DrawerBoardBtn = ({props}:{props:any}) => {
       <ListItem disablePadding>
          <ListItemButton
             onClick={btnClick}
-            className={activeBoard.path === board.path ? 'Mui-active' : ''}
+            className={ board && activeBoard.path === board.path ? 'Mui-active' : '' }
          >
             <ListItemIcon>
-               <SvgIcon component={IconBoard} />
+               <SvgIcon sx={{color: board ? 'greyCustom.200' : 'primaryCustom.main'}} component={IconBoard} />
             </ListItemIcon>
-            <ListItemText primary={btnText} />
+            <ListItemText sx={{color: board ? 'greyCustom.200' : 'primaryCustom.main'}} primary={btnText} />
          </ListItemButton>
       </ListItem>
    );

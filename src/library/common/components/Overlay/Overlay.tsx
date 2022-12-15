@@ -1,11 +1,16 @@
 import Box from '@mui/material/Box'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { closeTaskEditor, closeTaskManager, disableEditorExisting } from '../../../../main/slices/modalElsSlice';
+import { 
+   closeTaskEditor, 
+   closeTaskManager, 
+   disableEditorExisting,
+   closeBoardManager,
+   setIsExistingBoard 
+} from '../../../../main/slices/modalElsSlice';
 
 const Overlay = (props:any) => {
    const dispatch = useAppDispatch()
-   const isManagingTask = useAppSelector(state => state.modals.taskManaging)
-   const isEditingTask = useAppSelector(state => state.modals.taskEditing)
+   const { taskManaging, taskEditing, boardManaging } = useAppSelector(state => state.modals)
 
    const overlayStyles = {
       position: 'absolute',
@@ -25,13 +30,17 @@ const Overlay = (props:any) => {
          sx={overlayStyles}
          onClick={(e) => {
             const target = e.target as HTMLElement
-            if (isManagingTask && target.classList.contains('overlay')) {
+            if (taskManaging && target.classList.contains('overlay')) {
                dispatch(closeTaskManager('close'))
                props.submitHandler()
             }
-            if (isEditingTask && target.classList.contains('overlay')) {
+            if (taskEditing && target.classList.contains('overlay')) {
                dispatch(closeTaskEditor('close'))
                dispatch(disableEditorExisting('disable'))
+            }
+            if (boardManaging && target.classList.contains('overlay')) {
+               dispatch(closeBoardManager('close'))
+               dispatch(setIsExistingBoard(false))
             }
          }}
          className='overlay'
