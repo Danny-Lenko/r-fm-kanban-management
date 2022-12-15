@@ -1,6 +1,12 @@
 import MenuItem from '@mui/material/MenuItem'
 import { useAppDispatch } from '../../hooks/hooks';
-import { closeTaskManager, openTaskEditor, enableEditorExisting } from '../../../../main/slices/modalElsSlice';
+import { 
+   closeTaskManager, 
+   openTaskEditor, 
+   enableEditorExisting, 
+   setIsExistingBoard,
+   openBoardManager
+} from '../../../../main/slices/modalElsSlice';
 
 const DotsMenuItem = ({option, handleClose}:any) => {
    const dispatch = useAppDispatch()
@@ -15,8 +21,11 @@ const DotsMenuItem = ({option, handleClose}:any) => {
                dispatch(enableEditorExisting('enable'))
                dispatch(openTaskEditor('open'))
             }
+            if (option === 'Edit Board') {
+               dispatch(setIsExistingBoard(true))
+               dispatch(openBoardManager('open'))
+            }
             handleClose()
-            console.log(option)
          }}
       >
          {option}

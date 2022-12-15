@@ -49,16 +49,18 @@ export default function PersistentDrawerLeft() {
 
       <Typography variant='h5' textTransform='uppercase' mt={2}>all boards ({boards.length})</Typography>
       <List>
+        <Box sx={{maxHeight: '50vh', overflowY: 'auto'}}>
         {boards.map(board => (
           <DrawerBoardBtn
             key={board.id}
-            props={{ 
-              board: board, 
-              btnClick: () => handleOldBoardClick(board), 
+            props={{
+              board: board,
+              btnClick: () => handleOldBoardClick(board),
               btnText: board.name 
             }}
           />
         ))}
+        </Box>
         <DrawerBoardBtn
           props={{
             board: null,

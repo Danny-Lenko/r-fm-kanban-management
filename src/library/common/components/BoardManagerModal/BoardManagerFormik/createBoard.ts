@@ -3,32 +3,19 @@ import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSli
 
 export const createBoard = ({
    values,
-   cols,
    boards,
-   activeBoard,
-   activeBoardId,
    dispatch
 }:any) => {
-   console.log('add new board')
-   console.log(values)
-   // const activeCol = cols.find((col:any) => col.name === values.status)
-   // const newTask = {
-   //    ...values,
-   //    subtasks: values.subtasks.map((sub:any) => ({ title: sub, isCompleted: false })),
-   //    completedSubtasks: 0,
-   //    id: activeCol!.tasks.length
-   // }
+   const newBoard = {
+       id: boards.length,
+       columns: values.columns.map( (col:any, i:number) => ({ id: i, name: col, tasks: [] }) ),
+       name: values.name,
+       path: values.name.split(' ').map( (word:any) => word.toLowerCase()).join('-')
+   }
 
-   // const boardsUpdated = boards.map((board:any) => board.id !== activeBoard.id ? board : {
-   //    ...board,
-   //    columns: board.columns.map((col:any) => col.id !== activeCol!.id ? col : {
-   //       ...col,
-   //       tasks: [newTask, ...col.tasks]
-   //          .map( (task:any, i:number) => ({...task, id:i}) )
-   //    })
-   // })
+   const boardsUpdated = [...boards, newBoard]
 
-   // dispatch(setBoards(boardsUpdated))
-   // dispatch(assignActiveBoard(activeBoardId))
+   dispatch(setBoards(boardsUpdated))
+   dispatch(assignActiveBoard(boards.length))
    dispatch(closeBoardManager('close'))
 }

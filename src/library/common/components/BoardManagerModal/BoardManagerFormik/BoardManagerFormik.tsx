@@ -1,6 +1,7 @@
 import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
 import { Formik } from 'formik';
 import { createBoard } from './createBoard';
+import { saveBoardChanges } from './saveBoardChanges';
 import { schema } from './boardFormikValidation'
 
 const BoardManagerFormik = (props: any) => {
@@ -19,8 +20,8 @@ const BoardManagerFormik = (props: any) => {
       <Formik
          initialValues={
             isExisting ? {
-               name: activeTask.title,
-               // columns: activeTask.subtasks.map(sub => sub.title),
+               name: activeBoard.name,
+               columns: activeBoard.columns.map(col => col.name),
             }
             : {
                name: '',
@@ -32,8 +33,8 @@ const BoardManagerFormik = (props: any) => {
 
          onSubmit={ (values) => {
             const submissionParams = {values, cols, boards, activeBoard, activeBoardId, dispatch, activeTask, activeColId}
-            // return isExisting ? saveChanges(submissionParams) : createTask(submissionParams)
-            return createBoard(submissionParams)
+            return isExisting ? saveBoardChanges(submissionParams) : createBoard(submissionParams)
+            // return createBoard(submissionParams)
          }}
       >
          {props.children}
