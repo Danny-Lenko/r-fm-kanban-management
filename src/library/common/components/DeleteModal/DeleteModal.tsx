@@ -4,7 +4,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { deleteModalStyles } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import Stack from '@mui/material/Stack'
+import Stack from '@mui/material/Stack';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import { setDeletingBoard, setDeletingTask } from '../../../../main/slices/modalElsSlice';
 import { setBoards, assignActiveBoard } from '../../../../main/slices/dataSlice';
@@ -18,7 +18,7 @@ const DeleteModal = () => {
    const dispatch = useAppDispatch()
 
    function deleteBoardOrTask() {
-      const boardsUpdated = deletingBoard 
+      const boardsUpdated = deletingBoard
          ? boards.filter(board => board.id !== activeBoard.id).map( (board, i) => ({...board, id:i}) )
          : boards.map((board, i) => board.id !== activeBoard.id ? board : {
             ...board,
@@ -29,7 +29,11 @@ const DeleteModal = () => {
          })
 
       dispatch( setBoards(boardsUpdated) )
-      if (boards[1]) dispatch( assignActiveBoard(activeBoard.id) )
+      if (!deletingBoard) {
+         dispatch( assignActiveBoard(activeBoard.id) )
+      } else if (boards[1]) {
+         dispatch(assignActiveBoard(0))
+      }
       closeDeletingModal()
    }
 
