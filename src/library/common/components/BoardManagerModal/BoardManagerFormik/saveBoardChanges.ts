@@ -10,9 +10,9 @@ export const saveBoardChanges = ({
    const boardUpdated = {
       id: activeBoard.id,
       columns: values.columns.map( 
-         (col:any, i:number) => activeBoard.columns[i] 
+         (col:any, i:number) => activeBoard.columns[i]
             ? {...activeBoard.columns[i], name: col}
-            : {id: i, name: col, tasks: []} 
+            : {id: i, name: col, tasks: []}
       ),
       name: values.name,
       path: values.name.split(' ').map( (word:any) => word.toLowerCase() ).join('-')

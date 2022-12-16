@@ -7,10 +7,17 @@ import { useAppSelector } from './library/common/hooks/hooks';
 import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
 import AddEditTaskModal from './library/common/components/EditAddTaskModal/EditAddTaskModal';
 import BoardManagerModal from './library/common/components/BoardManagerModal/BoardManagerModal';
+import DeleteModal from './library/common/components/DeleteModal/DeleteModal';
 
 function App() {
   const myTheme = ColorModeToggler()
-  const { taskManaging, taskEditing, boardManaging } = useAppSelector(state => state.modals)
+  const { 
+    taskManaging, 
+    taskEditing, 
+    boardManaging, 
+    deletingBoard,
+    deletingTask
+  } = useAppSelector(state => state.modals)
 
   return (
     <ThemeProvider theme={myTheme.theme}>
@@ -33,6 +40,9 @@ function App() {
       }
       {
         boardManaging && <BoardManagerModal />
+      }
+      {
+        (deletingBoard || deletingTask) && <DeleteModal />
       }
     </ThemeProvider >
   );
