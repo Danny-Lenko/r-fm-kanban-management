@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { Typography, useTheme } from '@mui/material';
 import { usualBoardStyles } from './usualBoardStyles';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
+import { COLUMNCOLORS } from '../../library/common/constants/constants';
 
 const UsualBoard = () => {
    const theme = useTheme()
@@ -20,7 +21,8 @@ const UsualBoard = () => {
          columns: [...board.columns, {
             id: board.columns.length,
             name: `NewColumn${board.columns.length + 1}`,
-            tasks: []
+            tasks: [],
+            color: COLUMNCOLORS[board.columns.length] ? COLUMNCOLORS[board.columns.length] : '#E4EBFA'
          }]
       })
 
@@ -34,9 +36,12 @@ const UsualBoard = () => {
             <Stack direction='row' spacing={3} >
                {
                   columns.map(col => <Stack key={col.name} className='rows-stack' spacing={2.5} >
-                     <Box>
-                        <Typography variant='h5'>{col.name} ({col.tasks.length})</Typography>
-                     </Box>
+                     <Stack direction='row' spacing={1}>
+                        <Box className='color' style={{backgroundColor: col.color}}></Box>
+                        <Typography variant='h5'>
+                           {col.name} ({col.tasks.length})
+                        </Typography>
+                     </Stack>
                      {
                         col.tasks.map(task => <TaskCard key={task.title} task={task} />)
                      }

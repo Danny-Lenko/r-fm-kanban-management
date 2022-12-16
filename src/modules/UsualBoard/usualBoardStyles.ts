@@ -3,11 +3,15 @@ export const usualBoardStyles = (theme:any, drawerOpen:any) => ({
    '& .cols-stack': {
       overflowY: 'auto',
       overflowX: 'auto',
-      maxWidth: { xs: '100vw', sm: drawerOpen ? '70vw' : '100vw', md: drawerOpen ? '55vw' : '70vw' },
+      maxWidth: { xs: '100vw', sm: drawerOpen ? '70vw' : '100vw', md: drawerOpen ? '45vw' : '70vw', lg: drawerOpen ? '55vw' : '84vw' },
       pr: 1,
       pb: 5,
       '& .MuiTypography-h5': {
          textTransform: 'uppercase'
+      },
+      '& .color': {
+         width: '15px',
+         borderRadius: '50%'
       }
    },
    '& .rows-stack': {

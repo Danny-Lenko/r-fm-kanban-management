@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import rowData from '../../resources/data/data.json'
 import { countCompletedSubtasks } from '../../library/utilities/utils'
+import { COLUMNCOLORS } from '../../library/common/constants/constants'
 
 const data = rowData.boards.map((board, i) => ({
    ...board,
@@ -8,6 +9,7 @@ const data = rowData.boards.map((board, i) => ({
    path: board.name.split(' ').map(word => word.toLowerCase()).join('-'),
    columns: board.columns.map((col, i) => ({
       ...col,
+      color: COLUMNCOLORS[i],
       id: i,
       tasks: col.tasks.map((task, i) => {
          let completed = 0
