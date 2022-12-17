@@ -1,6 +1,5 @@
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
-
 export interface ICustomBtn {
    sizeSm: boolean
    color: string
@@ -12,6 +11,7 @@ export interface ICustomBtn {
    type?: "button" | "submit" | "reset" | undefined
    isAction?: boolean
    disabled?: boolean
+   classname?: string
 }
 
 export interface AppBarProps extends MuiAppBarProps {

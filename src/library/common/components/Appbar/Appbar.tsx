@@ -9,12 +9,14 @@ import CustomBtn from '../CustomBtn/CustomBtn';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { AppBarEl, appbarStyles } from './appbarStyles';
 import { openTaskEditor } from '../../../../main/slices/modalElsSlice';
+import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 
 const Appbar = () => {
    const open = useAppSelector(state => state.drawer.open)
    const activeBoard = useAppSelector(state => state.data.activeBoard)
    const dispatch = useAppDispatch()
    const theme = useTheme()
+   const sxScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
    return (
       <AppBarEl sx={() => appbarStyles(open, theme)} color='inherit' elevation={0} position="fixed" open={open}>
@@ -35,7 +37,7 @@ const Appbar = () => {
                   disabled={!activeBoard.columns[0]}
                   sizeSm={false}
                   color='primary'
-                  text='+ Add New Task'
+                  text={sxScreen ? '+' : '+ Add New Task'}
                   onclick={ () => dispatch(openTaskEditor('open')) }
                />
 

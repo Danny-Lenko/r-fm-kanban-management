@@ -7,28 +7,18 @@ import { openDrawer } from "../../../../main/slices/drawerSlice";
 import { Routes, Route } from 'react-router-dom'
 import ZeroBoard from "../../../../modules/ZeroBoard/ZeroBoard";
 import UsualBoard from "../../../../modules/UsualBoard/UsualBoard";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import useTheme from '@mui/material/styles/useTheme'
+import { mainStyles } from "./mainStyles";
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
    const { activeBoard, boards } = useAppSelector(state => state.data)
-
-   const eyeBtnStyles = {
-      zIndex: 1000,
-      width: '80px',
-      pr: 2,
-      pl: 5,
-      position: 'absolute',
-      bottom: '5%',
-      left: -25,
-      minHeight: '40px',
-   }
-
-   const eyeIconStyles = {
-      transform: 'translateY(25%)'
-   }
+   const theme = useTheme()
+   const sxScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
    return (
-      <MainEl open={open}>
+      <MainEl open={open} sx={mainStyles}>
          <DrawerHeader />
 
          <Routes>
@@ -36,16 +26,18 @@ const Main = () => {
             <Route path=':name' element={activeBoard.columns.length === 0 ? <ZeroBoard /> : <UsualBoard />} />
          </Routes>
 
-         <CustomBtn
-            sizeSm={false}
-            color='primary'
-            text=''
-            icon={eyeIcon}
-            styles={eyeBtnStyles}
-            iconStyles={eyeIconStyles}
-            onclick={openDrawer}
-            isAction={true}
-         />
+         {
+            !sxScreen &&
+               <CustomBtn
+                  classname="eyeBtn"
+                  sizeSm={false}
+                  color='primary'
+                  text=''
+                  icon={eyeIcon}
+                  onclick={openDrawer}
+                  isAction={true}
+               />
+         }
       </MainEl>
    );
 }

@@ -15,7 +15,8 @@ const CustomBtn = ({
    iconStyles,
    type,
    isAction,
-   disabled
+   disabled,
+   classname
 }: ICustomBtn) => {
 
    const dispatch = useAppDispatch()
@@ -23,10 +24,11 @@ const CustomBtn = ({
 
    return (  
       <Button
+         className={classname}
          disableElevation
          variant="contained"
          disabled={disabled}
-         sx={assembleCustomBtnStyles( styles, sizeSm, color, theme)}
+         sx={assembleCustomBtnStyles(styles, sizeSm, color, theme)}
          onClick={
             (typeof onclick === 'object' || isAction) ? () => dispatch( onclick('open') ) 
             : type === 'submit' ? () => null
