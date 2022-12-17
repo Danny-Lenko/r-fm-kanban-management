@@ -32,6 +32,7 @@ const Appbar = () => {
             </Typography>
             <Box className='btns-box'>
                <CustomBtn
+                  disabled={!activeBoard.columns[0]}
                   sizeSm={false}
                   color='primary'
                   text='+ Add New Task'

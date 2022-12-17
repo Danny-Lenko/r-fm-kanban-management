@@ -10,7 +10,7 @@ import UsualBoard from "../../../../modules/UsualBoard/UsualBoard";
 
 const Main = () => {
    const open = useAppSelector(state => state.drawer.open)
-   const boards = useAppSelector(state => state.data.boards)
+   const { activeBoard, boards } = useAppSelector(state => state.data)
 
    const eyeBtnStyles = {
       zIndex: 1000,
@@ -20,7 +20,7 @@ const Main = () => {
       position: 'absolute',
       bottom: '5%',
       left: -25,
-      minHeight: '40px'
+      minHeight: '40px',
    }
 
    const eyeIconStyles = {
@@ -32,9 +32,8 @@ const Main = () => {
          <DrawerHeader />
 
          <Routes>
-            <Route path="/" element={boards[0] ? <UsualBoard /> : <ZeroBoard />}>
-               <Route path=':name' element={<UsualBoard />} />
-            </Route>
+            <Route path="/" element={boards[0] && activeBoard.columns.length !== 0 ? <UsualBoard /> : <ZeroBoard />} />
+            <Route path=':name' element={activeBoard.columns.length === 0 ? <ZeroBoard /> : <UsualBoard />} />
          </Routes>
 
          <CustomBtn

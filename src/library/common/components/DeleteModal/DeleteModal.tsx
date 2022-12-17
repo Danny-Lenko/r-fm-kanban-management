@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import CustomBtn from '../CustomBtn/CustomBtn';
 import { setDeletingBoard, setDeletingTask } from '../../../../main/slices/modalElsSlice';
 import { setBoards, assignActiveBoard } from '../../../../main/slices/dataSlice';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteModal = () => {
    const theme = useTheme()
@@ -16,6 +17,7 @@ const DeleteModal = () => {
    const activeCol = activeBoard.columns.find(col => col.id === activeColId)
    const activeTask = activeCol?.tasks.find(task => task.id === activeTaskId)
    const dispatch = useAppDispatch()
+   const navigate = useNavigate()
 
    function deleteBoardOrTask() {
       const boardsUpdated = deletingBoard
@@ -31,7 +33,12 @@ const DeleteModal = () => {
       dispatch( setBoards(boardsUpdated) )
       if (!deletingBoard) {
          dispatch( assignActiveBoard(activeBoard.id) )
-      } else if (boards[1]) {
+      } else {
+         navigate('/')
+         if (boards.length <= 1) {
+            const zeroBoards = [{id: 0, name: 'Zero Board', columns: [], path: 'zero-board'}]
+            dispatch(setBoards(zeroBoards))
+         }
          dispatch(assignActiveBoard(0))
       }
       closeDeletingModal()
