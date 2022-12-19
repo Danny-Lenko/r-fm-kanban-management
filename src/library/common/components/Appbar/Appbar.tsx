@@ -43,7 +43,11 @@ const Appbar = () => {
                variant="h2"
                noWrap
                component="div"
-               onClick={() => xsScreen && dispatch(setXsBoardsOpen(true))}
+               onClick={() => {
+                  return (xsScreen && xsBoardsOpen) ? dispatch(setXsBoardsOpen(false))
+                     : xsScreen ? dispatch(setXsBoardsOpen(true))
+                     : null
+               }}
             >
                {activeBoard.name}
             </Typography>

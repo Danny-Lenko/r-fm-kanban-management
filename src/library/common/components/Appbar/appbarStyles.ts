@@ -28,6 +28,7 @@ export const AppBarEl = styled(MuiAppBar, {
 }));
 
 export const appbarStyles = (open: any, theme: Theme) => ({
+   // zIndex: 1500,
    borderBottom: '1.2px solid',
    borderBottomColor: theme.palette.divider,
    marginLeft: open ? { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD } : 0,

@@ -2,7 +2,7 @@ import { createContext, useState, useMemo } from 'react'
 import { createTheme } from '@mui/material/styles';
 import { assembleThemeObj } from './themeConstructor';
 
-const ColorModeContext = createContext({ toggleClrMode: () => { } });
+const ColorModeContext = createContext({ toggleClrMode: () => {  } });
 
 function ColorModeToggler() {
    const [mode, setMode] = useState<'light' | 'dark'>('light');

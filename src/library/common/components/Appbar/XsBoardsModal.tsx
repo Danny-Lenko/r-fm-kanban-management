@@ -1,26 +1,29 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
 import { setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
-
-// Modal from MUI docs
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '20%',
-  left: '50%',
-  transform: 'translate(-50%, -30%)',
-  minWidth: '315px',
-  width: '80%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+import BoardsList from '../BoardsList/BoardsList';
+import DrawerModeBtn from '../Drawer/DrawerModeBtn/DrawerModeBtn';
 
 const XsBoardsModal = () => {
   const open = useAppSelector(state => state.modals.xsBoardsOpen)
+  const boards = useAppSelector(state => state.data.boards)
   const dispatch = useAppDispatch()
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '12%',
+    left: '50%',
+    transform: 'translate(-50%, -0%)',
+    minWidth: '315px',
+    width: '80%',
+    maxWidth: '380px',
+    bgcolor: 'background.paper',
+    height: boards.length * 10 + 20 + 'vh',
+    maxHeight: '75vh',
+    boxShadow: 24,
+    borderRadius: '8px',
+  };
 
   return (
     <Modal
@@ -35,12 +38,10 @@ const XsBoardsModal = () => {
       }}
     >
       <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Text in a modal
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        <BoardsList />
+        <Box sx={{position: 'absolute', bottom: 10, width: '100%'}}>
+          <DrawerModeBtn />
+        </Box>
       </Box>
     </Modal>
   );

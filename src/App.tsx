@@ -11,10 +11,10 @@ import DeleteModal from './library/common/components/DeleteModal/DeleteModal';
 
 function App() {
   const myTheme = ColorModeToggler()
-  const { 
-    taskManaging, 
-    taskEditing, 
-    boardManaging, 
+  const {
+    taskManaging,
+    taskEditing,
+    boardManaging,
     deletingBoard,
     deletingTask
   } = useAppSelector(state => state.modals)
@@ -23,9 +23,9 @@ function App() {
     <ThemeProvider theme={myTheme.theme}>
       <CssBaseline />
       <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
-        <Appbar />
 
         <ColorModeContext.Provider value={myTheme.colorMode}>
+          <Appbar />
           <PersistentDrawerLeft />
         </ColorModeContext.Provider>
 

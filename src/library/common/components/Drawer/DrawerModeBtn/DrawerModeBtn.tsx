@@ -6,6 +6,8 @@ import { ReactComponent as LightModeIcon } from '../../../../../resources/assets
 import { ReactComponent as DarkModeIcon } from '../../../../../resources/assets/icon-dark-theme.svg'
 import { useContext } from 'react';
 import { ColorModeContext } from '../../../../utilities/ColorModeToggler';
+import { drawerModeBtnStyles } from './drawerModeBtnStyles';
+import { useTheme } from '@mui/material/styles';
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
    padding: 8,
@@ -38,11 +40,11 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 
 const DrawerModeBtn = () => {
    const colorMode = useContext(ColorModeContext);
-
+   const theme = useTheme()
 
    return (
       <Box
-         className='mode-btn'
+         sx={drawerModeBtnStyles(theme)}
       >
          <SvgIcon component={LightModeIcon} />
          <Android12Switch onClick={colorMode.toggleClrMode} />
