@@ -5,7 +5,7 @@ export interface ICustomBtn {
    color: string
    text: string
    onclick?: any
-   styles?: Record<string, string | number>
+   styles?: Record<string, string | number> | null
    icon?: any
    iconStyles?: Record<string, string>
    type?: "button" | "submit" | "reset" | undefined

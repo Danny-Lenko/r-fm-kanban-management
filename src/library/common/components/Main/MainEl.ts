@@ -18,7 +18,9 @@ const MainEl = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<
       marginLeft: `-${DRAWERWIDTHSM}`
    },
    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0
+      marginLeft: 0,
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
    },
    ...(open && {
       transition: theme.transitions.create('margin', {

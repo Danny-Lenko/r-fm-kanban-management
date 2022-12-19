@@ -9,7 +9,8 @@ export const drawerSlice = createSlice({
       boardManaging: false,
       isExistingBoard: false,
       deletingBoard: false,
-      deletingTask: false
+      deletingTask: false,
+      xsBoardsOpen: false
    },
 
    reducers: {
@@ -55,6 +56,10 @@ export const drawerSlice = createSlice({
 
       setDeletingTask: (state, action) => {
          state.deletingTask = action.payload
+      },
+
+      setXsBoardsOpen: (state, action) => {
+         state.xsBoardsOpen = action.payload
       }
    }
 })
@@ -70,6 +75,7 @@ export const {
    closeBoardManager,
    setIsExistingBoard,
    setDeletingBoard,
-   setDeletingTask
+   setDeletingTask,
+   setXsBoardsOpen
  } = drawerSlice.actions
 export default drawerSlice.reducer

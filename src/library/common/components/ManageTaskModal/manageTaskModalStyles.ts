@@ -2,7 +2,7 @@ export const assembleManageTaskModalStyles = (theme:any) => ({
    zIndex: 11000,
    p: { xs: 3, sm: 4 },
    borderRadius: '8px',
-   width: { sm: '480px' },
+   width: { xs: '95%', sm: '480px' },
    '& .heading': {
       display: 'flex',
       justifyContent: 'space-between',

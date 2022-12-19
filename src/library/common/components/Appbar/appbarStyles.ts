@@ -3,7 +3,6 @@ import { styled, Theme } from '@mui/material/styles';
 import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
 import { AppBarProps } from '../../../interfaces/interfaces';
 
-
 // mui docs: Persistent Drawer
 export const AppBarEl = styled(MuiAppBar, {
    shouldForwardProp: (prop) => prop !== 'open',
@@ -38,8 +37,9 @@ export const appbarStyles = (open: any, theme: Theme) => ({
       '& .logo-wrapper': {
          lineHeight: 1,
          display: !open ? 'block' : 'none',
-         mr: '50px',
+         mr: { xs: 2, sm: '50px' },
          '&:after': {
+            visibility: {xs: 'hidden', sm: 'visible'},
             content: '""',
             position: 'absolute',
             width: '1.5px',
@@ -56,8 +56,24 @@ export const appbarStyles = (open: any, theme: Theme) => ({
          gap: 3,
          '& .MuiButton-root': {
             padding: '0.6rem 1.5rem',
-             width: 'unset'
+            width: 'unset'
          }
       }
    }
 })
+
+export const sxPlusBtnStyles = {
+   px: 2,
+   py: 0.5,
+   borderRadius: '24px',
+   backgroundColor: 'primaryCustom.main',
+   color: '#fff',
+   ml: 1,
+   '&:hover': {
+      backgroundColor: 'primaryCustom.light'
+   },
+   '& svg': {
+      fontSize: '1.7rem',
+      fontWeight: 700
+   }
+}
