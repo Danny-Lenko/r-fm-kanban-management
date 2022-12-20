@@ -6,16 +6,13 @@ import Box from '@mui/material/Box/Box';
 import logoDark from '../../../../resources/assets/logo-dark.svg'
 import logoLight from '../../../../resources/assets/logo-light.svg'
 import logoMobile from '../../../../resources/assets/logo-mobile.svg'
-import CustomBtn from '../CustomBtn/CustomBtn';
-import DotsMenu from '../DotsMenu/DotsMenu';
-import { AppBarEl, appbarStyles, sxPlusBtnStyles } from './appbarStyles';
-import { setTaskEditing, setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
+import { AppBarEl, appbarStyles } from './appbarStyles';
+import { setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
-import IconButton from '@mui/material/IconButton';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
-import XsBoardsModal from './XsBoardsModal';
+import XsBoardsModal from './XsBoardsModal/XsBoardsModal';
+import ButtonsBox from './ButtonsBox/ButtonsBox';
 
 const Appbar = () => {
    const open = useAppSelector(state => state.drawer.open)
@@ -53,31 +50,11 @@ const Appbar = () => {
             </Typography>
             {
                (xsScreen && xsBoardsOpen) ? <ExpandLessRoundedIcon />
-               : xsScreen ? <ExpandMoreRoundedIcon />
-               : null
+                  : xsScreen ? <ExpandMoreRoundedIcon />
+                  : null
 
             }
-            <Box className='btns-box'>
-               {
-                  xsScreen
-                     ? <IconButton
-                        disabled={!activeBoard.columns[0]}
-                        sx={sxPlusBtnStyles}
-                        onClick={() => dispatch(setTaskEditing(true))}
-                     >
-                        <AddRoundedIcon />
-                     </IconButton>
-                     : <CustomBtn
-                        disabled={!activeBoard.columns[0]}
-                        sizeSm={false}
-                        color='primary'
-                        text='+ Add New Task'
-                        onclick={() => dispatch(setTaskEditing(true))}
-                     />
-               }
-
-               <DotsMenu isTaskMenu={false} />
-            </Box>
+            <ButtonsBox/>
          </Toolbar>
       </AppBarEl>
    );

@@ -1,9 +1,9 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { useAppSelector, useAppDispatch } from '../../hooks/hooks';
-import { setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
-import BoardsList from '../BoardsList/BoardsList';
-import DrawerModeBtn from '../Drawer/DrawerModeBtn/DrawerModeBtn';
+import { useAppSelector, useAppDispatch } from '../../../hooks/hooks';
+import { setXsBoardsOpen } from '../../../../../main/slices/modalElsSlice';
+import BoardsList from '../../BoardsList/BoardsList';
+import DrawerModeBtn from '../../Drawer/DrawerModeBtn/DrawerModeBtn';
 
 const XsBoardsModal = () => {
   const open = useAppSelector(state => state.modals.xsBoardsOpen)
@@ -39,7 +39,7 @@ const XsBoardsModal = () => {
     >
       <Box sx={style}>
         <BoardsList />
-        <Box sx={{position: 'absolute', bottom: 10, width: '100%'}}>
+        <Box sx={{ position: 'absolute', bottom: 10, width: '100%' }}>
           <DrawerModeBtn />
         </Box>
       </Box>
