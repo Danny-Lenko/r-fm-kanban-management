@@ -2,7 +2,7 @@ import Box from '@mui/material/Box'
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { 
    closeTaskEditor, 
-   closeTaskManager, 
+   setTaskManaging, 
    disableEditorExisting,
    closeBoardManager,
    setIsExistingBoard 
@@ -31,7 +31,7 @@ const Overlay = (props:any) => {
          onClick={(e) => {
             const target = e.target as HTMLElement
             if (taskManaging && target.classList.contains('overlay')) {
-               dispatch(closeTaskManager('close'))
+               dispatch(setTaskManaging(false))
                props.submitHandler()
             }
             if (taskEditing && target.classList.contains('overlay')) {

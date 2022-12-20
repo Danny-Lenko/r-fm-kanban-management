@@ -1,7 +1,7 @@
 import MenuItem from '@mui/material/MenuItem'
 import { useAppDispatch } from '../../hooks/hooks';
 import { 
-   closeTaskManager, 
+   setTaskManaging, 
    openTaskEditor, 
    enableEditorExisting, 
    setIsExistingBoard,
@@ -19,7 +19,7 @@ const DotsMenuItem = ({option, handleClose}:any) => {
          selected={option === 'Pyxis'}
          onClick={() => {
             if (option === 'Edit Task') {
-               dispatch(closeTaskManager('close'))
+               dispatch(setTaskManaging(false))
                dispatch(enableEditorExisting('enable'))
                dispatch(openTaskEditor('open'))
             }
@@ -31,7 +31,7 @@ const DotsMenuItem = ({option, handleClose}:any) => {
                dispatch(setDeletingBoard(true))
             }
             if (option === 'Delete Task') {
-               dispatch(closeTaskManager('close'))
+               dispatch(setTaskManaging(false))
                dispatch(setDeletingTask(true))
             }
             handleClose()

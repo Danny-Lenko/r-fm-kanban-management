@@ -4,7 +4,7 @@ import { ITask } from "../../library/interfaces/interfaces";
 import useTheme from '@mui/material/styles/useTheme';
 import { useAppDispatch } from '../../library/common/hooks/hooks';
 import { assignActiveTaskCol } from "../../main/slices/dataSlice";
-import { openTaskManager } from "../../main/slices/modalElsSlice";
+import { setTaskManaging } from "../../main/slices/modalElsSlice";
 
 const TaskCard = ({task}: {task:ITask}) => {
    const dispatch = useAppDispatch()
@@ -29,7 +29,7 @@ const TaskCard = ({task}: {task:ITask}) => {
       <Paper 
          sx={taskCardStyles} 
          onClick={() => {
-            dispatch(openTaskManager('open'))
+            dispatch(setTaskManaging(true))
             dispatch(assignActiveTaskCol(task))
          }}
       >

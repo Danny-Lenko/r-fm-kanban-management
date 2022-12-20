@@ -14,12 +14,8 @@ export const drawerSlice = createSlice({
    },
 
    reducers: {
-      openTaskManager: (state, action) => {
-         state.taskManaging = true
-      },
-
-      closeTaskManager: (state, action) => {
-         state.taskManaging = false
+      setTaskManaging: (state, action) => {
+         state.taskManaging = action.payload
       },
 
       openTaskEditor: (state, action) => {
@@ -65,8 +61,7 @@ export const drawerSlice = createSlice({
 })
 
 export const { 
-   openTaskManager, 
-   closeTaskManager,
+   setTaskManaging,
    openTaskEditor,
    closeTaskEditor,
    disableEditorExisting,
