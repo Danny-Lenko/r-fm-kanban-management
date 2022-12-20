@@ -10,7 +10,7 @@ import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
 import SubtasksFieldArr from './EditorSubtasksFieldArr/EditorSubtasksFieldArr';
 import SelectField from './EditorSelectField/EditorSelectField';
 import EditorFormik from './EditorFormik/EditorFormik';
-import { editAddTaskModalStyles } from './editAddTaskModalStyles';
+import { editorStyles } from './editorStyles';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector(state => state.data.activeBoard.columns)
@@ -19,7 +19,7 @@ const AddEditTaskModal = () => {
 
    return (
       <Overlay>
-         <Paper elevation={0} sx={editAddTaskModalStyles(theme)}>
+         <Paper elevation={0} sx={editorStyles(theme)}>
             <Typography variant='h3'>
                {  isExisting ? 'Edit task' : 'Add new task' }
             </Typography>

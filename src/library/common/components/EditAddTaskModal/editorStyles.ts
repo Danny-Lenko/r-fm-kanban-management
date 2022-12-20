@@ -1,4 +1,4 @@
-export const editAddTaskModalStyles = (theme: any) => ({
+export const editorStyles = (theme: any) => ({
    zIndex: 11000,
    p: { xs: 3, sm: 4 },
    borderRadius: '8px',
