@@ -18,12 +18,8 @@ export const drawerSlice = createSlice({
          state.taskManaging = action.payload
       },
 
-      openTaskEditor: (state, action) => {
-         state.taskEditing = true
-      },
-
-      closeTaskEditor: (state, action) => {
-         state.taskEditing = false
+      setTaskEditing: (state, action) => {
+         state.taskEditing = action.payload
       },
 
       enableEditorExisting: (state, action) => {
@@ -62,8 +58,7 @@ export const drawerSlice = createSlice({
 
 export const { 
    setTaskManaging,
-   openTaskEditor,
-   closeTaskEditor,
+   setTaskEditing,
    disableEditorExisting,
    enableEditorExisting,
    openBoardManager,

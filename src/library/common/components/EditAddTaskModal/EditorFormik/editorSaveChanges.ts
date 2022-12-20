@@ -1,4 +1,4 @@
-import { closeTaskEditor, disableEditorExisting } from '../../../../../main/slices/modalElsSlice';
+import { setTaskEditing, disableEditorExisting } from '../../../../../main/slices/modalElsSlice';
 import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 import { countCompletedSubtasks } from '../../../../utilities/utils';
 
@@ -54,6 +54,6 @@ export const saveChanges = ({
 
    dispatch(setBoards(boardsUpdated))
    dispatch(assignActiveBoard(activeBoardId))
-   dispatch(closeTaskEditor('close'))
+   dispatch(setTaskEditing(false))
    dispatch(disableEditorExisting('disable'))
 }

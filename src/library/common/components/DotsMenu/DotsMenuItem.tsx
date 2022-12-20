@@ -2,7 +2,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { useAppDispatch } from '../../hooks/hooks';
 import { 
    setTaskManaging, 
-   openTaskEditor, 
+   setTaskEditing, 
    enableEditorExisting, 
    setIsExistingBoard,
    openBoardManager,
@@ -21,7 +21,7 @@ const DotsMenuItem = ({option, handleClose}:any) => {
             if (option === 'Edit Task') {
                dispatch(setTaskManaging(false))
                dispatch(enableEditorExisting('enable'))
-               dispatch(openTaskEditor('open'))
+               dispatch(setTaskEditing(true))
             }
             if (option === 'Edit Board') {
                dispatch(setIsExistingBoard(true))

@@ -9,7 +9,7 @@ import logoMobile from '../../../../resources/assets/logo-mobile.svg'
 import CustomBtn from '../CustomBtn/CustomBtn';
 import DotsMenu from '../DotsMenu/DotsMenu';
 import { AppBarEl, appbarStyles, sxPlusBtnStyles } from './appbarStyles';
-import { openTaskEditor, setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
+import { setTaskEditing, setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import IconButton from '@mui/material/IconButton';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -63,7 +63,7 @@ const Appbar = () => {
                      ? <IconButton
                         disabled={!activeBoard.columns[0]}
                         sx={sxPlusBtnStyles}
-                        onClick={() => dispatch(openTaskEditor('open'))}
+                        onClick={() => dispatch(setTaskEditing(true))}
                      >
                         <AddRoundedIcon />
                      </IconButton>
@@ -72,7 +72,7 @@ const Appbar = () => {
                         sizeSm={false}
                         color='primary'
                         text='+ Add New Task'
-                        onclick={() => dispatch(openTaskEditor('open'))}
+                        onclick={() => dispatch(setTaskEditing(true))}
                      />
                }
 

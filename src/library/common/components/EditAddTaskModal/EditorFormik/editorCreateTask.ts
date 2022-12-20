@@ -1,4 +1,4 @@
-import { closeTaskEditor } from '../../../../../main/slices/modalElsSlice';
+import { setTaskEditing } from '../../../../../main/slices/modalElsSlice';
 import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 
 export const createTask = ({
@@ -28,5 +28,5 @@ export const createTask = ({
 
    dispatch(setBoards(boardsUpdated))
    dispatch(assignActiveBoard(activeBoardId))
-   dispatch(closeTaskEditor('close'))
+   dispatch(setTaskEditing(false))
 }
