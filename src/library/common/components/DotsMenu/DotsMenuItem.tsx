@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../hooks/hooks';
 import { 
    setTaskManaging, 
    setTaskEditing, 
-   enableEditorExisting, 
+   setExistingTask, 
    setIsExistingBoard,
    openBoardManager,
    setDeletingBoard,
@@ -20,7 +20,7 @@ const DotsMenuItem = ({option, handleClose}:any) => {
          onClick={() => {
             if (option === 'Edit Task') {
                dispatch(setTaskManaging(false))
-               dispatch(enableEditorExisting('enable'))
+               dispatch(setExistingTask(true))
                dispatch(setTaskEditing(true))
             }
             if (option === 'Edit Board') {

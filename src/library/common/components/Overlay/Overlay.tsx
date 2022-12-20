@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { 
    setTaskEditing, 
    setTaskManaging, 
-   disableEditorExisting,
+   setExistingTask,
    closeBoardManager,
    setIsExistingBoard 
 } from '../../../../main/slices/modalElsSlice';
@@ -36,7 +36,7 @@ const Overlay = (props:any) => {
             }
             if (taskEditing && target.classList.contains('overlay')) {
                dispatch(setTaskEditing(false))
-               dispatch(disableEditorExisting('disable'))
+               dispatch(setExistingTask(false))
             }
             if (boardManaging && target.classList.contains('overlay')) {
                dispatch(closeBoardManager('close'))
