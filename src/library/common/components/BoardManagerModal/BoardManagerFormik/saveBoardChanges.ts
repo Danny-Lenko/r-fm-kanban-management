@@ -1,4 +1,4 @@
-import { closeBoardManager, setIsExistingBoard } from '../../../../../main/slices/modalElsSlice';
+import { setBoardManaging, setIsExistingBoard } from '../../../../../main/slices/modalElsSlice';
 import { setBoards, assignActiveBoard } from '../../../../../main/slices/dataSlice';
 
 export const saveBoardChanges = ({
@@ -24,5 +24,5 @@ export const saveBoardChanges = ({
    dispatch(setBoards(boardsUpdated))
    dispatch(assignActiveBoard(activeBoard.id))
    dispatch(setIsExistingBoard(false))
-   dispatch(closeBoardManager('close'))
+   dispatch(setBoardManaging(false))
 }

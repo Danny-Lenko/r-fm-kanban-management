@@ -4,7 +4,7 @@ import {
    setTaskEditing, 
    setTaskManaging, 
    setExistingTask,
-   closeBoardManager,
+   setBoardManaging,
    setIsExistingBoard 
 } from '../../../../main/slices/modalElsSlice';
 
@@ -39,7 +39,7 @@ const Overlay = (props:any) => {
                dispatch(setExistingTask(false))
             }
             if (boardManaging && target.classList.contains('overlay')) {
-               dispatch(closeBoardManager('close'))
+               dispatch(setBoardManaging(false))
                dispatch(setIsExistingBoard(false))
             }
          }}

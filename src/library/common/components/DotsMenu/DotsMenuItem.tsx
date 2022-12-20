@@ -5,7 +5,7 @@ import {
    setTaskEditing, 
    setExistingTask, 
    setIsExistingBoard,
-   openBoardManager,
+   setBoardManaging,
    setDeletingBoard,
    setDeletingTask
 } from '../../../../main/slices/modalElsSlice';
@@ -25,7 +25,7 @@ const DotsMenuItem = ({option, handleClose}:any) => {
             }
             if (option === 'Edit Board') {
                dispatch(setIsExistingBoard(true))
-               dispatch(openBoardManager('open'))
+               dispatch(setBoardManaging(true))
             }
             if (option === 'Delete Board') {
                dispatch(setDeletingBoard(true))

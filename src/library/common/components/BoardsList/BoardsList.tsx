@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import DrawerBoardBtn from "../Drawer/DrawerBoardBtn/DrawerBoardBtn";
 import { useAppSelector, useAppDispatch } from "../../hooks/hooks";
 import { useNavigate } from "react-router-dom";
-import { openBoardManager, setXsBoardsOpen } from "../../../../main/slices/modalElsSlice";
+import { setBoardManaging, setXsBoardsOpen } from "../../../../main/slices/modalElsSlice";
 import { assignActiveBoard } from "../../../../main/slices/dataSlice";
 import { boardsListStyles } from "./boardsListStyles";
 import useTheme from "@mui/material/styles/useTheme";
@@ -22,7 +22,7 @@ const BoardsList = () => {
    }
 
    const handleCreateBoardClick = () => {
-      dispatch(openBoardManager('open'))
+      dispatch(setBoardManaging(true))
       dispatch(setXsBoardsOpen(false))
    }
 

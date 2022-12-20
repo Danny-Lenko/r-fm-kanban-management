@@ -26,12 +26,8 @@ export const drawerSlice = createSlice({
          state.isExistingTask = action.payload
       },
 
-      openBoardManager: (state, action) => {
-         state.boardManaging = true
-      },
-
-      closeBoardManager: (state, action) => {
-         state.boardManaging = false
+      setBoardManaging: (state, action) => {
+         state.boardManaging = action.payload
       },
 
       setIsExistingBoard: (state, action) => {
@@ -56,8 +52,7 @@ export const {
    setTaskManaging,
    setTaskEditing,
    setExistingTask,
-   openBoardManager,
-   closeBoardManager,
+   setBoardManaging,
    setIsExistingBoard,
    setDeletingBoard,
    setDeletingTask,
