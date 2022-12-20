@@ -38,7 +38,7 @@ Yet todo:
 ### Links
 
 - [Github repo URL](https://github.com/Danny-Lenko/r-fm-kanban-management)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- [Live site URL](https://r-fm-kanban-management.vercel.app/)
 
 ## My process
 
