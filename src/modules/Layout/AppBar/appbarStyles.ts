@@ -1,7 +1,11 @@
 import MuiAppBar from '@mui/material/AppBar';
 import { styled, Theme } from '@mui/material/styles';
-import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
-import { AppBarProps } from '../../../interfaces/interfaces';
+import { AppBarProps } from '../../../library/interfaces/interfaces';
+
+import {
+   drawerWidthMd,
+   drawerWidthSm,
+} from '../../../library/common/constants';
 
 // mui docs: Persistent Drawer
 export const AppBarEl = styled(MuiAppBar, {
@@ -13,9 +17,9 @@ export const AppBarEl = styled(MuiAppBar, {
       duration: theme.transitions.duration.leavingScreen,
    }),
    ...(open && {
-      width: `calc(100% - ${DRAWERWIDTHMD})`,
+      width: `calc(100% - ${drawerWidthMd})`,
       [theme.breakpoints.down('md')]: {
-         width: `calc(100% - ${DRAWERWIDTHSM}) !important`,
+         width: `calc(100% - ${drawerWidthSm}) !important`,
       },
       [theme.breakpoints.down('sm')]: {
          width: `100% !important`,
@@ -30,7 +34,7 @@ export const AppBarEl = styled(MuiAppBar, {
 export const appbarStyles = (open: boolean, theme: Theme) => ({
    borderBottom: '1.2px solid',
    borderBottomColor: theme.palette.divider,
-   marginLeft: open ? { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD } : 0,
+   marginLeft: open ? { xs: 0, sm: drawerWidthSm, md: drawerWidthMd } : 0,
    '& .MuiToolbar-root': {
       minHeight: { xs: '64px', sm: '81px', md: '97px' },
       position: 'relative',

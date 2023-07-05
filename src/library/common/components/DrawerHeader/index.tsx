@@ -14,10 +14,8 @@ const drawerHeaderStyles = {
 }
 
 // represents gap between viewport top and main
-const DrawerHeader = (props:any) => {
+export const DrawerHeader = (props:any) => {
    return (  
       <DrawerHeaderEl sx={drawerHeaderStyles}>{props.children}</DrawerHeaderEl>
    );
 }
-
-export default DrawerHeader;

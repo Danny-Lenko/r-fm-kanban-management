@@ -49,7 +49,7 @@ const assembleThemeObj = (mode: any, theme: any) => ({
           },
           background: {
             paper: '#FFFFFF',
-            default: '#F4F7FD'
+            default: '#e3e5e8'
           },
           divider: '#E4EBFA'
         }

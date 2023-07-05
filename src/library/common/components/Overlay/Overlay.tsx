@@ -1,16 +1,18 @@
-import Box from '@mui/material/Box'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { 
-   setTaskEditing, 
-   setTaskManaging, 
+import Box from '@mui/material/Box';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+   setTaskEditing,
+   setTaskManaging,
    setExistingTask,
    setBoardManaging,
-   setIsExistingBoard 
+   setIsExistingBoard,
 } from '../../../../main/slices/modalElsSlice';
 
-const Overlay = (props:any) => {
-   const dispatch = useAppDispatch()
-   const { taskManaging, taskEditing, boardManaging } = useAppSelector(state => state.modals)
+const Overlay = (props: any) => {
+   const dispatch = useAppDispatch();
+   const { taskManaging, taskEditing, boardManaging } = useAppSelector(
+      (state) => state.modals,
+   );
 
    const overlayStyles = {
       position: 'absolute',
@@ -22,25 +24,25 @@ const Overlay = (props:any) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      zIndex: 10000
-   }
+      zIndex: 10000,
+   };
 
    return (
       <Box
          sx={overlayStyles}
          onClick={(e) => {
-            const target = e.target as HTMLElement
+            const target = e.target as HTMLElement;
             if (taskManaging && target.classList.contains('overlay')) {
-               dispatch(setTaskManaging(false))
-               props.submitHandler()
+               dispatch(setTaskManaging(false));
+               props.submitHandler();
             }
             if (taskEditing && target.classList.contains('overlay')) {
-               dispatch(setTaskEditing(false))
-               dispatch(setExistingTask(false))
+               dispatch(setTaskEditing(false));
+               dispatch(setExistingTask(false));
             }
             if (boardManaging && target.classList.contains('overlay')) {
-               dispatch(setBoardManaging(false))
-               dispatch(setIsExistingBoard(false))
+               dispatch(setBoardManaging(false));
+               dispatch(setIsExistingBoard(false));
             }
          }}
          className='overlay'
@@ -48,6 +50,6 @@ const Overlay = (props:any) => {
          {props.children}
       </Box>
    );
-}
- 
+};
+
 export default Overlay;

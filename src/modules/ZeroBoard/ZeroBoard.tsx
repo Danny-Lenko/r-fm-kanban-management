@@ -2,11 +2,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CustomBtn from '../../library/common/components/CustomBtn/CustomBtn';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
-import {
-   useAppSelector,
-   useAppDispatch,
-} from '../../library/common/hooks/hooks';
-import { COLUMNCOLORS } from '../../library/common/constants/constants';
+import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
+import { COLUMNCOLORS } from '../../library/common/constants';
 
 const ZeroBoard = () => {
    const { boards, activeBoardId } = useAppSelector((state) => state.data);

@@ -1,5 +1,5 @@
 import Overlay from '../Overlay/Overlay';
-import Box from '@mui/material/Box'
+import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import DotsMenu from '../DotsMenu/DotsMenu';
@@ -9,18 +9,18 @@ import { FormikProps, FormikValues, Formik } from 'formik';
 import { useRef } from 'react';
 import ManagerCheckbox from './ManagerCheckbox/ManagerCheckbox';
 import ManagerSelect from './ManagerSelect/ManagerSelect';
-import useManagerFormik from '../../hooks/useManagerFomik';
+import { useManagerFormik } from '../../hooks';
 
 const ManageTaskModal = () => {
-   const theme = useTheme()
-   const { formik, cols, task } = useManagerFormik()
+   const theme = useTheme();
+   const { formik, cols, task } = useManagerFormik();
 
-   const formRef = useRef<FormikProps<FormikValues>>(null)
+   const formRef = useRef<FormikProps<FormikValues>>(null);
    const handleSubmit = () => {
       if (formRef.current) {
-         formRef.current.handleSubmit()
+         formRef.current.handleSubmit();
       }
-   }
+   };
 
    return (
       <Overlay submitHandler={handleSubmit}>
@@ -36,21 +36,14 @@ const ManageTaskModal = () => {
                onSubmit={formik.submitForm}
                innerRef={formRef}
             >
-               <form onSubmit={formik.handleSubmit} >
-                  <ManagerCheckbox
-                     formik={formik}
-                     task={task}
-                     theme={theme}
-                  />
-                  <ManagerSelect
-                     formik={formik}
-                     cols={cols}
-                  />
+               <form onSubmit={formik.handleSubmit}>
+                  <ManagerCheckbox formik={formik} task={task} theme={theme} />
+                  <ManagerSelect formik={formik} cols={cols} />
                </form>
             </Formik>
          </Paper>
       </Overlay>
    );
-}
+};
 
 export default ManageTaskModal;

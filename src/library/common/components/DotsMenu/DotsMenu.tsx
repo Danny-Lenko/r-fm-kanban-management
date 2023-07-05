@@ -2,10 +2,10 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { TASKMENU, BOARDMENU } from '../../constants/constants';
+import { TASKMENU, BOARDMENU } from '../../constants';
 import DotsMenuItem from './DotsMenuItem';
 
-const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
+const DotsMenu = ({ isTaskMenu }: { isTaskMenu: boolean }) => {
    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -15,24 +15,24 @@ const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
       setAnchorEl(null);
    };
 
-   const options = isTaskMenu ? TASKMENU : BOARDMENU
+   const options = isTaskMenu ? TASKMENU : BOARDMENU;
 
    return (
       <div>
          <IconButton
-            sx={{p: 0, width: 0}}
-            aria-label="more"
-            id="long-button"
+            sx={{ p: 0, width: 0 }}
+            aria-label='more'
+            id='long-button'
             aria-controls={open ? 'long-menu' : undefined}
             aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
+            aria-haspopup='true'
             onClick={handleClick}
          >
             <MoreVertIcon viewBox='0 0 24 24' />
          </IconButton>
          <Menu
-            sx={{zIndex: 12000}}
-            id="long-menu"
+            sx={{ zIndex: 12000 }}
+            id='long-menu'
             MenuListProps={{
                'aria-labelledby': 'long-button',
             }}
@@ -45,16 +45,16 @@ const DotsMenu = ({isTaskMenu}: {isTaskMenu:boolean}) => {
                },
             }}
          >
-            { options.map(option => (
+            {options.map((option) => (
                <DotsMenuItem
                   key={option}
                   option={option}
                   handleClose={handleClose}
                />
-            )) }
+            ))}
          </Menu>
       </div>
    );
-}
+};
 
 export default DotsMenu;

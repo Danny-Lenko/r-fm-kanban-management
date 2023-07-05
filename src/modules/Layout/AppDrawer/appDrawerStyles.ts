@@ -1,14 +1,17 @@
-import { Theme } from "@mui/system"
-import { DRAWERWIDTHSM, DRAWERWIDTHMD } from '../../constants/constants';
+import { Theme } from '@mui/system';
+import {
+   drawerWidthSm,
+   drawerWidthMd,
+} from '../../../library/common/constants';
 
 const assembleDrawerStyles = (theme: Theme) => ({
    position: 'relative',
-   width: { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD },
+   width: { xs: 0, sm: drawerWidthSm, md: drawerWidthMd },
    flexShrink: 0,
    '& .MuiDrawer-paper': {
-      width: { xs: 0, sm: DRAWERWIDTHSM, md: DRAWERWIDTHMD },
+      width: { xs: 0, sm: drawerWidthSm, md: drawerWidthMd },
       boxSizing: 'border-box',
-      px: {xs: 0, sm: 3},
+      px: { xs: 0, sm: 3 },
    },
    // blind btn
    '& .blind-btn': {
@@ -24,9 +27,9 @@ const assembleDrawerStyles = (theme: Theme) => ({
       fontSize: 15 / 16 + 'rem',
       '& .MuiSvgIcon-root': {
          transform: 'translateY(20%)',
-         mr: 1
-      }
-   }
-})
+         mr: 1,
+      },
+   },
+});
 
-export default assembleDrawerStyles
+export default assembleDrawerStyles;
