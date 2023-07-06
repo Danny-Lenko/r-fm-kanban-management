@@ -1,7 +1,7 @@
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
 import { FieldArray } from 'formik';
-import CustomBtn from '../../CustomBtn/CustomBtn';
-import TextField from '@mui/material/TextField'
+import CustomBtn from '../../CustomBtn';
+import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
@@ -10,9 +10,15 @@ const SubtasksFieldArr = ({
    value,
    onChange,
    tochedSubtasks,
-   errorsSubtasks
+   errorsSubtasks,
 }: any) => {
-   const placeholders = ['e.g. Make coffee', 'e.g. Drink coffee and smile', 'e.g. Make coffee to friends', 'e.g. Invite friends for coffee', 'e.g. Drink coffee with friends']
+   const placeholders = [
+      'e.g. Make coffee',
+      'e.g. Drink coffee and smile',
+      'e.g. Make coffee to friends',
+      'e.g. Invite friends for coffee',
+      'e.g. Drink coffee with friends',
+   ];
    return (
       <>
          <Typography
@@ -24,21 +30,33 @@ const SubtasksFieldArr = ({
          </Typography>
 
          <FieldArray
-            name="subtasks"
-            render={arrayHelpers => (
+            name='subtasks'
+            render={(arrayHelpers) => (
                <div className='subtasks-list'>
-
                   {subtasks.map((sub: any, index: number) => (
                      <div key={index} className='subtask-container'>
                         <TextField
-                           placeholder={placeholders[index] ? placeholders[index] : 'e.g. Seems like no time for coffee anymore'}
+                           placeholder={
+                              placeholders[index]
+                                 ? placeholders[index]
+                                 : 'e.g. Seems like no time for coffee anymore'
+                           }
                            name={`subtasks.${index}`}
                            fullWidth
                            id={`subtasks.${index}`}
                            value={value[index]}
                            onChange={onChange}
-                           error={tochedSubtasks && Boolean(errorsSubtasks ? errorsSubtasks[index] : '')}
-                           helperText={tochedSubtasks && errorsSubtasks ? errorsSubtasks[index] : ''}
+                           error={
+                              tochedSubtasks &&
+                              Boolean(
+                                 errorsSubtasks ? errorsSubtasks[index] : '',
+                              )
+                           }
+                           helperText={
+                              tochedSubtasks && errorsSubtasks
+                                 ? errorsSubtasks[index]
+                                 : ''
+                           }
                         />
                         <IconButton
                            sx={{ p: 0 }}
@@ -60,6 +78,6 @@ const SubtasksFieldArr = ({
          />
       </>
    );
-}
+};
 
 export default SubtasksFieldArr;

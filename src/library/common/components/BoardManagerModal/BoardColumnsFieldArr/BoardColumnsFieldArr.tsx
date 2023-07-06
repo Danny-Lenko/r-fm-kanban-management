@@ -1,7 +1,7 @@
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
 import { FieldArray } from 'formik';
-import CustomBtn from '../../CustomBtn/CustomBtn';
-import TextField from '@mui/material/TextField'
+import CustomBtn from '../../CustomBtn';
+import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
@@ -10,9 +10,15 @@ const ColumnsFieldArr = ({
    value,
    onChange,
    tochedColumns,
-   errorsColumns
+   errorsColumns,
 }: any) => {
-   const placeholders = ['e.g. Todo', 'e.g. Doing', 'e.g. On Review', 'e.g. Done', 'e.g. Closed']
+   const placeholders = [
+      'e.g. Todo',
+      'e.g. Doing',
+      'e.g. On Review',
+      'e.g. Done',
+      'e.g. Closed',
+   ];
    return (
       <>
          <Typography
@@ -24,21 +30,31 @@ const ColumnsFieldArr = ({
          </Typography>
 
          <FieldArray
-            name="columns"
-            render={arrayHelpers => (
+            name='columns'
+            render={(arrayHelpers) => (
                <div className='subtasks-list'>
-
                   {columns.map((sub: any, index: number) => (
                      <div key={index} className='subtask-container'>
                         <TextField
-                           placeholder={placeholders[index] ? placeholders[index] : 'e.g. Consider using a new board'}
+                           placeholder={
+                              placeholders[index]
+                                 ? placeholders[index]
+                                 : 'e.g. Consider using a new board'
+                           }
                            name={`columns.${index}`}
                            fullWidth
                            id={`columns.${index}`}
                            value={value[index]}
                            onChange={onChange}
-                           error={tochedColumns && Boolean(errorsColumns ? errorsColumns[index] : '')}
-                           helperText={tochedColumns && errorsColumns ? errorsColumns[index] : ''}
+                           error={
+                              tochedColumns &&
+                              Boolean(errorsColumns ? errorsColumns[index] : '')
+                           }
+                           helperText={
+                              tochedColumns && errorsColumns
+                                 ? errorsColumns[index]
+                                 : ''
+                           }
                         />
                         <IconButton
                            sx={{ p: 0 }}
@@ -60,6 +76,6 @@ const ColumnsFieldArr = ({
          />
       </>
    );
-}
+};
 
 export default ColumnsFieldArr;

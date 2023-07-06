@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../hooks';
 import { useTheme } from '@mui/material/styles';
 import { Form } from 'formik';
-import CustomBtn from '../CustomBtn/CustomBtn';
+import CustomBtn from '../CustomBtn';
 import TitleField from './EditorTitleField/EditorTitleField';
 import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
 import SubtasksFieldArr from './EditorSubtasksFieldArr/EditorSubtasksFieldArr';

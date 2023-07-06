@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { deleteModalStyles } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Stack from '@mui/material/Stack';
-import CustomBtn from '../CustomBtn/CustomBtn';
+import CustomBtn from '../CustomBtn';
 import {
    setDeletingBoard,
    setDeletingTask,
@@ -85,7 +85,7 @@ const DeleteModal = () => {
             <Stack direction='row' spacing={2}>
                <CustomBtn
                   sizeSm={true}
-                  color='destruct'
+                  // color='destruct'
                   text='Delete'
                   onclick={deleteBoardOrTask}
                />

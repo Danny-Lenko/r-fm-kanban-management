@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CustomBtn from '../../library/common/components/CustomBtn/CustomBtn';
+import CustomBtn from '../../library/common/components/CustomBtn';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';

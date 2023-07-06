@@ -3,14 +3,13 @@ import {
    ColorModeToggler,
    ColorModeContext,
 } from './library/utilities/ColorModeToggler';
-import Main from './library/common/components/Main/Main';
 import { useAppSelector } from './library/common/hooks';
 import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
 import AddEditTaskModal from './library/common/components/EditAddTaskModal/EditAddTaskModal';
 import BoardManagerModal from './library/common/components/BoardManagerModal/BoardManagerModal';
 import DeleteModal from './library/common/components/DeleteModal/DeleteModal';
 
-import { Layout } from './modules';
+import { Layout, Main } from './modules';
 
 function App() {
    const myTheme = ColorModeToggler();

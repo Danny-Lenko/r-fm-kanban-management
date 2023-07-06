@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CustomBtn from '../../../../library/common/components/CustomBtn/CustomBtn';
+import CustomBtn from '../../../../library/common/components/CustomBtn';
 import DotsMenu from '../../../../library/common/components/DotsMenu/DotsMenu';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import {
@@ -32,7 +32,7 @@ const ButtonsBox = () => {
             <CustomBtn
                disabled={!activeBoard.columns[0]}
                sizeSm={false}
-               color='primary'
+               color='error'
                text='+ Add New Task'
                onclick={() => dispatch(setTaskEditing(true))}
             />
