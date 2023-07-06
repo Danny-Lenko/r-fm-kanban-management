@@ -12,13 +12,54 @@ interface Props extends ButtonProps {
    // sizeSm: boolean;
 }
 
-export const CustomizedBtn = styled(Button)<Props>(
-   ({ theme, styles }) => ({
-      textTransform: 'capitalize',
-      fontWeight: 700,
-      borderRadius: 24,
-   }),
-);
+export const StyledBtn = styled(Button)<Props>(({ theme, styles, color }) => ({
+   textTransform: 'capitalize',
+   fontWeight: 700,
+   borderRadius: 24,
+
+   backgroundColor: setBcgColor(color, theme),
+   '&:hover': {
+      backgroundColor: setBcgHover(color, theme),
+   },
+
+   ...styles,
+}));
+
+type Colors =
+   | 'inherit'
+   | 'primary'
+   | 'secondary'
+   | 'error'
+   | 'info'
+   | 'success'
+   | 'warning'
+   | undefined;
+
+function setBcgColor(color: Colors, theme: Theme) {
+   const bcgColor =
+      color === 'primary'
+         ? theme.palette.primaryCustom.main
+         : color === 'secondary' && theme.palette.mode === 'light'
+         ? theme.palette.secondaryCustom.light
+         : color === 'secondary' && theme.palette.mode === 'dark'
+         ? theme.palette.common.white
+         : theme.palette.destructCustom.light;
+
+   return bcgColor;
+}
+
+function setBcgHover(color: Colors, theme: Theme) {
+   const bcgColor =
+      color === 'primary'
+         ? theme.palette.primaryCustom.light
+         : color === 'secondary' && theme.palette.mode === 'light'
+         ? theme.palette.secondaryCustom.main
+         : color === 'secondary' && theme.palette.mode === 'dark'
+         ? theme.palette.common.white
+         : theme.palette.destructCustom.light;
+
+   return bcgColor;
+}
 
 // export const CustomizedBtn = styled(Button)<Props>(
 //    ({ theme, styles, color}) => ({
@@ -40,12 +81,12 @@ export const CustomizedBtn = styled(Button)<Props>(
 //       '&:hover': {
 //          backgroundColor:
 //             color === 'primary'
-//                ? 'primaryCustom.light'
-//                : color === 'secondary' && theme.palette.mode === 'light'
-//                ? 'secondaryCustom.main'
-//                : color === 'secondary' && theme.palette.mode === 'dark'
-//                ? 'common.white'
-//                : 'destructCustom.light',
+// ? 'primaryCustom.light'
+// : color === 'secondary' && theme.palette.mode === 'light'
+// ? 'secondaryCustom.main'
+// : color === 'secondary' && theme.palette.mode === 'dark'
+// ? 'common.white'
+// : 'destructCustom.light',
 //       },
 
 //       ...styles,

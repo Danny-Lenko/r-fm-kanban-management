@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import CustomBtn from '../../library/common/components/CustomBtn';
+import CustomBtn from '../../library/common/components/AppBtn';
 import { drawerWidthSm, drawerWidthMd } from '../../library/common/constants';
 
 // mui docs: Persistent Drawer

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { deleteModalStyles } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Stack from '@mui/material/Stack';
-import CustomBtn from '../CustomBtn';
+import CustomBtn from '../AppBtn';
 import {
    setDeletingBoard,
    setDeletingTask,

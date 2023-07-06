@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks';
 import Overlay from '../Overlay/Overlay';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import CustomBtn from '../CustomBtn';
+import CustomBtn from '../AppBtn';
 import { Form } from 'formik';
 import BoardManagerFormik from './BoardManagerFormik/BoardManagerFormik';
 import NameField from './BoardNameField/BoardNameField';
