@@ -5,9 +5,9 @@ import {
 } from './library/utilities/ColorModeToggler';
 import { useAppSelector } from './library/common/hooks';
 import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
-import AddEditTaskModal from './library/common/components/EditAddTaskModal/EditAddTaskModal';
-import BoardManagerModal from './library/common/components/BoardManagerModal/BoardManagerModal';
-import DeleteModal from './library/common/components/DeleteModal/DeleteModal';
+import AddEditTaskModal from './library/common/components/EditAddTaskModal';
+import BoardManagerModal from './library/common/components/BoardManagerModal';
+import DeleteModal from './library/common/components/DeleteModal';
 
 import { Layout, Main } from './modules';
 

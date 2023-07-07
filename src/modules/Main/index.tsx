@@ -1,6 +1,5 @@
 import { useAppSelector } from '../../library/common/hooks';
 import { DrawerHeader } from '../../library/common/components/DrawerHeader';
-import CustomBtn from '../../library/common/components/AppBtn';
 import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
 import { openDrawer } from '../../main/slices/drawerSlice';
 import { Routes, Route } from 'react-router-dom';

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import Overlay from '../Overlay/Overlay';
 import Paper from '@mui/material/Paper';
@@ -5,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import { deleteModalStyles } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Stack from '@mui/material/Stack';
-import CustomBtn from '../AppBtn';
 import {
    setDeletingBoard,
    setDeletingTask,
@@ -14,7 +14,8 @@ import {
    setBoards,
    assignActiveBoard,
 } from '../../../../main/slices/dataSlice';
-import { useNavigate } from 'react-router-dom';
+
+import { AppBtn } from '..';
 
 const DeleteModal = () => {
    const theme = useTheme();
@@ -83,18 +84,20 @@ const DeleteModal = () => {
                   : `Are you sure you want to delete the ‘${activeTask?.title}’ task and its subtasks? This action cannot be reversed.`}
             </Typography>
             <Stack direction='row' spacing={2}>
-               <CustomBtn
-                  sizeSm={true}
+               <AppBtn
+                  buttonSize='small'
                   // color='destruct'
-                  text='Delete'
-                  onclick={deleteBoardOrTask}
-               />
-               <CustomBtn
-                  sizeSm={true}
+                  // onclick={deleteBoardOrTask}
+               >
+                  Delete
+               </AppBtn>
+               <AppBtn
+                  buttonSize='small'
                   color='secondary'
-                  text='Cancel'
-                  onclick={closeDeletingModal}
-               />
+                  // onclick={closeDeletingModal}
+               >
+                  Cancel
+               </AppBtn>
             </Stack>
          </Paper>
       </Overlay>

@@ -1,9 +1,10 @@
 import Typography from '@mui/material/Typography';
-import { FieldArray } from 'formik';
-import CustomBtn from '../../AppBtn';
+import { FieldArray, FieldArrayRenderProps } from 'formik';
 import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
+
+import { AppBtn } from '../../AppBtn';
 
 const SubtasksFieldArr = ({
    subtasks,
@@ -19,6 +20,15 @@ const SubtasksFieldArr = ({
       'e.g. Invite friends for coffee',
       'e.g. Drink coffee with friends',
    ];
+
+   const addSubtask = (arr: FieldArrayRenderProps) => {
+      arr.push('');
+   };
+
+   const removeSubtask = (arr: FieldArrayRenderProps, index: number) => {
+      arr.remove(index);
+   };
+
    return (
       <>
          <Typography
@@ -60,19 +70,20 @@ const SubtasksFieldArr = ({
                         />
                         <IconButton
                            sx={{ p: 0 }}
-                           onClick={() => arrayHelpers.remove(index)} // remove a sub from the list
+                           onClick={() => removeSubtask(arrayHelpers, index)}
                         >
                            <ClearIcon fontSize='small' />
                         </IconButton>
                      </div>
                   ))}
-                  <CustomBtn
-                     onclick={() => arrayHelpers.push('')} // add a sub to the list
-                     sizeSm={true}
+                  <AppBtn
+                     // onclick={() => addSubtask(arrayHelpers)}
+                     buttonSize='small'
                      color='secondary'
-                     text='+ Add New Subtask'
                      styles={{ width: '100%' }}
-                  />
+                  >
+                     + Add New Subtask
+                  </AppBtn>
                </div>
             )}
          />

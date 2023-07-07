@@ -1,14 +1,13 @@
 import SvgIcon from '@mui/material/SvgIcon';
 import { useTheme } from '@mui/material/styles';
+import { ButtonProps } from '@mui/material';
 import { useAppDispatch } from '../../hooks';
-// import { assembleCustomBtnStyles } from './assembleCustomBtnStyles';
 import { StyledBtn } from './styledBtn';
 
-import { ButtonProps } from '@mui/material';
 
 interface Props extends ButtonProps {
-   sizeSm: boolean;
-   onclick?: any;
+   // onclick?: any;
+   buttonSize?: 'small' | 'big';
    styles?: Record<string, string | number> | React.CSSProperties;
    icon?: any;
    iconStyles?: Record<string, string>;
@@ -18,10 +17,11 @@ interface Props extends ButtonProps {
 }
 
 export const AppBtn: React.FC<Props> = ({
+   onClick,
+   // onclick,
    children,
    color,
-   sizeSm,
-   onclick,
+   buttonSize,
    styles,
    icon,
    iconStyles,
@@ -34,20 +34,21 @@ export const AppBtn: React.FC<Props> = ({
 
    return (
       <StyledBtn
-         // sizeSm={sizeSm}
-         color={color}
+         buttonSize={buttonSize}
+         color={color}  
          className={classname}
          disableElevation
          variant='contained'
          styles={styles}
-         onClick={
-            typeof onclick === 'object' || isAction
-               ? () => dispatch(onclick('open'))
-               : type === 'submit'
-               ? () => null
-               : () => onclick()
-         }
+         onClick={onClick}
          type={type}
+         // onClick={
+         //    typeof onclick === 'object' || isAction
+         //       ? () => dispatch(onclick('open'))
+         //       : type === 'submit'
+         //       ? () => null
+         //       : () => onclick()
+         // }
       >
          {children}
          {icon && <SvgIcon sx={iconStyles} component={icon} />}

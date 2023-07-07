@@ -75,9 +75,8 @@ const ColumnsFieldArr = ({
                      </div>
                   ))}
                   <AppBtn
-                     // onclick={() => arrayHelpers.push('')} // add a col to the list
                      onClick={() => addColumn(arrayHelpers)}
-                     sizeSm={true}
+                     buttonSize='small'
                      color='secondary'
                      styles={{ width: '100%' }}
                   >

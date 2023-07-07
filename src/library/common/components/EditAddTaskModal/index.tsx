@@ -4,13 +4,14 @@ import Typography from '@mui/material/Typography';
 import { useAppSelector } from '../../hooks';
 import { useTheme } from '@mui/material/styles';
 import { Form } from 'formik';
-import CustomBtn from '../AppBtn';
 import TitleField from './EditorTitleField/EditorTitleField';
 import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
-import SubtasksFieldArr from './EditorSubtasksFieldArr/EditorSubtasksFieldArr';
+import SubtasksFieldArr from './EditorSubtasksFieldArr';
 import SelectField from './EditorSelectField/EditorSelectField';
 import EditorFormik from './EditorFormik/EditorFormik';
 import { editorStyles } from './editorStyles';
+
+import { AppBtn } from '../AppBtn';
 
 const AddEditTaskModal = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
@@ -62,13 +63,14 @@ const AddEditTaskModal = () => {
                         cols={cols}
                      />
 
-                     <CustomBtn
+                     <AppBtn
                         type='submit'
-                        sizeSm={true}
+                        buttonSize='small'
                         color='primary'
-                        text={isExisting ? 'Save Changes' : 'Create Task'}
                         styles={{ width: '100%', mt: 4 }}
-                     />
+                     >
+                        {isExisting ? 'Save Changes' : 'Create Task'}
+                     </AppBtn>
                   </Form>
                )}
             </EditorFormik>

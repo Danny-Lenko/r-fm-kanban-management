@@ -1,9 +1,10 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CustomBtn from '../../library/common/components/AppBtn';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
+
+import { AppBtn } from '../../library/common/components';
 
 const ZeroBoard = () => {
    const { boards, activeBoardId } = useAppSelector((state) => state.data);
@@ -51,13 +52,14 @@ const ZeroBoard = () => {
          >
             This board is empty. Create a new column to get started.
          </Typography>
-         <CustomBtn
-            sizeSm={false}
+         <AppBtn
+            buttonSize='small'
             color='primary'
-            text='+ Add New Column'
             styles={{ width: 'fit-content', px: 2 }}
-            onclick={addCol}
-         />
+            onClick={addCol}
+         >
+            + Add New Column
+         </AppBtn>
       </Box>
    );
 };
