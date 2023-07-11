@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { drawerWidthSm, drawerWidthMd } from '../../library/common/constants';
+import { AppBtn } from '../../library/common/components';
 
 // mui docs: Persistent Drawer
 export const MainEl = styled('main', {
@@ -33,7 +34,7 @@ export const MainEl = styled('main', {
    }),
 }));
 
-export const EyeBtn = styled('button')({
+export const EyeBtn = styled(AppBtn)({
    zIndex: 1000,
    width: '80px',
    paddingRight: 2,
@@ -43,6 +44,6 @@ export const EyeBtn = styled('button')({
    left: -25,
    minHeight: '40px',
    '& svg': {
-      transform: 'translateY(25%)',
+      // transform: 'translateY(25%)',
    },
 });

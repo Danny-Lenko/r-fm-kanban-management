@@ -5,6 +5,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
 import { AppBtn } from '../../AppBtn';
+import { sx } from '../../BoardManagerModal/BoardColumnsFieldArr/boardColumnsFieldArrStyles';
 
 const SubtasksFieldArr = ({
    subtasks,
@@ -32,7 +33,7 @@ const SubtasksFieldArr = ({
    return (
       <>
          <Typography
-            style={{ margin: '24px 0 8px' }}
+            style={sx.columns}
             className='subtasks-heading'
             variant='body2'
          >
@@ -69,7 +70,7 @@ const SubtasksFieldArr = ({
                            }
                         />
                         <IconButton
-                           sx={{ p: 0 }}
+                           sx={sx.iconBtn}
                            onClick={() => removeSubtask(arrayHelpers, index)}
                         >
                            <ClearIcon fontSize='small' />
@@ -77,10 +78,10 @@ const SubtasksFieldArr = ({
                      </div>
                   ))}
                   <AppBtn
-                     // onclick={() => addSubtask(arrayHelpers)}
+                     onClick={() => addSubtask(arrayHelpers)}
                      buttonSize='small'
                      color='secondary'
-                     styles={{ width: '100%' }}
+                     sx={sx.addBtn}
                   >
                      + Add New Subtask
                   </AppBtn>

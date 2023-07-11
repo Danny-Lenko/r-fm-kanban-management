@@ -9,10 +9,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 
 import { MainEl, EyeBtn } from './mainStyles';
+import { useDispatch } from 'react-redux';
 
 export const Main = () => {
    const open = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
+
+   const dispatch = useDispatch();
 
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -46,14 +49,10 @@ export const Main = () => {
 
          {!sxScreen && (
             <EyeBtn
-            // classname='eyeBtn'
-            // sizeSm={false}
-            // color='primary'
-            // text=''
-            // icon={eyeIcon}
-            // onclick={openDrawer}
-            // isAction={true}
-            />
+               color='primary'
+               icon={eyeIcon}
+               onClick={() => dispatch(openDrawer('open'))}
+            ></EyeBtn>
          )}
       </MainEl>
    );

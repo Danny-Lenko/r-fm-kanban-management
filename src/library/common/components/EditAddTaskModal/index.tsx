@@ -9,7 +9,7 @@ import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
 import SubtasksFieldArr from './EditorSubtasksFieldArr';
 import SelectField from './EditorSelectField/EditorSelectField';
 import EditorFormik from './EditorFormik/EditorFormik';
-import { editorStyles } from './editorStyles';
+import { editorStyles, btnSx } from './editorStyles';
 
 import { AppBtn } from '../AppBtn';
 
@@ -64,10 +64,9 @@ const AddEditTaskModal = () => {
                      />
 
                      <AppBtn
-                        type='submit'
                         buttonSize='small'
                         color='primary'
-                        styles={{ width: '100%', mt: 4 }}
+                        sx={btnSx}
                      >
                         {isExisting ? 'Save Changes' : 'Create Task'}
                      </AppBtn>

@@ -1,54 +1,29 @@
 import SvgIcon from '@mui/material/SvgIcon';
-import { useTheme } from '@mui/material/styles';
 import { ButtonProps } from '@mui/material';
-import { useAppDispatch } from '../../hooks';
 import { StyledBtn } from './styledBtn';
-
+import React from 'react';
 
 interface Props extends ButtonProps {
-   // onclick?: any;
+   children?: React.ReactNode;
+   icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+   iconStyles?: React.CSSProperties;
    buttonSize?: 'small' | 'big';
-   styles?: Record<string, string | number> | React.CSSProperties;
-   icon?: any;
-   iconStyles?: Record<string, string>;
-   type?: 'button' | 'submit' | 'reset' | undefined;
-   isAction?: boolean;
-   classname?: string;
+   sx?: React.CSSProperties;
 }
 
 export const AppBtn: React.FC<Props> = ({
-   onClick,
-   // onclick,
    children,
-   color,
-   buttonSize,
-   styles,
    icon,
    iconStyles,
-   type,
-   isAction,
-   classname,
+   buttonSize,
+   ...rest
 }) => {
-   const dispatch = useAppDispatch();
-   const theme = useTheme();
-
    return (
       <StyledBtn
-         buttonSize={buttonSize}
-         color={color}  
-         className={classname}
          disableElevation
          variant='contained'
-         styles={styles}
-         onClick={onClick}
-         type={type}
-         // onClick={
-         //    typeof onclick === 'object' || isAction
-         //       ? () => dispatch(onclick('open'))
-         //       : type === 'submit'
-         //       ? () => null
-         //       : () => onclick()
-         // }
+         buttonSize={buttonSize}
+         {...rest}
       >
          {children}
          {icon && <SvgIcon sx={iconStyles} component={icon} />}

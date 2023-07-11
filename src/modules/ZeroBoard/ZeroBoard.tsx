@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
 import { AppBtn } from '../../library/common/components';
+import { sx } from './zeroBoardStyles';
 
 const ZeroBoard = () => {
    const { boards, activeBoardId } = useAppSelector((state) => state.data);
@@ -31,31 +32,14 @@ const ZeroBoard = () => {
    }
 
    return (
-      <Box
-         sx={{
-            height: '80vh',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-         }}
-      >
-         <Typography
-            sx={{
-               fontSize: '18px',
-               color: '#828FA3',
-               fontWeight: 700,
-               mb: 4,
-               textAlign: 'center',
-            }}
-         >
+      <Box sx={sx.wrapper}>
+         <Typography sx={sx.content}>
             This board is empty. Create a new column to get started.
          </Typography>
          <AppBtn
             buttonSize='small'
             color='primary'
-            styles={{ width: 'fit-content', px: 2 }}
+            sx={sx.button}
             onClick={addCol}
          >
             + Add New Column

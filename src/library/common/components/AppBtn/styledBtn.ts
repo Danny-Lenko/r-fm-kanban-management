@@ -1,6 +1,5 @@
 import { styled, Theme } from '@mui/system';
 import { Button, ButtonProps } from '@mui/material';
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
 
 type ButtonSize = 'small' | 'big' | undefined;
 type Colors =
@@ -14,28 +13,23 @@ type Colors =
    | undefined;
 
 interface Props extends ButtonProps {
-   buttonSize?: ButtonSize;
-   styles?: React.CSSProperties;
-   theme?: Theme;
-   icon?: React.ElementType<SvgIconProps>;
-   iconStyles?: React.CSSProperties;
+   buttonSize: ButtonSize;
 }
 
 export const StyledBtn = styled(Button)<Props>(
-   ({ theme, styles, color, buttonSize }) => ({
+   ({ theme, buttonSize, ...rest }) => ({
       textTransform: 'capitalize',
       fontWeight: 700,
       color:
-         color === 'secondary'
+         rest.color === 'secondary'
             ? theme.palette.primaryCustom.main
             : theme.palette.common.white,
-      backgroundColor: setBcgColor(color, theme),
+      backgroundColor: setBcgColor(rest.color, theme),
       '&:hover': {
-         backgroundColor: setBcgHover(color, theme),
+         backgroundColor: setBcgHover(rest.color, theme),
       },
 
-      ...setButtonSize(buttonSize),
-      ...styles,
+      ...setButtonSize(buttonSize)
    }),
 );
 

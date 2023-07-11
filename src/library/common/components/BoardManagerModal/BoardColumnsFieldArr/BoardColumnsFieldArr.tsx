@@ -5,6 +5,15 @@ import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
 import { AppBtn } from '../..';
+import { sx } from './boardColumnsFieldArrStyles';
+
+const placeholders = [
+   'e.g. Todo',
+   'e.g. Doing',
+   'e.g. On Review',
+   'e.g. Done',
+   'e.g. Closed',
+];
 
 const ColumnsFieldArr = ({
    columns,
@@ -13,13 +22,7 @@ const ColumnsFieldArr = ({
    tochedColumns,
    errorsColumns,
 }: any) => {
-   const placeholders = [
-      'e.g. Todo',
-      'e.g. Doing',
-      'e.g. On Review',
-      'e.g. Done',
-      'e.g. Closed',
-   ];
+
 
    const addColumn = (arr: FieldArrayRenderProps) => {
       arr.push('');
@@ -32,7 +35,7 @@ const ColumnsFieldArr = ({
    return (
       <>
          <Typography
-            style={{ margin: '24px 0 8px' }}
+            style={sx.columns}
             className='subtasks-heading'
             variant='body2'
          >
@@ -67,7 +70,7 @@ const ColumnsFieldArr = ({
                            }
                         />
                         <IconButton
-                           sx={{ p: 0 }}
+                           sx={sx.iconBtn}
                            onClick={() => removeColumn(arrayHelpers, index)} // remove a col from the list
                         >
                            <ClearIcon fontSize='small' />
@@ -78,7 +81,7 @@ const ColumnsFieldArr = ({
                      onClick={() => addColumn(arrayHelpers)}
                      buttonSize='small'
                      color='secondary'
-                     styles={{ width: '100%' }}
+                     sx={sx.addBtn}
                   >
                      + Add New Column
                   </AppBtn>
