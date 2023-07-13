@@ -1,25 +1,26 @@
-import { useAppSelector } from '../../hooks';
-import { DrawerHeader } from '../DrawerHeader';
-import MainEl from './MainEl';
-import CustomBtn from '../CustomBtn/CustomBtn';
-import { ReactComponent as eyeIcon } from '../../../../resources/assets/icon-show-sidebar.svg';
-import { openDrawer } from '../../../../main/slices/drawerSlice';
+import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
+import { DrawerHeader } from '../../library/common/components/DrawerHeader';
+import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
+import { openDrawer } from '../../main/slices/drawerSlice';
 import { Routes, Route } from 'react-router-dom';
-import ZeroBoard from '../../../../modules/ZeroBoard/ZeroBoard';
-import UsualBoard from '../../../../modules/UsualBoard/UsualBoard';
+import ZeroBoard from '../ZeroBoard/ZeroBoard';
+import UsualBoard from '../UsualBoard/UsualBoard';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
-import { mainStyles } from './mainStyles';
 
-const Main = () => {
+import { MainEl, EyeBtn } from './mainStyles';
+
+export const Main = () => {
    const open = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
+
+   const dispatch = useAppDispatch();
 
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
    return (
-      <MainEl open={open} sx={mainStyles}>
+      <MainEl open={open}>
          <DrawerHeader />
 
          <Routes>
@@ -46,18 +47,12 @@ const Main = () => {
          </Routes>
 
          {!sxScreen && (
-            <CustomBtn
-               classname='eyeBtn'
-               sizeSm={false}
+            <EyeBtn
                color='primary'
-               text=''
                icon={eyeIcon}
-               onclick={openDrawer}
-               isAction={true}
-            />
+               onClick={() => dispatch(openDrawer('open'))}
+            ></EyeBtn>
          )}
       </MainEl>
    );
 };
-
-export default Main;

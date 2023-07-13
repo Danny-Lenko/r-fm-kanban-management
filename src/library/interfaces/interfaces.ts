@@ -1,19 +1,5 @@
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
-export interface ICustomBtn {
-   sizeSm: boolean
-   color: string
-   text: string
-   onclick?: any
-   styles?: Record<string, string | number> | null
-   icon?: any
-   iconStyles?: Record<string, string>
-   type?: "button" | "submit" | "reset" | undefined
-   isAction?: boolean
-   disabled?: boolean
-   classname?: string
-}
-
 export interface AppBarProps extends MuiAppBarProps {
    open?: boolean;
 }

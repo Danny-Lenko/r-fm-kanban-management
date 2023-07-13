@@ -48,3 +48,8 @@ export const editorStyles = (theme: any) => ({
    }
 })
 
+export const btnSx = {
+   width: '100%',
+   mt: 4
+}
+

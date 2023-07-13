@@ -1,14 +1,15 @@
 import { useTheme } from '@mui/material/styles';
-import { boardManagerStyles } from './boardManagerStyles';
 import { useAppSelector } from '../../hooks';
 import Overlay from '../Overlay/Overlay';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import CustomBtn from '../CustomBtn/CustomBtn';
 import { Form } from 'formik';
 import BoardManagerFormik from './BoardManagerFormik/BoardManagerFormik';
 import NameField from './BoardNameField/BoardNameField';
 import ColumnsFieldArr from './BoardColumnsFieldArr/BoardColumnsFieldArr';
+
+import { AppBtn } from '..';
+import { boardManagerStyles, btnSx } from './boardManagerStyles';
 
 const BoardManagerModal = () => {
    const theme = useTheme();
@@ -39,13 +40,14 @@ const BoardManagerModal = () => {
                         errorsColumns={props.errors.columns}
                      />
 
-                     <CustomBtn
+                     <AppBtn
+                        sx={btnSx}
                         type='submit'
-                        sizeSm={true}
+                        buttonSize='small'
                         color='primary'
-                        text={isExisting ? 'Save Changes' : 'Create New Board'}
-                        styles={{ width: '100%', mt: 4 }}
-                     />
+                     >
+                        {isExisting ? 'Save Changes' : 'Create New Board'}
+                     </AppBtn>
                   </Form>
                )}
             </BoardManagerFormik>

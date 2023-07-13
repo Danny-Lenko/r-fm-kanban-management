@@ -1,8 +1,9 @@
 import { styled } from '@mui/material/styles';
-import { drawerWidthSm, drawerWidthMd } from '../../constants';
+import { drawerWidthSm, drawerWidthMd } from '../../library/common/constants';
+import { AppBtn } from '../../library/common/components';
 
 // mui docs: Persistent Drawer
-const MainEl = styled('main', {
+export const MainEl = styled('main', {
    shouldForwardProp: (prop) => prop !== 'open',
 })<{
    open?: boolean;
@@ -33,4 +34,16 @@ const MainEl = styled('main', {
    }),
 }));
 
-export default MainEl;
+export const EyeBtn = styled(AppBtn)({
+   zIndex: 1000,
+   width: '80px',
+   paddingRight: 2,
+   paddingLeft: 5,
+   position: 'absolute',
+   bottom: '5%',
+   left: -25,
+   minHeight: '40px',
+   '& svg': {
+      transform: 'translateY(25%) translateX(25%)',
+   },
+});

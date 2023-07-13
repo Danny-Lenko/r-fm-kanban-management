@@ -44,7 +44,6 @@ const BoardManagerFormik = (props: any) => {
             return isExisting
                ? saveBoardChanges(submissionParams)
                : createBoard(submissionParams);
-            // return createBoard(submissionParams)
          }}
       >
          {props.children}

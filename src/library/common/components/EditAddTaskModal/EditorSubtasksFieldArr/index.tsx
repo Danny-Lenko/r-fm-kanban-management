@@ -4,29 +4,29 @@ import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
-import { AppBtn } from '../..';
-import { sx } from './boardColumnsFieldArrStyles';
+import { AppBtn } from '../../AppBtn';
+import { sx } from '../../BoardManagerModal/BoardColumnsFieldArr/boardColumnsFieldArrStyles';
 
-const placeholders = [
-   'e.g. Todo',
-   'e.g. Doing',
-   'e.g. On Review',
-   'e.g. Done',
-   'e.g. Closed',
-];
-
-const ColumnsFieldArr = ({
-   columns,
+const SubtasksFieldArr = ({
+   subtasks,
    value,
    onChange,
-   tochedColumns,
-   errorsColumns,
+   tochedSubtasks,
+   errorsSubtasks,
 }: any) => {
-   const addColumn = (arr: FieldArrayRenderProps) => {
+   const placeholders = [
+      'e.g. Make coffee',
+      'e.g. Drink coffee and smile',
+      'e.g. Make coffee to friends',
+      'e.g. Invite friends for coffee',
+      'e.g. Drink coffee with friends',
+   ];
+
+   const addSubtask = (arr: FieldArrayRenderProps) => {
       arr.push('');
    };
 
-   const removeColumn = (arr: FieldArrayRenderProps, index: number) => {
+   const removeSubtask = (arr: FieldArrayRenderProps, index: number) => {
       arr.remove(index);
    };
 
@@ -37,51 +37,53 @@ const ColumnsFieldArr = ({
             className='subtasks-heading'
             variant='body2'
          >
-            Columns
+            Subtasks
          </Typography>
 
          <FieldArray
-            name='columns'
+            name='subtasks'
             render={(arrayHelpers) => (
                <div className='subtasks-list'>
-                  {columns.map((sub: any, index: number) => (
+                  {subtasks.map((sub: any, index: number) => (
                      <div key={index} className='subtask-container'>
                         <TextField
                            placeholder={
                               placeholders[index]
                                  ? placeholders[index]
-                                 : 'e.g. Consider using a new board'
+                                 : 'e.g. Seems like no time for coffee anymore'
                            }
-                           name={`columns.${index}`}
+                           name={`subtasks.${index}`}
                            fullWidth
-                           id={`columns.${index}`}
+                           id={`subtasks.${index}`}
                            value={value[index]}
                            onChange={onChange}
                            error={
-                              tochedColumns &&
-                              Boolean(errorsColumns ? errorsColumns[index] : '')
+                              tochedSubtasks &&
+                              Boolean(
+                                 errorsSubtasks ? errorsSubtasks[index] : '',
+                              )
                            }
                            helperText={
-                              tochedColumns && errorsColumns
-                                 ? errorsColumns[index]
+                              tochedSubtasks && errorsSubtasks
+                                 ? errorsSubtasks[index]
                                  : ''
                            }
                         />
                         <IconButton
                            sx={sx.iconBtn}
-                           onClick={() => removeColumn(arrayHelpers, index)}
+                           onClick={() => removeSubtask(arrayHelpers, index)}
                         >
                            <ClearIcon fontSize='small' />
                         </IconButton>
                      </div>
                   ))}
                   <AppBtn
-                     onClick={() => addColumn(arrayHelpers)}
+                     onClick={() => addSubtask(arrayHelpers)}
                      buttonSize='small'
                      color='secondary'
                      sx={sx.addBtn}
                   >
-                     + Add New Column
+                     + Add New Subtask
                   </AppBtn>
                </div>
             )}
@@ -90,4 +92,4 @@ const ColumnsFieldArr = ({
    );
 };
 
-export default ColumnsFieldArr;
+export default SubtasksFieldArr;
