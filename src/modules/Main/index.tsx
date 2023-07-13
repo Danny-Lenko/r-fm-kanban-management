@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../library/common/hooks';
+import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { DrawerHeader } from '../../library/common/components/DrawerHeader';
 import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
 import { openDrawer } from '../../main/slices/drawerSlice';
@@ -9,13 +9,12 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 
 import { MainEl, EyeBtn } from './mainStyles';
-import { useDispatch } from 'react-redux';
 
 export const Main = () => {
    const open = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
 
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));

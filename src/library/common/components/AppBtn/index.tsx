@@ -22,7 +22,7 @@ export const AppBtn: React.FC<Props> = ({
       <StyledBtn
          disableElevation
          variant='contained'
-         buttonSize={buttonSize}
+         buttonsize={buttonSize}
          {...rest}
       >
          {children}

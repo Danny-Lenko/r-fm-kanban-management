@@ -64,6 +64,7 @@ const AddEditTaskModal = () => {
                      />
 
                      <AppBtn
+                        type='submit'
                         buttonSize='small'
                         color='primary'
                         sx={btnSx}

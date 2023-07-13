@@ -22,8 +22,6 @@ const ColumnsFieldArr = ({
    tochedColumns,
    errorsColumns,
 }: any) => {
-
-
    const addColumn = (arr: FieldArrayRenderProps) => {
       arr.push('');
    };
@@ -71,7 +69,7 @@ const ColumnsFieldArr = ({
                         />
                         <IconButton
                            sx={sx.iconBtn}
-                           onClick={() => removeColumn(arrayHelpers, index)} // remove a col from the list
+                           onClick={() => removeColumn(arrayHelpers, index)}
                         >
                            <ClearIcon fontSize='small' />
                         </IconButton>

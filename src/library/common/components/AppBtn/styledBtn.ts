@@ -13,11 +13,11 @@ type Colors =
    | undefined;
 
 interface Props extends ButtonProps {
-   buttonSize: ButtonSize;
+   buttonsize: ButtonSize;
 }
 
 export const StyledBtn = styled(Button)<Props>(
-   ({ theme, buttonSize, ...rest }) => ({
+   ({ theme, buttonsize, ...rest }) => ({
       textTransform: 'capitalize',
       fontWeight: 700,
       color:
@@ -29,7 +29,7 @@ export const StyledBtn = styled(Button)<Props>(
          backgroundColor: setBcgHover(rest.color, theme),
       },
 
-      ...setButtonSize(buttonSize)
+      ...setButtonSize(buttonsize)
    }),
 );
 

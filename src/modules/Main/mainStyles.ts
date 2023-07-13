@@ -44,6 +44,6 @@ export const EyeBtn = styled(AppBtn)({
    left: -25,
    minHeight: '40px',
    '& svg': {
-      // transform: 'translateY(25%)',
+      transform: 'translateY(25%) translateX(25%)',
    },
 });

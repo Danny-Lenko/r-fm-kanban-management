@@ -3,7 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import Overlay from '../Overlay/Overlay';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { deleteModalStyles } from './deleteModalStyles';
+import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Stack from '@mui/material/Stack';
 import {
@@ -86,15 +86,15 @@ const DeleteModal = () => {
             <Stack direction='row' spacing={2}>
                <AppBtn
                   buttonSize='small'
-                  // color='destruct'
-                  // onclick={deleteBoardOrTask}
+                  sx={deleteBtnSx(theme)}
+                  onClick={deleteBoardOrTask}
                >
                   Delete
                </AppBtn>
                <AppBtn
                   buttonSize='small'
                   color='secondary'
-                  // onclick={closeDeletingModal}
+                  onClick={closeDeletingModal}
                >
                   Cancel
                </AppBtn>

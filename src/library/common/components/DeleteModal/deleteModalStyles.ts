@@ -1,4 +1,6 @@
-export const deleteModalStyles = (theme: any) => ({
+import { Theme } from "@mui/system"
+
+export const deleteModalStyles = (theme: Theme) => ({
    zIndex: 11000,
    p: { xs: 3, sm: 4 },
    borderRadius: '8px',
@@ -11,5 +13,9 @@ export const deleteModalStyles = (theme: any) => ({
       color: 'greyCustom.200',
       my: 3
    },
+})
+
+export const deleteBtnSx = (theme: Theme) =>({
+   backgroundColor: theme.palette.destructCustom.main,
 })
 

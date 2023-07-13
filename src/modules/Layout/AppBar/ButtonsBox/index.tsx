@@ -19,13 +19,17 @@ const ButtonsBox = () => {
    const theme = useTheme();
    const xsScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+   const editTask = () => {
+      dispatch(setTaskEditing(true));
+   };
+
    return (
       <Box sx={buttonsBoxStyles}>
          {xsScreen ? (
             <IconButton
                disabled={!activeBoard.columns[0]}
                sx={sxPlusBtnStyles}
-               onClick={() => dispatch(setTaskEditing(true))}
+               onClick={editTask}
             >
                <AddRoundedIcon />
             </IconButton>
@@ -34,7 +38,7 @@ const ButtonsBox = () => {
                disabled={!activeBoard.columns[0]}
                buttonSize='small'
                color='primary'
-               onClick={() => dispatch(setTaskEditing(true))}
+               onClick={editTask}
             >
                + Add New Task
             </AppBtn>
