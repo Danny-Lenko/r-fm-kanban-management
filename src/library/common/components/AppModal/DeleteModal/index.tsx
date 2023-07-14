@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import Overlay from '../Overlay/Overlay';
+import Overlay from '../../Overlay/Overlay';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 import Stack from '@mui/material/Stack';
 import {
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../main/slices/modalElsSlice';
+} from '../../../../../main/slices/modalElsSlice';
 import {
    setBoards,
    assignActiveBoard,
-} from '../../../../main/slices/dataSlice';
+} from '../../../../../main/slices/dataSlice';
 
-import { AppBtn } from '..';
+import { AppBtn } from '../..';
 
-const DeleteModal = () => {
+export const DeleteModal: React.FC = () => {
    const theme = useTheme();
    const { deletingBoard } = useAppSelector((state) => state.modals);
    const { activeBoard, activeColId, activeTaskId, boards } = useAppSelector(
@@ -103,5 +103,3 @@ const DeleteModal = () => {
       </Overlay>
    );
 };
-
-export default DeleteModal;

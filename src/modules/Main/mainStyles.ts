@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { drawerWidthSm, drawerWidthMd } from '../../library/common/constants';
+import { drawerWidthSm } from '../../library/common/constants';
 import { AppBtn } from '../../library/common/components';
 
 // mui docs: Persistent Drawer
@@ -17,9 +17,6 @@ export const MainEl = styled('main', {
       duration: theme.transitions.duration.leavingScreen,
    }),
    marginLeft: `-${drawerWidthSm}`,
-   [theme.breakpoints.down('md')]: {
-      marginLeft: `-${drawerWidthMd}`,
-   },
    [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
       paddingLeft: theme.spacing(2),

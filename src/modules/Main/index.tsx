@@ -13,11 +13,13 @@ import { MainEl, EyeBtn } from './mainStyles';
 export const Main = () => {
    const open = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
-
    const dispatch = useAppDispatch();
-
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+   const handleOpenDrawer = () => {
+      dispatch(openDrawer('open'));
+   };
 
    return (
       <MainEl open={open}>
@@ -50,7 +52,7 @@ export const Main = () => {
             <EyeBtn
                color='primary'
                icon={eyeIcon}
-               onClick={() => dispatch(openDrawer('open'))}
+               onClick={handleOpenDrawer}
             ></EyeBtn>
          )}
       </MainEl>
