@@ -8,7 +8,7 @@ import TaskManage from './library/common/components/ManageTaskModal/ManageTaskMo
 import AddEditTaskModal from './library/common/components/EditAddTaskModal';
 import BoardManagerModal from './library/common/components/BoardManagerModal';
 // import DeleteModal from './library/common/components/AppModal/DeleteModal';
-import { AppModal, MODAL_TYPES } from './library/common/components/AppModal';
+import { AppModal } from './library/common/components/AppModal';
 
 import { Layout, Main } from './modules';
 
