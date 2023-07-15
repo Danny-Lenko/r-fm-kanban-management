@@ -14,13 +14,6 @@ import { Layout, Main } from './modules';
 
 function App() {
    const myTheme = ColorModeToggler();
-   const {
-      taskManaging,
-      taskEditing,
-      boardManaging,
-      deletingBoard,
-      deletingTask,
-   } = useAppSelector((state) => state.modals);
 
    return (
       <ThemeProvider theme={myTheme.theme}>
@@ -30,10 +23,12 @@ function App() {
                <Main />
             </Layout>
 
-            {taskManaging && <TaskManage />}
+            <AppModal/>
+
+            {/* {taskManaging && <TaskManage />}
             {taskEditing && <AddEditTaskModal />}
             {boardManaging && <BoardManagerModal />}
-            {(deletingBoard || deletingTask) && <AppModal type={MODAL_TYPES.delete} />}
+            {(deletingBoard || deletingTask) && <AppModal type={MODAL_TYPES.delete} />} */}
          </ColorModeContext.Provider>
       </ThemeProvider>
    );

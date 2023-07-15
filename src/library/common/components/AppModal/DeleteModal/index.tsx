@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import Overlay from '../../Overlay/Overlay';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+// import { useTheme } from '@mui/material/styles';
+// import Overlay from '../../Overlay/Overlay';
+// import Paper from '@mui/material/Paper';
+// import Typography from '@mui/material/Typography';
+// import Stack from '@mui/material/Stack';
 import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import Stack from '@mui/material/Stack';
 import {
    setDeletingBoard,
    setDeletingTask,
@@ -15,18 +15,24 @@ import {
    assignActiveBoard,
 } from '../../../../../main/slices/dataSlice';
 
+import { Modal, Paper, Typography, Stack, Box, useTheme } from '@mui/material';
+
 import { AppBtn } from '../..';
 
 export const DeleteModal: React.FC = () => {
    const theme = useTheme();
-   const { deletingBoard } = useAppSelector((state) => state.modals);
+   const dispatch = useAppDispatch();
+   const navigate = useNavigate();
+
+   const { deletingBoard, deletingTask } = useAppSelector(
+      (state) => state.modals,
+   );
    const { activeBoard, activeColId, activeTaskId, boards } = useAppSelector(
       (state) => state.data,
    );
+
    const activeCol = activeBoard.columns.find((col) => col.id === activeColId);
    const activeTask = activeCol?.tasks.find((task) => task.id === activeTaskId);
-   const dispatch = useAppDispatch();
-   const navigate = useNavigate();
 
    function deleteBoardOrTask() {
       const boardsUpdated = deletingBoard
@@ -73,8 +79,9 @@ export const DeleteModal: React.FC = () => {
    }
 
    return (
-      <Overlay>
-         <Paper elevation={0} sx={deleteModalStyles(theme)}>
+      // <Overlay>
+      // <Modal open={deletingBoard || deletingTask} onClose={closeDeletingModal}>
+         <Box sx={deleteModalStyles}>
             <Typography variant='h3'>
                {deletingBoard ? 'Delete this board?' : 'Delete this task?'}
             </Typography>
@@ -99,7 +106,8 @@ export const DeleteModal: React.FC = () => {
                   Cancel
                </AppBtn>
             </Stack>
-         </Paper>
-      </Overlay>
+         </Box>
+      // </Modal>
+      // </Overlay>
    );
 };
