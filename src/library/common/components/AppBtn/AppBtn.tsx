@@ -3,7 +3,7 @@ import { ButtonProps } from '@mui/material';
 import { StyledBtn } from './styledBtn';
 import React from 'react';
 
-interface Props extends ButtonProps {
+export interface Props extends ButtonProps {
    children?: React.ReactNode;
    icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
    iconStyles?: React.CSSProperties;

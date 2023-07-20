@@ -1,6 +1,7 @@
 import { Typography, Stack, useTheme } from '@mui/material';
-import { AppBtn } from '../..';
-import { deleteBtnSx } from './deleteModalStyles';
+// import { AppBtn } from '..';
+import { AppBtn } from '../../AppBtn';
+import { deleteBtnSx, DeleteBtn } from './deleteModalStyles';
 import { useDeleteModal } from './useDeleteModal';
 
 export const DeleteModal: React.FC = () => {
@@ -19,13 +20,14 @@ export const DeleteModal: React.FC = () => {
                : `Are you sure you want to delete the ‘${activeTask?.title}’ task and its subtasks? This action cannot be reversed.`}
          </Typography>
          <Stack direction='row' spacing={2}>
-            <AppBtn
+            <DeleteBtn
                buttonSize='small'
-               sx={deleteBtnSx(theme)}
+               // sx={deleteBtnSx(theme)}
                onClick={handleDelete}
+               buttonsize={undefined}
             >
                Delete
-            </AppBtn>
+            </DeleteBtn>
             <AppBtn buttonSize='small' color='secondary' onClick={handleClose}>
                Cancel
             </AppBtn>

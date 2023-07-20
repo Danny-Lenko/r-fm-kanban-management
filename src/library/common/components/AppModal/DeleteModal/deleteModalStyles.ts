@@ -1,8 +1,13 @@
-import { Theme } from '@mui/system';
+import { styled, Theme } from '@mui/system';
+import { StyledBtn, Props } from '../../AppBtn';
 
 export const deleteBtnSx = (theme: Theme) => ({
    backgroundColor: theme.palette.destructCustom.main,
 });
+
+export const DeleteBtn = styled(StyledBtn)<Props>(({ theme }) => ({
+   backgroundColor: theme.palette.destructCustom.main,
+}));
 
 // export const deleteModalStyles = (theme: Theme) => ({
 //    zIndex: 11000,
