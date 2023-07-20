@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
-export const drawerSlice = createSlice({
+export const modalSlice = createSlice({
    name: 'modals',
    initialState: {
       taskManaging: false,
@@ -10,45 +10,45 @@ export const drawerSlice = createSlice({
       isExistingBoard: false,
       deletingBoard: false,
       deletingTask: false,
-      xsBoardsOpen: false
+      xsBoardsOpen: false,
    },
 
    reducers: {
       setTaskManaging: (state, action) => {
-         state.taskManaging = action.payload
+         state.taskManaging = action.payload;
       },
 
       setTaskEditing: (state, action) => {
-         state.taskEditing = action.payload
+         state.taskEditing = action.payload;
       },
 
       setExistingTask: (state, action) => {
-         state.isExistingTask = action.payload
+         state.isExistingTask = action.payload;
       },
 
       setBoardManaging: (state, action) => {
-         state.boardManaging = action.payload
+         state.boardManaging = action.payload;
       },
 
       setIsExistingBoard: (state, action) => {
-         state.isExistingBoard = action.payload
+         state.isExistingBoard = action.payload;
       },
 
       setDeletingBoard: (state, action) => {
-         state.deletingBoard = action.payload
+         state.deletingBoard = action.payload;
       },
 
       setDeletingTask: (state, action) => {
-         state.deletingTask = action.payload
+         state.deletingTask = action.payload;
       },
 
       setXsBoardsOpen: (state, action) => {
-         state.xsBoardsOpen = action.payload
-      }
-   }
-})
+         state.xsBoardsOpen = action.payload;
+      },
+   },
+});
 
-export const { 
+export const {
    setTaskManaging,
    setTaskEditing,
    setExistingTask,
@@ -56,6 +56,6 @@ export const {
    setIsExistingBoard,
    setDeletingBoard,
    setDeletingTask,
-   setXsBoardsOpen
- } = drawerSlice.actions
-export default drawerSlice.reducer
+   setXsBoardsOpen,
+} = modalSlice.actions;
+export default modalSlice.reducer;

@@ -1,23 +1,20 @@
 import { useNavigate } from 'react-router-dom';
-// import { useTheme } from '@mui/material/styles';
-// import Overlay from '../../Overlay/Overlay';
-// import Paper from '@mui/material/Paper';
-// import Typography from '@mui/material/Typography';
-// import Stack from '@mui/material/Stack';
-import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
-import { useAppSelector, useAppDispatch } from '../../../hooks';
+// mui
+import { Typography, Stack, Box, useTheme } from '@mui/material';
+// components
+import { AppBtn } from '../..';
+// project
 import {
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../../main/slices/modalElsSlice';
+} from '../../../../../main/slices/modalSlice';
 import {
    setBoards,
    assignActiveBoard,
 } from '../../../../../main/slices/dataSlice';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 
-import { Modal, Paper, Typography, Stack, Box, useTheme } from '@mui/material';
-
-import { AppBtn } from '../..';
+import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
 
 export const DeleteModal: React.FC = () => {
    const theme = useTheme();
@@ -79,35 +76,31 @@ export const DeleteModal: React.FC = () => {
    }
 
    return (
-      // <Overlay>
-      // <Modal open={deletingBoard || deletingTask} onClose={closeDeletingModal}>
-         <Box sx={deleteModalStyles}>
-            <Typography variant='h3'>
-               {deletingBoard ? 'Delete this board?' : 'Delete this task?'}
-            </Typography>
-            <Typography variant='body1'>
-               {deletingBoard
-                  ? `Are you sure you want to delete the ‘${activeBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`
-                  : `Are you sure you want to delete the ‘${activeTask?.title}’ task and its subtasks? This action cannot be reversed.`}
-            </Typography>
-            <Stack direction='row' spacing={2}>
-               <AppBtn
-                  buttonSize='small'
-                  sx={deleteBtnSx(theme)}
-                  onClick={deleteBoardOrTask}
-               >
-                  Delete
-               </AppBtn>
-               <AppBtn
-                  buttonSize='small'
-                  color='secondary'
-                  onClick={closeDeletingModal}
-               >
-                  Cancel
-               </AppBtn>
-            </Stack>
-         </Box>
-      // </Modal>
-      // </Overlay>
+      <Box sx={deleteModalStyles}>
+         <Typography variant='h3'>
+            {deletingBoard ? 'Delete this board?' : 'Delete this task?'}
+         </Typography>
+         <Typography variant='body1'>
+            {deletingBoard
+               ? `Are you sure you want to delete the ‘${activeBoard.name}’ board? This action will remove all columns and tasks and cannot be reversed.`
+               : `Are you sure you want to delete the ‘${activeTask?.title}’ task and its subtasks? This action cannot be reversed.`}
+         </Typography>
+         <Stack direction='row' spacing={2}>
+            <AppBtn
+               buttonSize='small'
+               sx={deleteBtnSx(theme)}
+               onClick={deleteBoardOrTask}
+            >
+               Delete
+            </AppBtn>
+            <AppBtn
+               buttonSize='small'
+               color='secondary'
+               onClick={closeDeletingModal}
+            >
+               Cancel
+            </AppBtn>
+         </Stack>
+      </Box>
    );
 };

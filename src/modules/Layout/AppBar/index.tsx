@@ -8,7 +8,7 @@ import logoLight from '../../../resources/assets/logo-light.svg';
 import logoMobile from '../../../resources/assets/logo-mobile.svg';
 
 import { AppBarEl, appbarStyles } from './appbarStyles';
-import { setXsBoardsOpen } from '../../../main/slices/modalElsSlice';
+import { setXsBoardsOpen } from '../../../main/slices/modalSlice';
 import useMediaQuery from '@mui/material/useMediaQuery/useMediaQuery';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';

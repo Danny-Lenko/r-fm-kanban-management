@@ -12,6 +12,10 @@ export const deleteModalStyles = {
    p: 4,
 };
 
+// export const deleteBtnSx = (theme: Theme) => ({
+//    backgroundColor: theme.palette.destructCustom.main,
+// });
+
 export const deleteBtnSx = (theme: Theme) => ({
    backgroundColor: theme.palette.destructCustom.main,
 });

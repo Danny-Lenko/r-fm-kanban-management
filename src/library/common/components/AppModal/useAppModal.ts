@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../main/slices/modalElsSlice';
+} from '../../../../main/slices/modalSlice';
 
 export enum ModalTypes {
    // taskAddEdit = 'taskAddEdit',

@@ -6,7 +6,7 @@ import {
    useAppSelector,
    useAppDispatch,
 } from '../../../../library/common/hooks';
-import { setTaskEditing } from '../../../../main/slices/modalElsSlice';
+import { setTaskEditing } from '../../../../main/slices/modalSlice';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 import { buttonsBoxStyles, sxPlusBtnStyles } from './buttonsBoxStyles';
