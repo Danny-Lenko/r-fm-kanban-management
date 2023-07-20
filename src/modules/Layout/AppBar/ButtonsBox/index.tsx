@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import DotsMenu from '../../../../library/common/components/DotsMenu/DotsMenu';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import {
    useAppSelector,
@@ -11,7 +10,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 import { buttonsBoxStyles, sxPlusBtnStyles } from './buttonsBoxStyles';
 
-import { AppBtn } from '../../../../library/common/components';
+import { AppBtn, DotsMenu } from '../../../../library/common/components';
 
 const ButtonsBox = () => {
    const activeBoard = useAppSelector((state) => state.data.activeBoard);

@@ -29,7 +29,7 @@ export const StyledBtn = styled(Button)<Props>(
          backgroundColor: setBcgHover(rest.color, theme),
       },
 
-      ...setButtonSize(buttonsize)
+      ...setButtonSize(buttonsize),
    }),
 );
 

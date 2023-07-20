@@ -1,6 +1,5 @@
-import { DeleteModal } from './DeleteModal';
 import { Modal } from '@mui/material';
-import { useAppModal, ModalTypes } from './useAppModal';
+import { useAppModal, ModalTypes, DeleteModal, StyledContent } from '.';
 
 const getModal = (type: ModalTypes) =>
    ({
@@ -17,9 +16,9 @@ export const AppModal: React.FC = () => {
    const onClose = getOnClose(type);
    return (
       <Modal open={open} onClose={onClose}>
-         <CustomModal />
+         <StyledContent>
+            <CustomModal />
+         </StyledContent>
       </Modal>
    );
 };
-
-export * from './useAppModal';

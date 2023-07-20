@@ -10,7 +10,7 @@ import {
    setDeletingTask,
 } from '../../../../main/slices/modalSlice';
 
-const DotsMenuItem = ({ option, handleClose }: any) => {
+export const DotsMenuItem = ({ option, handleClose }: any) => {
    const dispatch = useAppDispatch();
 
    return (
@@ -46,5 +46,3 @@ const DotsMenuItem = ({ option, handleClose }: any) => {
       </MenuItem>
    );
 };
-
-export default DotsMenuItem;

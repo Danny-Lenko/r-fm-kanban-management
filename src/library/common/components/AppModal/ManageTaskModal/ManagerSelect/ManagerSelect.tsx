@@ -1,5 +1,5 @@
 import Typography from '@mui/material/Typography'
-import SelectEl from '../../SelectEl/SelectEl';
+import SelectEl from '../../../SelectEl/SelectEl';
 
 const ManagerSelect = ({formik, cols}: any) => {
    return (

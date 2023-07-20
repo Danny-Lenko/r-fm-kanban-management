@@ -3,9 +3,9 @@ import {
    manageActiveTask,
    assignActiveBoard,
    manageColumnsChange,
-} from '../../../main/slices/dataSlice';
-import { countCompletedSubtasks } from '../../utilities/utils';
-import { useAppSelector, useAppDispatch } from '.';
+} from '../../../../../main/slices/dataSlice';
+import { countCompletedSubtasks } from '../../../../utilities/utils';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
 
 export const useManagerFormik = () => {
    const task = useAppSelector((state) => state.data.managedTask);

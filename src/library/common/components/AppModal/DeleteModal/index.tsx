@@ -1,6 +1,6 @@
-import { Typography, Stack, Box, useTheme } from '@mui/material';
+import { Typography, Stack, useTheme } from '@mui/material';
 import { AppBtn } from '../..';
-import { deleteModalStyles, deleteBtnSx } from './deleteModalStyles';
+import { deleteBtnSx } from './deleteModalStyles';
 import { useDeleteModal } from './useDeleteModal';
 
 export const DeleteModal: React.FC = () => {
@@ -9,7 +9,7 @@ export const DeleteModal: React.FC = () => {
       useDeleteModal();
 
    return (
-      <Box sx={deleteModalStyles}>
+      <>
          <Typography variant='h3'>
             {deletingBoard ? 'Delete this board?' : 'Delete this task?'}
          </Typography>
@@ -30,6 +30,6 @@ export const DeleteModal: React.FC = () => {
                Cancel
             </AppBtn>
          </Stack>
-      </Box>
+      </>
    );
 };
