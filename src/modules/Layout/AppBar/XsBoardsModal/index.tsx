@@ -4,7 +4,7 @@ import {
    useAppSelector,
    useAppDispatch,
 } from '../../../../library/common/hooks';
-import { setXsBoardsOpen } from '../../../../main/slices/modalElsSlice';
+import { setXsBoardsOpen } from '../../../../main/slices/modalSlice';
 import BoardsList from '../../../../library/common/components/BoardsList/BoardsList';
 // import DrawerModeBtn from '../../DrawerModeBtn';
 

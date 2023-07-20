@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const drawerSlice = createSlice({
+export const modalSlice = createSlice({
    name: 'modals',
    initialState: {
       taskManaging: false,
@@ -57,5 +57,5 @@ export const {
    setDeletingBoard,
    setDeletingTask,
    setXsBoardsOpen
- } = drawerSlice.actions
-export default drawerSlice.reducer
+ } = modalSlice.actions
+export default modalSlice.reducer

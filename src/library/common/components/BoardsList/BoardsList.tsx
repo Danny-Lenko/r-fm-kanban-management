@@ -5,13 +5,12 @@ import Box from '@mui/material/Box';
 
 import { DrawerBoardBtn } from '..';
 
-
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import {
    setBoardManaging,
    setXsBoardsOpen,
-} from '../../../../main/slices/modalElsSlice';
+} from '../../../../main/slices/modalSlice';
 import { assignActiveBoard } from '../../../../main/slices/dataSlice';
 import { boardsListStyles } from './boardsListStyles';
 import useTheme from '@mui/material/styles/useTheme';

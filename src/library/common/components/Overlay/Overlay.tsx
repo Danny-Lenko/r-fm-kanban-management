@@ -6,7 +6,7 @@ import {
    setExistingTask,
    setBoardManaging,
    setIsExistingBoard,
-} from '../../../../main/slices/modalElsSlice';
+} from '../../../../main/slices/modalSlice';
 
 const Overlay = (props: any) => {
    const dispatch = useAppDispatch();

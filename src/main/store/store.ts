@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import drawerReducer from '../slices/drawerSlice';
 import dataReducer from '../slices/dataSlice';
-import modalsReducer from '../slices/modalElsSlice'
+import modalsReducer from '../slices/modalSlice';
 // import { apiSlice } from '../../library/common/slices/api/apiSlice';
 // import todosReducer from '../../modules/TodosList/todosSlice'
 // import deleteModalReducer from '../../library/common/components/DeleteModal/deleteModalSlice';
@@ -10,8 +10,8 @@ export const store = configureStore({
    reducer: {
       drawer: drawerReducer,
       data: dataReducer,
-      modals: modalsReducer
-   }
+      modals: modalsReducer,
+   },
    //     todos: todosReducer,
    //     deleteModal: deleteModalReducer,
    //     [apiSlice.reducerPath]: apiSlice.reducer,
