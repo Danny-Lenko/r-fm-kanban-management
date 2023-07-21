@@ -1,40 +1,39 @@
-import { useTheme, Typography, Box } from '@mui/material';
-import { assembleManageTaskModalStyles } from './manageTaskModalStyles';
-import { FormikProps, FormikValues, Formik } from 'formik';
 import { useEffect, useRef } from 'react';
+import { FormikProps, FormikValues, Formik } from 'formik';
+import { useTheme, Typography } from '@mui/material';
 
 import { DotsMenu } from '../..';
 import { useManagerFormik, ManagerCheckbox, ManagerSelect } from '.';
+import { useAppSelector, useAppDispatch } from '../../../hooks';
+import {
+   setSubmissionTrigger,
+   setTaskManaging,
+} from '../../../../../main/slices';
 
-import { setBoardManagerRef } from '../../../../../main/slices';
-import { useAppDispatch } from '../../../hooks';
+import { Heading } from './manageTaskModalStyles';
 
 export const ManageTaskModal = () => {
    const theme = useTheme();
-   const { formik, cols, task } = useManagerFormik();
    const dispatch = useAppDispatch();
+   const { submissionTrigger } = useAppSelector((state) => state.modals);
+   const { formik, cols, task } = useManagerFormik();
 
    const formRef = useRef<FormikProps<FormikValues>>(null);
 
    useEffect(() => {
-      console.log(formRef);
-      dispatch(setBoardManagerRef(JSON.stringify(formRef)));
-   }, []);
-
-   // const handleSubmit = () => {
-   //    if (formRef.current) {
-   //       formRef.current.handleSubmit();
-   //    }
-   // };
+      if (submissionTrigger) {
+         formRef.current?.handleSubmit();
+         dispatch(setSubmissionTrigger(false));
+         dispatch(setTaskManaging(false));
+      }
+   }, [submissionTrigger]);
 
    return (
-      // <Overlay submitHandler={handleSubmit}>
-      // <Paper elevation={0} sx={assembleManageTaskModalStyles(theme)}>
       <>
-         <Box className='heading'>
+         <Heading>
             <Typography variant='h3'>{task.title}</Typography>
             <DotsMenu isTaskMenu={true} />
-         </Box>
+         </Heading>
          <Typography variant='body1'>{task.description}</Typography>
 
          <Formik
@@ -48,7 +47,5 @@ export const ManageTaskModal = () => {
             </form>
          </Formik>
       </>
-      // </Paper>
-      // </Overlay>
    );
 };

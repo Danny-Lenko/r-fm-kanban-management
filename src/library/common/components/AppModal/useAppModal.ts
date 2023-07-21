@@ -3,6 +3,7 @@ import {
    setDeletingBoard,
    setDeletingTask,
    setTaskManaging,
+   setSubmissionTrigger,
 } from '../../../../main/slices';
 
 export enum ModalTypes {
@@ -18,7 +19,6 @@ export const useAppModal = () => {
       taskManaging,
       taskEditing,
       boardManaging,
-      boardManagerRef,
       deletingBoard,
       deletingTask,
    } = useAppSelector((state) => state.modals);
@@ -43,16 +43,7 @@ export const useAppModal = () => {
    }
 
    function closeTaskManager() {
-      dispatch(setTaskManaging(false));
-      // if (boardManagerRef) {
-      //    // console.log(JSON.parse(boardManagerRef));
-      //    const 
-      // }
-      // console.log(boardManagerRef && JSON.parse(boardManagerRef));
-      const ref = JSON.parse(boardManagerRef)
-      console.log(ref)
-      // ref.current.handleSubmit()
-      // props.submitHandler();
+      dispatch(setSubmissionTrigger(true));
    }
 
    const getOnClose = (type: ModalTypes) =>

@@ -1,4 +1,4 @@
-import { useFormik } from 'formik';
+import { useFormik, FormikValues } from 'formik';
 import {
    manageActiveTask,
    assignActiveBoard,
@@ -16,7 +16,7 @@ export const useManagerFormik = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const activeCol = cols.find((col) => col.id === activeColId);
 
-   const formik = useFormik({
+   const formik = useFormik<FormikValues>({
       initialValues: {
          checked: task.subtasks
             .filter((sub) => sub.isCompleted)
@@ -25,12 +25,12 @@ export const useManagerFormik = () => {
       },
       validationSchema: null,
 
-      onSubmit: (values) => {
+      onSubmit: (values: FormikValues) => {
          const managedSubs = {
             ...task,
             status: values.status,
             subtasks: task.subtasks.map((sub) =>
-               values.checked.some((val) => val === sub.title)
+               values.checked.some((val: string) => val === sub.title)
                   ? { ...sub, isCompleted: true }
                   : { ...sub, isCompleted: false },
             ),

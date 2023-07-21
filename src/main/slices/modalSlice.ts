@@ -1,33 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { FormikProps, FormikValues } from 'formik';
-
-interface Types {
-   taskManaging: boolean;
-   taskEditing: boolean;
-   isExistingTask: boolean;
-   boardManaging: boolean;
-   boardManagerRef: string;
-   isExistingBoard: boolean;
-   deletingBoard: boolean;
-   deletingTask: boolean;
-   xsBoardsOpen: boolean;
-}
-
-const state: Types = {
-   taskManaging: false,
-   taskEditing: false,
-   isExistingTask: false,
-   boardManaging: false,
-   boardManagerRef: '',
-   isExistingBoard: false,
-   deletingBoard: false,
-   deletingTask: false,
-   xsBoardsOpen: false,
-};
 
 export const modalSlice = createSlice({
    name: 'modals',
-   initialState: state,
+   initialState: {
+      taskManaging: false,
+      taskEditing: false,
+      isExistingTask: false,
+      boardManaging: false,
+      submissionTrigger: false,
+      isExistingBoard: false,
+      deletingBoard: false,
+      deletingTask: false,
+      xsBoardsOpen: false,
+   },
 
    reducers: {
       setTaskManaging: (state, action) => {
@@ -46,8 +31,8 @@ export const modalSlice = createSlice({
          state.boardManaging = action.payload;
       },
 
-      setBoardManagerRef: (state, action) => {
-         state.boardManagerRef = action.payload;
+      setSubmissionTrigger: (state, action) => {
+         state.submissionTrigger = action.payload;
       },
 
       setIsExistingBoard: (state, action) => {
@@ -73,7 +58,7 @@ export const {
    setTaskEditing,
    setExistingTask,
    setBoardManaging,
-   setBoardManagerRef,
+   setSubmissionTrigger,
    setIsExistingBoard,
    setDeletingBoard,
    setDeletingTask,

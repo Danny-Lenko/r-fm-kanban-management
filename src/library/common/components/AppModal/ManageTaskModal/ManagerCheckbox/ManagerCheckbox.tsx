@@ -4,12 +4,35 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { assembleCheckboxStyles } from '../manageTaskModalStyles';
 
-export const ManagerCheckbox = ({ formik, task, theme }: any) => {
+import { FormikProps, FormikValues, Formik } from 'formik';
+
+import { SubtasksHeading } from '..';
+import { Theme } from '@mui/system';
+
+type Task = {
+   id: number;
+   completedSubtasks: number;
+   title: string;
+   description: string;
+   status: string;
+   subtasks: {
+      title: string;
+      isCompleted: boolean;
+   }[];
+};
+
+type Props = {
+   formik: FormikProps<FormikValues>;
+   task: Task;
+   theme: Theme;
+};
+
+export const ManagerCheckbox: React.FC<Props> = ({ formik, task, theme }) => {
    return (
       <>
-         <Typography className='subtasks-heading' variant='body2'>
+         <SubtasksHeading variant='body2'>
             Subtasks ({task.completedSubtasks} of {task.subtasks.length})
-         </Typography>
+         </SubtasksHeading>
          <FormGroup>
             {task.subtasks.map((sub: any) => (
                <FormControlLabel
