@@ -1,13 +1,12 @@
-import Typography from '@mui/material/Typography'
+import Typography from '@mui/material/Typography';
 import SelectEl from '../../../SelectEl/SelectEl';
 
-const ManagerSelect = ({formik, cols}: any) => {
+export const ManagerSelect = ({ formik, cols }: any) => {
    return (
       <>
          <Typography
             style={{ margin: '24px 0 8px' }}
-            className=
-            'subtasks-heading'
+            className='subtasks-heading'
             variant='body2'
          >
             Current Status
@@ -20,6 +19,4 @@ const ManagerSelect = ({formik, cols}: any) => {
          />
       </>
    );
-}
-
-export default ManagerSelect;
+};

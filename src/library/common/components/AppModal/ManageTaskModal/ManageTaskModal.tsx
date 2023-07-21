@@ -1,29 +1,31 @@
-// import Overlay from '../Overlay/Overlay';
-import Box from '@mui/material/Box';
-// import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import { useTheme, Typography, Box } from '@mui/material';
 import { assembleManageTaskModalStyles } from './manageTaskModalStyles';
 import { FormikProps, FormikValues, Formik } from 'formik';
-import { useRef } from 'react';
-import ManagerCheckbox from './ManagerCheckbox/ManagerCheckbox';
-import ManagerSelect from './ManagerSelect/ManagerSelect';
+import { useEffect, useRef } from 'react';
 
-import { DotsMenu } from '../../DotsMenu';
-// import { useManagerFormik } from '../../../hooks';
+import { DotsMenu } from '../..';
+import { useManagerFormik, ManagerCheckbox, ManagerSelect } from '.';
 
-import { useManagerFormik } from '.';
+import { setBoardManagerRef } from '../../../../../main/slices';
+import { useAppDispatch } from '../../../hooks';
 
 export const ManageTaskModal = () => {
    const theme = useTheme();
    const { formik, cols, task } = useManagerFormik();
+   const dispatch = useAppDispatch();
 
    const formRef = useRef<FormikProps<FormikValues>>(null);
-   const handleSubmit = () => {
-      if (formRef.current) {
-         formRef.current.handleSubmit();
-      }
-   };
+
+   useEffect(() => {
+      console.log(formRef);
+      dispatch(setBoardManagerRef(JSON.stringify(formRef)));
+   }, []);
+
+   // const handleSubmit = () => {
+   //    if (formRef.current) {
+   //       formRef.current.handleSubmit();
+   //    }
+   // };
 
    return (
       // <Overlay submitHandler={handleSubmit}>

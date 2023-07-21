@@ -2,13 +2,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../main/slices/modalSlice';
+   setTaskManaging,
+} from '../../../../main/slices';
 
 export enum ModalTypes {
    // taskAddEdit = 'taskAddEdit',
-   // taskManage = 'taskManage',
    // boardManage = 'boardManage',
-   Delete = 'delete',
+   TaskManager = 'taskManager',
+   Remover = 'remover',
    Temp = 'temp',
 }
 
@@ -17,6 +18,7 @@ export const useAppModal = () => {
       taskManaging,
       taskEditing,
       boardManaging,
+      boardManagerRef,
       deletingBoard,
       deletingTask,
    } = useAppSelector((state) => state.modals);
@@ -29,17 +31,35 @@ export const useAppModal = () => {
 
    const dispatch = useAppDispatch();
 
-   const type = deletingBoard ? ModalTypes.Delete : ModalTypes.Temp;
+   const type = deletingBoard
+      ? ModalTypes.Remover
+      : taskManaging
+      ? ModalTypes.TaskManager
+      : ModalTypes.Temp;
 
-   function closeDeletingModal() {
+   function closeRemover() {
       dispatch(setDeletingBoard(false));
       dispatch(setDeletingTask(false));
    }
 
+   function closeTaskManager() {
+      dispatch(setTaskManaging(false));
+      // if (boardManagerRef) {
+      //    // console.log(JSON.parse(boardManagerRef));
+      //    const 
+      // }
+      // console.log(boardManagerRef && JSON.parse(boardManagerRef));
+      const ref = JSON.parse(boardManagerRef)
+      console.log(ref)
+      // ref.current.handleSubmit()
+      // props.submitHandler();
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
-         [ModalTypes.Delete]: closeDeletingModal,
-         [ModalTypes.Temp]: closeDeletingModal,
+         [ModalTypes.Remover]: closeRemover,
+         [ModalTypes.TaskManager]: closeTaskManager,
+         [ModalTypes.Temp]: closeRemover,
 
          // [MODAL_TYPES.optional]: OptionalModal,
       }[type]);
