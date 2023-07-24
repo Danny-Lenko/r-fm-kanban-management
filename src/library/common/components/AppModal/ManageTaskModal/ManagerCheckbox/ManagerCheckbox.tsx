@@ -1,25 +1,9 @@
-import Typography from '@mui/material/Typography';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { assembleCheckboxStyles } from '../manageTaskModalStyles';
-
-import { FormikProps, FormikValues, Formik } from 'formik';
-
-import { SubtasksHeading } from '..';
+import { FormikProps, FormikValues } from 'formik';
 import { Theme } from '@mui/system';
+import { FormGroup } from '@mui/material';
 
-type Task = {
-   id: number;
-   completedSubtasks: number;
-   title: string;
-   description: string;
-   status: string;
-   subtasks: {
-      title: string;
-      isCompleted: boolean;
-   }[];
-};
+import { StyledControlLabel, StyledCheckbox } from '.';
+import { SubtasksHeading } from '..';
 
 type Props = {
    formik: FormikProps<FormikValues>;
@@ -27,19 +11,33 @@ type Props = {
    theme: Theme;
 };
 
-export const ManagerCheckbox: React.FC<Props> = ({ formik, task, theme }) => {
+type Task = {
+   id: number;
+   completedSubtasks: number;
+   title: string;
+   description: string;
+   status: string;
+   subtasks: Subtask[];
+};
+
+type Subtask = {
+   title: string;
+   isCompleted: boolean;
+};
+
+export const ManagerCheckbox: React.FC<Props> = ({ formik, task }) => {
    return (
       <>
          <SubtasksHeading variant='body2'>
             Subtasks ({task.completedSubtasks} of {task.subtasks.length})
          </SubtasksHeading>
          <FormGroup>
-            {task.subtasks.map((sub: any) => (
-               <FormControlLabel
+            {task.subtasks.map((sub: Subtask) => (
+               <StyledControlLabel
                   key={sub.title}
-                  sx={assembleCheckboxStyles(sub, theme)}
+                  subtask={sub}
                   control={
-                     <Checkbox
+                     <StyledCheckbox
                         value={sub.title}
                         defaultChecked={sub.isCompleted}
                      />
