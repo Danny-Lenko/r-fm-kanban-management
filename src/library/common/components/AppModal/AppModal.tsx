@@ -1,10 +1,18 @@
 import { Modal } from '@mui/material';
-import { useAppModal, ModalTypes, DeleteModal, StyledContent, ManageTaskModal } from '.';
+import {
+   useAppModal,
+   ModalTypes,
+   DeleteModal,
+   StyledContent,
+   ManageTaskModal,
+   EditAddTaskModal,
+} from '.';
 
 const getModal = (type: ModalTypes) =>
    ({
       [ModalTypes.Remover]: DeleteModal,
       [ModalTypes.TaskManager]: ManageTaskModal,
+      [ModalTypes.TaskEditor]: EditAddTaskModal,
       [ModalTypes.Temp]: DeleteModal,
       // [MODAL_TYPES.optional]: OptionalModal,
    }[type]);

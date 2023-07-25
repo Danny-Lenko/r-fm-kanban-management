@@ -1,12 +1,19 @@
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
+import { Typography, TextField } from '@mui/material';
 
-const DescriptionField = ({
+import { Formik, FormikProps, FormikValues } from 'formik';
+
+// type Props = {
+//    props: FormikProps<FormikValues>
+// }
+
+type Props = 
+
+export const DescriptionField: React.FC<FormikProps<FormikValues>> = ({
    value,
    onChange,
    error,
-   helperText
-}:any) => {
+   helperText,
+}) => {
    return (
       <>
          <Typography
@@ -21,8 +28,8 @@ const DescriptionField = ({
             multiline
             rows={4}
             fullWidth
-            id="description"
-            name="description"
+            id='description'
+            name='description'
             value={value}
             onChange={onChange}
             error={error}
@@ -30,6 +37,4 @@ const DescriptionField = ({
          />
       </>
    );
-}
-
-export default DescriptionField;
+};

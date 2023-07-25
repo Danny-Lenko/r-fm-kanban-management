@@ -2,14 +2,14 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setDeletingBoard,
    setDeletingTask,
-   setTaskManaging,
    setSubmissionTrigger,
+   setTaskEditing,
+   setExistingTask,
 } from '../../../../main/slices';
 
 export enum ModalTypes {
-   // taskAddEdit = 'taskAddEdit',
-   // boardManage = 'boardManage',
    TaskManager = 'taskManager',
+   TaskEditor = 'taskEditor',
    Remover = 'remover',
    Temp = 'temp',
 }
@@ -35,6 +35,8 @@ export const useAppModal = () => {
       ? ModalTypes.Remover
       : taskManaging
       ? ModalTypes.TaskManager
+      : taskEditing
+      ? ModalTypes.TaskEditor
       : ModalTypes.Temp;
 
    function closeRemover() {
@@ -46,10 +48,16 @@ export const useAppModal = () => {
       dispatch(setSubmissionTrigger(true));
    }
 
+   function closeTaskEditor() {
+      dispatch(setTaskEditing(false));
+      dispatch(setExistingTask(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
          [ModalTypes.TaskManager]: closeTaskManager,
+         [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.Temp]: closeRemover,
 
          // [MODAL_TYPES.optional]: OptionalModal,

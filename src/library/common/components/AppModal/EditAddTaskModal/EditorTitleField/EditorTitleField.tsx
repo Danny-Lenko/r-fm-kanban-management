@@ -1,12 +1,12 @@
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-const TitleField = ({
+export const EditorTitleField = ({
    value,
    onChange,
    error,
-   helperText
-}:any) => {
+   helperText,
+}: any) => {
    return (
       <>
          <Typography
@@ -19,8 +19,8 @@ const TitleField = ({
          <TextField
             placeholder='e.g. Take coffee break'
             fullWidth
-            id="title"
-            name="title"
+            id='title'
+            name='title'
             value={value}
             onChange={onChange}
             error={error}
@@ -28,6 +28,4 @@ const TitleField = ({
          />
       </>
    );
-}
-
-export default TitleField;
+};

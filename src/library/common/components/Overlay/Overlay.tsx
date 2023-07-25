@@ -32,14 +32,14 @@ const Overlay = (props: any) => {
          sx={overlayStyles}
          onClick={(e) => {
             const target = e.target as HTMLElement;
-            if (taskManaging && target.classList.contains('overlay')) {
-               dispatch(setTaskManaging(false));
-               props.submitHandler();
-            }
-            if (taskEditing && target.classList.contains('overlay')) {
-               dispatch(setTaskEditing(false));
-               dispatch(setExistingTask(false));
-            }
+            // if (taskManaging && target.classList.contains('overlay')) {
+            //    dispatch(setTaskManaging(false));
+            //    props.submitHandler();
+            // }
+            // if (taskEditing && target.classList.contains('overlay')) {
+            //    dispatch(setTaskEditing(false));
+            //    dispatch(setExistingTask(false));
+            // }
             if (boardManaging && target.classList.contains('overlay')) {
                dispatch(setBoardManaging(false));
                dispatch(setIsExistingBoard(false));

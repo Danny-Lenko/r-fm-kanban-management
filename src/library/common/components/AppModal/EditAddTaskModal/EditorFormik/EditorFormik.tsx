@@ -1,10 +1,22 @@
-import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import { schema } from './editorFormikValidation';
 import { createTask } from './editorCreateTask';
 import { saveChanges } from './editorSaveChanges';
 
-const EditorFormik = (props: any) => {
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
+
+type Values = FormikProps<{
+   title: string;
+   description: string;
+   subtasks: string[];
+   status: string;
+}>;
+
+type Props = {
+   children: (props: Values) => React.ReactNode;
+};
+
+const EditorFormik: React.FC<Props> = ({ children }) => {
    const {
       boards,
       activeBoard,
@@ -50,7 +62,7 @@ const EditorFormik = (props: any) => {
                : createTask(submissionParams);
          }}
       >
-         {props.children}
+         {children}
       </Formik>
    );
 };
