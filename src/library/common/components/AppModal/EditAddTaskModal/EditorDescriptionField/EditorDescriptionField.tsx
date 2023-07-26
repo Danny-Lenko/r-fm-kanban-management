@@ -1,19 +1,12 @@
 import { Typography, TextField } from '@mui/material';
+import { FormikValues } from 'formik';
 
-import { Formik, FormikProps, FormikValues } from 'formik';
-
-// type Props = {
-//    props: FormikProps<FormikValues>
-// }
-
-// type Props =
-
-export const EditorDescriptionField = ({
-   value,
-   onChange,
-   error,
-   helperText,
-}: any) => {
+export const EditorDescriptionField: React.FC<FormikValues> = ({
+   values,
+   handleChange,
+   touched,
+   errors,
+}) => {
    return (
       <>
          <Typography
@@ -30,10 +23,10 @@ export const EditorDescriptionField = ({
             fullWidth
             id='description'
             name='description'
-            value={value}
-            onChange={onChange}
-            error={error}
-            helperText={helperText}
+            value={values.description}
+            onChange={handleChange}
+            error={touched.description && !!errors.description}
+            helperText={touched.description && errors.description}
          />
       </>
    );

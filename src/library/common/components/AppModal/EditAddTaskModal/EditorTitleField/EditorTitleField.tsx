@@ -1,12 +1,13 @@
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import { FormikValues } from 'formik';
+import { Typography, TextField } from '@mui/material';
 
-export const EditorTitleField = ({
-   value,
-   onChange,
-   error,
-   helperText,
-}: any) => {
+export const EditorTitleField: React.FC<FormikValues> = ({
+   values,
+   handleChange,
+   handleBlur,
+   touched,
+   errors,
+}) => {
    return (
       <>
          <Typography
@@ -21,10 +22,11 @@ export const EditorTitleField = ({
             fullWidth
             id='title'
             name='title'
-            value={value}
-            onChange={onChange}
-            error={error}
-            helperText={helperText}
+            value={values.title}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.title && !!errors.title}
+            helperText={touched.title && errors.title}
          />
       </>
    );

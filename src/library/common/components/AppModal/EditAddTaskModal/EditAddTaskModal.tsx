@@ -1,8 +1,5 @@
-import { Paper, Typography } from '@mui/material';
-
-import { Form, FormikProps, FormikValues } from 'formik';
-
-import { editorStyles, btnSx } from './editorStyles';
+import { Form } from 'formik';
+import { Typography } from '@mui/material';
 
 import {
    EditorTitleField,
@@ -12,16 +9,15 @@ import {
    EditorFormik,
 } from '.';
 import { AppBtn } from '../..';
+
 import { useAppSelector } from '../../../hooks';
+import { editorStyles, btnSx } from './editorStyles';
 
 export const EditAddTaskModal = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
 
    return (
-      // <Overlay>
-      // <Paper elevation={0} sx={editorStyles(theme)}>
-
       <>
          <Typography variant='h3'>
             {isExisting ? 'Edit task' : 'Add new task'}
@@ -29,35 +25,11 @@ export const EditAddTaskModal = () => {
 
          <EditorFormik>
             {(props) => {
-               const editorTitleProps = {
-                  value: props.values.title,
-                  onChange: props.handleChange,
-                  error: props.touched.title && !!props.errors.title,
-                  helperText: props.touched.title && props.errors.title,
-               };
                return (
                   <Form>
-                     <EditorTitleField
-                        // value={props.values.title}
-                        // onChange={props.handleChange}
-                        // error={
-                        //    props.touched.title && Boolean(props.errors.title)
-                        // }
-                        // helperText={props.touched.title && props.errors.title}
-                        {...editorTitleProps}
-                     />
+                     <EditorTitleField {...props} />
 
-                     <EditorDescriptionField
-                        value={props.values.description}
-                        onChange={props.handleChange}
-                        error={
-                           props.touched.description &&
-                           Boolean(props.errors.description)
-                        }
-                        helperText={
-                           props.touched.description && props.errors.description
-                        }
-                     />
+                     <EditorDescriptionField {...props} />
 
                      <EditorSubtasksFieldArr
                         subtasks={props.values.subtasks}
@@ -86,7 +58,5 @@ export const EditAddTaskModal = () => {
             }}
          </EditorFormik>
       </>
-      // </Paper>
-      // </Overlay>
    );
 };
