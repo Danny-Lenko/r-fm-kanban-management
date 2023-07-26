@@ -1,24 +1,22 @@
-// import Overlay from '../Overlay/Overlay';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import { Paper, Typography } from '@mui/material';
+
 import { Form, FormikProps, FormikValues } from 'formik';
-// import TitleField from './EditorTitleField/EditorTitleField';
-import DescriptionField from './EditorDescriptionField/EditorDescriptionField';
-import SubtasksFieldArr from './EditorSubtasksFieldArr';
-import SelectField from './EditorSelectField/EditorSelectField';
-import EditorFormik from './EditorFormik/EditorFormik';
 
 import { editorStyles, btnSx } from './editorStyles';
 
-import { EditorTitleField } from './EditorTitleField';
+import {
+   EditorTitleField,
+   EditorDescriptionField,
+   EditorSelectField,
+   EditorSubtasksFieldArr,
+   EditorFormik,
+} from '.';
 import { AppBtn } from '../..';
 import { useAppSelector } from '../../../hooks';
 
 export const EditAddTaskModal = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
-   const theme = useTheme();
 
    return (
       // <Overlay>
@@ -30,51 +28,62 @@ export const EditAddTaskModal = () => {
          </Typography>
 
          <EditorFormik>
-            {(props) => (
-               <Form>
-                  <EditorTitleField
-                     value={props.values.title}
-                     onChange={props.handleChange}
-                     error={props.touched.title && Boolean(props.errors.title)}
-                     helperText={props.touched.title && props.errors.title}
-                  />
+            {(props) => {
+               const editorTitleProps = {
+                  value: props.values.title,
+                  onChange: props.handleChange,
+                  error: props.touched.title && !!props.errors.title,
+                  helperText: props.touched.title && props.errors.title,
+               };
+               return (
+                  <Form>
+                     <EditorTitleField
+                        // value={props.values.title}
+                        // onChange={props.handleChange}
+                        // error={
+                        //    props.touched.title && Boolean(props.errors.title)
+                        // }
+                        // helperText={props.touched.title && props.errors.title}
+                        {...editorTitleProps}
+                     />
 
-                  <DescriptionField
-                     value={props.values.description}
-                     onChange={props.handleChange}
-                     error={
-                        props.touched.description &&
-                        Boolean(props.errors.description)
-                     }
-                     helperText={
-                        props.touched.description && props.errors.description
-                     }
-                  />
+                     <EditorDescriptionField
+                        value={props.values.description}
+                        onChange={props.handleChange}
+                        error={
+                           props.touched.description &&
+                           Boolean(props.errors.description)
+                        }
+                        helperText={
+                           props.touched.description && props.errors.description
+                        }
+                     />
 
-                  <SubtasksFieldArr
-                     subtasks={props.values.subtasks}
-                     value={props.values.subtasks}
-                     onChange={props.handleChange}
-                     tochedSubtasks={props.touched.subtasks}
-                     errorsSubtasks={props.errors.subtasks}
-                  />
+                     <EditorSubtasksFieldArr
+                        subtasks={props.values.subtasks}
+                        value={props.values.subtasks}
+                        onChange={props.handleChange}
+                        tochedSubtasks={props.touched.subtasks}
+                        errorsSubtasks={props.errors.subtasks}
+                     />
 
-                  <SelectField
-                     value={props.values.status}
-                     onChange={props.handleChange}
-                     cols={cols}
-                  />
+                     <EditorSelectField
+                        value={props.values.status}
+                        onChange={props.handleChange}
+                        cols={cols}
+                     />
 
-                  <AppBtn
-                     type='submit'
-                     buttonSize='small'
-                     color='primary'
-                     sx={btnSx}
-                  >
-                     {isExisting ? 'Save Changes' : 'Create Task'}
-                  </AppBtn>
-               </Form>
-            )}
+                     <AppBtn
+                        type='submit'
+                        buttonSize='small'
+                        color='primary'
+                        sx={btnSx}
+                     >
+                        {isExisting ? 'Save Changes' : 'Create Task'}
+                     </AppBtn>
+                  </Form>
+               );
+            }}
          </EditorFormik>
       </>
       // </Paper>

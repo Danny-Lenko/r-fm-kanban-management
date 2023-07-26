@@ -1,13 +1,11 @@
-import Typography from '@mui/material/Typography';
 import { FieldArray, FieldArrayRenderProps } from 'formik';
-import TextField from '@mui/material/TextField';
+import { Typography, TextField, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import IconButton from '@mui/material/IconButton';
 
-import { AppBtn } from '../../AppBtn';
-import { sx } from '../../BoardManagerModal/BoardColumnsFieldArr/boardColumnsFieldArrStyles';
+import { AppBtn } from '../../..';
+import { sx } from '../../../BoardManagerModal/BoardColumnsFieldArr/boardColumnsFieldArrStyles';
 
-const SubtasksFieldArr = ({
+export const EditorSubtasksFieldArr = ({
    subtasks,
    value,
    onChange,
@@ -91,5 +89,3 @@ const SubtasksFieldArr = ({
       </>
    );
 };
-
-export default SubtasksFieldArr;

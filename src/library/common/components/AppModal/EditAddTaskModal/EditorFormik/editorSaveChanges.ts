@@ -1,12 +1,11 @@
 import {
    setTaskEditing,
    setExistingTask,
-} from '../../../../../main/slices/modalSlice';
-import {
    setBoards,
    assignActiveBoard,
-} from '../../../../../main/slices/dataSlice';
-import { countCompletedSubtasks } from '../../../../utilities/utils';
+} from '../../../../../../main/slices';
+
+import { countCompletedSubtasks } from '../../../../../utilities/utils';
 
 export const saveChanges = ({
    values,

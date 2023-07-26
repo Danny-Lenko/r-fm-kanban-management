@@ -1,5 +1,4 @@
-import Typography from '@mui/material/Typography';
-import SelectEl from '../../../SelectEl/SelectEl';
+import { SelectEl } from '../../..';
 import { SubtasksHeading } from '..';
 
 export const ManagerSelect = ({ formik, cols }: any) => {

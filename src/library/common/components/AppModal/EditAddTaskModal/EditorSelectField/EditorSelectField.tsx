@@ -1,11 +1,7 @@
-import Typography from '@mui/material/Typography'
-import SelectEl from '../../SelectEl/SelectEl';
+import Typography from '@mui/material/Typography';
+import { SelectEl } from '../../..';
 
-const SelectField = ({
-   value,
-   onChange,
-   cols
-}: any) => {
+export const EditorSelectField = ({ value, onChange, cols }: any) => {
    return (
       <>
          <Typography
@@ -16,13 +12,7 @@ const SelectField = ({
             Status
          </Typography>
 
-         <SelectEl
-            value={value}
-            onChange={onChange}
-            cols={cols}
-         />
+         <SelectEl value={value} onChange={onChange} cols={cols} />
       </>
    );
-}
-
-export default SelectField;
+};

@@ -6,14 +6,14 @@ import { Formik, FormikProps, FormikValues } from 'formik';
 //    props: FormikProps<FormikValues>
 // }
 
-type Props = 
+// type Props =
 
-export const DescriptionField: React.FC<FormikProps<FormikValues>> = ({
+export const EditorDescriptionField = ({
    value,
    onChange,
    error,
    helperText,
-}) => {
+}: any) => {
    return (
       <>
          <Typography

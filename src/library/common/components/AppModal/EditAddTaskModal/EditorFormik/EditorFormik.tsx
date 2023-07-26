@@ -1,8 +1,6 @@
 import { Formik, FormikProps } from 'formik';
-import { schema } from './editorFormikValidation';
-import { createTask } from './editorCreateTask';
-import { saveChanges } from './editorSaveChanges';
 
+import { schema, createTask, saveChanges } from '.';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 
 type Values = FormikProps<{
@@ -16,7 +14,7 @@ type Props = {
    children: (props: Values) => React.ReactNode;
 };
 
-const EditorFormik: React.FC<Props> = ({ children }) => {
+export const EditorFormik: React.FC<Props> = ({ children }) => {
    const {
       boards,
       activeBoard,
@@ -66,5 +64,3 @@ const EditorFormik: React.FC<Props> = ({ children }) => {
       </Formik>
    );
 };
-
-export default EditorFormik;

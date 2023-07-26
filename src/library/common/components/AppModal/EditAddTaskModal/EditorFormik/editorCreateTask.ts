@@ -1,8 +1,8 @@
-import { setTaskEditing } from '../../../../../main/slices/modalSlice';
 import {
+   setTaskEditing,
    setBoards,
    assignActiveBoard,
-} from '../../../../../main/slices/dataSlice';
+} from '../../../../../../main/slices';
 
 export const createTask = ({
    values,
