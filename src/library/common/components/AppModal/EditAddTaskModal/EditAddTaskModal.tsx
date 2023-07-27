@@ -28,16 +28,8 @@ export const EditAddTaskModal = () => {
                return (
                   <Form>
                      <EditorTitleField {...props} />
-
                      <EditorDescriptionField {...props} />
-
-                     <EditorSubtasksFieldArr
-                        subtasks={props.values.subtasks}
-                        value={props.values.subtasks}
-                        onChange={props.handleChange}
-                        tochedSubtasks={props.touched.subtasks}
-                        errorsSubtasks={props.errors.subtasks}
-                     />
+                     <EditorSubtasksFieldArr {...props} />
 
                      <EditorSelectField
                         value={props.values.status}
