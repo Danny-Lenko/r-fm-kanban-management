@@ -1,7 +1,7 @@
 import { Typography, TextField } from '@mui/material';
 import { FormikValues } from 'formik';
 
-export const EditorDescriptionField: React.FC<FormikValues> = ({
+export const EditorDescription: React.FC<FormikValues> = ({
    values,
    handleChange,
    touched,

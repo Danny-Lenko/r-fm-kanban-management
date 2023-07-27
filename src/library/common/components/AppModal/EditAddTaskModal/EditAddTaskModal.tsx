@@ -2,10 +2,10 @@ import { Form } from 'formik';
 import { Typography } from '@mui/material';
 
 import {
-   EditorTitleField,
-   EditorDescriptionField,
-   EditorSelectField,
-   EditorSubtasksFieldArr,
+   EditorTitle,
+   EditorDescription,
+   EditorSelect,
+   EditorSubtasks,
    EditorFormik,
 } from '.';
 import { AppBtn } from '../..';
@@ -27,11 +27,11 @@ export const EditAddTaskModal = () => {
             {(props) => {
                return (
                   <Form>
-                     <EditorTitleField {...props} />
-                     <EditorDescriptionField {...props} />
-                     <EditorSubtasksFieldArr {...props} />
+                     <EditorTitle {...props} />
+                     <EditorDescription {...props} />
+                     <EditorSubtasks {...props} />
 
-                     <EditorSelectField
+                     <EditorSelect
                         value={props.values.status}
                         onChange={props.handleChange}
                         cols={cols}

@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import { SelectEl } from '../../..';
 
-export const EditorSelectField = ({ value, onChange, cols }: any) => {
+export const EditorSelect = ({ value, onChange, cols }: any) => {
    return (
       <>
          <Typography
