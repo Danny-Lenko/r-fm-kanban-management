@@ -1,18 +1,50 @@
-import Typography from '@mui/material/Typography';
-import { SelectEl } from '../../..';
+import { MenuItem } from '@mui/material';
+import { FormikValues } from 'formik';
 
-export const EditorSelect = ({ value, onChange, cols }: any) => {
+import { Label } from '../..';
+import { AppSelect } from '../../..';
+
+type Col = {
+   color: string;
+   id: number;
+   tasks: {
+      id: number;
+      completedSubtasks: number;
+      title: string;
+      description: string;
+      status: string;
+      subtasks: {
+         title: string;
+         isCompleted: boolean;
+      }[];
+   }[];
+   name: string;
+};
+
+interface Props extends FormikValues {
+   cols: Col[];
+}
+
+export const EditorSelect: React.FC<Props> = ({
+   values,
+   handleChange,
+   cols,
+}) => {
    return (
       <>
-         <Typography
-            style={{ margin: '24px 0 8px' }}
-            className='subtasks-heading'
-            variant='body2'
+         <Label htmlFor='status'>Status</Label>
+         <AppSelect
+            id='status'
+            name='status'
+            value={values.status}
+            onChange={handleChange}
          >
-            Status
-         </Typography>
-
-         <SelectEl value={value} onChange={onChange} cols={cols} />
+            {cols.map((col: Col) => (
+               <MenuItem key={col.id} value={col.name}>
+                  {col.name}
+               </MenuItem>
+            ))}
+         </AppSelect>
       </>
    );
 };

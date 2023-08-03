@@ -1,20 +1,20 @@
 export const editorStyles = (theme: any) => ({
-   zIndex: 11000,
-   p: { xs: 3, sm: 4 },
-   borderRadius: '8px',
-   width: { xs: '95%', sm: '480px' },
-   my: 5,
-   '& .MuiTypography-h3': {
-      color: theme.palette.text.primary
-   },
-   '& .MuiTypography-body1': {
-      color: 'greyCustom.200',
-      mb: 3
-   },
-   '& .subtasks-heading': {
-      color: theme.palette.mode === 'light' ? 'greyCustom.200' : 'common.white',
-      mb: 2
-   },
+   // zIndex: 11000,
+   // p: { xs: 3, sm: 4 },
+   // borderRadius: '8px',
+   // width: { xs: '95%', sm: '480px' },
+   // my: 5,
+   // '& .MuiTypography-h3': {
+   //    color: theme.palette.text.primary
+   // },
+   // '& .MuiTypography-body1': {
+   //    color: 'greyCustom.200',
+   //    mb: 3
+   // },
+   // '& .subtasks-heading': {
+   //    color: theme.palette.mode === 'light' ? 'greyCustom.200' : 'common.white',
+   //    mb: 2
+   // },
    '& .MuiTextField-root': {
       position: 'relative'
    },

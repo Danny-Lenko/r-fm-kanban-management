@@ -30,13 +30,7 @@ export const EditAddTaskModal = () => {
                      <EditorTitle {...props} />
                      <EditorDescription {...props} />
                      <EditorSubtasks {...props} />
-
-                     <EditorSelect
-                        value={props.values.status}
-                        onChange={props.handleChange}
-                        cols={cols}
-                     />
-
+                     <EditorSelect cols={cols} {...props} />
                      <AppBtn
                         type='submit'
                         buttonSize='small'

@@ -4,7 +4,10 @@ import { SubtasksHeading } from '..';
 export const ManagerSelect = ({ formik, cols }: any) => {
    return (
       <>
-         <SubtasksHeading style={{ margin: '24px 0 8px' }} variant='body2'>
+         <SubtasksHeading 
+            style={{ margin: '24px 0 8px' }} 
+            variant='body2'
+         >
             Current Status
          </SubtasksHeading>
 
