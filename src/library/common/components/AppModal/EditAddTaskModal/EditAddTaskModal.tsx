@@ -17,6 +17,8 @@ export const EditAddTaskModal = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
 
+   const selectOptions = cols.map((col) => col.name);
+
    return (
       <>
          <Typography variant='h3'>
@@ -30,7 +32,7 @@ export const EditAddTaskModal = () => {
                      <EditorTitle {...props} />
                      <EditorDescription {...props} />
                      <EditorSubtasks {...props} />
-                     <EditorSelect cols={cols} {...props} />
+                     <EditorSelect options={selectOptions} {...props} />
                      <AppBtn
                         type='submit'
                         buttonSize='small'

@@ -4,31 +4,14 @@ import { FormikValues } from 'formik';
 import { Label } from '../..';
 import { AppSelect } from '../../..';
 
-type Col = {
-   color: string;
-   id: number;
-   tasks: {
-      id: number;
-      completedSubtasks: number;
-      title: string;
-      description: string;
-      status: string;
-      subtasks: {
-         title: string;
-         isCompleted: boolean;
-      }[];
-   }[];
-   name: string;
-};
-
 interface Props extends FormikValues {
-   cols: Col[];
+   options: string[];
 }
 
 export const EditorSelect: React.FC<Props> = ({
    values,
    handleChange,
-   cols,
+   options,
 }) => {
    return (
       <>
@@ -39,9 +22,9 @@ export const EditorSelect: React.FC<Props> = ({
             value={values.status}
             onChange={handleChange}
          >
-            {cols.map((col: Col) => (
-               <MenuItem key={col.id} value={col.name}>
-                  {col.name}
+            {options.map((option: string) => (
+               <MenuItem key={option} value={option}>
+                  {option}
                </MenuItem>
             ))}
          </AppSelect>
