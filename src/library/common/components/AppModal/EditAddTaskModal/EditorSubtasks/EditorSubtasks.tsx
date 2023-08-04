@@ -1,11 +1,8 @@
 import { FieldArray, FieldArrayRenderProps, FormikValues } from 'formik';
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 
-import { AppBtn } from '../../..';
-import { sx } from '../../../BoardManagerModal/BoardColumnsFieldArr/boardColumnsFieldArrStyles';
+import { AppBtn, Label } from '../../..';
 import { Subtask } from '.';
-
-import { Label } from '../../..';
 
 export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
    const addSubtask = (arr: FieldArrayRenderProps) => {
@@ -19,26 +16,23 @@ export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
          <FieldArray
             name='subtasks'
             render={(arrayHelpers) => (
-               <div className='subtasks-list'>
+               <Stack gap={1.5}>
                   {values.subtasks.map((_: string, index: number) => (
-                     // <div key={index} className='subtask-container'>
                      <Subtask
                         key={index}
                         index={index}
                         arrayHelpers={arrayHelpers}
                      />
-                     // </div>
                   ))}
 
                   <AppBtn
                      onClick={() => addSubtask(arrayHelpers)}
                      buttonSize='small'
                      color='secondary'
-                     sx={sx.addBtn}
                   >
                      + Add New Subtask
                   </AppBtn>
-               </div>
+               </Stack>
             )}
          />
       </>

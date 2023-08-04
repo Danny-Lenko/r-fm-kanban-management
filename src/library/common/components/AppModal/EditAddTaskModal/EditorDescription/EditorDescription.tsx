@@ -1,6 +1,5 @@
-import { TextField } from '@mui/material';
 import { FormikValues } from 'formik';
-import { Label } from '../..';
+import { Label, TextField } from '../..';
 
 export const EditorDescription: React.FC<FormikValues> = ({
    values,

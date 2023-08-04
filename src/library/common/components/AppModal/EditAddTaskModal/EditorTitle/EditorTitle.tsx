@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { Typography, TextField } from '@mui/material';
+import { TextField, Label } from '../..';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,
@@ -10,13 +10,15 @@ export const EditorTitle: React.FC<FormikValues> = ({
 }) => {
    return (
       <>
-         <Typography
+         {/* <Typography
             style={{ margin: '24px 0 8px' }}
             className='subtasks-heading'
             variant='body2'
          >
             Title
-         </Typography>
+         </Typography> */}
+         <Label>Title</Label>
+         
          <TextField
             placeholder='e.g. Take coffee break'
             fullWidth

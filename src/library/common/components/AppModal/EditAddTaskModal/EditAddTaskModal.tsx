@@ -11,13 +11,20 @@ import {
 import { AppBtn } from '../..';
 
 import { useAppSelector } from '../../../hooks';
-import { editorStyles, btnSx } from './editorStyles';
 
 export const EditAddTaskModal = () => {
    const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
 
    const selectOptions = cols.map((col) => col.name);
+
+   const btnProps = {
+      type: 'submit' as 'submit',
+      buttonSize: 'small' as 'small',
+      color: 'primary' as 'primary',
+      fullWidth: true,
+      sx: { marginTop: 4 },
+   };
 
    return (
       <>
@@ -33,12 +40,7 @@ export const EditAddTaskModal = () => {
                      <EditorDescription {...props} />
                      <EditorSubtasks {...props} />
                      <EditorSelect options={selectOptions} {...props} />
-                     <AppBtn
-                        type='submit'
-                        buttonSize='small'
-                        color='primary'
-                        sx={btnSx}
-                     >
+                     <AppBtn {...btnProps}>
                         {isExisting ? 'Save Changes' : 'Create Task'}
                      </AppBtn>
                   </Form>
