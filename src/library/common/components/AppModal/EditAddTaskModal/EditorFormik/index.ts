@@ -1,4 +1,4 @@
 export * from './EditorFormik';
-export * from './editorCreateTask';
+export * from './createTask';
 export * from './editorFormikValidation';
-export * from './editorSaveChanges';
+export * from './saveChanges';

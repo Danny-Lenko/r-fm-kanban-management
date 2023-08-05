@@ -4,13 +4,13 @@ import {
    setTaskEditing,
    setTaskManaging,
    setExistingTask,
-   setBoardManaging,
+   setBoardEditing,
    setIsExistingBoard,
 } from '../../../../main/slices/modalSlice';
 
 const Overlay = (props: any) => {
    const dispatch = useAppDispatch();
-   const { taskManaging, taskEditing, boardManaging } = useAppSelector(
+   const { taskManaging, taskEditing, boardEditing } = useAppSelector(
       (state) => state.modals,
    );
 
@@ -40,8 +40,8 @@ const Overlay = (props: any) => {
             //    dispatch(setTaskEditing(false));
             //    dispatch(setExistingTask(false));
             // }
-            if (boardManaging && target.classList.contains('overlay')) {
-               dispatch(setBoardManaging(false));
+            if (boardEditing && target.classList.contains('overlay')) {
+               dispatch(setBoardEditing(false));
                dispatch(setIsExistingBoard(false));
             }
          }}

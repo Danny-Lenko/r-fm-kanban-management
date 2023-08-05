@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton';
 
-import { AppBtn } from '../..';
+import { AppBtn } from '../../..';
 import { sx } from './boardColumnsFieldArrStyles';
 
 const placeholders = [

@@ -3,15 +3,17 @@ import { Formik, FormikProps } from 'formik';
 import { schema, createTask, saveChanges } from '.';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 
-type Values = FormikProps<{
+export type Values = {
    title: string;
    description: string;
    subtasks: string[];
    status: string;
-}>;
+};
+
+type FormikValues = FormikProps<Values>;
 
 type Props = {
-   children: (props: Values) => React.ReactNode;
+   children: (props: FormikValues) => React.ReactNode;
 };
 
 export const EditorFormik: React.FC<Props> = ({ children }) => {

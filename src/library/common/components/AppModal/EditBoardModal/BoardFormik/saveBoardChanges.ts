@@ -1,11 +1,11 @@
 import {
-   setBoardManaging,
+   setBoardEditing,
    setIsExistingBoard,
-} from '../../../../../main/slices/modalSlice';
+} from '../../../../../../main/slices/modalSlice';
 import {
    setBoards,
    assignActiveBoard,
-} from '../../../../../main/slices/dataSlice';
+} from '../../../../../../main/slices/dataSlice';
 
 export const saveBoardChanges = ({
    values,
@@ -33,5 +33,5 @@ export const saveBoardChanges = ({
    dispatch(setBoards(boardsUpdated));
    dispatch(assignActiveBoard(activeBoard.id));
    dispatch(setIsExistingBoard(false));
-   dispatch(setBoardManaging(false));
+   dispatch(setBoardEditing(false));
 };

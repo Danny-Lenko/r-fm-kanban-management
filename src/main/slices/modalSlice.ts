@@ -6,7 +6,7 @@ export const modalSlice = createSlice({
       taskManaging: false,
       taskEditing: false,
       isExistingTask: false,
-      boardManaging: false,
+      boardEditing: false,
       submissionTrigger: false,
       isExistingBoard: false,
       deletingBoard: false,
@@ -27,8 +27,8 @@ export const modalSlice = createSlice({
          state.isExistingTask = action.payload;
       },
 
-      setBoardManaging: (state, action) => {
-         state.boardManaging = action.payload;
+      setBoardEditing: (state, action) => {
+         state.boardEditing = action.payload;
       },
 
       setSubmissionTrigger: (state, action) => {
@@ -57,7 +57,7 @@ export const {
    setTaskManaging,
    setTaskEditing,
    setExistingTask,
-   setBoardManaging,
+   setBoardEditing,
    setSubmissionTrigger,
    setIsExistingBoard,
    setDeletingBoard,

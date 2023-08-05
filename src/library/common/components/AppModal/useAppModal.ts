@@ -5,27 +5,29 @@ import {
    setSubmissionTrigger,
    setTaskEditing,
    setExistingTask,
+   setBoardEditing,
+   setIsExistingBoard,
 } from '../../../../main/slices';
 
 export enum ModalTypes {
-   TaskManager = 'taskManager',
-   TaskEditor = 'taskEditor',
-   Remover = 'remover',
-   Temp = 'temp',
+   TaskManager,
+   TaskEditor,
+   BoardEditor,
+   Remover,
 }
 
 export const useAppModal = () => {
    const {
       taskManaging,
       taskEditing,
-      boardManaging,
+      boardEditing,
       deletingBoard,
       deletingTask,
    } = useAppSelector((state) => state.modals);
    const open =
       taskManaging ||
       taskEditing ||
-      boardManaging ||
+      boardEditing ||
       deletingBoard ||
       deletingTask;
 
@@ -37,7 +39,7 @@ export const useAppModal = () => {
       ? ModalTypes.TaskManager
       : taskEditing
       ? ModalTypes.TaskEditor
-      : ModalTypes.Temp;
+      : ModalTypes.BoardEditor;
 
    function closeRemover() {
       dispatch(setDeletingBoard(false));
@@ -53,33 +55,18 @@ export const useAppModal = () => {
       dispatch(setExistingTask(false));
    }
 
+   function closeBoardEditor() {
+      dispatch(setBoardEditing(false));
+      dispatch(setIsExistingBoard(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
          [ModalTypes.TaskManager]: closeTaskManager,
          [ModalTypes.TaskEditor]: closeTaskEditor,
-         [ModalTypes.Temp]: closeRemover,
-
-         // [MODAL_TYPES.optional]: OptionalModal,
+         [ModalTypes.BoardEditor]: closeBoardEditor,
       }[type]);
 
    return { type, open, getOnClose };
 };
-
-// export const useAppModal = () => {
-//    const [isModalOpen, setIsModalOpen] = useState(false);
-
-//    const handleOpen = () => {
-//       setIsModalOpen(true);
-//    };
-
-//    const handleClose = () => {
-//       setIsModalOpen(false);
-//    };
-
-//    return {
-//       isModalOpen,
-//       handleOpen,
-//       handleClose
-//    }
-// }

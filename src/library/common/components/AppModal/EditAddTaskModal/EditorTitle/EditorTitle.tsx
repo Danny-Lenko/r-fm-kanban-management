@@ -8,28 +8,22 @@ export const EditorTitle: React.FC<FormikValues> = ({
    touched,
    errors,
 }) => {
+   const fieldProps = {
+      placeholder: 'e.g. Take coffee break',
+      fullWidth: true,
+      id: 'title',
+      name: 'title',
+      value: values.title,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      error: touched.title && !!errors.title,
+      helperText: touched.title && errors.title,
+   };
+
    return (
       <>
-         {/* <Typography
-            style={{ margin: '24px 0 8px' }}
-            className='subtasks-heading'
-            variant='body2'
-         >
-            Title
-         </Typography> */}
-         <Label>Title</Label>
-         
-         <TextField
-            placeholder='e.g. Take coffee break'
-            fullWidth
-            id='title'
-            name='title'
-            value={values.title}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            error={touched.title && !!errors.title}
-            helperText={touched.title && errors.title}
-         />
+         <Label htmlFor='title'>Title</Label>
+         <TextField {...fieldProps} />
       </>
    );
 };

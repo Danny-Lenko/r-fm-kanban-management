@@ -1,8 +1,8 @@
-import { setBoardManaging } from '../../../../../main/slices/modalSlice';
+import { setBoardEditing } from '../../../../../../main/slices/modalSlice';
 import {
    setBoards,
    assignActiveBoard,
-} from '../../../../../main/slices/dataSlice';
+} from '../../../../../../main/slices/dataSlice';
 
 export const createBoard = ({ values, boards, dispatch }: any) => {
    const newBoard = {
@@ -23,5 +23,5 @@ export const createBoard = ({ values, boards, dispatch }: any) => {
 
    dispatch(setBoards(boardsUpdated));
    dispatch(assignActiveBoard(boards.length));
-   dispatch(setBoardManaging(false));
+   dispatch(setBoardEditing(false));
 };

@@ -1,10 +1,18 @@
-import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { Formik } from 'formik';
-import { createBoard } from './createBoard';
-import { saveBoardChanges } from './saveBoardChanges';
-import { schema } from './boardFormikValidation';
+import { Formik, FormikProps } from 'formik';
 
-const BoardManagerFormik = (props: any) => {
+import { schemaBoard, saveBoardChanges, createBoard } from '.';
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
+
+type Values = FormikProps<{
+   name: string;
+   columns: string[];
+}>;
+
+type Props = {
+   children: (props: Values) => React.ReactNode;
+};
+
+export const BoardFormik: React.FC<Props> = (props) => {
    const {
       boards,
       activeBoard,
@@ -29,7 +37,7 @@ const BoardManagerFormik = (props: any) => {
                     columns: ['', ''],
                  }
          }
-         validationSchema={schema}
+         validationSchema={schemaBoard}
          onSubmit={(values) => {
             const submissionParams = {
                values,
@@ -50,5 +58,3 @@ const BoardManagerFormik = (props: any) => {
       </Formik>
    );
 };
-
-export default BoardManagerFormik;

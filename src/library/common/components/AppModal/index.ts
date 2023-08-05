@@ -6,3 +6,4 @@ export * from './EditAddTaskModal';
 export * from './appModalStyles';
 export * from './Label';
 export * from './TextField';
+export * from './EditBoardModal';

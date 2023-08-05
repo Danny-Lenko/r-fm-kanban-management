@@ -6,15 +6,15 @@ import {
    StyledContent,
    ManageTaskModal,
    EditAddTaskModal,
+   EditBoardModal,
 } from '.';
 
 const getModal = (type: ModalTypes) =>
    ({
-      [ModalTypes.Remover]: DeleteModal,
       [ModalTypes.TaskManager]: ManageTaskModal,
       [ModalTypes.TaskEditor]: EditAddTaskModal,
-      [ModalTypes.Temp]: DeleteModal,
-      // [MODAL_TYPES.optional]: OptionalModal,
+      [ModalTypes.BoardEditor]: EditBoardModal,
+      [ModalTypes.Remover]: DeleteModal,
    }[type]);
 
 export const AppModal: React.FC = () => {

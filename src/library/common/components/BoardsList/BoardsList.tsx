@@ -8,7 +8,7 @@ import { DrawerBoardBtn } from '..';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import {
-   setBoardManaging,
+   setBoardEditing,
    setXsBoardsOpen,
 } from '../../../../main/slices/modalSlice';
 import { assignActiveBoard } from '../../../../main/slices/dataSlice';
@@ -28,7 +28,7 @@ const BoardsList = () => {
    };
 
    const handleCreateBoardClick = () => {
-      dispatch(setBoardManaging(true));
+      dispatch(setBoardEditing(true));
       dispatch(setXsBoardsOpen(false));
    };
 
