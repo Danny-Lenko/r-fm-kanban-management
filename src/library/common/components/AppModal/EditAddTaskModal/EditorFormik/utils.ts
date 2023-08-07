@@ -6,14 +6,14 @@ import {
    setBoards,
    assignActiveBoard,
 } from '../../../../../../main/slices';
-
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
 import { ICol, IBoard, ITask } from '../../../../../interfaces';
+
 import { Values } from '.';
 
 interface Props {
    values: Values;
-   cols: ICol[];
+   columns: ICol[];
    boards: IBoard[];
    activeBoard: IBoard;
    activeBoardId: number;
@@ -22,9 +22,56 @@ interface Props {
    activeColId: number;
 }
 
+// createTask
+export const createTask = ({
+   values,
+   columns,
+   boards,
+   activeBoard,
+   activeBoardId,
+   dispatch,
+   activeTask,
+   activeColId,
+}: Props) => {
+   const activeCol = columns.find((col) => col.name === values.status);
+   const newTask = {
+      ...values,
+      subtasks: values.subtasks.map((sub) => ({
+         title: sub,
+         isCompleted: false,
+      })),
+      completedSubtasks: 0,
+      id: activeCol!.tasks.length,
+   };
+
+   const boardsUpdated = boards.map((board) =>
+      board.id !== activeBoard.id
+         ? board
+         : {
+              ...board,
+              columns: board.columns.map((col) =>
+                 col.id !== activeCol!.id
+                    ? col
+                    : {
+                         ...col,
+                         tasks: [newTask, ...col.tasks].map((task, i) => ({
+                            ...task,
+                            id: i,
+                         })),
+                      },
+              ),
+           },
+   );
+
+   dispatch(setBoards(boardsUpdated));
+   dispatch(assignActiveBoard(activeBoardId));
+   dispatch(setTaskEditing(false));
+};
+
+// saveChanges
 export const saveChanges = ({
    values,
-   cols,
+   columns,
    boards,
    activeBoard,
    activeBoardId,
@@ -45,8 +92,8 @@ export const saveChanges = ({
       ...taskUpdated,
       completedSubtasks: countCompletedSubtasks(taskUpdated),
    };
-   const pastCol = cols.find((col) => col.id === activeColId);
-   const futureCol = cols.find((col) => col.name === values.status);
+   const pastCol = columns.find((col) => col.id === activeColId);
+   const futureCol = columns.find((col) => col.name === values.status);
    const statusChanged = taskUpdated.status !== pastCol!.name;
 
    const boardsUpdated = boards.map((board) =>

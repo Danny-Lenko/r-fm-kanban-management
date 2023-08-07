@@ -1,7 +1,7 @@
 import { Formik, FormikProps } from 'formik';
+import * as Yup from 'yup';
 
-import { schema, createTask, saveChanges } from '.';
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { useFormikValues } from './useFormikValues';
 
 export type Values = {
    title: string;
@@ -16,51 +16,20 @@ type Props = {
    children: (props: FormikValues) => React.ReactNode;
 };
 
+const schema = Yup.object().shape({
+   title: Yup.string().trim().required("Can't be empty"),
+   description: Yup.string().trim(),
+   subtasks: Yup.array().of(Yup.string().trim().required("Can't be empty")),
+});
+
 export const EditorFormik: React.FC<Props> = ({ children }) => {
-   const {
-      boards,
-      activeBoard,
-      activeBoardId,
-      activeColId,
-      managedTask: activeTask,
-   } = useAppSelector((state) => state.data);
-   const { columns: cols } = activeBoard;
-   const isExisting = useAppSelector((state) => state.modals.isExistingTask);
-   const dispatch = useAppDispatch();
+   const { initialValues, submit } = useFormikValues();
 
    return (
       <Formik
-         initialValues={
-            isExisting
-               ? {
-                    title: activeTask.title,
-                    description: activeTask.description,
-                    subtasks: activeTask.subtasks.map((sub) => sub.title),
-                    status: activeTask.status,
-                 }
-               : {
-                    title: '',
-                    description: '',
-                    subtasks: ['', ''],
-                    status: cols[0].name,
-                 }
-         }
+         initialValues={initialValues}
          validationSchema={schema}
-         onSubmit={(values) => {
-            const submissionParams = {
-               values,
-               cols,
-               boards,
-               activeBoard,
-               activeBoardId,
-               dispatch,
-               activeTask,
-               activeColId,
-            };
-            return isExisting
-               ? saveChanges(submissionParams)
-               : createTask(submissionParams);
-         }}
+         onSubmit={(values) => submit(values)}
       >
          {children}
       </Formik>
