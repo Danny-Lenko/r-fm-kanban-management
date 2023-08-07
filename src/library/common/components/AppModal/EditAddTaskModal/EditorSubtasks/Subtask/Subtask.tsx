@@ -1,16 +1,12 @@
-import { FieldArrayRenderProps } from 'formik';
 import { IconButton, Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+
+import { IFieldArray } from '../../../../../../interfaces';
 
 import { useSubtaskProps } from '.';
 import { TextField } from '../../..';
 
-interface Props {
-   index: number;
-   arrayHelpers: FieldArrayRenderProps;
-}
-
-export const Subtask: React.FC<Props> = (props) => {
+export const Subtask: React.FC<IFieldArray> = (props) => {
    const { stackProps, field, fieldProps, xButtonProps } =
       useSubtaskProps(props);
 

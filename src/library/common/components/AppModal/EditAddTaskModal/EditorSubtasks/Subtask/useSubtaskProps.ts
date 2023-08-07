@@ -1,9 +1,5 @@
-import { FieldArrayRenderProps, useField } from 'formik';
-
-interface Props {
-   index: number;
-   arrayHelpers: FieldArrayRenderProps;
-}
+import { useField } from 'formik';
+import { IFieldArray } from '../../../../../../interfaces';
 
 const placeholders = [
    'e.g. Make coffee',
@@ -13,7 +9,7 @@ const placeholders = [
    'e.g. Drink coffee with friends',
 ];
 
-export const useSubtaskProps = ({ index, arrayHelpers }: Props) => {
+export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
    const [field, meta] = useField(`subtasks.${index}`);
 
    const isTouched = meta.touched;
@@ -22,8 +18,8 @@ export const useSubtaskProps = ({ index, arrayHelpers }: Props) => {
    const placeholder =
       placeholders[index] || `e.g. Seems like no time for coffee anymore`;
 
-   const removeSubtask = (arr: FieldArrayRenderProps, index: number) => {
-      arr.remove(index);
+   const removeSubtask = ({ arrayHelpers, index }: IFieldArray) => {
+      arrayHelpers.remove(index);
    };
 
    const stackProps = {
@@ -41,7 +37,7 @@ export const useSubtaskProps = ({ index, arrayHelpers }: Props) => {
 
    const xButtonProps = {
       sx: { '&:hover': { backgroundColor: 'transparent' } },
-      onClick: () => removeSubtask(arrayHelpers, index),
+      onClick: () => removeSubtask({ arrayHelpers, index }),
    };
 
    return { field, stackProps, fieldProps, xButtonProps };

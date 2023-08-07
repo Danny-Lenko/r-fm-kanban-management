@@ -1,26 +1,29 @@
+import { FormikValues } from 'formik';
 import { Label, TextField } from '../..';
 
-export const NameField = ({ value, onChange, error, helperText }: any) => {
+export const NameField: React.FC<FormikValues> = ({
+   values,
+   handleChange,
+   handleBlur,
+   errors,
+   touched,
+}) => {
+   const fieldProps = {
+      placeholder: `e.g. Web Design`,
+      fullWidth: true,
+      id: 'name',
+      name: 'name',
+      value: values.name,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      error: touched.name && !!errors.name,
+      helperText: touched.name && errors.name,
+   };
+
    return (
       <>
-         {/* <Typography
-            style={{ margin: '24px 0 8px' }}
-            className='subtasks-heading'
-            variant='body2'
-         >
-            Name
-         </Typography> */}
-         <Label>Name</Label>
-         <TextField
-            placeholder='e.g. Web Design'
-            fullWidth
-            id='name'
-            name='name'
-            value={value}
-            onChange={onChange}
-            error={error}
-            helperText={helperText}
-         />
+         <Label htmlFor='name'>Name</Label>
+         <TextField {...fieldProps} />
       </>
    );
 };

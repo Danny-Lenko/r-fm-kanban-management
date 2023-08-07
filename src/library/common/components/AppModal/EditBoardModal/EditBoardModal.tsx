@@ -1,15 +1,25 @@
-import { useAppSelector } from '../../../hooks';
-import Typography from '@mui/material/Typography';
 import { Form } from 'formik';
-import { BoardFormik } from './BoardFormik';
-import NameField from './NameField/NameField';
-import ColumnsFieldArr from './BoardColumnsFieldArr/BoardColumnsFieldArr';
+import { Typography } from '@mui/material';
+
+import { useAppSelector } from '../../../hooks';
+
+import { BoardFormik, NameField, ColumnFields } from '.';
 
 import { AppBtn } from '../../AppBtn';
-import { boardManagerStyles, btnSx } from './boardManagerStyles';
 
 export const EditBoardModal: React.FC = () => {
    const isExisting = useAppSelector((state) => state.modals.isExistingBoard);
+
+   const buttonProps = {
+      sx: {
+         marginTop: 4,
+      },
+      fullWidth: true,
+      type: 'submit' as 'submit',
+      buttonSize: 'small' as 'small',
+      color: 'primary' as 'primary',
+      children: isExisting ? 'Save Changes' : 'Create New Board',
+   };
 
    return (
       <>
@@ -20,30 +30,9 @@ export const EditBoardModal: React.FC = () => {
          <BoardFormik>
             {(props) => (
                <Form>
-                  <NameField
-                     {...props}
-                     // value={props.values.name}
-                     // onChange={props.handleChange}
-                     // error={props.touched.name && Boolean(props.errors.name)}
-                     // helperText={props.touched.name && props.errors.name}
-                  />
-
-                  <ColumnsFieldArr
-                     columns={props.values.columns}
-                     value={props.values.columns}
-                     onChange={props.handleChange}
-                     tochedColumns={props.touched.columns}
-                     errorsColumns={props.errors.columns}
-                  />
-
-                  <AppBtn
-                     sx={btnSx}
-                     type='submit'
-                     buttonSize='small'
-                     color='primary'
-                  >
-                     {isExisting ? 'Save Changes' : 'Create New Board'}
-                  </AppBtn>
+                  <NameField {...props} />
+                  <ColumnFields {...props} />
+                  <AppBtn {...buttonProps}></AppBtn>
                </Form>
             )}
          </BoardFormik>

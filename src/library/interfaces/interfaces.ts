@@ -1,4 +1,5 @@
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { FieldArrayRenderProps } from 'formik';
 
 export interface AppBarProps extends MuiAppBarProps {
    open?: boolean;
@@ -64,4 +65,9 @@ export interface ITask {
       title: string;
       isCompleted: boolean;
    }[];
+}
+
+export interface IFieldArray {
+   index: number;
+   arrayHelpers: FieldArrayRenderProps;
 }
