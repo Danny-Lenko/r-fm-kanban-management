@@ -2,65 +2,73 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../main/slices/modalSlice';
+   setSubmissionTrigger,
+   setTaskEditing,
+   setExistingTask,
+   setBoardEditing,
+   setIsExistingBoard,
+} from '../../../../main/slices';
 
 export enum ModalTypes {
-   // taskAddEdit = 'taskAddEdit',
-   // taskManage = 'taskManage',
-   // boardManage = 'boardManage',
-   Delete = 'delete',
-   Temp = 'temp',
+   TaskManager,
+   TaskEditor,
+   BoardEditor,
+   Remover,
 }
 
 export const useAppModal = () => {
    const {
       taskManaging,
       taskEditing,
-      boardManaging,
+      boardEditing,
       deletingBoard,
       deletingTask,
    } = useAppSelector((state) => state.modals);
    const open =
       taskManaging ||
       taskEditing ||
-      boardManaging ||
+      boardEditing ||
       deletingBoard ||
       deletingTask;
 
    const dispatch = useAppDispatch();
 
-   const type = deletingBoard ? ModalTypes.Delete : ModalTypes.Temp;
+   const type = deletingBoard
+      ? ModalTypes.Remover
+      : taskManaging
+      ? ModalTypes.TaskManager
+      : taskEditing
+      ? ModalTypes.TaskEditor
+      : boardEditing
+      ? ModalTypes.BoardEditor
+      : ModalTypes.Remover;
 
-   function closeDeletingModal() {
+   function closeRemover() {
       dispatch(setDeletingBoard(false));
       dispatch(setDeletingTask(false));
    }
 
+   function closeTaskManager() {
+      dispatch(setSubmissionTrigger(true));
+   }
+
+   function closeTaskEditor() {
+      dispatch(setTaskEditing(false));
+      dispatch(setExistingTask(false));
+   }
+
+   function closeBoardEditor() {
+      dispatch(setBoardEditing(false));
+      dispatch(setIsExistingBoard(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
-         [ModalTypes.Delete]: closeDeletingModal,
-         [ModalTypes.Temp]: closeDeletingModal,
-
-         // [MODAL_TYPES.optional]: OptionalModal,
+         [ModalTypes.Remover]: closeRemover,
+         [ModalTypes.TaskManager]: closeTaskManager,
+         [ModalTypes.TaskEditor]: closeTaskEditor,
+         [ModalTypes.BoardEditor]: closeBoardEditor,
       }[type]);
 
    return { type, open, getOnClose };
 };
-
-// export const useAppModal = () => {
-//    const [isModalOpen, setIsModalOpen] = useState(false);
-
-//    const handleOpen = () => {
-//       setIsModalOpen(true);
-//    };
-
-//    const handleClose = () => {
-//       setIsModalOpen(false);
-//    };
-
-//    return {
-//       isModalOpen,
-//       handleOpen,
-//       handleClose
-//    }
-// }

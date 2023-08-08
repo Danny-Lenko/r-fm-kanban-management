@@ -3,12 +3,7 @@ import {
    ColorModeToggler,
    ColorModeContext,
 } from './library/utilities/ColorModeToggler';
-import { useAppSelector } from './library/common/hooks';
-import TaskManage from './library/common/components/ManageTaskModal/ManageTaskModal';
-import AddEditTaskModal from './library/common/components/EditAddTaskModal';
-import BoardManagerModal from './library/common/components/BoardManagerModal';
-// import DeleteModal from './library/common/components/AppModal/DeleteModal';
-import { AppModal } from './library/common/components/AppModal';
+import { AppModal } from './library/common/components';
 
 import { Layout, Main } from './modules';
 
@@ -23,12 +18,7 @@ function App() {
                <Main />
             </Layout>
 
-            <AppModal/>
-
-            {/* {taskManaging && <TaskManage />}
-            {taskEditing && <AddEditTaskModal />}
-            {boardManaging && <BoardManagerModal />}
-            {(deletingBoard || deletingTask) && <AppModal type={MODAL_TYPES.delete} />} */}
+            <AppModal />
          </ColorModeContext.Provider>
       </ThemeProvider>
    );

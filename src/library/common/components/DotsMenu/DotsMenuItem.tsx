@@ -5,12 +5,12 @@ import {
    setTaskEditing,
    setExistingTask,
    setIsExistingBoard,
-   setBoardManaging,
+   setBoardEditing,
    setDeletingBoard,
    setDeletingTask,
 } from '../../../../main/slices/modalSlice';
 
-const DotsMenuItem = ({ option, handleClose }: any) => {
+export const DotsMenuItem = ({ option, handleClose }: any) => {
    const dispatch = useAppDispatch();
 
    return (
@@ -30,7 +30,7 @@ const DotsMenuItem = ({ option, handleClose }: any) => {
             }
             if (option === 'Edit Board') {
                dispatch(setIsExistingBoard(true));
-               dispatch(setBoardManaging(true));
+               dispatch(setBoardEditing(true));
             }
             if (option === 'Delete Board') {
                dispatch(setDeletingBoard(true));
@@ -46,5 +46,3 @@ const DotsMenuItem = ({ option, handleClose }: any) => {
       </MenuItem>
    );
 };
-
-export default DotsMenuItem;
