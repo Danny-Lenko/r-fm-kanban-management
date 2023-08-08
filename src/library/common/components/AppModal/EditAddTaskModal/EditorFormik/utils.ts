@@ -1,5 +1,3 @@
-import { Dispatch } from '@reduxjs/toolkit';
-
 import {
    setTaskEditing,
    setExistingTask,
@@ -7,19 +5,17 @@ import {
    assignActiveBoard,
 } from '../../../../../../main/slices';
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
-import { ICol, IBoard, ITask } from '../../../../../interfaces';
+import { ISumbissionParams } from '../../../../../interfaces';
 
-import { Values } from '.';
+export type Values = {
+   title: string;
+   description: string;
+   subtasks: string[];
+   status: string;
+};
 
-interface Props {
+interface Props extends ISumbissionParams {
    values: Values;
-   columns: ICol[];
-   boards: IBoard[];
-   activeBoard: IBoard;
-   activeBoardId: number;
-   dispatch: Dispatch;
-   activeTask: ITask;
-   activeColId: number;
 }
 
 // createTask

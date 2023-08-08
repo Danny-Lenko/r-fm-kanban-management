@@ -18,8 +18,7 @@ function App() {
                <Main />
             </Layout>
 
-            <AppModal/>
-
+            <AppModal />
          </ColorModeContext.Provider>
       </ThemeProvider>
    );

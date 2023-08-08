@@ -3,9 +3,8 @@ import { Typography } from '@mui/material';
 
 import { useAppSelector } from '../../../hooks';
 
+import { AppBtn } from '../..';
 import { BoardFormik, NameField, ColumnFields } from '.';
-
-import { AppBtn } from '../../AppBtn';
 
 export const EditBoardModal: React.FC = () => {
    const isExisting = useAppSelector((state) => state.modals.isExistingBoard);

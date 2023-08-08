@@ -1,14 +1,7 @@
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { useFormikValues } from './useFormikValues';
-
-export type Values = {
-   title: string;
-   description: string;
-   subtasks: string[];
-   status: string;
-};
+import { useFormikValues, Values } from '.';
 
 type FormikValues = FormikProps<Values>;
 

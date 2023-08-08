@@ -39,7 +39,9 @@ export const useAppModal = () => {
       ? ModalTypes.TaskManager
       : taskEditing
       ? ModalTypes.TaskEditor
-      : ModalTypes.BoardEditor;
+      : boardEditing
+      ? ModalTypes.BoardEditor
+      : ModalTypes.Remover;
 
    function closeRemover() {
       dispatch(setDeletingBoard(false));
