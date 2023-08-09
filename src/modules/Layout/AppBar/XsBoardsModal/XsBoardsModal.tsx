@@ -5,12 +5,15 @@ import {
    useAppDispatch,
 } from '../../../../library/common/hooks';
 import { setXsBoardsOpen } from '../../../../main/slices/modalSlice';
-import BoardsList from '../../../../library/common/components/BoardsList/BoardsList';
+
+import { BoardsList } from '../..';
+
+// import BoardsList from '../../BoardsList/BoardsList';
 // import DrawerModeBtn from '../../DrawerModeBtn';
 
 import { DrawerModeBtn } from '../../../../library/common/components';
 
-const XsBoardsModal = () => {
+export const XsBoardsModal = () => {
    const open = useAppSelector((state) => state.modals.xsBoardsOpen);
    const boards = useAppSelector((state) => state.data.boards);
    const dispatch = useAppDispatch();
@@ -36,11 +39,6 @@ const XsBoardsModal = () => {
          onClose={() => dispatch(setXsBoardsOpen(false))}
          aria-labelledby='modal-modal-title'
          aria-describedby='modal-modal-description'
-         slotProps={{
-            backdrop: {
-               style: { marginTop: '65px' },
-            },
-         }}
       >
          <Box sx={style}>
             <BoardsList />
@@ -51,5 +49,3 @@ const XsBoardsModal = () => {
       </Modal>
    );
 };
-
-export default XsBoardsModal;

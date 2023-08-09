@@ -1,7 +1,5 @@
 import { Box } from '@mui/material';
-
-import { AppDrawer } from './AppDrawer';
-import { AppBar } from './AppBar';
+import { AppDrawer, AppBar } from '.';
 
 type Props = {
    children: React.ReactNode;

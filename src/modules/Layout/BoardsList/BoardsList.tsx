@@ -3,19 +3,19 @@ import List from '@mui/material/List';
 import Box from '@mui/material/Box';
 // import DrawerBoardBtn from '../DrawerBoardBtn';
 
-import { DrawerBoardBtn } from '..';
+import { DrawerBoardBtn } from '../../../library/common/components';
 
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../../library/common/hooks';
 import { useNavigate } from 'react-router-dom';
 import {
    setBoardEditing,
    setXsBoardsOpen,
-} from '../../../../main/slices/modalSlice';
-import { assignActiveBoard } from '../../../../main/slices/dataSlice';
+} from '../../../main/slices/modalSlice';
+import { assignActiveBoard } from '../../../main/slices/dataSlice';
 import { boardsListStyles } from './boardsListStyles';
 import useTheme from '@mui/material/styles/useTheme';
 
-const BoardsList = () => {
+export const BoardsList = () => {
    const boards = useAppSelector((state) => state.data.boards);
    const xsBoardsOpen = useAppSelector((state) => state.modals.xsBoardsOpen);
    const dispatch = useAppDispatch();
@@ -67,5 +67,3 @@ const BoardsList = () => {
       </Box>
    );
 };
-
-export default BoardsList;

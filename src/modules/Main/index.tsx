@@ -1,5 +1,4 @@
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { DrawerHeader } from '../../library/common/components/DrawerHeader';
 import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
 import { openDrawer } from '../../main/slices/drawerSlice';
 import { Routes, Route } from 'react-router-dom';
@@ -9,6 +8,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import useTheme from '@mui/material/styles/useTheme';
 
 import { MainEl, EyeBtn } from './mainStyles';
+
+import { CssDrawerHeader } from '../../library/common/components';
 
 export const Main = () => {
    const open = useAppSelector((state) => state.drawer.open);
@@ -23,8 +24,7 @@ export const Main = () => {
 
    return (
       <MainEl open={open}>
-         <DrawerHeader />
-
+         <CssDrawerHeader /> {/* native mui gap before the appbar */}
          <Routes>
             <Route
                path='/'
@@ -47,7 +47,6 @@ export const Main = () => {
                }
             />
          </Routes>
-
          {!sxScreen && (
             <EyeBtn
                color='primary'
