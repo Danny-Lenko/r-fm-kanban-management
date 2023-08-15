@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { TextField, Label } from '../..';
+import { CssTextField, CssLabel } from '../..';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,
@@ -22,8 +22,8 @@ export const EditorTitle: React.FC<FormikValues> = ({
 
    return (
       <>
-         <Label htmlFor='title'>Title</Label>
-         <TextField {...fieldProps} />
+         <CssLabel children='Title' htmlFor='title' />
+         <CssTextField {...fieldProps} />
       </>
    );
 };

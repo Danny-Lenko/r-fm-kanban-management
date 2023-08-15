@@ -1,7 +1,9 @@
+import React from 'react';
+
 import SvgIcon from '@mui/material/SvgIcon';
 import { ButtonProps } from '@mui/material';
-import { StyledBtn } from './styledBtn';
-import React from 'react';
+
+import { CssAppBtn } from '.';
 
 export interface Props extends ButtonProps {
    children?: React.ReactNode;
@@ -18,15 +20,18 @@ export const AppBtn: React.FC<Props> = ({
    buttonSize,
    ...rest
 }) => {
-   return (
-      <StyledBtn
-         disableElevation
-         variant='contained'
-         buttonsize={buttonSize}
-         {...rest}
-      >
-         {children}
-         {icon && <SvgIcon sx={iconStyles} component={icon} />}
-      </StyledBtn>
-   );
+   const props = {
+      disableElevation: true,
+      variant: 'contained' as 'contained',
+      buttonsize: buttonSize,
+
+      children: (
+         <>
+            {children}
+            {icon && <SvgIcon sx={iconStyles} component={icon} />}
+         </>
+      ),
+   };
+
+   return <CssAppBtn {...props} {...rest} />;
 };

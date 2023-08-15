@@ -2,12 +2,11 @@ import { Toolbar, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
-import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
 
+import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
 import { setXsBoardsOpen } from '../../../main/slices/modalSlice';
 
 import {
-   XsBoardsModal,
    ButtonsBox,
    CssAppBar,
    CssLogo,
@@ -45,7 +44,6 @@ export const AppBar = () => {
 
    return (
       <CssAppBar open={open}>
-         {xsScreen && <XsBoardsModal />}
          <Toolbar>
             <CssLogoWrapper open={open}>
                <CssLogo src={logo} />

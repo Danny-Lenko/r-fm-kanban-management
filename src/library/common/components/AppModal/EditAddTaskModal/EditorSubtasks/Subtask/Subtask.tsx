@@ -4,7 +4,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IFieldArray } from '../../../../../../interfaces';
 
 import { useSubtaskProps } from '.';
-import { TextField } from '../../..';
+import { CssTextField } from '../../..';
 
 export const Subtask: React.FC<IFieldArray> = (props) => {
    const { stackProps, field, fieldProps, xButtonProps } =
@@ -12,7 +12,7 @@ export const Subtask: React.FC<IFieldArray> = (props) => {
 
    return (
       <Stack {...stackProps}>
-         <TextField {...field} {...fieldProps} />
+         <CssTextField {...field} {...fieldProps} />
          <IconButton {...xButtonProps}>
             <ClearIcon fontSize='small' />
          </IconButton>

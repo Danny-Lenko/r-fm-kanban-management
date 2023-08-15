@@ -16,7 +16,7 @@ interface Props extends ButtonProps {
    buttonsize: ButtonSize;
 }
 
-export const StyledBtn = styled(Button)<Props>(
+export const CssAppBtn = styled(Button)<Props>(
    ({ theme, buttonsize, ...rest }) => ({
       textTransform: 'capitalize',
       fontWeight: 700,
@@ -33,7 +33,7 @@ export const StyledBtn = styled(Button)<Props>(
    }),
 );
 
-// Utility funcs
+// Utility functions
 
 function setBcgColor(color: Colors, theme: Theme) {
    const bcgColor =

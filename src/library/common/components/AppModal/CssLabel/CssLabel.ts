@@ -1,7 +1,7 @@
 import { InputLabel } from '@mui/material';
 import { styled } from '@mui/system';
 
-export const Label = styled(InputLabel)(({ theme }) => ({
+export const CssLabel = styled(InputLabel)(({ theme }) => ({
    fontSize: '12px',
    fontWeight: 600,
    color:

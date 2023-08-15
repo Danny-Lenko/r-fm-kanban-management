@@ -7,6 +7,7 @@ import {
    setExistingTask,
    setBoardEditing,
    setIsExistingBoard,
+   setXsBoardsOpen,
 } from '../../../../main/slices';
 
 export enum ModalTypes {
@@ -14,6 +15,7 @@ export enum ModalTypes {
    TaskEditor,
    BoardEditor,
    Remover,
+   XsBoards,
 }
 
 export const useAppModal = () => {
@@ -23,13 +25,15 @@ export const useAppModal = () => {
       boardEditing,
       deletingBoard,
       deletingTask,
+      xsBoardsOpen,
    } = useAppSelector((state) => state.modals);
    const open =
       taskManaging ||
       taskEditing ||
       boardEditing ||
       deletingBoard ||
-      deletingTask;
+      deletingTask ||
+      xsBoardsOpen;
 
    const dispatch = useAppDispatch();
 
@@ -41,6 +45,8 @@ export const useAppModal = () => {
       ? ModalTypes.TaskEditor
       : boardEditing
       ? ModalTypes.BoardEditor
+      : xsBoardsOpen
+      ? ModalTypes.XsBoards
       : ModalTypes.Remover;
 
    function closeRemover() {
@@ -62,12 +68,17 @@ export const useAppModal = () => {
       dispatch(setIsExistingBoard(false));
    }
 
+   function closeXsBoards() {
+      dispatch(setXsBoardsOpen(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
          [ModalTypes.TaskManager]: closeTaskManager,
          [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.BoardEditor]: closeBoardEditor,
+         [ModalTypes.XsBoards]: closeXsBoards,
       }[type]);
 
    return { type, open, getOnClose };

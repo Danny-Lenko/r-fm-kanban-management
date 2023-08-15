@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { FieldArray, FieldArrayRenderProps, FormikValues } from 'formik';
 
-import { AppBtn, Label } from '../../..';
+import { AppBtn, CssLabel } from '../../..';
 import { Column } from '.';
 
 export const ColumnFields: React.FC<FormikValues> = ({ values }) => {
@@ -11,7 +11,7 @@ export const ColumnFields: React.FC<FormikValues> = ({ values }) => {
 
    return (
       <>
-         <Label>Columns</Label>
+         <CssLabel children='Columns' />
 
          <FieldArray
             name='columns'

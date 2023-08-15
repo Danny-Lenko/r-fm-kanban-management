@@ -1,7 +1,7 @@
-import { TextField as MuiTextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { styled } from '@mui/system';
 
-export const TextField = styled(MuiTextField)(({ theme, error }) => ({
+export const CssTextField = styled(TextField)(({ theme, error }) => ({
    '& .MuiTextField-root': {
       position: 'relative',
    },

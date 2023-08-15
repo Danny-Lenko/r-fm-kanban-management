@@ -3,7 +3,7 @@ import { Box, useTheme } from '@mui/material';
 import { useAppSelector } from '../../../library/common/hooks';
 import {
    CssDrawerHeader,
-   DrawerModeBtn,
+   ColorModeButton,
 } from '../../../library/common/components';
 import { BoardsList } from '..';
 import { DrawerBlindBtn, CssDrawer } from '.';
@@ -28,7 +28,7 @@ export const AppDrawer: React.FC = () => {
 
          <BoardsList />
 
-         <DrawerModeBtn />
+         <ColorModeButton />
          <DrawerBlindBtn />
       </CssDrawer>
    );

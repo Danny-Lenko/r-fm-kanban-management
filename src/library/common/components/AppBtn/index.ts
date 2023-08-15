@@ -1,2 +1,2 @@
 export * from './AppBtn';
-export * from './styledBtn';
+export * from './CssAppBtn';

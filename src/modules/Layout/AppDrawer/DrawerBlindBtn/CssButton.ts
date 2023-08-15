@@ -1,19 +1,20 @@
 import { Button } from '@mui/material';
 import { styled } from '@mui/system';
 
+import { DrawerPaddingX } from '../../../../library/common/constants';
+
+const buttonWidth = `calc(100% + ${DrawerPaddingX} * 2)`;
+
 export const CssButton = styled(Button)(({ theme }) => ({
-   position: 'absolute',
-   left: -10,
-   bottom: '5%',
-   margin: '0 11px',
-   paddingLeft: '24px',
-   paddingRight: '16px',
-   justifyContent: 'flex-start',
+   display: 'flex',
+   justifyContent: 'center',
    textTransform: 'capitalize',
+   position: 'relative',
+   width: buttonWidth,
    color: theme.palette.greyCustom[200],
    fontSize: 15 / 16 + 'rem',
+   margin: `16px -${DrawerPaddingX.Xs}`,
    '& .MuiSvgIcon-root': {
       transform: 'translateY(4px)',
    },
 }));
-

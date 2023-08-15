@@ -52,6 +52,12 @@ CssAppBar.defaultProps = {
 export const CssLogoWrapper = styled(Box)<LogoWrapper>(({ theme, open }) => ({
    lineHeight: 1,
    display: !open ? 'block' : 'none',
+   marginRight: '16px',
+
+   [theme.breakpoints.up('sm')]: {
+      marginRight: '50px',
+   },
+
    '&:after': {
       visibility: 'hidden',
       content: '""',
@@ -76,10 +82,9 @@ export const CssLogo = styled('img')(({ theme }) => ({
 }));
 
 export const CssBoardTitle = styled(Typography)(({ theme }) => ({
-   marginLeft: '16px',
+   color: theme.palette.text.primary,
    cursor: 'pointer',
    [theme.breakpoints.up('sm')]: {
-      marginLeft: '50px',
       cursor: 'unset',
    },
 }));

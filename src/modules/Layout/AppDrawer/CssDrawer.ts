@@ -1,7 +1,7 @@
 import { Drawer } from '@mui/material';
 import { styled } from '@mui/system';
 
-import { DrawerWidth } from '../../../library/common/constants';
+import { DrawerWidth, DrawerPaddingX } from '../../../library/common/constants';
 
 export const CssDrawer = styled(Drawer)(({ theme }) => ({
    position: 'relative',
@@ -19,7 +19,7 @@ export const CssDrawer = styled(Drawer)(({ theme }) => ({
       boxSizing: 'border-box',
       [theme.breakpoints.up('sm')]: {
          width: DrawerWidth.Sm,
-         padding: '0 24px',
+         padding: `0 ${DrawerPaddingX.Xs}`,
       },
       [theme.breakpoints.up('md')]: {
          width: DrawerWidth.Md,
