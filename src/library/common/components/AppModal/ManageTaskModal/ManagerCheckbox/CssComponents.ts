@@ -8,7 +8,7 @@ type Props = {
    };
 };
 
-export const StyledControlLabel = styled(FormControlLabel)<Props>(
+export const CssControlLabel = styled(FormControlLabel)<Props>(
    ({ theme, subtask }) => ({
       backgroundColor: theme.palette.background.default,
       margin: 0,
@@ -30,7 +30,7 @@ export const StyledControlLabel = styled(FormControlLabel)<Props>(
    }),
 );
 
-export const StyledCheckbox = styled(Checkbox)(({ theme }) => ({
+export const CssCheckbox = styled(Checkbox)(({ theme }) => ({
    '& .MuiSvgIcon-root': {
       fontSize: '16px',
       color: theme.palette.divider,

@@ -13,31 +13,48 @@ import {
 export const DotsMenuItem = ({ option, handleClose }: any) => {
    const dispatch = useAppDispatch();
 
+   const handleEditBoard = () => {
+      dispatch(setIsExistingBoard(true));
+      dispatch(setBoardEditing(true));
+   };
+
+   const handleEditTask = () => {
+      dispatch(setTaskManaging(false));
+      dispatch(setExistingTask(true));
+      dispatch(setTaskEditing(true));
+   };
+
+   const handleDeleteBoard = () => {
+      dispatch(setDeletingBoard(true));
+   };
+
+   const handleDeleteTask = () => {
+      dispatch(setTaskManaging(false));
+      dispatch(setDeletingTask(true));
+   };
+
+   const itemStyles = {
+      color:
+         option.split(' ')[0] === 'Delete' ? 'destructCustom.main' : 'inherit',
+   };
+
    return (
       <MenuItem
-         sx={{
-            color:
-               option.split(' ')[0] === 'Delete'
-                  ? 'destructCustom.main'
-                  : 'inherit',
-         }}
+         sx={itemStyles}
          selected={option === 'Pyxis'}
          onClick={() => {
-            if (option === 'Edit Task') {
-               dispatch(setTaskManaging(false));
-               dispatch(setExistingTask(true));
-               dispatch(setTaskEditing(true));
-            }
-            if (option === 'Edit Board') {
-               dispatch(setIsExistingBoard(true));
-               dispatch(setBoardEditing(true));
-            }
-            if (option === 'Delete Board') {
-               dispatch(setDeletingBoard(true));
-            }
-            if (option === 'Delete Task') {
-               dispatch(setTaskManaging(false));
-               dispatch(setDeletingTask(true));
+            switch (option) {
+               case 'Edit Task':
+                  handleEditTask();
+                  break;
+               case 'Edit Board':
+                  handleEditBoard();
+                  break;
+               case 'Delete Board':
+                  handleDeleteBoard();
+                  break;
+               default:
+                  handleDeleteTask();
             }
             handleClose();
          }}

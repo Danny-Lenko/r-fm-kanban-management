@@ -1,2 +1,2 @@
 export * from './ManagerCheckbox';
-export * from './managerCheckboxStyles';
+export * from './CssComponents';

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FormikProps, FormikValues, Formik } from 'formik';
+import { FormikProps, FormikValues, Formik, Form } from 'formik';
 import { useTheme, Typography } from '@mui/material';
 
 import { DotsMenu } from '../..';
@@ -10,13 +10,15 @@ import {
    setTaskManaging,
 } from '../../../../../main/slices';
 
-import { Heading } from './manageTaskModalStyles';
+import { CssHeading } from './CssComponents';
 
 export const ManageTaskModal = () => {
    const theme = useTheme();
    const dispatch = useAppDispatch();
    const { submissionTrigger } = useAppSelector((state) => state.modals);
    const { formik, cols, task } = useManagerFormik();
+
+   const selectOptions = cols.map((col) => col.name);
 
    const formRef = useRef<FormikProps<FormikValues>>(null);
 
@@ -30,21 +32,31 @@ export const ManageTaskModal = () => {
 
    return (
       <>
-         <Heading>
+         <CssHeading>
             <Typography variant='h3'>{task.title}</Typography>
             <DotsMenu isTaskMenu={true} />
-         </Heading>
+         </CssHeading>
          <Typography variant='body1'>{task.description}</Typography>
 
          <Formik
             initialValues={formik.values}
-            onSubmit={formik.submitForm}
+            onSubmit={() => formik.handleSubmit()}
             innerRef={formRef}
          >
-            <form onSubmit={formik.handleSubmit}>
-               <ManagerCheckbox formik={formik} task={task} theme={theme} />
-               <ManagerSelect formik={formik} cols={cols} />
-            </form>
+            {(props) => {
+               return (
+                  <Form
+                  // onSubmit={formik.handleSubmit}
+                  >
+                     <ManagerCheckbox
+                        formik={formik}
+                        task={task}
+                        theme={theme}
+                     />
+                     <ManagerSelect options={selectOptions} {...props} />
+                  </Form>
+               );
+            }}
          </Formik>
       </>
    );

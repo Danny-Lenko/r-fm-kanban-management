@@ -1,21 +1,32 @@
-import { SelectEl } from '../../..';
-import { SubtasksHeading } from '..';
+import { FormikValues } from 'formik';
+import { MenuItem } from '@mui/material';
+import { AppSelect, CssLabel } from '../../..';
 
-export const ManagerSelect = ({ formik, cols }: any) => {
+interface Props extends FormikValues {
+   options: string[];
+}
+
+export const ManagerSelect: React.FC<Props> = ({
+   values,
+   handleChange,
+   options,
+}) => {
    return (
       <>
-         <SubtasksHeading 
-            style={{ margin: '24px 0 8px' }} 
-            variant='body2'
-         >
-            Current Status
-         </SubtasksHeading>
+         <CssLabel children='Current Status' htmlFor='status' />
 
-         <SelectEl
-            value={formik.values.status}
-            onChange={formik.handleChange}
-            cols={cols}
-         />
+         <AppSelect
+            id='status'
+            name='status'
+            value={values.status}
+            onChange={handleChange}
+         >
+            {options.map((option: string) => (
+               <MenuItem key={option} value={option}>
+                  {option}
+               </MenuItem>
+            ))}
+         </AppSelect>
       </>
    );
 };

@@ -1,15 +1,17 @@
-import * as React from 'react';
+import { useState, MouseEvent } from 'react';
+
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import { TASKMENU, BOARDMENU } from '../../constants';
 
 import { DotsMenuItem } from '.';
 
 export const DotsMenu = ({ isTaskMenu }: { isTaskMenu: boolean }) => {
-   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
-   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+   const handleClick = (event: MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);
    };
    const handleClose = () => {
