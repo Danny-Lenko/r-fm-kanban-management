@@ -7,6 +7,7 @@ interface Props extends FormikValues {
 }
 
 export const ManagerSelect: React.FC<Props> = ({
+   formik,
    values,
    handleChange,
    options,
@@ -18,8 +19,9 @@ export const ManagerSelect: React.FC<Props> = ({
          <AppSelect
             id='status'
             name='status'
-            value={values.status}
-            onChange={handleChange}
+            value={formik.values.status}
+            // onChange={handleChange}
+            onChange={formik.handleChange}
          >
             {options.map((option: string) => (
                <MenuItem key={option} value={option}>

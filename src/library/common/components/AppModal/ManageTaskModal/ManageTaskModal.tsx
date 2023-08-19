@@ -20,11 +20,13 @@ export const ManageTaskModal = () => {
 
    const selectOptions = cols.map((col) => col.name);
 
-   const formRef = useRef<FormikProps<FormikValues>>(null);
+   // const formRef = useRef<FormikProps<FormikValues>>(null);
 
    useEffect(() => {
       if (submissionTrigger) {
-         formRef.current?.handleSubmit();
+         // formRef.current?.handleSubmit();
+         formik.handleSubmit();
+
          dispatch(setSubmissionTrigger(false));
          dispatch(setTaskManaging(false));
       }
@@ -41,22 +43,14 @@ export const ManageTaskModal = () => {
          <Formik
             initialValues={formik.values}
             onSubmit={() => formik.handleSubmit()}
-            innerRef={formRef}
+            // innerRef={formRef}
          >
-            {(props) => {
-               return (
-                  <Form
-                  // onSubmit={formik.handleSubmit}
-                  >
-                     <ManagerCheckbox
-                        formik={formik}
-                        task={task}
-                        theme={theme}
-                     />
-                     <ManagerSelect options={selectOptions} {...props} />
-                  </Form>
-               );
-            }}
+            {
+               <Form>
+                  <ManagerCheckbox formik={formik} task={task} theme={theme} />
+                  <ManagerSelect formik={formik} options={selectOptions} />
+               </Form>
+            }
          </Formik>
       </>
    );

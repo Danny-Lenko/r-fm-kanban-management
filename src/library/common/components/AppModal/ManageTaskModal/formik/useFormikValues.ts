@@ -1,35 +1,36 @@
 import { useFormik, FormikValues } from 'formik';
+
 import {
    manageActiveTask,
-   assignActiveBoard,
    manageColumnsChange,
-} from '../../../../../main/slices/dataSlice';
-import { countCompletedSubtasks } from '../../../../utilities/utils';
-import { useAppSelector, useAppDispatch } from '../../../hooks';
+   assignActiveBoard,
+} from '../../../../../../main/slices';
+import { countCompletedSubtasks } from '../../../../../utilities/utils';
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
 
 export const useManagerFormik = () => {
-   const task = useAppSelector((state) => state.data.managedTask);
-   const activeBoardId = useAppSelector((state) => state.data.activeBoardId);
-   const activeColId = useAppSelector((state) => state.data.activeColId);
-   const dispatch = useAppDispatch();
+   const { managedTask, activeColId, activeBoardId, activeBoard } =
+      useAppSelector((state) => state.data);
 
-   const cols = useAppSelector((state) => state.data.activeBoard.columns);
+   const cols = activeBoard.columns;
    const activeCol = cols.find((col) => col.id === activeColId);
+
+   const dispatch = useAppDispatch();
 
    const formik = useFormik<FormikValues>({
       initialValues: {
-         checked: task.subtasks
+         checked: managedTask.subtasks
             .filter((sub) => sub.isCompleted)
             .map((sub) => sub.title),
-         status: task.status,
+         status: managedTask.status,
       },
       validationSchema: null,
 
       onSubmit: (values: FormikValues) => {
          const managedSubs = {
-            ...task,
+            ...managedTask,
             status: values.status,
-            subtasks: task.subtasks.map((sub) =>
+            subtasks: managedTask.subtasks.map((sub) =>
                values.checked.some((val: string) => val === sub.title)
                   ? { ...sub, isCompleted: true }
                   : { ...sub, isCompleted: false },
@@ -72,5 +73,5 @@ export const useManagerFormik = () => {
       },
    });
 
-   return { formik, cols, task };
+   return { formik, cols, task: managedTask };
 };
