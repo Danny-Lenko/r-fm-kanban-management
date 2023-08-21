@@ -1,30 +1,25 @@
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import Box from '@mui/material/Box';
-// import DrawerBoardBtn from '../DrawerBoardBtn';
-
-import { DrawerBoardBtn } from '..';
-
-import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { List } from '@mui/material';
+
 import {
    setBoardEditing,
    setXsBoardsOpen,
 } from '../../../../main/slices/modalSlice';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { assignActiveBoard } from '../../../../main/slices/dataSlice';
-import { boardsListStyles } from './boardsListStyles';
-import useTheme from '@mui/material/styles/useTheme';
 
-const BoardsList = () => {
-   const boards = useAppSelector((state) => state.data.boards);
-   const xsBoardsOpen = useAppSelector((state) => state.modals.xsBoardsOpen);
+import { CssBtnBox, CssBoardsLabel, BoardBtn } from '.';
+
+export const BoardsList = () => {
    const dispatch = useAppDispatch();
    const navigate = useNavigate();
-   const theme = useTheme();
 
-   const handleOldBoardClick = (board: any) => {
-      dispatch(assignActiveBoard(board.id));
-      navigate(`${board.path}`);
+   const { boards } = useAppSelector((state) => state.data);
+   const { xsBoardsOpen } = useAppSelector((state) => state.modals);
+
+   const handleBoardSwitch = ({ id, path }: { id: number; path: string }) => {
+      dispatch(assignActiveBoard(id));
+      navigate(`${path}`);
    };
 
    const handleCreateBoardClick = () => {
@@ -32,40 +27,39 @@ const BoardsList = () => {
       dispatch(setXsBoardsOpen(false));
    };
 
+   const label = !xsBoardsOpen ? 'drawer' : '';
+
    return (
-      <Box sx={boardsListStyles(theme)}>
-         <Typography
-            variant='h5'
-            textTransform='uppercase'
-            px={xsBoardsOpen ? 3 : 0}
-            py={xsBoardsOpen ? 1 : 0}
-            mt={2}
-         >
+      <>
+         <CssBoardsLabel variant='h5' aria-label={label}>
             all boards ({boards.length})
-         </Typography>
-         <List>
-            <Box sx={{ maxHeight: '50vh', overflowY: 'auto' }}>
-               {boards.map((board) => (
-                  <DrawerBoardBtn
-                     key={board.id}
-                     props={{
-                        board: board,
-                        btnClick: () => handleOldBoardClick(board),
-                        btnText: board.name,
-                     }}
-                  />
-               ))}
-            </Box>
-            <DrawerBoardBtn
+         </CssBoardsLabel>
+
+         <CssBtnBox>
+            <List>
+               {boards.map((board) => {
+                  const { path, name, id } = board;
+                  return (
+                     <BoardBtn
+                        key={id}
+                        props={{
+                           path,
+                           btnClick: () => handleBoardSwitch({ id, path }),
+                           name,
+                        }}
+                     />
+                  );
+               })}
+            </List>
+
+            <BoardBtn
                props={{
-                  board: null,
+                  path: null,
                   btnClick: () => handleCreateBoardClick(),
-                  btnText: '+ Create New Board',
+                  name: '+ Create New Board',
                }}
             />
-         </List>
-      </Box>
+         </CssBtnBox>
+      </>
    );
 };
-
-export default BoardsList;

@@ -1,7 +1,7 @@
 import { MenuItem } from '@mui/material';
 import { FormikValues } from 'formik';
 
-import { Label } from '../..';
+import { CssLabel } from '../..';
 import { AppSelect } from '../../..';
 
 interface Props extends FormikValues {
@@ -15,7 +15,7 @@ export const EditorSelect: React.FC<Props> = ({
 }) => {
    return (
       <>
-         <Label htmlFor='status'>Status</Label>
+         <CssLabel children='Status' htmlFor='status' />
          <AppSelect
             id='status'
             name='status'

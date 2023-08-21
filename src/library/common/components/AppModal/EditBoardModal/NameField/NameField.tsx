@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { Label, TextField } from '../..';
+import { CssLabel, CssTextField } from '../..';
 
 export const NameField: React.FC<FormikValues> = ({
    values,
@@ -22,8 +22,8 @@ export const NameField: React.FC<FormikValues> = ({
 
    return (
       <>
-         <Label htmlFor='name'>Name</Label>
-         <TextField {...fieldProps} />
+         <CssLabel children='Name' htmlFor='name' />
+         <CssTextField {...fieldProps} />
       </>
    );
 };

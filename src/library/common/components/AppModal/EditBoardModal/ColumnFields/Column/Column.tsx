@@ -3,7 +3,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 import { IFieldArray } from '../../../../../../interfaces';
 
-import { TextField } from '../../..';
+import { CssTextField } from '../../..';
 import { useColumnProps } from '.';
 
 export const Column: React.FC<IFieldArray> = (props) => {
@@ -11,7 +11,7 @@ export const Column: React.FC<IFieldArray> = (props) => {
 
    return (
       <Stack direction='row' gap={1}>
-         <TextField {...field} {...fieldProps} />
+         <CssTextField {...field} {...fieldProps} />
          <IconButton {...buttonProps}>
             <ClearIcon fontSize='small' />
          </IconButton>

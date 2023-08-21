@@ -1,28 +1,30 @@
-import { useEffect, useRef } from 'react';
-import { FormikProps, FormikValues, Formik } from 'formik';
-import { useTheme, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { Formik, Form } from 'formik';
+import { Typography } from '@mui/material';
 
 import { DotsMenu } from '../..';
-import { useManagerFormik, ManagerCheckbox, ManagerSelect } from '.';
+import { useFormikValues, ManagerCheckbox, ManagerSelect } from '.';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import {
    setSubmissionTrigger,
    setTaskManaging,
 } from '../../../../../main/slices';
 
-import { Heading } from './manageTaskModalStyles';
+import { CssHeading } from './CssComponents';
 
 export const ManageTaskModal = () => {
-   const theme = useTheme();
-   const dispatch = useAppDispatch();
    const { submissionTrigger } = useAppSelector((state) => state.modals);
-   const { formik, cols, task } = useManagerFormik();
+   const dispatch = useAppDispatch();
 
-   const formRef = useRef<FormikProps<FormikValues>>(null);
+   const formikValues = useFormikValues();
+   const { formik, managedTask } = formikValues;
+   const { values, handleSubmit } = formik;
+   const { title, description } = managedTask;
 
    useEffect(() => {
       if (submissionTrigger) {
-         formRef.current?.handleSubmit();
+         formik.handleSubmit();
+
          dispatch(setSubmissionTrigger(false));
          dispatch(setTaskManaging(false));
       }
@@ -30,21 +32,19 @@ export const ManageTaskModal = () => {
 
    return (
       <>
-         <Heading>
-            <Typography variant='h3'>{task.title}</Typography>
+         <CssHeading>
+            <Typography variant='h3'>{title}</Typography>
             <DotsMenu isTaskMenu={true} />
-         </Heading>
-         <Typography variant='body1'>{task.description}</Typography>
+         </CssHeading>
+         <Typography variant='body1'>{description}</Typography>
 
-         <Formik
-            initialValues={formik.values}
-            onSubmit={formik.submitForm}
-            innerRef={formRef}
-         >
-            <form onSubmit={formik.handleSubmit}>
-               <ManagerCheckbox formik={formik} task={task} theme={theme} />
-               <ManagerSelect formik={formik} cols={cols} />
-            </form>
+         <Formik initialValues={values} onSubmit={() => handleSubmit()}>
+            {
+               <Form>
+                  <ManagerCheckbox formikValues={formikValues} />
+                  <ManagerSelect formikValues={formikValues} />
+               </Form>
+            }
          </Formik>
       </>
    );

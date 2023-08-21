@@ -41,6 +41,8 @@ export const useManagerFormik = () => {
          };
          dispatch(manageActiveTask(editedTask));
 
+         console.log(values);
+
          // task status changing logic
          const taskIsAlien = editedTask.status !== activeCol?.name;
          let editedCols = [...cols];

@@ -1,14 +1,14 @@
 import { FormikProps, FormikValues } from 'formik';
-import { Theme } from '@mui/system';
 import { FormGroup } from '@mui/material';
 
-import { StyledControlLabel, StyledCheckbox } from '.';
-import { SubtasksHeading } from '..';
+import { CssControlLabel, CssCheckbox } from '.';
+import { CssLabel } from '../..';
 
 type Props = {
-   formik: FormikProps<FormikValues>;
-   task: Task;
-   theme: Theme;
+   formikValues: {
+      formik: FormikProps<FormikValues>;
+      managedTask: Task;
+   };
 };
 
 type Task = {
@@ -25,19 +25,20 @@ type Subtask = {
    isCompleted: boolean;
 };
 
-export const ManagerCheckbox: React.FC<Props> = ({ formik, task }) => {
+export const ManagerCheckbox: React.FC<Props> = ({ formikValues }) => {
+   const { formik, managedTask: task } = formikValues;
    return (
       <>
-         <SubtasksHeading variant='body2'>
+         <CssLabel>
             Subtasks ({task.completedSubtasks} of {task.subtasks.length})
-         </SubtasksHeading>
+         </CssLabel>
          <FormGroup>
             {task.subtasks.map((sub: Subtask) => (
-               <StyledControlLabel
+               <CssControlLabel
                   key={sub.title}
                   subtask={sub}
                   control={
-                     <StyledCheckbox
+                     <CssCheckbox
                         value={sub.title}
                         defaultChecked={sub.isCompleted}
                      />

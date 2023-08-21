@@ -7,6 +7,7 @@ import {
    ManageTaskModal,
    EditAddTaskModal,
    EditBoardModal,
+   XsBoardsModal,
 } from '.';
 
 const getModal = (type: ModalTypes) =>
@@ -15,6 +16,7 @@ const getModal = (type: ModalTypes) =>
       [ModalTypes.TaskEditor]: EditAddTaskModal,
       [ModalTypes.BoardEditor]: EditBoardModal,
       [ModalTypes.Remover]: DeleteModal,
+      [ModalTypes.XsBoards]: XsBoardsModal,
    }[type]);
 
 export const AppModal: React.FC = () => {
