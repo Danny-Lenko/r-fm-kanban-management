@@ -1,20 +1,22 @@
-import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
-import { openDrawer } from '../../main/slices/drawerSlice';
 import { Routes, Route } from 'react-router-dom';
+import { useMediaQuery, useTheme } from '@mui/material';
+
+import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
+
+import { openDrawer } from '../../main/slices/drawerSlice';
 import ZeroBoard from '../ZeroBoard/ZeroBoard';
 import UsualBoard from '../UsualBoard/UsualBoard';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import useTheme from '@mui/material/styles/useTheme';
-
-import { MainEl, EyeBtn } from './mainStyles';
-
+import { MainEl, EyeBtn } from '.';
 import { CssDrawerHeader } from '../../library/common/components';
 
+import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
+
 export const Main = () => {
-   const open = useAppSelector((state) => state.drawer.open);
+   const { open } = useAppSelector((state) => state.drawer);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
+   
    const dispatch = useAppDispatch();
+
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -24,7 +26,7 @@ export const Main = () => {
 
    return (
       <MainEl open={open}>
-         <CssDrawerHeader /> {/* native mui gap before the appbar */}
+         <CssDrawerHeader /> {/* native mui gap under the appbar */}
          <Routes>
             <Route
                path='/'
