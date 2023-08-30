@@ -1,14 +1,20 @@
+
+
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
+
 import TaskCard from './TaskCard';
+
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Typography, useTheme } from '@mui/material';
+
 import { usualBoardStyles } from './usualBoardStyles';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
-const UsualBoard = () => {
+export const Board = () => {
+   
    const theme = useTheme();
    const drawerOpen = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
@@ -73,5 +79,3 @@ const UsualBoard = () => {
       </Stack>
    );
 };
-
-export default UsualBoard;

@@ -4,17 +4,19 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 
 import { openDrawer } from '../../main/slices/drawerSlice';
-import ZeroBoard from '../ZeroBoard/ZeroBoard';
-import UsualBoard from '../UsualBoard/UsualBoard';
+import ZeroBoard from '../NoColumnsBoard/ZeroBoard';
+
 import { MainEl, EyeBtn } from '.';
 import { CssDrawerHeader } from '../../library/common/components';
+
+import { Board } from '..';
 
 import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
 
 export const Main = () => {
    const { open } = useAppSelector((state) => state.drawer);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
-   
+
    const dispatch = useAppDispatch();
 
    const theme = useTheme();
@@ -32,7 +34,7 @@ export const Main = () => {
                path='/'
                element={
                   boards[0] && activeBoard.columns.length !== 0 ? (
-                     <UsualBoard />
+                     <Board />
                   ) : (
                      <ZeroBoard />
                   )
@@ -41,11 +43,7 @@ export const Main = () => {
             <Route
                path=':name'
                element={
-                  activeBoard.columns.length === 0 ? (
-                     <ZeroBoard />
-                  ) : (
-                     <UsualBoard />
-                  )
+                  activeBoard.columns.length === 0 ? <ZeroBoard /> : <Board />
                }
             />
          </Routes>

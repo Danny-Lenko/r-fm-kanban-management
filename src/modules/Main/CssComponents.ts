@@ -16,7 +16,10 @@ export const MainEl = styled('main', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
    }),
-   marginLeft: `-${DrawerWidth.Sm}`,
+   marginLeft: `-${DrawerWidth.Md}`,
+   [theme.breakpoints.down('md')]: {
+      marginLeft: `-${DrawerWidth.Sm}`,
+   },
    [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
       paddingLeft: theme.spacing(2),
