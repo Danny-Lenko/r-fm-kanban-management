@@ -7,7 +7,15 @@ type Props = {
 
 export const Layout: React.FC<Props> = ({ children }) => {
    return (
-      <Box sx={{ display: 'flex', overflowX: 'hidden' }}>
+      <Box
+         sx={{
+            display: 'flex',
+            overflowX: 'auto',
+            overflowY: 'hidden',
+            scrollbarGutter: 'auto',
+            maxHeight: '100vh',
+         }}
+      >
          <AppBar />
          <AppDrawer />
 

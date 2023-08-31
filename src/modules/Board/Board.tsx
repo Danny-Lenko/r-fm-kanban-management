@@ -1,81 +1,76 @@
-import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
+import { Typography, Stack } from '@mui/material';
 
 import TaskCard from './TaskCard';
 
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import { Typography, useTheme } from '@mui/material';
-
-import { usualBoardStyles } from './usualBoardStyles';
+import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
-import { CssBoard, CssColumn, CssColumnButton } from '.';
+import {
+   CssBoard,
+   CssScrollable,
+   CssInteractiveScreen,
+   CssColumn,
+   CssColorLabel,
+   CssColumnButton,
+} from '.';
 
 export const Board = () => {
-   const theme = useTheme();
-   const drawerOpen = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
-   const columns = activeBoard.columns;
+   const { columns } = activeBoard;
    const dispatch = useAppDispatch();
 
    function addNewColumn() {
-      const boardsUpdated = boards.map((board) =>
-         board.id !== activeBoard.id
+      const boardsUpdated = boards.map((board) => {
+         const { id, columns } = board;
+
+         return id !== activeBoard.id
             ? board
             : {
                  ...board,
                  columns: [
                     ...board.columns,
                     {
-                       id: board.columns.length,
-                       name: `NewColumn${board.columns.length + 1}`,
+                       id: columns.length,
+                       name: `NewColumn${columns.length + 1}`,
                        tasks: [],
-                       color: COLUMNCOLORS[board.columns.length]
-                          ? COLUMNCOLORS[board.columns.length]
+                       color: COLUMNCOLORS[columns.length]
+                          ? COLUMNCOLORS[columns.length]
                           : '#E4EBFA',
                     },
                  ],
-              },
-      );
+              };
+      });
 
       dispatch(setBoards(boardsUpdated));
       dispatch(assignActiveBoard(activeBoard.id));
    }
 
    return (
-      <CssBoard
-         direction='row'
-         // sx={usualBoardStyles(theme, drawerOpen)}
-         spacing={3}
-      >
-         <Stack className='cols-stack'>
-            <Stack direction='row' spacing={3}>
-               {columns.map((col) => (
-                  <CssColumn
-                     key={col.name}
-                     className='rows-stack'
-                     spacing={2.5}
-                  >
-                     <Stack direction='row' spacing={1}>
-                        <Box
-                           className='color'
-                           style={{ backgroundColor: col.color }}
-                        ></Box>
-                        <Typography variant='h5'>
-                           {col.name} ({col.tasks.length})
-                        </Typography>
-                     </Stack>
-                     {col.tasks.map((task) => (
-                        <TaskCard key={task.title} task={task} />
-                     ))}
-                  </CssColumn>
-               ))}
-               <Box>&nbsp;</Box>
-            </Stack>
-            <Box>&nbsp;</Box>
-         </Stack>
+      <CssBoard>
+         <CssScrollable>
+            <CssInteractiveScreen>
+               {columns.map((col) => {
+                  const { name, color, tasks } = col;
+
+                  return (
+                     <CssColumn key={name} spacing={2.5}>
+                        <Stack direction='row' spacing={1}>
+                           <CssColorLabel color={color} />
+                           <Typography
+                              {...{ variant: 'h5', textTransform: 'uppercase' }}
+                           >
+                              {name} ({tasks.length})
+                           </Typography>
+                        </Stack>
+                        {tasks.map((task) => (
+                           <TaskCard key={task.title} task={task} />
+                        ))}
+                     </CssColumn>
+                  );
+               })}
+            </CssInteractiveScreen>
+         </CssScrollable>
 
          <CssColumnButton onClick={addNewColumn}>
             <Typography variant='h2'>+ New Column</Typography>

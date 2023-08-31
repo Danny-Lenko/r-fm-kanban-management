@@ -3,7 +3,7 @@ import { DrawerWidth } from '../../library/common/constants';
 import { AppBtn } from '../../library/common/components';
 
 // mui docs: Persistent Drawer
-export const MainEl = styled('main', {
+export const CssMain = styled('main', {
    shouldForwardProp: (prop) => prop !== 'open',
 })<{
    open?: boolean;

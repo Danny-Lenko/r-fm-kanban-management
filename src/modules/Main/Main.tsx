@@ -6,7 +6,7 @@ import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { openDrawer } from '../../main/slices/drawerSlice';
 import ZeroBoard from '../NoColumnsBoard/ZeroBoard';
 
-import { MainEl, EyeBtn } from '.';
+import { CssMain, EyeBtn } from '.';
 import { CssDrawerHeader } from '../../library/common/components';
 
 import { Board } from '..';
@@ -27,7 +27,7 @@ export const Main = () => {
    };
 
    return (
-      <MainEl open={open}>
+      <CssMain open={open}>
          <CssDrawerHeader /> {/* native mui gap under the appbar */}
          <Routes>
             <Route
@@ -54,6 +54,6 @@ export const Main = () => {
                onClick={handleOpenDrawer}
             ></EyeBtn>
          )}
-      </MainEl>
+      </CssMain>
    );
 };
