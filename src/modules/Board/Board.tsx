@@ -1,5 +1,3 @@
-
-
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 
 import TaskCard from './TaskCard';
@@ -13,8 +11,9 @@ import { usualBoardStyles } from './usualBoardStyles';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
+import { CssBoard, CssColumn, CssColumnButton } from '.';
+
 export const Board = () => {
-   
    const theme = useTheme();
    const drawerOpen = useAppSelector((state) => state.drawer.open);
    const { activeBoard, boards } = useAppSelector((state) => state.data);
@@ -46,15 +45,19 @@ export const Board = () => {
    }
 
    return (
-      <Stack
+      <CssBoard
          direction='row'
-         sx={usualBoardStyles(theme, drawerOpen)}
+         // sx={usualBoardStyles(theme, drawerOpen)}
          spacing={3}
       >
          <Stack className='cols-stack'>
             <Stack direction='row' spacing={3}>
                {columns.map((col) => (
-                  <Stack key={col.name} className='rows-stack' spacing={2.5}>
+                  <CssColumn
+                     key={col.name}
+                     className='rows-stack'
+                     spacing={2.5}
+                  >
                      <Stack direction='row' spacing={1}>
                         <Box
                            className='color'
@@ -67,15 +70,16 @@ export const Board = () => {
                      {col.tasks.map((task) => (
                         <TaskCard key={task.title} task={task} />
                      ))}
-                  </Stack>
+                  </CssColumn>
                ))}
                <Box>&nbsp;</Box>
             </Stack>
             <Box>&nbsp;</Box>
          </Stack>
-         <Button className='add-col-btn' onClick={addNewColumn}>
+
+         <CssColumnButton onClick={addNewColumn}>
             <Typography variant='h2'>+ New Column</Typography>
-         </Button>
-      </Stack>
+         </CssColumnButton>
+      </CssBoard>
    );
 };
