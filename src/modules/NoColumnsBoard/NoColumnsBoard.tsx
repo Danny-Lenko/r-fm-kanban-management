@@ -1,13 +1,10 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
-import { AppBtn } from '../../library/common/components';
-import { sx } from './zeroBoardStyles';
+import { CssBoard, CssText, CssColumnButton } from '.';
 
-const ZeroBoard = () => {
+export const NoColumnsBoard = () => {
    const { boards, activeBoardId } = useAppSelector((state) => state.data);
    const dispatch = useAppDispatch();
 
@@ -32,20 +29,11 @@ const ZeroBoard = () => {
    }
 
    return (
-      <Box sx={sx.wrapper}>
-         <Typography sx={sx.content}>
+      <CssBoard>
+         <CssText>
             This board is empty. Create a new column to get started.
-         </Typography>
-         <AppBtn
-            buttonSize='small'
-            color='primary'
-            sx={sx.button}
-            onClick={addCol}
-         >
-            + Add New Column
-         </AppBtn>
-      </Box>
+         </CssText>
+         <CssColumnButton onClick={addCol}>+ Add New Column</CssColumnButton>
+      </CssBoard>
    );
 };
-
-export default ZeroBoard;

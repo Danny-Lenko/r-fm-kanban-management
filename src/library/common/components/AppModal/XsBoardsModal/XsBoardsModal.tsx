@@ -1,6 +1,4 @@
-import { BoardsList } from '../../../../../modules/Layout';
-
-import { ColorModeButton } from '../../ColorModeButton';
+import { BoardsList, ColorModeButton } from '../..';
 
 export const XsBoardsModal = () => {
    return (

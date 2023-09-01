@@ -5,10 +5,6 @@ export const BTNWIDTH = '255px'
 export const TASKMENU = ['Edit Task', 'Delete Task']
 export const BOARDMENU = ['Edit Board', 'Delete Board']
 
-export enum Padding {
-   DrawerX = '24px'
-}
-
 export enum DrawerPaddingX {
    Xs = '24px'
 }

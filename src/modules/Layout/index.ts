@@ -1,4 +1,4 @@
 export * from './Layout';
-export * from '../../library/common/components/BoardsList';
+export * from './CssLayout';
 export * from './AppBar';
 export * from './AppDrawer';
