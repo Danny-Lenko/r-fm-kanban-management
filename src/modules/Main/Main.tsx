@@ -2,14 +2,11 @@ import { Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-
 import { openDrawer } from '../../main/slices/drawerSlice';
-import ZeroBoard from '../NoColumnsBoard/ZeroBoard';
 
 import { CssMain, EyeBtn } from '.';
+import { Board, NoColumnsBoard } from '..';
 import { CssDrawerHeader } from '../../library/common/components';
-
-import { Board } from '..';
 
 import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-sidebar.svg';
 
@@ -36,14 +33,18 @@ export const Main = () => {
                   boards[0] && activeBoard.columns.length !== 0 ? (
                      <Board />
                   ) : (
-                     <ZeroBoard />
+                     <NoColumnsBoard />
                   )
                }
             />
             <Route
                path=':name'
                element={
-                  activeBoard.columns.length === 0 ? <ZeroBoard /> : <Board />
+                  activeBoard.columns.length === 0 ? (
+                     <NoColumnsBoard />
+                  ) : (
+                     <Board />
+                  )
                }
             />
          </Routes>

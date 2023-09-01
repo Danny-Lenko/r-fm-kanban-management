@@ -1,5 +1,4 @@
-import { Box } from '@mui/material';
-import { AppDrawer, AppBar } from '.';
+import { AppDrawer, AppBar, CssLayout } from '.';
 
 type Props = {
    children: React.ReactNode;
@@ -7,19 +6,11 @@ type Props = {
 
 export const Layout: React.FC<Props> = ({ children }) => {
    return (
-      <Box
-         sx={{
-            display: 'flex',
-            overflowX: 'auto',
-            overflowY: 'hidden',
-            scrollbarGutter: 'auto',
-            maxHeight: '100vh',
-         }}
-      >
+      <CssLayout>
          <AppBar />
          <AppDrawer />
 
          {children}
-      </Box>
+      </CssLayout>
    );
 };

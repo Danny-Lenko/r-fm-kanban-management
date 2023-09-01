@@ -4,8 +4,9 @@ import { useAppSelector } from '../../../library/common/hooks';
 import {
    CssDrawerHeader,
    ColorModeButton,
+   BoardsList,
 } from '../../../library/common/components';
-import { BoardsList } from '..';
+
 import { DrawerBlindBtn, CssDrawer } from '.';
 
 import logoDark from '../../../resources/assets/logo-dark.svg';
