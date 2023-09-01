@@ -3,7 +3,7 @@ import {
    useAppModal,
    ModalTypes,
    DeleteModal,
-   StyledContent,
+   CssContent,
    ManageTaskModal,
    EditAddTaskModal,
    EditBoardModal,
@@ -26,9 +26,9 @@ export const AppModal: React.FC = () => {
    const onClose = getOnClose(type);
    return (
       <Modal open={open} onClose={onClose}>
-         <StyledContent>
+         <CssContent>
             <CustomModal />
-         </StyledContent>
+         </CssContent>
       </Modal>
    );
 };

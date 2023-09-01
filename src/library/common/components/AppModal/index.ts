@@ -3,7 +3,7 @@ export { ManageTaskModal } from './ManageTaskModal';
 export * from './DeleteModal';
 export * from './useAppModal';
 export * from './AppModal';
-export * from './appModalStyles';
+export * from './CssContent';
 export * from './CssLabel';
 export * from './CssTextField';
 export * from './EditBoardModal';
