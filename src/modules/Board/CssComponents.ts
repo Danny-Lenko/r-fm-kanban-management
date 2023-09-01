@@ -15,6 +15,22 @@ CssBoard.defaultProps = {
 
 export const CssScrollable = styled(Stack)({
    overflowY: 'auto',
+
+   scrollbarWidth: 'thin',
+   '&::-webkit-scrollbar': {
+      width: '0.4em',
+   },
+   '&::-webkit-scrollbar-track': {
+      background: '#f1f1f1',
+      borderRadius: 8,
+   },
+   '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#888',
+      borderRadius: 8,
+   },
+   '&::-webkit-scrollbar-thumb:hover': {
+      background: '#555',
+   },
 });
 
 export const CssInteractiveScreen = styled(Stack)({});
