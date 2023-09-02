@@ -2,6 +2,8 @@ import { TextField } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const CssTextField = styled(TextField)(({ theme, error }) => ({
+   backgroundColor: theme.palette.background.default,
+
    '& .MuiTextField-root': {
       position: 'relative',
    },
@@ -29,3 +31,6 @@ export const CssTextField = styled(TextField)(({ theme, error }) => ({
       userSelect: 'none',
    },
 }));
+CssTextField.defaultProps = {
+   'aria-label': 'text-field',
+};

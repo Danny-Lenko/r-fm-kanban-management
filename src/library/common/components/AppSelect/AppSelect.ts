@@ -4,6 +4,7 @@ import { styled } from '@mui/system';
 export const AppSelect = styled(Select)(({ theme }) => ({
    fontWeight: 700,
    width: '100%',
+   backgroundColor: theme.palette.background.default,
 
    '.MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.divider,
@@ -16,4 +17,7 @@ export const AppSelect = styled(Select)(({ theme }) => ({
    },
 }));
 
-AppSelect.defaultProps = { size: 'small' };
+AppSelect.defaultProps = {
+   size: 'small',
+   'aria-label': 'select-dropdown',
+};
