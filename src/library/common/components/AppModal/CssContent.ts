@@ -11,10 +11,8 @@ export const CssContent = styled(Paper)<PaperProps>(({ theme, ...rest }) => ({
    borderRadius: '8px',
    boxShadow: '24',
    transform: 'translate(-50%, -50%)',
-   backgroundColor: theme.palette.background.paper,
    width: 300,
    padding: '24px',
-   // scrollbar settings
    maxHeight: '100vh',
    overflowY: 'auto',
    scrollbarWidth: 'thin',

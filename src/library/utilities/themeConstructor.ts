@@ -1,4 +1,40 @@
 const assembleThemeObj = (mode: any, theme: any) => ({
+   // ================================= component overrides
+   components: {
+      // select element menu items
+      MuiMenuItem: {
+         styleOverrides: {
+            root: {
+               ...(mode === 'light'
+                  ? {
+                       '&:hover': {
+                          backgroundColor: '#e3e5e8',
+                       },
+                       '&.Mui-selected': {
+                          backgroundColor: '#add8e6',
+                       },
+                       '&.Mui-selected:hover': {
+                          backgroundColor: '#99cfe0',
+                       },
+                    }
+                  : {
+                       '&:hover': {
+                          backgroundColor: '#20212C',
+                       },
+                       '&.Mui-selected': {
+                          color: '#FFFFFF',
+                          backgroundColor: '#348fab',
+                       },
+                       '&.Mui-selected:hover': {
+                          backgroundColor: '#2e7e98',
+                       },
+                    }),
+            },
+         },
+      },
+   },
+
+   // ==================================== typography
    typography: {
       fontFamily: [
          '-apple-system',
@@ -40,6 +76,7 @@ const assembleThemeObj = (mode: any, theme: any) => ({
          lineHeight: 15 / 12,
       },
    },
+   // ===================================== palette
    palette: {
       mode,
       ...(mode === 'light'
@@ -91,5 +128,22 @@ const assembleThemeObj = (mode: any, theme: any) => ({
       },
    },
 });
+
+const components = {
+   components: {
+      MuiMenuItem: {
+         styleOverrides: {
+            root: {
+               '&:hover': {
+                  backgroundColor: 'background.default',
+               },
+               '&.Mui-selected': {
+                  backgroundColor: 'lightblue',
+               },
+            },
+         },
+      },
+   },
+};
 
 export { assembleThemeObj };
