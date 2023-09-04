@@ -1,4 +1,4 @@
-import { Stack, Button, Box, BoxProps } from '@mui/material';
+import { Stack, StackProps, Button, Box, BoxProps } from '@mui/material';
 import { styled } from '@mui/system';
 import { AppbarHeight } from '../../library/common/constants';
 
@@ -13,7 +13,19 @@ CssBoard.defaultProps = {
    spacing: 3,
 };
 
-export const CssScrollable = styled(Stack)({
+export const CssInteractiveScreen = styled(Stack)({});
+CssInteractiveScreen.defaultProps = {
+   pr: 2,
+   pb: 3,
+   direction: 'row',
+   spacing: 3,
+};
+
+export const CssColumn = styled(Stack)(({ theme }) => ({
+   minWidth: '280px',
+   maxWidth: '280px',
+   paddingRight: '4px',
+
    overflowY: 'auto',
 
    scrollbarWidth: 'thin',
@@ -31,19 +43,6 @@ export const CssScrollable = styled(Stack)({
    '&::-webkit-scrollbar-thumb:hover': {
       background: '#555',
    },
-});
-
-export const CssInteractiveScreen = styled(Stack)({});
-CssInteractiveScreen.defaultProps = {
-   pr: 2,
-   pb: 3,
-   direction: 'row',
-   spacing: 3,
-};
-
-export const CssColumn = styled(Stack)(({ theme }) => ({
-   minWidth: '280px',
-   maxWidth: '280px',
 }));
 
 interface ColorLabel extends BoxProps {

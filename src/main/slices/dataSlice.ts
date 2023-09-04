@@ -13,7 +13,7 @@ const data = rowData.boards.map((board, i) => ({
    columns: board.columns.map((col, i) => ({
       ...col,
       color: COLUMNCOLORS[i],
-      id: i,
+      id: col.id,
       tasks: col.tasks.map((task, i) => {
          let completed = 0;
          task.subtasks.forEach((subtask) =>
@@ -34,7 +34,7 @@ export const dataSlice = createSlice({
       boards: data,
       activeBoard: data[0],
       activeBoardId: 0,
-      activeColId: 0,
+      activeColId: '',
       activeTaskId: 0,
       managedTask: data[0].columns[0].tasks[0],
    },
@@ -88,8 +88,8 @@ export const dataSlice = createSlice({
          );
       },
 
-      setBoards: (state, action) => {
-         state.boards = action.payload;
+      setBoards: (state, { payload }) => {
+         state.boards = payload;
       },
    },
 });

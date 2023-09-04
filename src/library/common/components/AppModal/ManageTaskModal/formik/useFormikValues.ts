@@ -70,7 +70,7 @@ interface Subtask {
 }
 
 interface Column {
-   id: number;
+   id: string;
    name: string;
    tasks: Task[];
 }
@@ -88,7 +88,7 @@ const handleCheckbox = <T extends Task>(task: T, values: FormikValues): T => ({
 const handleSelect = <C extends Column, T extends Task>(
    columns: C[],
    editedTask: T,
-   activeColId: number,
+   activeColId: string,
 ) =>
    columns.map((col) =>
       col.id === activeColId

@@ -1,8 +1,8 @@
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Typography, Stack } from '@mui/material';
 
 import {
    CssBoard,
-   CssScrollable,
    CssInteractiveScreen,
    CssColumn,
    CssColorLabel,
@@ -16,29 +16,48 @@ export const Board = () => {
 
    return (
       <CssBoard>
-         <CssScrollable>
-            <CssInteractiveScreen>
-               {columns.map((col) => {
-                  const { name, color, tasks } = col;
+         <Droppable droppableId='ROOT' type='group' direction='horizontal'>
+            {(provided) => (
+               <CssInteractiveScreen
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+               >
+                  {columns.map((col, index) => {
+                     const { name, color, tasks, id } = col;
 
-                  return (
-                     <CssColumn key={name} spacing={2.5}>
-                        <Stack direction='row' spacing={1}>
-                           <CssColorLabel color={color} />
-                           <Typography
-                              {...{ variant: 'h5', textTransform: 'uppercase' }}
-                           >
-                              {name} ({tasks.length})
-                           </Typography>
-                        </Stack>
-                        {tasks.map((task) => (
-                           <TaskCard key={task.title} {...task} />
-                        ))}
-                     </CssColumn>
-                  );
-               })}
-            </CssInteractiveScreen>
-         </CssScrollable>
+                     return (
+                        <Draggable draggableId={id} index={index} key={id}>
+                           {(provided) => (
+                              <CssColumn
+                                 key={name}
+                                 spacing={2.5}
+                                 {...provided.dragHandleProps}
+                                 {...provided.draggableProps}
+                                 ref={provided.innerRef}
+                              >
+                                 <Stack direction='row' spacing={1}>
+                                    <CssColorLabel color={color} />
+                                    <Typography
+                                       {...{
+                                          variant: 'h5',
+                                          textTransform: 'uppercase',
+                                       }}
+                                    >
+                                       {name} ({tasks.length})
+                                    </Typography>
+                                 </Stack>
+                                 {tasks.map((task) => (
+                                    <TaskCard key={task.title} {...task} />
+                                 ))}
+                              </CssColumn>
+                           )}
+                        </Draggable>
+                     );
+                  })}
+                  {provided.placeholder}
+               </CssInteractiveScreen>
+            )}
+         </Droppable>
 
          <CssColumnButton onClick={addNewColumn}>
             <Typography variant='h2'>+ New Column</Typography>

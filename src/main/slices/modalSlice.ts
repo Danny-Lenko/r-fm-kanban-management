@@ -15,40 +15,40 @@ export const modalSlice = createSlice({
    },
 
    reducers: {
-      setTaskManaging: (state, action) => {
-         state.taskManaging = action.payload;
+      setTaskManaging: (state, { payload }) => {
+         state.taskManaging = payload;
       },
 
-      setTaskEditing: (state, action) => {
-         state.taskEditing = action.payload;
+      setTaskEditing: (state, { payload }) => {
+         state.taskEditing = payload;
       },
 
-      setExistingTask: (state, action) => {
-         state.isExistingTask = action.payload;
+      setExistingTask: (state, { payload }) => {
+         state.isExistingTask = payload;
       },
 
-      setBoardEditing: (state, action) => {
-         state.boardEditing = action.payload;
+      setBoardEditing: (state, { payload }) => {
+         state.boardEditing = payload;
       },
 
-      setSubmissionTrigger: (state, action) => {
-         state.submissionTrigger = action.payload;
+      setSubmissionTrigger: (state, { payload }) => {
+         state.submissionTrigger = payload;
       },
 
-      setIsExistingBoard: (state, action) => {
-         state.isExistingBoard = action.payload;
+      setIsExistingBoard: (state, { payload }) => {
+         state.isExistingBoard = payload;
       },
 
-      setDeletingBoard: (state, action) => {
-         state.deletingBoard = action.payload;
+      setDeletingBoard: (state, { payload }) => {
+         state.deletingBoard = payload;
       },
 
-      setDeletingTask: (state, action) => {
-         state.deletingTask = action.payload;
+      setDeletingTask: (state, { payload }) => {
+         state.deletingTask = payload;
       },
 
-      setXsBoardsOpen: (state, action) => {
-         state.xsBoardsOpen = action.payload;
+      setXsBoardsOpen: (state, { payload }) => {
+         state.xsBoardsOpen = payload;
       },
    },
 });

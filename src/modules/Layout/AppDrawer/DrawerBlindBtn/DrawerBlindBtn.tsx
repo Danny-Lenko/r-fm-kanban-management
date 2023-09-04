@@ -11,7 +11,7 @@ export const DrawerBlindBtn = () => {
    const dispatch = useAppDispatch();
 
    const handleClick = () => {
-      dispatch(closeDrawer('close'));
+      dispatch(closeDrawer());
    };
 
    return (

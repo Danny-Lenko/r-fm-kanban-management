@@ -20,7 +20,7 @@ export const Main = () => {
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
    const handleOpenDrawer = () => {
-      dispatch(openDrawer('open'));
+      dispatch(openDrawer());
    };
 
    return (
