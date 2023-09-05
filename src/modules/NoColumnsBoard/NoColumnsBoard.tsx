@@ -1,4 +1,4 @@
-import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
+import { setBoards, assignActiveBoard } from '../../main/store/data/dataSlice';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
 

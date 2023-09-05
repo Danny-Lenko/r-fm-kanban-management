@@ -3,7 +3,7 @@ import {
    setExistingTask,
    setBoards,
    assignActiveBoard,
-} from '../../../../../../main/slices';
+} from '../../../../../../main/store';
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
 import { ISumbissionParams } from '../../../../../interfaces';
 
@@ -27,7 +27,7 @@ export const createTask = ({
    activeBoardId,
    dispatch,
    activeTask,
-   activeColId,
+   activeColumnId,
 }: Props) => {
    const activeCol = columns.find((col) => col.name === values.status);
    const newTask = {
@@ -73,7 +73,7 @@ export const saveChanges = ({
    activeBoardId,
    dispatch,
    activeTask,
-   activeColId,
+   activeColumnId,
 }: Props) => {
    let taskUpdated = {
       ...activeTask,
@@ -88,7 +88,7 @@ export const saveChanges = ({
       ...taskUpdated,
       completedSubtasks: countCompletedSubtasks(taskUpdated),
    };
-   const pastCol = columns.find((col) => col.id === activeColId);
+   const pastCol = columns.find((col) => col.id === activeColumnId);
    const futureCol = columns.find((col) => col.name === values.status);
    const statusChanged = taskUpdated.status !== pastCol!.name;
 

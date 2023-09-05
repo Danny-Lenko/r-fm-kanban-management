@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { openDrawer } from '../../main/slices/drawerSlice';
+import { openDrawer } from '../../main/store/drawer/drawerSlice';
 
 import { CssMain, EyeBtn } from '.';
 import { Board, NoColumnsBoard } from '..';

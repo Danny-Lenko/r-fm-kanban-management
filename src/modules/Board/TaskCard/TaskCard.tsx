@@ -1,7 +1,7 @@
 import { ITask } from '../../../library/interfaces/interfaces';
 import { useAppDispatch } from '../../../library/common/hooks';
-import { assignActiveTaskCol } from '../../../main/slices/dataSlice';
-import { setTaskManaging } from '../../../main/slices/modalSlice';
+import { assignActiveTaskCol } from '../../../main/store/data/dataSlice';
+import { setTaskManaging } from '../../../main/store/modals/modalSlice';
 
 import { CssCard, CssTitle, CssSubtasks } from '.';
 

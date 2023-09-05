@@ -11,12 +11,13 @@ import {
 import { AppBtn } from '../..';
 
 import { useAppSelector } from '../../../hooks';
+import { selectActiveBoard } from '../../../../../main/store';
 
 export const EditAddTaskModal = () => {
-   const cols = useAppSelector((state) => state.data.activeBoard.columns);
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
 
-   const selectOptions = cols.map((col) => col.name);
+   const { columns } = useAppSelector(selectActiveBoard);
+   const selectOptions = columns.map((col) => col.name);
 
    const btnProps = {
       type: 'submit' as 'submit',

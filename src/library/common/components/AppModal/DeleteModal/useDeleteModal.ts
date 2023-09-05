@@ -4,19 +4,27 @@ import {
    setDeletingTask,
    setBoards,
    assignActiveBoard,
-} from '../../../../../main/slices';
+   selectActiveBoard,
+   selectBoards,
+   selectActiveTaskId,
+   selectActiveColumnId,
+} from '../../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 
 export const useDeleteModal = () => {
-   const dispatch = useAppDispatch();
    const navigate = useNavigate();
 
+   const boards = useAppSelector(selectBoards);
+   const activeBoard = useAppSelector(selectActiveBoard);
+   const activeColumnId = useAppSelector(selectActiveColumnId);
+   const activeTaskId = useAppSelector(selectActiveTaskId);
    const { deletingBoard } = useAppSelector((state) => state.modals);
-   const { activeBoard, activeColId, activeTaskId, boards } = useAppSelector(
-      (state) => state.data,
-   );
 
-   const activeCol = activeBoard.columns.find((col) => col.id === activeColId);
+   const dispatch = useAppDispatch();
+
+   const activeCol = activeBoard.columns.find(
+      (col) => col.id === activeColumnId,
+   );
    const activeTask = activeCol?.tasks.find((task) => task.id === activeTaskId);
 
    const deleteBoard = () => {
@@ -45,7 +53,7 @@ export const useDeleteModal = () => {
             : {
                  ...board,
                  columns: board.columns.map((col) =>
-                    col.id !== activeColId
+                    col.id !== activeColumnId
                        ? col
                        : {
                             ...col,

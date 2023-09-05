@@ -1,16 +1,21 @@
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 
 import { BoardValues, saveBoardChanges, createBoard } from '.';
+import {
+   selectActiveBoardInfo,
+   selectActiveColumnId,
+   selectActiveTask,
+   selectBoards,
+} from '../../../../../../main/store';
 
 export const useBoardFormik = () => {
-   const {
-      boards,
-      activeBoard,
-      activeBoardId,
-      activeColId,
-      managedTask: activeTask,
-   } = useAppSelector((state) => state.data);
+   const boards = useAppSelector(selectBoards);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
    const { columns } = activeBoard;
+
+   const activeColumnId = useAppSelector(selectActiveColumnId);
+   const activeTask = useAppSelector(selectActiveTask);
+
    const isExisting = useAppSelector((state) => state.modals.isExistingBoard);
    const dispatch = useAppDispatch();
 
@@ -31,7 +36,7 @@ export const useBoardFormik = () => {
       activeBoardId,
       dispatch,
       activeTask,
-      activeColId,
+      activeColumnId,
    };
 
    const submit = (values: BoardValues) =>

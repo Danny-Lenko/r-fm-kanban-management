@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
+import { setBoards, assignActiveBoard } from '../../main/store/data/dataSlice';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
 export const useNewColumn = () => {

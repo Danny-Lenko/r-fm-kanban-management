@@ -8,7 +8,7 @@ import {
    setBoardEditing,
    setIsExistingBoard,
    setXsBoardsOpen,
-} from '../../../../main/slices';
+} from '../../../../main/store';
 
 export enum ModalTypes {
    TaskManager,

@@ -8,7 +8,7 @@ import {
    setBoardEditing,
    setDeletingBoard,
    setDeletingTask,
-} from '../../../../main/slices/modalSlice';
+} from '../../../../main/store/modals/modalSlice';
 
 export const DotsMenuItem = ({ option, handleClose }: any) => {
    const dispatch = useAppDispatch();

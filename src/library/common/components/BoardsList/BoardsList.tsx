@@ -4,9 +4,9 @@ import { List } from '@mui/material';
 import {
    setBoardEditing,
    setXsBoardsOpen,
-} from '../../../../main/slices/modalSlice';
+} from '../../../../main/store/modals/modalSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { assignActiveBoard } from '../../../../main/slices/dataSlice';
+import { assignActiveBoard } from '../../../../main/store/data/dataSlice';
 
 import { CssBtnBox, CssBoardsLabel, BoardBtn } from '.';
 

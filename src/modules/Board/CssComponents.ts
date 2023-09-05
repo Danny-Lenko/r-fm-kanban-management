@@ -1,4 +1,4 @@
-import { Stack, StackProps, Button, Box, BoxProps } from '@mui/material';
+import { Stack, Button, Box, BoxProps } from '@mui/material';
 import { styled } from '@mui/system';
 import { AppbarHeight } from '../../library/common/constants';
 

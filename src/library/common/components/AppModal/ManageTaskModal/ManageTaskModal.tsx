@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from '../../../hooks';
 import {
    setSubmissionTrigger,
    setTaskManaging,
-} from '../../../../../main/slices';
+} from '../../../../../main/store';
 
 import { CssHeading } from './CssComponents';
 
@@ -17,9 +17,9 @@ export const ManageTaskModal = () => {
    const dispatch = useAppDispatch();
 
    const formikValues = useFormikValues();
-   const { formik, managedTask } = formikValues;
+   const { formik, activeTask } = formikValues;
    const { values, handleSubmit } = formik;
-   const { title, description } = managedTask;
+   const { title, description } = activeTask;
 
    useEffect(() => {
       if (submissionTrigger) {

@@ -4,7 +4,7 @@ import {
    useAppSelector,
    useAppDispatch,
 } from '../../../../library/common/hooks';
-import { setTaskEditing } from '../../../../main/slices/modalSlice';
+import { setTaskEditing } from '../../../../main/store/modals/modalSlice';
 import { AppBtn, DotsMenu } from '../../../../library/common/components';
 
 import { CssBox, XsPlusButton } from '.';

@@ -1,7 +1,7 @@
 import { Stack, SvgIcon } from '@mui/material';
 
 import { useAppDispatch } from '../../../../library/common/hooks';
-import { closeDrawer } from '../../../../main/slices/drawerSlice';
+import { closeDrawer } from '../../../../main/store/drawer/drawerSlice';
 
 import { CssButton } from '.';
 

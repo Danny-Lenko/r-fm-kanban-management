@@ -1,11 +1,11 @@
 import {
    setBoardEditing,
    setIsExistingBoard,
-} from '../../../../../../main/slices/modalSlice';
+} from '../../../../../../main/store/modals/modalSlice';
 import {
    setBoards,
    assignActiveBoard,
-} from '../../../../../../main/slices/dataSlice';
+} from '../../../../../../main/store/data/dataSlice';
 
 import { ISumbissionParams } from '../../../../../interfaces';
 

@@ -4,7 +4,7 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 
 import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
-import { setXsBoardsOpen } from '../../../main/slices/modalSlice';
+import { setXsBoardsOpen } from '../../../main/store/modals/modalSlice';
 
 import {
    ButtonsBox,

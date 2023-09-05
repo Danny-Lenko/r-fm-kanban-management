@@ -89,5 +89,5 @@ export interface ISumbissionParams {
    activeBoardId: number;
    dispatch: Dispatch;
    activeTask: ITask;
-   activeColId: string;
+   activeColumnId: string;
 }
