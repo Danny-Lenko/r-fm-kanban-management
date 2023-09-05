@@ -6,75 +6,32 @@ export interface AppBarProps extends MuiAppBarProps {
    open?: boolean;
 }
 
-// export interface ITask {
-//    title: string;
-//    description: string;
-//    status: string;
-//    subtasks: {
-//       title: string;
-//       isCompleted: boolean;
-//    }[];
-//    completedSubtasks: number;
-// }
-
 export interface ISubtask {
    title: string;
    isCompleted: boolean;
 }
 
 export interface ITask {
-   id: number;
+   id: string;
    completedSubtasks: number;
    title: string;
    description: string;
    status: string;
    subtasks: ISubtask[];
-   // subtasks: {
-   //    title: string;
-   //    isCompleted: boolean;
-   // }[];
 }
 
 export interface ICol {
    name: string;
    color: string;
-   // id: number;
    id: string;
    tasks: ITask[];
-   // tasks: {
-   //    id: number;
-   //    completedSubtasks: number;
-   //    title: string;
-   //    description: string;
-   //    status: string;
-   //    subtasks: {
-   //       title: string;
-   //       isCompleted: boolean;
-   //    }[];
-   // }[];
 }
 
 export interface IBoard {
-   id: number;
+   id: string;
    path: string;
    name: string;
    columns: ICol[];
-   // columns: {
-   //    color: string;
-   //    id: number;
-   //    tasks: {
-   //       id: number;
-   //       completedSubtasks: number;
-   //       title: string;
-   //       description: string;
-   //       status: string;
-   //       subtasks: {
-   //          title: string;
-   //          isCompleted: boolean;
-   //       }[];
-   //    }[];
-   //    name: string;
-   // }[];
 }
 
 export interface IFieldArray {
@@ -86,8 +43,8 @@ export interface ISumbissionParams {
    columns: ICol[];
    boards: IBoard[];
    activeBoard: IBoard;
-   activeBoardId: number;
+   activeBoardId: string;
    dispatch: Dispatch;
-   activeTask: ITask;
+   activeTask: ITask | null;
    activeColumnId: string;
 }

@@ -5,19 +5,20 @@ import { useAppSelector, useAppDispatch } from '../../../../hooks';
 import {
    manageActiveTask,
    manageColumnsChange,
-   assignActiveBoard,
+   setActiveBoardId,
    selectActiveBoardInfo,
-   selectActiveColumnId,
    selectActiveTask,
+   selectActiveColumnInfo,
 } from '../../../../../../main/store';
 export const useFormikValues = () => {
    const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
    const { columns } = activeBoard;
 
-   const activeColumnId = useAppSelector(selectActiveColumnId);
-   const activeTask = useAppSelector(selectActiveTask);
+   const { activeColumn, activeColumnId } = useAppSelector(
+      selectActiveColumnInfo,
+   );
 
-   const activeCol = columns.find((col) => col.id === activeColumnId);
+   const activeTask = useAppSelector(selectActiveTask)!;
 
    const dispatch = useAppDispatch();
 
@@ -41,7 +42,7 @@ export const useFormikValues = () => {
          dispatch(manageActiveTask(editedTask));
 
          // task status select
-         const taskIsAlien = editedTask.status !== activeCol?.name;
+         const taskIsAlien = editedTask.status !== activeColumn!.name;
          if (taskIsAlien) {
             const editedColumns = handleSelect(
                columns,
@@ -52,7 +53,7 @@ export const useFormikValues = () => {
          }
 
          // changes the state responsible for render
-         dispatch(assignActiveBoard(activeBoardId));
+         dispatch(setActiveBoardId(activeBoardId));
       },
    });
 
@@ -61,7 +62,7 @@ export const useFormikValues = () => {
 
 // Utitility functions
 interface Task {
-   id: number;
+   id: string;
    status: string;
    subtasks: Subtask[];
 }

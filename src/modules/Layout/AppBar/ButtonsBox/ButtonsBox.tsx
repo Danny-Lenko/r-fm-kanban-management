@@ -6,6 +6,7 @@ import {
 } from '../../../../library/common/hooks';
 import { setTaskEditing } from '../../../../main/store/modals/modalSlice';
 import { AppBtn, DotsMenu } from '../../../../library/common/components';
+import { selectActiveBoard } from '../../../../main/store';
 
 import { CssBox, XsPlusButton } from '.';
 
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export const ButtonsBox: React.FC<Props> = ({ xsScreen }) => {
-   const { activeBoard } = useAppSelector((state) => state.data);
+   const activeBoard = useAppSelector(selectActiveBoard);
    const dispatch = useAppDispatch();
 
    const editTask = () => {

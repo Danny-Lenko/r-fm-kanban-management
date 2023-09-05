@@ -1,4 +1,4 @@
-import { setBoards, assignActiveBoard } from '../../main/store/data/dataSlice';
+import { setBoards, setActiveBoardId } from '../../main/store/data/dataSlice';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
@@ -25,7 +25,7 @@ export const NoColumnsBoard = () => {
               },
       );
       dispatch(setBoards(boardsUpdated));
-      dispatch(assignActiveBoard(activeBoardId));
+      dispatch(setActiveBoardId(activeBoardId));
    }
 
    return (

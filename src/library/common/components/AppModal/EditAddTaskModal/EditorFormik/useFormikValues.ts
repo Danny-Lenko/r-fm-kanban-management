@@ -16,7 +16,8 @@ export const useFormikValues = () => {
    const activeColumnId = useAppSelector(selectActiveColumnId);
    const activeTask = useAppSelector(selectActiveTask);
 
-   const isExisting = useAppSelector((state) => state.modals.isExistingTask);
+   const isExisting =
+      useAppSelector((state) => state.modals.isExistingTask) && activeTask;
 
    const dispatch = useAppDispatch();
 

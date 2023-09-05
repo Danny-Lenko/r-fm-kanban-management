@@ -2,7 +2,7 @@ import {
    setTaskEditing,
    setExistingTask,
    setBoards,
-   assignActiveBoard,
+   setActiveBoardId,
 } from '../../../../../../main/store';
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
 import { ISumbissionParams } from '../../../../../interfaces';
@@ -60,7 +60,7 @@ export const createTask = ({
    );
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoardId));
+   dispatch(setActiveBoardId(activeBoardId));
    dispatch(setTaskEditing(false));
 };
 
@@ -79,8 +79,8 @@ export const saveChanges = ({
       ...activeTask,
       ...values,
       subtasks: values.subtasks.map((sub, i) =>
-         activeTask.subtasks[i] && sub === activeTask.subtasks[i].title
-            ? activeTask.subtasks[i]
+         activeTask!.subtasks[i] && sub === activeTask!.subtasks[i].title
+            ? activeTask!.subtasks[i]
             : { title: sub, isCompleted: false },
       ),
    };
@@ -132,7 +132,7 @@ export const saveChanges = ({
    );
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoardId));
+   dispatch(setActiveBoardId(activeBoardId));
    dispatch(setTaskEditing(false));
    dispatch(setExistingTask(false));
 };

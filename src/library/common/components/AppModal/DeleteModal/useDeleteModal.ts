@@ -3,33 +3,30 @@ import {
    setDeletingBoard,
    setDeletingTask,
    setBoards,
-   assignActiveBoard,
-   selectActiveBoard,
+   setActiveBoardId,
    selectBoards,
-   selectActiveTaskId,
-   selectActiveColumnId,
+   selectActiveBoardInfo,
+   selectActiveColumnInfo,
+   selectActiveTaskInfo,
 } from '../../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
+import {} from '../../../../../main/store/data/dataSelector';
 
 export const useDeleteModal = () => {
-   const navigate = useNavigate();
-
    const boards = useAppSelector(selectBoards);
-   const activeBoard = useAppSelector(selectActiveBoard);
-   const activeColumnId = useAppSelector(selectActiveColumnId);
-   const activeTaskId = useAppSelector(selectActiveTaskId);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
+   const { activeColumnId } = useAppSelector(selectActiveColumnInfo);
+   const { activeTask, activeTaskId } = useAppSelector(selectActiveTaskInfo);
+
    const { deletingBoard } = useAppSelector((state) => state.modals);
 
    const dispatch = useAppDispatch();
 
-   const activeCol = activeBoard.columns.find(
-      (col) => col.id === activeColumnId,
-   );
-   const activeTask = activeCol?.tasks.find((task) => task.id === activeTaskId);
+   const navigate = useNavigate();
 
    const deleteBoard = () => {
       const boardsUpdated = boards
-         .filter((board) => board.id !== activeBoard.id)
+         .filter((board) => board.id !== activeBoardId)
          .map((board, i) => ({ ...board, id: i }));
 
       dispatch(setBoards(boardsUpdated));
@@ -42,13 +39,13 @@ export const useDeleteModal = () => {
          dispatch(setBoards(zeroBoards));
       }
 
-      dispatch(assignActiveBoard(0));
+      dispatch(setActiveBoardId('0'));
       handleClose();
    };
 
    const deleteTask = () => {
       const boardsUpdated = boards.map((board, i) =>
-         board.id !== activeBoard.id
+         board.id !== activeBoardId
             ? board
             : {
                  ...board,
@@ -66,7 +63,7 @@ export const useDeleteModal = () => {
       );
 
       dispatch(setBoards(boardsUpdated));
-      dispatch(assignActiveBoard(activeBoard.id));
+      dispatch(setActiveBoardId(activeBoardId));
       handleClose();
    };
 

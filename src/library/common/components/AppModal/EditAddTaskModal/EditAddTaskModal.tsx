@@ -16,7 +16,8 @@ import { selectActiveBoard } from '../../../../../main/store';
 export const EditAddTaskModal = () => {
    const isExisting = useAppSelector((state) => state.modals.isExistingTask);
 
-   const { columns } = useAppSelector(selectActiveBoard);
+   const activeBoard = useAppSelector(selectActiveBoard)!;
+   const { columns } = activeBoard;
    const selectOptions = columns.map((col) => col.name);
 
    const btnProps = {

@@ -1,18 +1,30 @@
 import { ITask } from '../../../library/interfaces/interfaces';
 import { useAppDispatch } from '../../../library/common/hooks';
-import { assignActiveTaskCol } from '../../../main/store/data/dataSlice';
+import {
+   setActiveColumndId,
+   setActiveTaskId,
+} from '../../../main/store/data/dataSlice';
 import { setTaskManaging } from '../../../main/store/modals/modalSlice';
 
 import { CssCard, CssTitle, CssSubtasks } from '.';
 
-export const TaskCard: React.FC<ITask> = (task) => {
-   const { title, completedSubtasks, subtasks } = task;
+interface Props extends ITask {
+   columnId: string;
+}
 
+export const TaskCard: React.FC<Props> = ({
+   title,
+   completedSubtasks,
+   subtasks,
+   id,
+   columnId,
+}) => {
    const dispatch = useAppDispatch();
 
    const handleClick = () => {
+      dispatch(setActiveColumndId(columnId));
+      dispatch(setActiveTaskId(id));
       dispatch(setTaskManaging(true));
-      dispatch(assignActiveTaskCol(task));
    };
 
    return (

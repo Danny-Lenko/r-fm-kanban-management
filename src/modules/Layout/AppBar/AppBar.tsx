@@ -5,6 +5,7 @@ import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 
 import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
 import { setXsBoardsOpen } from '../../../main/store/modals/modalSlice';
+import { selectActiveBoard } from '../../../main/store';
 
 import {
    ButtonsBox,
@@ -19,10 +20,11 @@ import logoLight from '../../../resources/assets/logo-light.svg';
 import logoMobile from '../../../resources/assets/logo-mobile.svg';
 
 export const AppBar = () => {
-   const { drawer, modals, data } = useAppSelector((state) => state);
+   const { drawer, modals } = useAppSelector((state) => state);
    const { open } = drawer;
    const { xsBoardsOpen } = modals;
-   const { activeBoard } = data;
+
+   const activeBoard = useAppSelector(selectActiveBoard);
 
    const dispatch = useAppDispatch();
 

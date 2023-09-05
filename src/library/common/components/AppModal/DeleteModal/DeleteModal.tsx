@@ -5,7 +5,7 @@ import { DeleteBtn, useDeleteModal } from '.';
 export const DeleteModal: React.FC = () => {
    const { deletingBoard, activeBoard, activeTask, handleDelete, handleClose } =
       useDeleteModal();
-      
+
    return (
       <>
          <Typography variant='h3'>
@@ -15,8 +15,8 @@ export const DeleteModal: React.FC = () => {
             {deletingBoard ? (
                <>
                   Are you sure you want to delete the{' '}
-                  <b>‘{activeBoard.name}’</b> board? This action will remove all
-                  columns and tasks and cannot be reversed.
+                  <b>‘{activeBoard!.name}’</b> board? This action will remove
+                  all columns and tasks and cannot be reversed.
                </>
             ) : (
                <>

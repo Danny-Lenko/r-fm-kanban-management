@@ -2,10 +2,7 @@ import {
    setBoardEditing,
    setIsExistingBoard,
 } from '../../../../../../main/store/modals/modalSlice';
-import {
-   setBoards,
-   assignActiveBoard,
-} from '../../../../../../main/store/data/dataSlice';
+import { setBoards, setActiveBoardId } from '../../../../../../main/store';
 
 import { ISumbissionParams } from '../../../../../interfaces';
 
@@ -39,10 +36,10 @@ export const saveBoardChanges = ({
    };
 
    const boardsUpdated = [...boards];
-   boardsUpdated[activeBoard.id] = boardUpdated;
+   boardsUpdated[+activeBoard.id] = boardUpdated;
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoard.id));
+   dispatch(setActiveBoardId(activeBoard.id));
    dispatch(setIsExistingBoard(false));
    dispatch(setBoardEditing(false));
 };
@@ -66,6 +63,6 @@ export const createBoard = ({ values, boards, dispatch }: Props) => {
    const boardsUpdated = [...boards, newBoard];
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(boards.length));
+   dispatch(setActiveBoardId(boards.length));
    dispatch(setBoardEditing(false));
 };

@@ -12,7 +12,7 @@ type Props = {
 };
 
 type Task = {
-   id: number;
+   id: string;
    completedSubtasks: number;
    title: string;
    description: string;

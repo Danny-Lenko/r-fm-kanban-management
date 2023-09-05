@@ -3,6 +3,7 @@ import { useMediaQuery, useTheme } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { openDrawer } from '../../main/store/drawer/drawerSlice';
+import { selectActiveBoard, selectBoards } from '../../main/store';
 
 import { CssMain, EyeBtn } from '.';
 import { Board, NoColumnsBoard } from '..';
@@ -12,7 +13,8 @@ import { ReactComponent as eyeIcon } from '../../resources/assets/icon-show-side
 
 export const Main = () => {
    const { open } = useAppSelector((state) => state.drawer);
-   const { activeBoard, boards } = useAppSelector((state) => state.data);
+   const activeBoard = useAppSelector(selectActiveBoard);
+   const boards = useAppSelector(selectBoards);
 
    const dispatch = useAppDispatch();
 

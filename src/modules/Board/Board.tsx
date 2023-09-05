@@ -47,7 +47,7 @@ export const Board = () => {
                                     </Typography>
                                  </Stack>
                                  {tasks.map((task) => (
-                                    <TaskCard key={task.title} {...task} />
+                                    <TaskCard key={task.title} {...{...task, columnId: id }} />
                                  ))}
                               </CssColumn>
                            )}

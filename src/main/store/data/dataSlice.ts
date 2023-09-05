@@ -34,12 +34,9 @@ export const dataSlice = createSlice({
    name: 'data',
    initialState: {
       boards: mockData,
-      activeBoardId: '',
-      activeColumnId: '',
-      activeTaskId: '',
-
-      // activeBoard: mockData[0],
-      // activeTask: mockData[0].columns[0].tasks[0],
+      activeBoardId: '0',
+      activeColumnId: '0',
+      activeTaskId: '0',
    },
 
    reducers: {
@@ -58,21 +55,6 @@ export const dataSlice = createSlice({
       setActiveTaskId: (state, { payload }) => {
          state.activeTaskId = payload;
       },
-
-      // assignActiveBoard: (state, action) => {
-      //    state.activeBoard = state.boards.find(
-      //       (board) => board.id === action.payload,
-      //    )!;
-      //    state.activeBoardId = state.activeBoard.id;
-      // },
-
-      // assignActiveTaskCol: (state, action) => {
-      //    state.activeTask = action.payload;
-      //    state.activeTaskId = action.payload.id;
-      //    state.activeColumnId = state.activeBoard.columns.find((col) =>
-      //       col.tasks.find((task) => task.title === action.payload.title),
-      //    )!.id;
-      // },
 
       manageActiveTask: (state, action) => {
          state.boards = state.boards.map((board) =>
@@ -114,8 +96,6 @@ export const {
    setActiveBoardId,
    setActiveColumndId,
    setActiveTaskId,
-   // assignActiveBoard,
-   // assignActiveTaskCol,
    manageActiveTask,
    manageColumnsChange,
 } = dataSlice.actions;

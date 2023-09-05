@@ -3,6 +3,7 @@ import { ListItem, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
 import { useAppSelector } from '../../../hooks';
 import { CssListButton } from '.';
 import { ReactComponent as IconBoard } from '../../../../../resources/assets/icon-board.svg';
+import { selectActiveBoard } from '../../../../../main/store';
 
 interface Props {
    props: {
@@ -15,9 +16,7 @@ interface Props {
 export const BoardBtn: React.FC<Props> = ({
    props: { name, path, btnClick },
 }) => {
-   const { path: activePath } = useAppSelector(
-      (state) => state.data.activeBoard,
-   );
+   const { path: activePath } = useAppSelector(selectActiveBoard);
 
    const isSelected = activePath === path;
    const label = path ? 'board' : 'create';

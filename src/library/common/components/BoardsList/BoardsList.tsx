@@ -6,7 +6,7 @@ import {
    setXsBoardsOpen,
 } from '../../../../main/store/modals/modalSlice';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { assignActiveBoard } from '../../../../main/store/data/dataSlice';
+import { setActiveBoardId } from '../../../../main/store/data/dataSlice';
 
 import { CssBtnBox, CssBoardsLabel, BoardBtn } from '.';
 
@@ -17,8 +17,8 @@ export const BoardsList = () => {
    const { boards } = useAppSelector((state) => state.data);
    const { xsBoardsOpen } = useAppSelector((state) => state.modals);
 
-   const handleBoardSwitch = ({ id, path }: { id: number; path: string }) => {
-      dispatch(assignActiveBoard(id));
+   const handleBoardSwitch = ({ id, path }: { id: string; path: string }) => {
+      dispatch(setActiveBoardId(id));
       navigate(`${path}`);
    };
 
