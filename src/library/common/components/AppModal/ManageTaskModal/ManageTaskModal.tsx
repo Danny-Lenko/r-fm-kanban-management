@@ -19,7 +19,7 @@ export const ManageTaskModal = () => {
    const formikValues = useFormikValues();
    const { formik, activeTask } = formikValues;
    const { values, handleSubmit } = formik;
-   const { title, description } = activeTask;
+   const { title, description } = activeTask!;
 
    useEffect(() => {
       if (submissionTrigger) {

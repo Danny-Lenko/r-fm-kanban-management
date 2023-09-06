@@ -20,7 +20,7 @@ export interface ITask {
    subtasks: ISubtask[];
 }
 
-export interface ICol {
+export interface IColumn {
    name: string;
    color: string;
    id: string;
@@ -31,7 +31,7 @@ export interface IBoard {
    id: string;
    path: string;
    name: string;
-   columns: ICol[];
+   columns: IColumn[];
 }
 
 export interface IFieldArray {
@@ -40,7 +40,7 @@ export interface IFieldArray {
 }
 
 export interface ISumbissionParams {
-   columns: ICol[];
+   columns: IColumn[];
    boards: IBoard[];
    activeBoard: IBoard;
    activeBoardId: string;

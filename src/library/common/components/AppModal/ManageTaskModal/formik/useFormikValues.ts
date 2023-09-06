@@ -3,12 +3,12 @@ import { useFormik, FormikValues } from 'formik';
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 import {
-   manageActiveTask,
-   manageColumnsChange,
    setActiveBoardId,
    selectActiveBoardInfo,
-   selectActiveTask,
    selectActiveColumnInfo,
+   updateColumns,
+   updateActiveTask,
+   selectActiveTask,
 } from '../../../../../../main/store';
 export const useFormikValues = () => {
    const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
@@ -39,7 +39,8 @@ export const useFormikValues = () => {
             ...managedSubtasks,
             completedSubtasks: countCompletedSubtasks(managedSubtasks),
          };
-         dispatch(manageActiveTask(editedTask));
+
+         dispatch(updateActiveTask(editedTask));
 
          // task status select
          const taskIsAlien = editedTask.status !== activeColumn!.name;
@@ -49,7 +50,8 @@ export const useFormikValues = () => {
                editedTask,
                activeColumnId,
             );
-            dispatch(manageColumnsChange(editedColumns));
+
+            dispatch(updateColumns(editedColumns));
          }
 
          // changes the state responsible for render
@@ -60,7 +62,7 @@ export const useFormikValues = () => {
    return { formik, columns, activeTask };
 };
 
-// Utitility functions
+// =========================================== Utitility functions
 interface Task {
    id: string;
    status: string;

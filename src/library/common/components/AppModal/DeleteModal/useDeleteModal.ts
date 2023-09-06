@@ -27,14 +27,14 @@ export const useDeleteModal = () => {
    const deleteBoard = () => {
       const boardsUpdated = boards
          .filter((board) => board.id !== activeBoardId)
-         .map((board, i) => ({ ...board, id: i }));
+         .map((board, i) => ({ ...board, id: i.toString() }));
 
       dispatch(setBoards(boardsUpdated));
       navigate('/');
 
       if (boards.length <= 1) {
          const zeroBoards = [
-            { id: 0, name: 'Zero Board', columns: [], path: 'zero-board' },
+            { id: '0', name: 'Zero Board', columns: [], path: 'zero-board' },
          ];
          dispatch(setBoards(zeroBoards));
       }

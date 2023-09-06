@@ -4,6 +4,7 @@ import rowData from '../../../resources/data/data.json';
 
 import { countCompletedSubtasks } from '../../../library/utilities/utils';
 import { COLUMNCOLORS } from '../../../library/common/constants';
+import { IBoard, IColumn, ITask } from '../../../library/interfaces';
 
 const mockData = rowData.boards.map((board, i) => ({
    ...board,
@@ -29,6 +30,16 @@ const mockData = rowData.boards.map((board, i) => ({
       }),
    })),
 }));
+
+type State = {
+   boards: IBoard[];
+   activeBoardId: string;
+   activeColumnId: string;
+   activeTaskId: string;
+};
+
+type Payload = IBoard | IColumn[] | ITask;
+type SetBoards = (state: State, payload: Payload) => IBoard[];
 
 export const dataSlice = createSlice({
    name: 'data',
@@ -56,37 +67,12 @@ export const dataSlice = createSlice({
          state.activeTaskId = payload;
       },
 
-      manageActiveTask: (state, action) => {
-         state.boards = state.boards.map((board) =>
-            board.id !== state.activeBoardId
-               ? board
-               : {
-                    ...board,
-                    columns: board.columns.map((col) =>
-                       col.id !== state.activeColumnId
-                          ? col
-                          : {
-                               ...col,
-                               tasks: col.tasks.map((task) =>
-                                  task.id !== state.activeTaskId
-                                     ? task
-                                     : action.payload,
-                               ),
-                            },
-                    ),
-                 },
-         );
+      updateColumns: (state, { payload }) => {
+         state.boards = updateColumnsHelper(state, payload);
       },
 
-      manageColumnsChange: (state, action) => {
-         state.boards = state.boards.map((board) =>
-            board.id !== state.activeBoardId
-               ? board
-               : {
-                    ...board,
-                    columns: action.payload,
-                 },
-         );
+      updateActiveTask: (state, { payload }) => {
+         state.boards = updateTaskHelper(state, payload);
       },
    },
 });
@@ -96,8 +82,67 @@ export const {
    setActiveBoardId,
    setActiveColumndId,
    setActiveTaskId,
-   manageActiveTask,
-   manageColumnsChange,
+   updateColumns,
+   updateActiveTask,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
+
+const updateColumnsHelper: SetBoards = (
+   { boards, activeBoardId },
+   columnsUpdated,
+) => {
+   const boardsUpdated = boards.map((board) => {
+      const { id } = board;
+
+      if (id === activeBoardId) {
+         return {
+            ...board,
+            columns: columnsUpdated as IColumn[],
+         };
+      }
+
+      return board;
+   });
+
+   return boardsUpdated;
+};
+
+const updateTaskHelper: SetBoards = (
+   { boards, activeBoardId, activeColumnId, activeTaskId },
+   taskUpdated,
+) => {
+   const boardsUpdated = boards.map((board) => {
+      const { id, columns } = board;
+
+      if (id === activeBoardId) {
+         return {
+            ...board,
+            columns: columns.map((column) => {
+               const { id, tasks } = column;
+
+               if (id === activeColumnId) {
+                  return {
+                     ...column,
+                     tasks: tasks.map((task) => {
+                        const { id } = task;
+
+                        if (id === activeTaskId) {
+                           return taskUpdated as ITask;
+                        }
+
+                        return task;
+                     }),
+                  };
+               }
+
+               return column;
+            }),
+         };
+      }
+
+      return board;
+   });
+
+   return boardsUpdated;
+};
