@@ -16,7 +16,7 @@ export const Board = () => {
 
    return (
       <CssBoard>
-         <Droppable droppableId='ROOT' type='group' direction='horizontal'>
+         <Droppable droppableId='columns' type='columns' direction='horizontal'>
             {(provided) => (
                <CssInteractiveScreen
                   {...provided.droppableProps}

@@ -38,7 +38,12 @@ type State = {
    activeTaskId: string;
 };
 
-type Payload = IBoard | IColumn[] | ITask;
+type DragDropIndexes = {
+   sourceIndex: number;
+   destinationIndex: number;
+};
+
+type Payload = IBoard | IColumn[] | ITask | DragDropIndexes;
 type SetBoards = (state: State, payload: Payload) => IBoard[];
 
 export const dataSlice = createSlice({
@@ -71,6 +76,10 @@ export const dataSlice = createSlice({
          state.boards = updateColumnsHelper(state, payload);
       },
 
+      swapColumns: (state, { payload }) => {
+         state.boards = swapColumnsHelper(state, payload);
+      },
+
       updateActiveTask: (state, { payload }) => {
          state.boards = updateTaskHelper(state, payload);
       },
@@ -84,6 +93,7 @@ export const {
    setActiveTaskId,
    updateColumns,
    updateActiveTask,
+   swapColumns,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
@@ -106,6 +116,38 @@ const updateColumnsHelper: SetBoards = (
    });
 
    return boardsUpdated;
+};
+
+const swapColumnsHelper: SetBoards = ({ boards, activeBoardId }, indexes) => {
+   if (
+      typeof indexes === 'object' &&
+      'sourceIndex' in indexes &&
+      'destinationIndex' in indexes
+   ) {
+      const { sourceIndex, destinationIndex } = indexes;
+      const { columns } = boards.find((board) => board.id === activeBoardId)!;
+      const columnsUpdated = [...columns];
+
+      const [removedColumn] = columnsUpdated.splice(sourceIndex, 1);
+      columnsUpdated.splice(destinationIndex, 0, removedColumn);
+
+      const boardsUpdated = boards.map((board) => {
+         const { id } = board;
+
+         if (id === activeBoardId) {
+            return {
+               ...board,
+               columns: columnsUpdated as IColumn[],
+            };
+         }
+
+         return board;
+      });
+
+      return boardsUpdated;
+   }
+
+   return boards;
 };
 
 const updateTaskHelper: SetBoards = (
