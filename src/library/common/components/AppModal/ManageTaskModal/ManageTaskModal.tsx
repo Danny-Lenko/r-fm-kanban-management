@@ -6,6 +6,7 @@ import { DotsMenu } from '../..';
 import { useFormikValues, ManagerCheckbox, ManagerSelect } from '.';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import {
+   selectSubmissionTrigger,
    setSubmissionTrigger,
    setTaskManaging,
 } from '../../../../../main/store';
@@ -13,7 +14,7 @@ import {
 import { CssHeading } from './CssComponents';
 
 export const ManageTaskModal = () => {
-   const { submissionTrigger } = useAppSelector((state) => state.modals);
+   const submissionTrigger = useAppSelector(selectSubmissionTrigger);
    const dispatch = useAppDispatch();
 
    const formikValues = useFormikValues();

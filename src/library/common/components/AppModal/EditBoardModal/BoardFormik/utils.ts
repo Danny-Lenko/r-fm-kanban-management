@@ -1,6 +1,6 @@
 import {
    setBoardEditing,
-   setIsExistingBoard,
+   setBoardIsExisting,
 } from '../../../../../../main/store/modals/modalSlice';
 import { setBoards, setActiveBoardId } from '../../../../../../main/store';
 
@@ -40,7 +40,7 @@ export const saveBoardChanges = ({
 
    dispatch(setBoards(boardsUpdated));
    dispatch(setActiveBoardId(activeBoard.id));
-   dispatch(setIsExistingBoard(false));
+   dispatch(setBoardIsExisting(false));
    dispatch(setBoardEditing(false));
 };
 

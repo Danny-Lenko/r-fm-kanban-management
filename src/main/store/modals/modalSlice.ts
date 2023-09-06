@@ -5,12 +5,12 @@ export const modalSlice = createSlice({
    initialState: {
       taskManaging: false,
       taskEditing: false,
-      isExistingTask: false,
+      taskIsExisting: false,
+      taskDeleting: false,
       boardEditing: false,
       submissionTrigger: false,
-      isExistingBoard: false,
-      deletingBoard: false,
-      deletingTask: false,
+      boardIsExisting: false,
+      boardDeleting: false,
       xsBoardsOpen: false,
    },
 
@@ -24,7 +24,7 @@ export const modalSlice = createSlice({
       },
 
       setExistingTask: (state, { payload }) => {
-         state.isExistingTask = payload;
+         state.taskIsExisting = payload;
       },
 
       setBoardEditing: (state, { payload }) => {
@@ -35,16 +35,16 @@ export const modalSlice = createSlice({
          state.submissionTrigger = payload;
       },
 
-      setIsExistingBoard: (state, { payload }) => {
-         state.isExistingBoard = payload;
+      setBoardIsExisting: (state, { payload }) => {
+         state.boardIsExisting = payload;
       },
 
-      setDeletingBoard: (state, { payload }) => {
-         state.deletingBoard = payload;
+      setBoardDeleting: (state, { payload }) => {
+         state.boardDeleting = payload;
       },
 
-      setDeletingTask: (state, { payload }) => {
-         state.deletingTask = payload;
+      setTaskDeleting: (state, { payload }) => {
+         state.taskDeleting = payload;
       },
 
       setXsBoardsOpen: (state, { payload }) => {
@@ -59,9 +59,9 @@ export const {
    setExistingTask,
    setBoardEditing,
    setSubmissionTrigger,
-   setIsExistingBoard,
-   setDeletingBoard,
-   setDeletingTask,
+   setBoardIsExisting,
+   setBoardDeleting,
+   setTaskDeleting,
    setXsBoardsOpen,
 } = modalSlice.actions;
 export default modalSlice.reducer;

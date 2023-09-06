@@ -1,2 +1,2 @@
 export * from './dataSlice';
-export * from './dataSelector';
+export * from './dataSelectors';

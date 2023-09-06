@@ -4,17 +4,17 @@ import {
    setTaskManaging,
    setTaskEditing,
    setExistingTask,
-   setIsExistingBoard,
+   setBoardIsExisting,
    setBoardEditing,
-   setDeletingBoard,
-   setDeletingTask,
+   setBoardDeleting,
+   setTaskDeleting,
 } from '../../../../main/store/modals/modalSlice';
 
 export const DotsMenuItem = ({ option, handleClose }: any) => {
    const dispatch = useAppDispatch();
 
    const handleEditBoard = () => {
-      dispatch(setIsExistingBoard(true));
+      dispatch(setBoardIsExisting(true));
       dispatch(setBoardEditing(true));
    };
 
@@ -25,12 +25,12 @@ export const DotsMenuItem = ({ option, handleClose }: any) => {
    };
 
    const handleDeleteBoard = () => {
-      dispatch(setDeletingBoard(true));
+      dispatch(setBoardDeleting(true));
    };
 
    const handleDeleteTask = () => {
       dispatch(setTaskManaging(false));
-      dispatch(setDeletingTask(true));
+      dispatch(setTaskDeleting(true));
    };
 
    const itemStyles = {

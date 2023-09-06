@@ -5,6 +5,7 @@ import {
    selectActiveBoardInfo,
    selectActiveColumnId,
    selectActiveTask,
+   selectBoardIsExisting,
    selectBoards,
 } from '../../../../../../main/store';
 
@@ -16,10 +17,11 @@ export const useBoardFormik = () => {
    const activeColumnId = useAppSelector(selectActiveColumnId);
    const activeTask = useAppSelector(selectActiveTask);
 
-   const isExisting = useAppSelector((state) => state.modals.isExistingBoard);
+   const boardIsExisting = useAppSelector(selectBoardIsExisting);
+
    const dispatch = useAppDispatch();
 
-   const initialValues = isExisting
+   const initialValues = boardIsExisting
       ? {
            name: activeBoard.name,
            columns: activeBoard.columns.map((col) => col.name),
@@ -40,7 +42,7 @@ export const useBoardFormik = () => {
    };
 
    const submit = (values: BoardValues) =>
-      isExisting
+      boardIsExisting
          ? saveBoardChanges({ values, ...submissionParams })
          : createBoard({ values, ...submissionParams });
 

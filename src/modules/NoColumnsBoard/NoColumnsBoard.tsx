@@ -1,11 +1,17 @@
-import { setBoards, setActiveBoardId } from '../../main/store/data/dataSlice';
+import {
+   selectActiveBoardId,
+   selectBoards,
+   setBoards,
+   setActiveBoardId,
+} from '../../main/store';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
 
 import { CssBoard, CssText, CssColumnButton } from '.';
 
 export const NoColumnsBoard = () => {
-   const { boards, activeBoardId } = useAppSelector((state) => state.data);
+   const boards = useAppSelector(selectBoards);
+   const activeBoardId = useAppSelector(selectActiveBoardId);
    const dispatch = useAppDispatch();
 
    function addCol() {

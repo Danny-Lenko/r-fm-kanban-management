@@ -1,16 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import {
-   setDeletingBoard,
-   setDeletingTask,
+   setBoardDeleting,
+   setTaskDeleting,
    setBoards,
    setActiveBoardId,
    selectBoards,
    selectActiveBoardInfo,
    selectActiveColumnInfo,
    selectActiveTaskInfo,
+   selectBoardDeleting,
 } from '../../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import {} from '../../../../../main/store/data/dataSelector';
+import {} from '../../../../../main/store/data/dataSelectors';
 
 export const useDeleteModal = () => {
    const boards = useAppSelector(selectBoards);
@@ -18,7 +19,7 @@ export const useDeleteModal = () => {
    const { activeColumnId } = useAppSelector(selectActiveColumnInfo);
    const { activeTask, activeTaskId } = useAppSelector(selectActiveTaskInfo);
 
-   const { deletingBoard } = useAppSelector((state) => state.modals);
+   const boardDeleting = useAppSelector(selectBoardDeleting);
 
    const dispatch = useAppDispatch();
 
@@ -68,11 +69,11 @@ export const useDeleteModal = () => {
    };
 
    function handleClose() {
-      dispatch(setDeletingBoard(false));
-      dispatch(setDeletingTask(false));
+      dispatch(setBoardDeleting(false));
+      dispatch(setTaskDeleting(false));
    }
 
-   const handleDelete = deletingBoard ? deleteBoard : deleteTask;
+   const handleDelete = boardDeleting ? deleteBoard : deleteTask;
 
-   return { deletingBoard, activeBoard, activeTask, handleDelete, handleClose };
+   return { boardDeleting, activeBoard, activeTask, handleDelete, handleClose };
 };

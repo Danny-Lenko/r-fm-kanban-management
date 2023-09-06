@@ -6,6 +6,7 @@ import {
    selectActiveColumnId,
    selectActiveTask,
    selectBoards,
+   selectTaskIsExisting,
 } from '../../../../../../main/store';
 
 export const useFormikValues = () => {
@@ -16,8 +17,7 @@ export const useFormikValues = () => {
    const activeColumnId = useAppSelector(selectActiveColumnId);
    const activeTask = useAppSelector(selectActiveTask);
 
-   const isExisting =
-      useAppSelector((state) => state.modals.isExistingTask) && activeTask;
+   const taskIsExisting = useAppSelector(selectTaskIsExisting) && activeTask;
 
    const dispatch = useAppDispatch();
 
@@ -31,7 +31,7 @@ export const useFormikValues = () => {
       activeColumnId,
    };
 
-   const initialValues = isExisting
+   const initialValues = taskIsExisting
       ? {
            title: activeTask.title,
            description: activeTask.description,
@@ -46,7 +46,7 @@ export const useFormikValues = () => {
         };
 
    const submit = (values: Values) =>
-      isExisting
+      taskIsExisting
          ? saveChanges({ values, ...submissionParams })
          : createTask({ values, ...submissionParams });
 
