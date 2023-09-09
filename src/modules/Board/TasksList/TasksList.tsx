@@ -1,7 +1,6 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Stack } from '@mui/material';
 
-import { TaskCard } from '.';
+import { CssList, TaskCard } from '.';
 
 import { ITask } from '../../../library/interfaces';
 
@@ -14,7 +13,7 @@ export const TasksList: React.FC<Props> = ({ columnId, tasks }) => {
    return (
       <Droppable droppableId={columnId} type='tasks'>
          {(provided) => (
-            <Stack
+            <CssList
                {...provided.droppableProps}
                ref={provided.innerRef}
                spacing={2.5}
@@ -34,7 +33,7 @@ export const TasksList: React.FC<Props> = ({ columnId, tasks }) => {
                   </Draggable>
                ))}
                {provided.placeholder}
-            </Stack>
+            </CssList>
          )}
       </Droppable>
    );

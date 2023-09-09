@@ -42,7 +42,12 @@ type DragDropIndexes = {
    destinationIndex: number;
 };
 
-type Payload = IBoard | IColumn[] | ITask | DragDropIndexes;
+type DragDropInfo = DragDropIndexes & {
+   sourceColumnId: string;
+   destinationColumnId: string;
+};
+
+type Payload = IBoard | IColumn[] | ITask | DragDropIndexes | DragDropInfo;
 type SetBoards = (state: State, payload: Payload) => IBoard[];
 
 export const dataSlice = createSlice({
@@ -67,20 +72,24 @@ export const dataSlice = createSlice({
          state.activeColumnId = payload;
       },
 
-      setActiveTaskId: (state, { payload }) => {
-         state.activeTaskId = payload;
-      },
-
       updateColumns: (state, { payload }) => {
          state.boards = updateColumnsHelper(state, payload);
       },
 
-      swapColumns: (state, { payload }) => {
-         state.boards = swapColumnsHelper(state, payload);
+      dropColumn: (state, { payload }) => {
+         state.boards = dropColumnHelper(state, payload);
+      },
+
+      setActiveTaskId: (state, { payload }) => {
+         state.activeTaskId = payload;
       },
 
       updateActiveTask: (state, { payload }) => {
          state.boards = updateTaskHelper(state, payload);
+      },
+
+      dropTask: (state, { payload }) => {
+         state.boards = dropTaskHelper(state, payload);
       },
    },
 });
@@ -92,7 +101,8 @@ export const {
    setActiveTaskId,
    updateColumns,
    updateActiveTask,
-   swapColumns,
+   dropColumn,
+   dropTask,
 } = dataSlice.actions;
 
 export default dataSlice.reducer;
@@ -117,12 +127,10 @@ const updateColumnsHelper: SetBoards = (
    return boardsUpdated;
 };
 
-const swapColumnsHelper: SetBoards = ({ boards, activeBoardId }, indexes) => {
-   if (
-      typeof indexes === 'object' &&
-      'sourceIndex' in indexes &&
-      'destinationIndex' in indexes
-   ) {
+const dropColumnHelper: SetBoards = (state, indexes) => {
+   const { boards, activeBoardId } = state;
+
+   if (typeof indexes === 'object' && 'sourceIndex' in indexes) {
       const { sourceIndex, destinationIndex } = indexes;
       const { columns } = boards.find((board) => board.id === activeBoardId)!;
       const columnsUpdated = [...columns];
@@ -130,20 +138,7 @@ const swapColumnsHelper: SetBoards = ({ boards, activeBoardId }, indexes) => {
       const [removedColumn] = columnsUpdated.splice(sourceIndex, 1);
       columnsUpdated.splice(destinationIndex, 0, removedColumn);
 
-      const boardsUpdated = boards.map((board) => {
-         const { id } = board;
-
-         if (id === activeBoardId) {
-            return {
-               ...board,
-               columns: columnsUpdated as IColumn[],
-            };
-         }
-
-         return board;
-      });
-
-      return boardsUpdated;
+      return updateColumnsHelper(state, columnsUpdated);
    }
 
    return boards;
@@ -186,4 +181,55 @@ const updateTaskHelper: SetBoards = (
    });
 
    return boardsUpdated;
+};
+
+const dropTaskHelper: SetBoards = (state, payload) => {
+   const { boards, activeBoardId } = state;
+
+   if (typeof payload === 'object' && 'sourceColumnId' in payload) {
+      const {
+         sourceIndex,
+         destinationIndex,
+         sourceColumnId,
+         destinationColumnId,
+      } = payload;
+      const { columns } = boards.find((board) => board.id === activeBoardId)!;
+
+      const sourceColumnIndex = columns.findIndex(
+         (column) => column.id === sourceColumnId,
+      );
+      const destinationColumnIndex = columns.findIndex(
+         (column) => column.id === destinationColumnId,
+      );
+      const destinationColumnName = columns.find(
+         (column) => column.id === destinationColumnId,
+      )!.name;
+
+      const newSourceTasks = [...columns[sourceColumnIndex].tasks];
+      const newDestinationTasks =
+         sourceColumnId !== destinationColumnId
+            ? [...columns[destinationColumnIndex].tasks]
+            : newSourceTasks;
+
+      const [deletedTask] = newSourceTasks.splice(sourceIndex, 1);
+      newDestinationTasks.splice(destinationIndex, 0, {
+         ...deletedTask,
+         status: destinationColumnName,
+      });
+
+      const columnsUpdated = [...columns];
+
+      columnsUpdated[sourceColumnIndex] = {
+         ...columns[sourceColumnIndex],
+         tasks: newSourceTasks,
+      };
+      columnsUpdated[destinationColumnIndex] = {
+         ...columns[destinationColumnIndex],
+         tasks: newDestinationTasks,
+      };
+
+      return updateColumnsHelper(state, columnsUpdated);
+   }
+
+   return boards;
 };

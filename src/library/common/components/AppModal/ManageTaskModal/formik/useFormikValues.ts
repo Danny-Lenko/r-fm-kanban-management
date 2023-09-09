@@ -100,14 +100,13 @@ const handleSelect = <C extends Column, T extends Task>(
               ...col,
               tasks: col.tasks
                  .filter((task) => task.id !== editedTask.id)
-                 .map((task, i) => ({ ...task, id: i })),
+                 .map((task) => ({ ...task })),
            }
          : col.name === editedTask.status
          ? {
               ...col,
-              tasks: [editedTask, ...col.tasks].map((task, i) => ({
+              tasks: [editedTask, ...col.tasks].map((task) => ({
                  ...task,
-                 id: i,
               })),
            }
          : col,

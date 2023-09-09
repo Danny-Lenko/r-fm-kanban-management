@@ -26,8 +26,6 @@ export const TaskCard: React.FC<Props> = React.memo(
          dispatch(setTaskManaging(true));
       }, [columnId, id]);
 
-      console.log(id);
-
       return (
          <CssCard
             onClick={handleClick}
