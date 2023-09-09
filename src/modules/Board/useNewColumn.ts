@@ -1,24 +1,31 @@
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
+import {
+   selectActiveBoardInfo,
+   selectBoards,
+   setBoards,
+   setActiveBoardId,
+} from '../../main/store';
 import { COLUMNCOLORS } from '../../library/common/constants';
+import { generateId } from '../../library/utilities/utils';
 
 export const useNewColumn = () => {
-   const { activeBoard, boards } = useAppSelector((state) => state.data);
-   const { columns } = activeBoard;
+   const boards = useAppSelector(selectBoards);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
+   const { columns } = activeBoard!;
    const dispatch = useAppDispatch();
 
    const addNewColumn = () => {
       const boardsUpdated = boards.map((board) => {
          const { id, columns } = board;
 
-         return id !== activeBoard.id
+         return id !== activeBoardId
             ? board
             : {
                  ...board,
                  columns: [
                     ...board.columns,
                     {
-                       id: columns.length,
+                       id: generateId(),
                        name: `NewColumn${columns.length + 1}`,
                        tasks: [],
                        color: COLUMNCOLORS[columns.length]
@@ -30,7 +37,7 @@ export const useNewColumn = () => {
       });
 
       dispatch(setBoards(boardsUpdated));
-      dispatch(assignActiveBoard(activeBoard.id));
+      dispatch(setActiveBoardId(activeBoardId));
    };
 
    return { columns, addNewColumn };

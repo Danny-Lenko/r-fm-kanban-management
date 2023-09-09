@@ -1,14 +1,20 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
-   setDeletingBoard,
-   setDeletingTask,
+   setBoardDeleting,
+   setTaskDeleting,
    setSubmissionTrigger,
    setTaskEditing,
    setExistingTask,
    setBoardEditing,
-   setIsExistingBoard,
+   setBoardIsExisting,
    setXsBoardsOpen,
-} from '../../../../main/slices';
+   selectTaskManaging,
+   selectTaskEditing,
+   selectTaskDeleting,
+   selectBoardEditing,
+   selectBoardDeleting,
+   selectXsBoardsOpen,
+} from '../../../../main/store';
 
 export enum ModalTypes {
    TaskManager,
@@ -19,25 +25,27 @@ export enum ModalTypes {
 }
 
 export const useAppModal = () => {
-   const {
-      taskManaging,
-      taskEditing,
-      boardEditing,
-      deletingBoard,
-      deletingTask,
-      xsBoardsOpen,
-   } = useAppSelector((state) => state.modals);
+   // task modals
+   const taskManaging = useAppSelector(selectTaskManaging);
+   const taskEditing = useAppSelector(selectTaskEditing);
+   const taskDeleting = useAppSelector(selectTaskDeleting);
+   // board modals
+   const boardEditing = useAppSelector(selectBoardEditing);
+   const boardDeleting = useAppSelector(selectBoardDeleting);
+
+   const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
+
    const open =
       taskManaging ||
       taskEditing ||
       boardEditing ||
-      deletingBoard ||
-      deletingTask ||
+      boardDeleting ||
+      taskDeleting ||
       xsBoardsOpen;
 
    const dispatch = useAppDispatch();
 
-   const type = deletingBoard
+   const type = boardDeleting
       ? ModalTypes.Remover
       : taskManaging
       ? ModalTypes.TaskManager
@@ -50,8 +58,8 @@ export const useAppModal = () => {
       : ModalTypes.Remover;
 
    function closeRemover() {
-      dispatch(setDeletingBoard(false));
-      dispatch(setDeletingTask(false));
+      dispatch(setBoardDeleting(false));
+      dispatch(setTaskDeleting(false));
    }
 
    function closeTaskManager() {
@@ -65,7 +73,7 @@ export const useAppModal = () => {
 
    function closeBoardEditor() {
       dispatch(setBoardEditing(false));
-      dispatch(setIsExistingBoard(false));
+      dispatch(setBoardIsExisting(false));
    }
 
    function closeXsBoards() {

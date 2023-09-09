@@ -1,18 +1,24 @@
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 
 import { Values, createTask, saveChanges } from '.';
+import {
+   selectActiveBoardInfo,
+   selectActiveColumnId,
+   selectActiveTask,
+   selectBoards,
+   selectTaskIsExisting,
+} from '../../../../../../main/store';
 
 export const useFormikValues = () => {
-   const {
-      boards,
-      activeBoard,
-      activeBoardId,
-      activeColId,
-      managedTask: activeTask,
-   } = useAppSelector((state) => state.data);
+   const boards = useAppSelector(selectBoards);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
    const { columns } = activeBoard;
 
-   const isExisting = useAppSelector((state) => state.modals.isExistingTask);
+   const activeColumnId = useAppSelector(selectActiveColumnId);
+   const activeTask = useAppSelector(selectActiveTask);
+
+   const taskIsExisting = useAppSelector(selectTaskIsExisting) && activeTask;
+
    const dispatch = useAppDispatch();
 
    const submissionParams = {
@@ -22,10 +28,10 @@ export const useFormikValues = () => {
       activeBoardId,
       dispatch,
       activeTask,
-      activeColId,
+      activeColumnId,
    };
 
-   const initialValues = isExisting
+   const initialValues = taskIsExisting
       ? {
            title: activeTask.title,
            description: activeTask.description,
@@ -40,7 +46,7 @@ export const useFormikValues = () => {
         };
 
    const submit = (values: Values) =>
-      isExisting
+      taskIsExisting
          ? saveChanges({ values, ...submissionParams })
          : createTask({ values, ...submissionParams });
 

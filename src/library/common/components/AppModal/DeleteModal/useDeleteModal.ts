@@ -1,73 +1,87 @@
 import { useNavigate } from 'react-router-dom';
+
 import {
-   setDeletingBoard,
-   setDeletingTask,
+   setBoardDeleting,
+   setTaskDeleting,
    setBoards,
-   assignActiveBoard,
-} from '../../../../../main/slices';
+   setActiveBoardId,
+   selectBoards,
+   selectActiveBoardInfo,
+   selectActiveColumnInfo,
+   selectActiveTaskInfo,
+   selectBoardDeleting,
+} from '../../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
+import { generateId } from '../../../../utilities/utils';
 
 export const useDeleteModal = () => {
+   const boards = useAppSelector(selectBoards);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
+   const { activeColumnId } = useAppSelector(selectActiveColumnInfo);
+   const { activeTask, activeTaskId } = useAppSelector(selectActiveTaskInfo);
+
+   const boardDeleting = useAppSelector(selectBoardDeleting);
+
    const dispatch = useAppDispatch();
+
    const navigate = useNavigate();
 
-   const { deletingBoard } = useAppSelector((state) => state.modals);
-   const { activeBoard, activeColId, activeTaskId, boards } = useAppSelector(
-      (state) => state.data,
-   );
-
-   const activeCol = activeBoard.columns.find((col) => col.id === activeColId);
-   const activeTask = activeCol?.tasks.find((task) => task.id === activeTaskId);
-
    const deleteBoard = () => {
-      const boardsUpdated = boards
-         .filter((board) => board.id !== activeBoard.id)
-         .map((board, i) => ({ ...board, id: i }));
-
+      const boardsUpdated = boards.filter(
+         (board) => board.id !== activeBoardId,
+      );
       dispatch(setBoards(boardsUpdated));
+
       navigate('/');
 
       if (boards.length <= 1) {
          const zeroBoards = [
-            { id: 0, name: 'Zero Board', columns: [], path: 'zero-board' },
+            {
+               id: generateId(),
+               name: 'Zero Board',
+               columns: [],
+               path: 'zero-board',
+            },
          ];
          dispatch(setBoards(zeroBoards));
+         dispatch(setActiveBoardId(zeroBoards[0].id));
+      } else {
+         dispatch(setActiveBoardId(boardsUpdated[0].id));
       }
 
-      dispatch(assignActiveBoard(0));
       handleClose();
    };
 
    const deleteTask = () => {
-      const boardsUpdated = boards.map((board, i) =>
-         board.id !== activeBoard.id
+      const boardsUpdated = boards.map((board) =>
+         board.id !== activeBoardId
             ? board
             : {
                  ...board,
                  columns: board.columns.map((col) =>
-                    col.id !== activeColId
+                    col.id !== activeColumnId
                        ? col
                        : {
                             ...col,
-                            tasks: col.tasks
-                               .filter((task) => task.id !== activeTaskId)
-                               .map((task, i) => ({ ...task, id: i })),
+                            tasks: col.tasks.filter(
+                               (task) => task.id !== activeTaskId,
+                            ),
                          },
                  ),
               },
       );
 
       dispatch(setBoards(boardsUpdated));
-      dispatch(assignActiveBoard(activeBoard.id));
+      dispatch(setActiveBoardId(activeBoardId));
       handleClose();
    };
 
    function handleClose() {
-      dispatch(setDeletingBoard(false));
-      dispatch(setDeletingTask(false));
+      dispatch(setBoardDeleting(false));
+      dispatch(setTaskDeleting(false));
    }
 
-   const handleDelete = deletingBoard ? deleteBoard : deleteTask;
+   const handleDelete = boardDeleting ? deleteBoard : deleteTask;
 
-   return { deletingBoard, activeBoard, activeTask, handleDelete, handleClose };
+   return { boardDeleting, activeBoard, activeTask, handleDelete, handleClose };
 };

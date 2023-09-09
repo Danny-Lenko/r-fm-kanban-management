@@ -13,6 +13,8 @@ export const CssContent = styled(Paper)<PaperProps>(({ theme, ...rest }) => ({
    transform: 'translate(-50%, -50%)',
    width: 300,
    padding: '24px',
+   
+   // scrollable height
    maxHeight: '100vh',
    overflowY: 'auto',
    scrollbarWidth: 'thin',

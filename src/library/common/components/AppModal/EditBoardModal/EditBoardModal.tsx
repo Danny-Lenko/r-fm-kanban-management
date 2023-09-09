@@ -5,9 +5,10 @@ import { useAppSelector } from '../../../hooks';
 
 import { AppBtn } from '../..';
 import { BoardFormik, NameField, ColumnFields } from '.';
+import { selectBoardIsExisting } from '../../../../../main/store';
 
 export const EditBoardModal: React.FC = () => {
-   const isExisting = useAppSelector((state) => state.modals.isExistingBoard);
+   const boardIsExisting = useAppSelector(selectBoardIsExisting);
 
    const buttonProps = {
       sx: {
@@ -17,13 +18,13 @@ export const EditBoardModal: React.FC = () => {
       type: 'submit' as 'submit',
       buttonSize: 'small' as 'small',
       color: 'primary' as 'primary',
-      children: isExisting ? 'Save Changes' : 'Create New Board',
+      children: boardIsExisting ? 'Save Changes' : 'Create New Board',
    };
 
    return (
       <>
          <Typography variant='h3'>
-            {isExisting ? 'Edit board' : 'Add new board'}
+            {boardIsExisting ? 'Edit board' : 'Add new board'}
          </Typography>
 
          <BoardFormik>

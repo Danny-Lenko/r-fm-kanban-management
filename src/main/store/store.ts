@@ -1,10 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import drawerReducer from '../slices/drawerSlice';
-import dataReducer from '../slices/dataSlice';
-import modalsReducer from '../slices/modalSlice';
-// import { apiSlice } from '../../library/common/slices/api/apiSlice';
-// import todosReducer from '../../modules/TodosList/todosSlice'
-// import deleteModalReducer from '../../library/common/components/DeleteModal/deleteModalSlice';
+import drawerReducer from './drawer/drawerSlice';
+import dataReducer from './data/dataSlice';
+import modalsReducer from './modals/modalSlice';
 
 export const store = configureStore({
    reducer: {
@@ -12,13 +9,6 @@ export const store = configureStore({
       data: dataReducer,
       modals: modalsReducer,
    },
-   //     todos: todosReducer,
-   //     deleteModal: deleteModalReducer,
-   //     [apiSlice.reducerPath]: apiSlice.reducer,
-   //   },
-   //   middleware: (getDefaultMiddleware) => {
-   //     return getDefaultMiddleware().concat(apiSlice.middleware);
-   //   },
 });
 
 export type AppDispatch = typeof store.dispatch;

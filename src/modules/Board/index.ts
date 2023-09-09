@@ -1,4 +1,5 @@
 export * from './Board';
 export * from './CssComponents';
-export * from './TaskCard';
+export * from './TasksList';
 export * from './useNewColumn';
+export { Column } from './Column';

@@ -1,11 +1,18 @@
-import { setBoards, assignActiveBoard } from '../../main/slices/dataSlice';
+import {
+   selectActiveBoardId,
+   selectBoards,
+   setBoards,
+   setActiveBoardId,
+} from '../../main/store';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
+import { generateId } from '../../library/utilities/utils';
 
 import { CssBoard, CssText, CssColumnButton } from '.';
 
 export const NoColumnsBoard = () => {
-   const { boards, activeBoardId } = useAppSelector((state) => state.data);
+   const boards = useAppSelector(selectBoards);
+   const activeBoardId = useAppSelector(selectActiveBoardId);
    const dispatch = useAppDispatch();
 
    function addCol() {
@@ -16,7 +23,7 @@ export const NoColumnsBoard = () => {
                  ...board,
                  columns: [
                     {
-                       id: 0,
+                       id: generateId(),
                        color: COLUMNCOLORS[0],
                        name: 'NEWCOLUMN1',
                        tasks: [],
@@ -25,7 +32,7 @@ export const NoColumnsBoard = () => {
               },
       );
       dispatch(setBoards(boardsUpdated));
-      dispatch(assignActiveBoard(activeBoardId));
+      dispatch(setActiveBoardId(activeBoardId));
    }
 
    return (

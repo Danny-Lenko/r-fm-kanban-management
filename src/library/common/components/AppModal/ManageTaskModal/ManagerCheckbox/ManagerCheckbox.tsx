@@ -7,12 +7,12 @@ import { CssLabel } from '../..';
 type Props = {
    formikValues: {
       formik: FormikProps<FormikValues>;
-      managedTask: Task;
+      activeTask: Task;
    };
 };
 
 type Task = {
-   id: number;
+   id: string;
    completedSubtasks: number;
    title: string;
    description: string;
@@ -26,28 +26,34 @@ type Subtask = {
 };
 
 export const ManagerCheckbox: React.FC<Props> = ({ formikValues }) => {
-   const { formik, managedTask: task } = formikValues;
+   const { formik, activeTask } = formikValues;
+   const { completedSubtasks, subtasks } = activeTask;
+
    return (
       <>
          <CssLabel>
-            Subtasks ({task.completedSubtasks} of {task.subtasks.length})
+            Subtasks ({completedSubtasks} of {subtasks.length})
          </CssLabel>
          <FormGroup>
-            {task.subtasks.map((sub: Subtask) => (
-               <CssControlLabel
-                  key={sub.title}
-                  subtask={sub}
-                  control={
-                     <CssCheckbox
-                        value={sub.title}
-                        defaultChecked={sub.isCompleted}
-                     />
-                  }
-                  label={sub.title}
-                  name='checked'
-                  onChange={formik.handleChange}
-               />
-            ))}
+            {subtasks.map((subtask) => {
+               const { title, isCompleted } = subtask;
+
+               return (
+                  <CssControlLabel
+                     key={title}
+                     subtask={subtask}
+                     control={
+                        <CssCheckbox
+                           value={title}
+                           defaultChecked={isCompleted}
+                        />
+                     }
+                     label={title}
+                     name='checked'
+                     onChange={formik.handleChange}
+                  />
+               );
+            })}
          </FormGroup>
       </>
    );

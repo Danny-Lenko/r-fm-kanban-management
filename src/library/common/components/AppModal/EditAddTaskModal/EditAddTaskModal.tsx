@@ -11,12 +11,17 @@ import {
 import { AppBtn } from '../..';
 
 import { useAppSelector } from '../../../hooks';
+import {
+   selectActiveBoard,
+   selectTaskIsExisting,
+} from '../../../../../main/store';
 
 export const EditAddTaskModal = () => {
-   const cols = useAppSelector((state) => state.data.activeBoard.columns);
-   const isExisting = useAppSelector((state) => state.modals.isExistingTask);
+   const taskIsExisting = useAppSelector(selectTaskIsExisting);
 
-   const selectOptions = cols.map((col) => col.name);
+   const activeBoard = useAppSelector(selectActiveBoard)!;
+   const { columns } = activeBoard;
+   const selectOptions = columns.map((col) => col.name);
 
    const btnProps = {
       type: 'submit' as 'submit',
@@ -29,7 +34,7 @@ export const EditAddTaskModal = () => {
    return (
       <>
          <Typography variant='h3'>
-            {isExisting ? 'Edit task' : 'Add new task'}
+            {taskIsExisting ? 'Edit task' : 'Add new task'}
          </Typography>
 
          <EditorFormik>
@@ -41,7 +46,7 @@ export const EditAddTaskModal = () => {
                      <EditorSubtasks {...props} />
                      <EditorSelect options={selectOptions} {...props} />
                      <AppBtn {...btnProps}>
-                        {isExisting ? 'Save Changes' : 'Create Task'}
+                        {taskIsExisting ? 'Save Changes' : 'Create Task'}
                      </AppBtn>
                   </Form>
                );

@@ -2,9 +2,12 @@ import {
    setTaskEditing,
    setExistingTask,
    setBoards,
-   assignActiveBoard,
-} from '../../../../../../main/slices';
-import { countCompletedSubtasks } from '../../../../../utilities/utils';
+   setActiveBoardId,
+} from '../../../../../../main/store';
+import {
+   countCompletedSubtasks,
+   generateId,
+} from '../../../../../utilities/utils';
 import { ISumbissionParams } from '../../../../../interfaces';
 
 export type Values = {
@@ -26,8 +29,6 @@ export const createTask = ({
    activeBoard,
    activeBoardId,
    dispatch,
-   activeTask,
-   activeColId,
 }: Props) => {
    const activeCol = columns.find((col) => col.name === values.status);
    const newTask = {
@@ -37,7 +38,7 @@ export const createTask = ({
          isCompleted: false,
       })),
       completedSubtasks: 0,
-      id: activeCol!.tasks.length,
+      id: generateId(),
    };
 
    const boardsUpdated = boards.map((board) =>
@@ -50,17 +51,14 @@ export const createTask = ({
                     ? col
                     : {
                          ...col,
-                         tasks: [newTask, ...col.tasks].map((task, i) => ({
-                            ...task,
-                            id: i,
-                         })),
+                         tasks: [newTask, ...col.tasks],
                       },
               ),
            },
    );
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoardId));
+   dispatch(setActiveBoardId(activeBoardId));
    dispatch(setTaskEditing(false));
 };
 
@@ -73,14 +71,14 @@ export const saveChanges = ({
    activeBoardId,
    dispatch,
    activeTask,
-   activeColId,
+   activeColumnId,
 }: Props) => {
    let taskUpdated = {
       ...activeTask,
       ...values,
       subtasks: values.subtasks.map((sub, i) =>
-         activeTask.subtasks[i] && sub === activeTask.subtasks[i].title
-            ? activeTask.subtasks[i]
+         activeTask!.subtasks[i] && sub === activeTask!.subtasks[i].title
+            ? activeTask!.subtasks[i]
             : { title: sub, isCompleted: false },
       ),
    };
@@ -88,7 +86,7 @@ export const saveChanges = ({
       ...taskUpdated,
       completedSubtasks: countCompletedSubtasks(taskUpdated),
    };
-   const pastCol = columns.find((col) => col.id === activeColId);
+   const pastCol = columns.find((col) => col.id === activeColumnId);
    const futureCol = columns.find((col) => col.name === values.status);
    const statusChanged = taskUpdated.status !== pastCol!.name;
 
@@ -103,12 +101,9 @@ export const saveChanges = ({
                       {
                          ...col,
                          tasks: statusChanged
-                            ? col.tasks
-                                 .filter((task) => task.id !== taskUpdated.id)
-                                 .map((task, i) => ({
-                                    ...task,
-                                    id: i,
-                                 }))
+                            ? col.tasks.filter(
+                                 (task) => task.id !== taskUpdated.id,
+                              )
                             : col.tasks.map((task) =>
                                  task.id !== taskUpdated.id
                                     ? task
@@ -120,10 +115,7 @@ export const saveChanges = ({
                     ? {
                          ...col,
                          tasks: statusChanged
-                            ? [taskUpdated, ...col.tasks].map((task, i) => ({
-                                 ...task,
-                                 id: i,
-                              }))
+                            ? [taskUpdated, ...col.tasks]
                             : col.tasks,
                       }
                     : col,
@@ -132,7 +124,7 @@ export const saveChanges = ({
    );
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoardId));
+   dispatch(setActiveBoardId(activeBoardId));
    dispatch(setTaskEditing(false));
    dispatch(setExistingTask(false));
 };

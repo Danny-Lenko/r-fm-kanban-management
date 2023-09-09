@@ -1,7 +1,7 @@
 import { Stack, SvgIcon } from '@mui/material';
 
 import { useAppDispatch } from '../../../../library/common/hooks';
-import { closeDrawer } from '../../../../main/slices/drawerSlice';
+import { closeDrawer } from '../../../../main/store/drawer/drawerSlice';
 
 import { CssButton } from '.';
 
@@ -11,7 +11,7 @@ export const DrawerBlindBtn = () => {
    const dispatch = useAppDispatch();
 
    const handleClick = () => {
-      dispatch(closeDrawer('close'));
+      dispatch(closeDrawer());
    };
 
    return (

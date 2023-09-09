@@ -1,14 +1,13 @@
-import { Typography, Stack } from '@mui/material';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Typography } from '@mui/material';
 
 import {
    CssBoard,
-   CssScrollable,
    CssInteractiveScreen,
-   CssColumn,
-   CssColorLabel,
    CssColumnButton,
-   TaskCard,
+   Column,
    useNewColumn,
+   TasksList,
 } from '.';
 
 export const Board = () => {
@@ -16,29 +15,36 @@ export const Board = () => {
 
    return (
       <CssBoard>
-         <CssScrollable>
-            <CssInteractiveScreen>
-               {columns.map((col) => {
-                  const { name, color, tasks } = col;
+         <Droppable droppableId='columns' type='columns' direction='horizontal'>
+            {(provided) => (
+               <CssInteractiveScreen
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+               >
+                  {columns.map((col, index) => {
+                     const { name, color, tasks, id } = col;
 
-                  return (
-                     <CssColumn key={name} spacing={2.5}>
-                        <Stack direction='row' spacing={1}>
-                           <CssColorLabel color={color} />
-                           <Typography
-                              {...{ variant: 'h5', textTransform: 'uppercase' }}
-                           >
-                              {name} ({tasks.length})
-                           </Typography>
-                        </Stack>
-                        {tasks.map((task) => (
-                           <TaskCard key={task.title} {...task} />
-                        ))}
-                     </CssColumn>
-                  );
-               })}
-            </CssInteractiveScreen>
-         </CssScrollable>
+                     return (
+                        <Draggable draggableId={id} index={index} key={id}>
+                           {(provided) => (
+                              <Column
+                                 {...{
+                                    name,
+                                    color,
+                                    tasksNum: tasks.length,
+                                    provided,
+                                 }}
+                              >
+                                 <TasksList {...{ columnId: id, tasks }} />
+                              </Column>
+                           )}
+                        </Draggable>
+                     );
+                  })}
+                  {provided.placeholder}
+               </CssInteractiveScreen>
+            )}
+         </Droppable>
 
          <CssColumnButton onClick={addNewColumn}>
             <Typography variant='h2'>+ New Column</Typography>

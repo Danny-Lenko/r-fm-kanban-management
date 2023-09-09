@@ -3,16 +3,16 @@ import { AppBtn } from '../../AppBtn';
 import { DeleteBtn, useDeleteModal } from '.';
 
 export const DeleteModal: React.FC = () => {
-   const { deletingBoard, activeBoard, activeTask, handleDelete, handleClose } =
+   const { boardDeleting, activeBoard, activeTask, handleDelete, handleClose } =
       useDeleteModal();
-      
+
    return (
       <>
          <Typography variant='h3'>
-            {deletingBoard ? 'Delete this board?' : 'Delete this task?'}
+            {boardDeleting ? 'Delete this board?' : 'Delete this task?'}
          </Typography>
          <Typography variant='body1'>
-            {deletingBoard ? (
+            {boardDeleting ? (
                <>
                   Are you sure you want to delete the{' '}
                   <b>‘{activeBoard.name}’</b> board? This action will remove all

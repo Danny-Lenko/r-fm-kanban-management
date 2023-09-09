@@ -1,11 +1,10 @@
+import { v4 as uuid } from 'uuid';
+
 import {
    setBoardEditing,
-   setIsExistingBoard,
-} from '../../../../../../main/slices/modalSlice';
-import {
-   setBoards,
-   assignActiveBoard,
-} from '../../../../../../main/slices/dataSlice';
+   setBoardIsExisting,
+} from '../../../../../../main/store/modals/modalSlice';
+import { setBoards, setActiveBoardId } from '../../../../../../main/store';
 
 import { ISumbissionParams } from '../../../../../interfaces';
 
@@ -39,20 +38,20 @@ export const saveBoardChanges = ({
    };
 
    const boardsUpdated = [...boards];
-   boardsUpdated[activeBoard.id] = boardUpdated;
+   boardsUpdated[+activeBoard.id] = boardUpdated;
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(activeBoard.id));
-   dispatch(setIsExistingBoard(false));
+   dispatch(setActiveBoardId(activeBoard.id));
+   dispatch(setBoardIsExisting(false));
    dispatch(setBoardEditing(false));
 };
 
 // createBoard
 export const createBoard = ({ values, boards, dispatch }: Props) => {
    const newBoard = {
-      id: boards.length,
+      id: uuid(),
       columns: values.columns.map((col, i) => ({
-         id: i,
+         id: uuid(),
          name: col,
          tasks: [],
       })),
@@ -66,6 +65,6 @@ export const createBoard = ({ values, boards, dispatch }: Props) => {
    const boardsUpdated = [...boards, newBoard];
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(assignActiveBoard(boards.length));
+   dispatch(setActiveBoardId(newBoard.id));
    dispatch(setBoardEditing(false));
 };

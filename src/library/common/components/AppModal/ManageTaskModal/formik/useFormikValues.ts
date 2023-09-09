@@ -1,66 +1,70 @@
 import { useFormik, FormikValues } from 'formik';
 
-import {
-   manageActiveTask,
-   manageColumnsChange,
-   assignActiveBoard,
-} from '../../../../../../main/slices';
 import { countCompletedSubtasks } from '../../../../../utilities/utils';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
-
+import {
+   setActiveBoardId,
+   selectActiveBoardInfo,
+   selectActiveColumnInfo,
+   updateColumns,
+   updateActiveTask,
+   selectActiveTask,
+} from '../../../../../../main/store';
 export const useFormikValues = () => {
-   const { managedTask, activeColId, activeBoardId, activeBoard } =
-      useAppSelector((state) => state.data);
+   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
+   const { columns } = activeBoard;
 
-   const columns = activeBoard.columns;
-   const activeCol = columns.find((col) => col.id === activeColId);
+   const { activeColumn, activeColumnId } = useAppSelector(
+      selectActiveColumnInfo,
+   );
+
+   const activeTask = useAppSelector(selectActiveTask)!;
 
    const dispatch = useAppDispatch();
 
    const formik = useFormik<FormikValues>({
-      // initial form values
       initialValues: {
-         checked: managedTask.subtasks
+         checked: activeTask.subtasks
             .filter((sub) => sub.isCompleted)
             .map((sub) => sub.title),
-         status: managedTask.status,
+         status: activeTask.status,
       },
 
-      // validation
       validationSchema: null,
 
-      // form submission
       onSubmit: (values: FormikValues) => {
          // subtasks checkbox
-         const managedSubtasks = handleCheckbox(managedTask, values);
+         const managedSubtasks = handleCheckbox(activeTask, values);
          const editedTask = {
             ...managedSubtasks,
             completedSubtasks: countCompletedSubtasks(managedSubtasks),
          };
-         dispatch(manageActiveTask(editedTask));
+
+         dispatch(updateActiveTask(editedTask));
 
          // task status select
-         const taskIsAlien = editedTask.status !== activeCol?.name;
+         const taskIsAlien = editedTask.status !== activeColumn!.name;
          if (taskIsAlien) {
             const editedColumns = handleSelect(
                columns,
                editedTask,
-               activeColId,
+               activeColumnId,
             );
-            dispatch(manageColumnsChange(editedColumns));
+
+            dispatch(updateColumns(editedColumns));
          }
 
          // changes the state responsible for render
-         dispatch(assignActiveBoard(activeBoardId));
+         dispatch(setActiveBoardId(activeBoardId));
       },
    });
 
-   return { formik, columns, managedTask };
+   return { formik, columns, activeTask };
 };
 
-// Utitility functions
+// =========================================== Utitility functions
 interface Task {
-   id: number;
+   id: string;
    status: string;
    subtasks: Subtask[];
 }
@@ -70,7 +74,7 @@ interface Subtask {
 }
 
 interface Column {
-   id: number;
+   id: string;
    name: string;
    tasks: Task[];
 }
@@ -88,22 +92,21 @@ const handleCheckbox = <T extends Task>(task: T, values: FormikValues): T => ({
 const handleSelect = <C extends Column, T extends Task>(
    columns: C[],
    editedTask: T,
-   activeColId: number,
+   activeColumnId: string,
 ) =>
    columns.map((col) =>
-      col.id === activeColId
+      col.id === activeColumnId
          ? {
               ...col,
               tasks: col.tasks
                  .filter((task) => task.id !== editedTask.id)
-                 .map((task, i) => ({ ...task, id: i })),
+                 .map((task) => ({ ...task })),
            }
          : col.name === editedTask.status
          ? {
               ...col,
-              tasks: [editedTask, ...col.tasks].map((task, i) => ({
+              tasks: [editedTask, ...col.tasks].map((task) => ({
                  ...task,
-                 id: i,
               })),
            }
          : col,

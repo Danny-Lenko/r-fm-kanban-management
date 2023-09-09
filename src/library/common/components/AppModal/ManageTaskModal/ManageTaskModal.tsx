@@ -6,20 +6,21 @@ import { DotsMenu } from '../..';
 import { useFormikValues, ManagerCheckbox, ManagerSelect } from '.';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
 import {
+   selectSubmissionTrigger,
    setSubmissionTrigger,
    setTaskManaging,
-} from '../../../../../main/slices';
+} from '../../../../../main/store';
 
 import { CssHeading } from './CssComponents';
 
 export const ManageTaskModal = () => {
-   const { submissionTrigger } = useAppSelector((state) => state.modals);
+   const submissionTrigger = useAppSelector(selectSubmissionTrigger);
    const dispatch = useAppDispatch();
 
    const formikValues = useFormikValues();
-   const { formik, managedTask } = formikValues;
+   const { formik, activeTask } = formikValues;
    const { values, handleSubmit } = formik;
-   const { title, description } = managedTask;
+   const { title, description } = activeTask!;
 
    useEffect(() => {
       if (submissionTrigger) {

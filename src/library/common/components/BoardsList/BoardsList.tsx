@@ -2,11 +2,13 @@ import { useNavigate } from 'react-router-dom';
 import { List } from '@mui/material';
 
 import {
+   selectBoards,
+   selectXsBoardsOpen,
    setBoardEditing,
    setXsBoardsOpen,
-} from '../../../../main/slices/modalSlice';
+} from '../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { assignActiveBoard } from '../../../../main/slices/dataSlice';
+import { setActiveBoardId } from '../../../../main/store/data/dataSlice';
 
 import { CssBtnBox, CssBoardsLabel, BoardBtn } from '.';
 
@@ -14,11 +16,11 @@ export const BoardsList = () => {
    const dispatch = useAppDispatch();
    const navigate = useNavigate();
 
-   const { boards } = useAppSelector((state) => state.data);
-   const { xsBoardsOpen } = useAppSelector((state) => state.modals);
+   const boards = useAppSelector(selectBoards);
+   const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
-   const handleBoardSwitch = ({ id, path }: { id: number; path: string }) => {
-      dispatch(assignActiveBoard(id));
+   const handleBoardSwitch = ({ id, path }: { id: string; path: string }) => {
+      dispatch(setActiveBoardId(id));
       navigate(`${path}`);
    };
 
