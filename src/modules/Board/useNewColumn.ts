@@ -1,5 +1,3 @@
-import { v4 as uuid } from 'uuid';
-
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import {
    selectActiveBoardInfo,
@@ -8,6 +6,7 @@ import {
    setActiveBoardId,
 } from '../../main/store';
 import { COLUMNCOLORS } from '../../library/common/constants';
+import { generateId } from '../../library/utilities/utils';
 
 export const useNewColumn = () => {
    const boards = useAppSelector(selectBoards);
@@ -26,7 +25,7 @@ export const useNewColumn = () => {
                  columns: [
                     ...board.columns,
                     {
-                       id: uuid(),
+                       id: generateId(),
                        name: `NewColumn${columns.length + 1}`,
                        tasks: [],
                        color: COLUMNCOLORS[columns.length]

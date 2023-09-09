@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import {
    setBoardDeleting,
    setTaskDeleting,
@@ -11,7 +12,7 @@ import {
    selectBoardDeleting,
 } from '../../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../../hooks';
-import {} from '../../../../../main/store/data/dataSelectors';
+import { generateId } from '../../../../utilities/utils';
 
 export const useDeleteModal = () => {
    const boards = useAppSelector(selectBoards);
@@ -26,26 +27,33 @@ export const useDeleteModal = () => {
    const navigate = useNavigate();
 
    const deleteBoard = () => {
-      const boardsUpdated = boards
-         .filter((board) => board.id !== activeBoardId)
-         .map((board, i) => ({ ...board, id: i.toString() }));
-
+      const boardsUpdated = boards.filter(
+         (board) => board.id !== activeBoardId,
+      );
       dispatch(setBoards(boardsUpdated));
+
       navigate('/');
 
       if (boards.length <= 1) {
          const zeroBoards = [
-            { id: '0', name: 'Zero Board', columns: [], path: 'zero-board' },
+            {
+               id: generateId(),
+               name: 'Zero Board',
+               columns: [],
+               path: 'zero-board',
+            },
          ];
          dispatch(setBoards(zeroBoards));
+         dispatch(setActiveBoardId(zeroBoards[0].id));
+      } else {
+         dispatch(setActiveBoardId(boardsUpdated[0].id));
       }
 
-      dispatch(setActiveBoardId('0'));
       handleClose();
    };
 
    const deleteTask = () => {
-      const boardsUpdated = boards.map((board, i) =>
+      const boardsUpdated = boards.map((board) =>
          board.id !== activeBoardId
             ? board
             : {
@@ -55,9 +63,9 @@ export const useDeleteModal = () => {
                        ? col
                        : {
                             ...col,
-                            tasks: col.tasks
-                               .filter((task) => task.id !== activeTaskId)
-                               .map((task, i) => ({ ...task, id: i })),
+                            tasks: col.tasks.filter(
+                               (task) => task.id !== activeTaskId,
+                            ),
                          },
                  ),
               },

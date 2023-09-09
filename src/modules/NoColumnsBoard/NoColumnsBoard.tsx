@@ -6,6 +6,7 @@ import {
 } from '../../main/store';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
 import { COLUMNCOLORS } from '../../library/common/constants';
+import { generateId } from '../../library/utilities/utils';
 
 import { CssBoard, CssText, CssColumnButton } from '.';
 
@@ -22,7 +23,7 @@ export const NoColumnsBoard = () => {
                  ...board,
                  columns: [
                     {
-                       id: 0,
+                       id: generateId(),
                        color: COLUMNCOLORS[0],
                        name: 'NEWCOLUMN1',
                        tasks: [],

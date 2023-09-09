@@ -4,7 +4,10 @@ import {
    setBoards,
    setActiveBoardId,
 } from '../../../../../../main/store';
-import { countCompletedSubtasks } from '../../../../../utilities/utils';
+import {
+   countCompletedSubtasks,
+   generateId,
+} from '../../../../../utilities/utils';
 import { ISumbissionParams } from '../../../../../interfaces';
 
 export type Values = {
@@ -26,8 +29,6 @@ export const createTask = ({
    activeBoard,
    activeBoardId,
    dispatch,
-   activeTask,
-   activeColumnId,
 }: Props) => {
    const activeCol = columns.find((col) => col.name === values.status);
    const newTask = {
@@ -37,7 +38,7 @@ export const createTask = ({
          isCompleted: false,
       })),
       completedSubtasks: 0,
-      id: activeCol!.tasks.length,
+      id: generateId(),
    };
 
    const boardsUpdated = boards.map((board) =>
@@ -50,10 +51,7 @@ export const createTask = ({
                     ? col
                     : {
                          ...col,
-                         tasks: [newTask, ...col.tasks].map((task, i) => ({
-                            ...task,
-                            id: i,
-                         })),
+                         tasks: [newTask, ...col.tasks],
                       },
               ),
            },
@@ -103,12 +101,9 @@ export const saveChanges = ({
                       {
                          ...col,
                          tasks: statusChanged
-                            ? col.tasks
-                                 .filter((task) => task.id !== taskUpdated.id)
-                                 .map((task, i) => ({
-                                    ...task,
-                                    id: i,
-                                 }))
+                            ? col.tasks.filter(
+                                 (task) => task.id !== taskUpdated.id,
+                              )
                             : col.tasks.map((task) =>
                                  task.id !== taskUpdated.id
                                     ? task
@@ -120,10 +115,7 @@ export const saveChanges = ({
                     ? {
                          ...col,
                          tasks: statusChanged
-                            ? [taskUpdated, ...col.tasks].map((task, i) => ({
-                                 ...task,
-                                 id: i,
-                              }))
+                            ? [taskUpdated, ...col.tasks]
                             : col.tasks,
                       }
                     : col,

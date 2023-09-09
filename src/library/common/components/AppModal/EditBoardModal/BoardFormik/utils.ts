@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import {
    setBoardEditing,
    setBoardIsExisting,
@@ -47,9 +49,9 @@ export const saveBoardChanges = ({
 // createBoard
 export const createBoard = ({ values, boards, dispatch }: Props) => {
    const newBoard = {
-      id: boards.length,
+      id: uuid(),
       columns: values.columns.map((col, i) => ({
-         id: i,
+         id: uuid(),
          name: col,
          tasks: [],
       })),
@@ -63,6 +65,6 @@ export const createBoard = ({ values, boards, dispatch }: Props) => {
    const boardsUpdated = [...boards, newBoard];
 
    dispatch(setBoards(boardsUpdated));
-   dispatch(setActiveBoardId(boards.length));
+   dispatch(setActiveBoardId(newBoard.id));
    dispatch(setBoardEditing(false));
 };
