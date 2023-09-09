@@ -24,7 +24,6 @@ const mockData = rowData.boards.map((board, i) => ({
          );
          return {
             ...task,
-            id: i + '',
             completedSubtasks: countCompletedSubtasks(task),
          };
       }),

@@ -1,14 +1,13 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { Typography, Stack } from '@mui/material';
+import { Typography } from '@mui/material';
 
 import {
    CssBoard,
    CssInteractiveScreen,
-   CssColumn,
-   CssColorLabel,
    CssColumnButton,
-   TaskCard,
+   Column,
    useNewColumn,
+   TasksList,
 } from '.';
 
 export const Board = () => {
@@ -28,28 +27,16 @@ export const Board = () => {
                      return (
                         <Draggable draggableId={id} index={index} key={id}>
                            {(provided) => (
-                              <CssColumn
-                                 key={name}
-                                 spacing={2.5}
-                                 {...provided.dragHandleProps}
-                                 {...provided.draggableProps}
-                                 ref={provided.innerRef}
+                              <Column
+                                 {...{
+                                    name,
+                                    color,
+                                    tasksNum: tasks.length,
+                                    provided,
+                                 }}
                               >
-                                 <Stack direction='row' spacing={1}>
-                                    <CssColorLabel color={color} />
-                                    <Typography
-                                       {...{
-                                          variant: 'h5',
-                                          textTransform: 'uppercase',
-                                       }}
-                                    >
-                                       {name} ({tasks.length})
-                                    </Typography>
-                                 </Stack>
-                                 {tasks.map((task) => (
-                                    <TaskCard key={task.title} {...{...task, columnId: id }} />
-                                 ))}
-                              </CssColumn>
+                                 <TasksList {...{ columnId: id, tasks }} />
+                              </Column>
                            )}
                         </Draggable>
                      );

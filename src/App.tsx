@@ -27,11 +27,11 @@ function App() {
       )
          return;
 
+      const sourceIndex = source.index;
+      const destinationIndex = destination.index;
+      const indexes = { sourceIndex, destinationIndex };
+      
       if (type === 'columns') {
-         const sourceIndex = source.index;
-         const destinationIndex = destination.index;
-         const indexes = { sourceIndex, destinationIndex };
-
          return dispatch(swapColumns(indexes));
       }
       console.log(results);
