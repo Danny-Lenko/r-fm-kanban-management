@@ -1,13 +1,17 @@
 import { Injectable } from '@nestjs/common/decorators';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 
-import { BoardEntity } from './boards.entity';
+import { BoardsEntity } from './boards.entity';
 
 @Injectable()
-export class BoardsRepository {
-  constructor(
-    @InjectRepository(BoardEntity)
-    private readonly taskEntityRepository: Repository<BoardEntity>,
-  ) {}
+export class BoardsRepository extends Repository<BoardsEntity> {
+  constructor(private dataSource: DataSource) {
+    super(BoardsEntity, dataSource.createEntityManager());
+  }
+
+  // async createBoard()
+  // async getById(id: string) {
+  //   return this.findOne({ where: { id } });
+  // }
+  // ...
 }

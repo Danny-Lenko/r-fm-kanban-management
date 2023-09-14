@@ -1,4 +1,4 @@
-import { IsNotEmpty, ValidateNested } from 'class-validator';
+import { IsNotEmpty, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class ColumnDto {
@@ -10,7 +10,8 @@ export class CreateBoardDto {
   @IsNotEmpty()
   name: string;
 
-  category?: string;
+  @IsOptional()
+  category: string;
 
   @ValidateNested({ each: true })
   @Type(() => ColumnDto) // Specify the type to transform to
