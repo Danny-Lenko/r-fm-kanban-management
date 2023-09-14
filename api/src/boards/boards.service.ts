@@ -1,5 +1,4 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
 
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
@@ -8,21 +7,10 @@ import { BoardsEntity } from './boards.entity';
 
 @Injectable()
 export class BoardsService {
-  // constructor(private boardsRepository: BoardsRepository) {}
   constructor(private readonly boardsRepository: BoardsRepository) {}
 
   // getAllBoards(): Board[] {
   //   return this.boards;
-  // }
-
-  // getBoardsBySearch({ search }: FilterDto): Board[] {
-  //   const boards = this.getAllBoards();
-
-  //   return boards.filter(
-  //     (board) =>
-  //       board.name.toLowerCase().includes(search) ||
-  //       board.category.toLowerCase().includes(search),
-  //   );
   // }
 
   async getBoardById(id: string): Promise<BoardsEntity> {
@@ -35,43 +23,51 @@ export class BoardsService {
     return board;
   }
 
-  // getBoardById(id: string): Board {
-  //   const board = this.boards.find((board) => board.id === id);
+  // getBoardsBySearch({ search }: FilterDto): Board[] {
+  //   const boards = this.getAllBoards();
 
-  //   if (!board) {
-  //     throw new NotFoundException(`board with id: ${id} was not found`);
-  //   }
-
-  //   return board;
+  //   return boards.filter(
+  //     (board) =>
+  //       board.name.toLowerCase().includes(search) ||
+  //       board.category.toLowerCase().includes(search),
+  //   );
   // }
+
+  async getBoardByIdWithColumns(id: string): Promise<BoardsEntity> {
+    const board = await this.boardsRepository.findOne({
+      where: {
+        id: id,
+      },
+      relations: ['columns'],
+    });
+
+    if (!board) {
+      throw new NotFoundException(`board with id: ${id} not found`);
+    }
+
+    return board;
+  }
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<BoardsEntity> {
     const board = this.boardsRepository.create(createBoardDto);
     return await this.boardsRepository.save(board);
   }
 
-  // async createBoard(createBoardDto: CreateBoardDto): Promise<BoardsEntity> {
-  //   const { name, category, columns } = createBoardDto;
-  //   const board: BoardsEntity = {
-  //     id: uuid(),
-  //     name,
-  //     category: category || '',
-  //     columns: columns.map((col) => ({ ...col, id: uuid() })),
-  //   };
+  async deleteBoardById(id: string): Promise<BoardsEntity> {
+    const result = await this.boardsRepository.delete(id);
 
-  //   this.boards.push(board);
-  //   return board;
-  // }
+    if (result.affected === 0) {
+      throw new NotFoundException(`board with id: ${id} not found`);
+    }
+    return;
+  }
 
-  // deleteBoardById(id: string): Board[] {
-  //   const found = this.getBoardById(id);
-  //   return this.boards.filter((board) => board.id !== found.id);
-  // }
+  async updateNameById(id: string, name: string): Promise<BoardsEntity> {
+    const result = await this.getBoardById(id);
 
-  // updateNameById(id: string, name: string): Board[] {
-  //   const board = this.getBoardById(id);
-  //   board.name = name;
+    result.name = name;
+    this.boardsRepository.save(result);
 
-  //   return this.boards;
-  // }
+    return result;
+  }
 }

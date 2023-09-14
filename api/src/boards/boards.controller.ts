@@ -36,16 +36,17 @@ export class BoardsController {
     return this.boardsService.createBoard(createBoardDto);
   }
 
-  // @Delete('/:id')
-  // deleteBoardById(@Param('id') id: string): Board[] {
-  //   return this.boardsService.deleteBoardById(id);
-  // }
+  @Delete('/:id')
+  deleteBoardById(@Param('id') id: string): Promise<BoardsEntity> {
+    return this.boardsService.deleteBoardById(id);
+  }
 
-  // @Patch('/:id/name')
-  // updateNameById(
-  //   @Param('id') id: string,
-  //   @Body('name') { name }: { name: string },
-  // ): Board[] {
-  //   return this.boardsService.updateNameById(id, name);
-  // }
+  @Patch('/:id/name')
+  updateNameById(
+    @Param('id') id: string,
+    @Body('name') name: string,
+  ): Promise<BoardsEntity> {
+    console.log(name);
+    return this.boardsService.updateNameById(id, name);
+  }
 }

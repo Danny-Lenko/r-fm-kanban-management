@@ -9,6 +9,8 @@ export class ColumnEntity {
   @Column()
   name: string;
 
-  @ManyToOne(() => BoardsEntity, (board) => board.columns)
+  @ManyToOne(() => BoardsEntity, (board) => board.columns, {
+    onDelete: 'CASCADE',
+  })
   board: BoardsEntity;
 }
