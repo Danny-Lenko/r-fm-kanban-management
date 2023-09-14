@@ -11,15 +11,16 @@ import {
 import { BoardsService } from './boards.service';
 import { Board } from './boards.model';
 import { CreateBoardDto } from './dto/create-board.dto';
+import { FilterDto } from './dto/filter.dto';
 
 @Controller('boards')
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
   @Get()
-  getBoards(@Query() query?: { search: string }): Board[] {
-    if (Object.keys(query).length) {
-      return this.boardsService.getBoardsBySearch(query);
+  getBoards(@Query() filterDto: FilterDto): Board[] {
+    if (Object.keys(filterDto).length) {
+      return this.boardsService.getBoardsBySearch(filterDto);
     }
     return this.boardsService.getAllBoards();
   }

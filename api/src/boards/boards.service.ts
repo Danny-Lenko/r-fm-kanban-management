@@ -1,17 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { v4 as uuid } from 'uuid';
+
 import { Board } from './boards.model';
 import { CreateBoardDto } from './dto/create-board.dto';
-import { v4 as uuid } from 'uuid';
+import { FilterDto } from './dto/filter.dto';
+import { BoardsRepository } from './Boards.repository';
 
 @Injectable()
 export class BoardsService {
+  constructor(private boardsEntityRepository: BoardsRepository) {}
+
   private boards: Board[] = [];
 
   getAllBoards(): Board[] {
     return this.boards;
   }
 
-  getBoardsBySearch({ search }: { search: string }): Board[] {
+  getBoardsBySearch({ search }: FilterDto): Board[] {
     const boards = this.getAllBoards();
 
     return boards.filter(
@@ -22,7 +27,13 @@ export class BoardsService {
   }
 
   getBoardById(id: string): Board {
-    return this.boards.find((board) => board.id === id);
+    const board = this.boards.find((board) => board.id === id);
+
+    if (!board) {
+      throw new NotFoundException(`board with id: ${id} was not found`);
+    }
+
+    return board;
   }
 
   createBoard(createBoardDto: CreateBoardDto): Board {
@@ -39,9 +50,8 @@ export class BoardsService {
   }
 
   deleteBoardById(id: string): Board[] {
-    this.boards = this.boards.filter((board) => board.id !== id);
-
-    return this.boards;
+    const found = this.getBoardById(id);
+    return this.boards.filter((board) => board.id !== found.id);
   }
 
   updateNameById(id: string, name: string): Board[] {
