@@ -9,10 +9,6 @@ import { BoardsEntity } from './boards.entity';
 export class BoardsService {
   constructor(private readonly boardsRepository: BoardsRepository) {}
 
-  // getAllBoards(): Board[] {
-  //   return this.boards;
-  // }
-
   async getBoardById(id: string): Promise<BoardsEntity> {
     const board = await this.boardsRepository.findOneBy({ id: id });
 
@@ -23,15 +19,19 @@ export class BoardsService {
     return board;
   }
 
-  // getBoardsBySearch({ search }: FilterDto): Board[] {
-  //   const boards = this.getAllBoards();
+  async getBoards({ search }: FilterDto): Promise<BoardsEntity[]> {
+    const query = this.boardsRepository.createQueryBuilder('board');
 
-  //   return boards.filter(
-  //     (board) =>
-  //       board.name.toLowerCase().includes(search) ||
-  //       board.category.toLowerCase().includes(search),
-  //   );
-  // }
+    if (search) {
+      query.andWhere(
+        'LOWER(board.name) LIKE LOWER(:search) OR LOWER(board.category) LIKE LOWER(:search)',
+        { search: `%${search}%` },
+      );
+    }
+
+    const boards = await query.getMany();
+    return boards;
+  }
 
   async getBoardByIdWithColumns(id: string): Promise<BoardsEntity> {
     const board = await this.boardsRepository.findOne({

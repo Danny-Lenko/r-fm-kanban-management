@@ -18,13 +18,10 @@ import { BoardsEntity } from './boards.entity';
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
-  // @Get()
-  // getBoards(@Query() filterDto: FilterDto): Board[] {
-  //   if (Object.keys(filterDto).length) {
-  //     return this.boardsService.getBoardsBySearch(filterDto);
-  //   }
-  //   return this.boardsService.getAllBoards();
-  // }
+  @Get()
+  getBoards(@Query() filterDto: FilterDto): Promise<BoardsEntity[]> {
+    return this.boardsService.getBoards(filterDto);
+  }
 
   @Get('/:id')
   getBoardById(@Param('id') id: string): Promise<BoardsEntity> {
@@ -46,7 +43,6 @@ export class BoardsController {
     @Param('id') id: string,
     @Body('name') name: string,
   ): Promise<BoardsEntity> {
-    console.log(name);
     return this.boardsService.updateNameById(id, name);
   }
 }
