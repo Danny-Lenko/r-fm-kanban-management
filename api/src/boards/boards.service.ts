@@ -1,16 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Repository, DataSource } from 'typeorm';
 
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
-import { BoardsRepository } from './boards.repository';
 import { BoardsEntity } from './boards.entity';
 
 @Injectable()
-export class BoardsService {
-  constructor(private readonly boardsRepository: BoardsRepository) {}
+export class BoardsService extends Repository<BoardsEntity> {
+  constructor(private dataSource: DataSource) {
+    super(BoardsEntity, dataSource.createEntityManager());
+  }
 
   async getBoardById(id: string): Promise<BoardsEntity> {
-    const board = await this.boardsRepository.findOneBy({ id: id });
+    const board = await this.findOneBy({ id: id });
 
     if (!board) {
       throw new NotFoundException(`board with id: ${id} was not found`);
@@ -20,7 +22,7 @@ export class BoardsService {
   }
 
   async getBoards({ search }: FilterDto): Promise<BoardsEntity[]> {
-    const query = this.boardsRepository.createQueryBuilder('board');
+    const query = this.createQueryBuilder('board');
 
     if (search) {
       query.andWhere(
@@ -34,7 +36,7 @@ export class BoardsService {
   }
 
   async getBoardByIdWithColumns(id: string): Promise<BoardsEntity> {
-    const board = await this.boardsRepository.findOne({
+    const board = await this.findOne({
       where: {
         id: id,
       },
@@ -49,12 +51,12 @@ export class BoardsService {
   }
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<BoardsEntity> {
-    const board = this.boardsRepository.create(createBoardDto);
-    return await this.boardsRepository.save(board);
+    const board = this.create(createBoardDto);
+    return await this.save(board);
   }
 
   async deleteBoardById(id: string): Promise<BoardsEntity> {
-    const result = await this.boardsRepository.delete(id);
+    const result = await this.delete(id);
 
     if (result.affected === 0) {
       throw new NotFoundException(`board with id: ${id} not found`);
@@ -66,7 +68,7 @@ export class BoardsService {
     const result = await this.getBoardById(id);
 
     result.name = name;
-    this.boardsRepository.save(result);
+    this.save(result);
 
     return result;
   }
