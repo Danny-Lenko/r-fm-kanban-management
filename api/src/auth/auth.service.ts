@@ -6,14 +6,19 @@ import {
 } from '@nestjs/common';
 import { Repository, DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 import { UserEntity } from './user.entity';
 import { SignUpCredentialsDto } from './dto/signup-credentials.dto';
 import { SignInCredentialsDto } from './dto/signin-credentials.dto';
+import { JwtPayload } from './jwt-payload.interface';
 
 @Injectable()
 export class AuthService extends Repository<UserEntity> {
-  constructor(private dataSource: DataSource) {
+  constructor(
+    private dataSource: DataSource,
+    private jwtService: JwtService,
+  ) {
     super(UserEntity, dataSource.createEntityManager());
   }
 
@@ -40,7 +45,9 @@ export class AuthService extends Repository<UserEntity> {
     }
   }
 
-  async singIn(signInCredentialsDto: SignInCredentialsDto): Promise<string> {
+  async singIn(
+    signInCredentialsDto: SignInCredentialsDto,
+  ): Promise<{ accessToken: string }> {
     const { userNameOrEmail, password } = signInCredentialsDto;
 
     const isEmail = userNameOrEmail.includes('@');
@@ -50,7 +57,10 @@ export class AuthService extends Repository<UserEntity> {
       : await this.findOneBy({ userName: userNameOrEmail });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      return 'success';
+      const payload: JwtPayload = { userNameOrEmail };
+      const accessToken: string = await this.jwtService.sign(payload);
+
+      return { accessToken };
     }
     if (!user) {
       throw new UnauthorizedException('Please check your credentials');
