@@ -4,6 +4,7 @@ import { Repository, DataSource } from 'typeorm';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
 import { BoardsEntity } from './boards.entity';
+import { UserEntity } from 'src/auth/user.entity';
 
 @Injectable()
 export class BoardsService extends Repository<BoardsEntity> {
@@ -50,8 +51,12 @@ export class BoardsService extends Repository<BoardsEntity> {
     return board;
   }
 
-  async createBoard(createBoardDto: CreateBoardDto): Promise<BoardsEntity> {
-    const board = this.create(createBoardDto);
+  async createBoard(
+    createBoardDto: CreateBoardDto,
+    user: UserEntity,
+  ): Promise<BoardsEntity> {
+    const board = this.create({ ...createBoardDto, user });
+
     return await this.save(board);
   }
 
