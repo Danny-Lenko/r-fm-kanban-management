@@ -24,13 +24,19 @@ export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
   @Get()
-  getBoards(@Query() filterDto: FilterDto): Promise<BoardsEntity[]> {
-    return this.boardsService.getBoards(filterDto);
+  getBoards(
+    @Query() filterDto: FilterDto,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity[]> {
+    return this.boardsService.getBoards(filterDto, user);
   }
 
   @Get('/:id')
-  getBoardById(@Param('id') id: string): Promise<BoardsEntity> {
-    return this.boardsService.getBoardById(id);
+  getBoardById(
+    @Param('id') id: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.getBoardById(id, user);
   }
 
   @Post()
@@ -42,15 +48,19 @@ export class BoardsController {
   }
 
   @Delete('/:id')
-  deleteBoardById(@Param('id') id: string): Promise<BoardsEntity> {
-    return this.boardsService.deleteBoardById(id);
+  deleteBoardById(
+    @Param('id') id: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.deleteBoardById(id, user);
   }
 
   @Patch('/:id/name')
   updateNameById(
     @Param('id') id: string,
     @Body('name') name: string,
+    @GetUser() user: UserEntity,
   ): Promise<BoardsEntity> {
-    return this.boardsService.updateNameById(id, name);
+    return this.boardsService.updateNameById(id, name, user);
   }
 }

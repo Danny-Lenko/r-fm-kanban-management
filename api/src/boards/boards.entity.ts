@@ -5,6 +5,8 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
+
 import { ColumnEntity } from 'src/columns/columns.entity';
 import { UserEntity } from 'src/auth/user.entity';
 
@@ -25,5 +27,6 @@ export class BoardsEntity {
   columns: ColumnEntity[];
 
   @ManyToOne(() => UserEntity, (user) => user.boards, { eager: false })
+  @Exclude({ toPlainOnly: true })
   user: UserEntity;
 }
