@@ -1,5 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
+import { Exclude } from 'class-transformer';
+
 import { ColumnEntity } from 'src/columns/columns.entity';
+import { UserEntity } from 'src/auth/user.entity';
 
 @Entity()
 export class BoardsEntity {
@@ -16,4 +25,8 @@ export class BoardsEntity {
     cascade: true, // Allows cascading operations (e.g., insert, update, delete) on related columns
   })
   columns: ColumnEntity[];
+
+  @ManyToOne(() => UserEntity, (user) => user.boards, { eager: false })
+  @Exclude({ toPlainOnly: true })
+  user: UserEntity;
 }

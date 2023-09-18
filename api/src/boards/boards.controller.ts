@@ -7,42 +7,60 @@ import {
   Delete,
   Patch,
   Query,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
-
 import { BoardsEntity } from './boards.entity';
+import { UserEntity } from 'src/auth/user.entity';
+import { GetUser } from 'src/auth/get-user.decorator';
 
 @Controller('boards')
+@UseGuards(AuthGuard())
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
   @Get()
-  getBoards(@Query() filterDto: FilterDto): Promise<BoardsEntity[]> {
-    return this.boardsService.getBoards(filterDto);
+  getBoards(
+    @Query() filterDto: FilterDto,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity[]> {
+    return this.boardsService.getBoards(filterDto, user);
   }
 
   @Get('/:id')
-  getBoardById(@Param('id') id: string): Promise<BoardsEntity> {
-    return this.boardsService.getBoardById(id);
+  getBoardById(
+    @Param('id') id: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.getBoardById(id, user);
   }
 
   @Post()
-  createBoard(@Body() createBoardDto: CreateBoardDto): Promise<BoardsEntity> {
-    return this.boardsService.createBoard(createBoardDto);
+  createBoard(
+    @Body() createBoardDto: CreateBoardDto,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.createBoard(createBoardDto, user);
   }
 
   @Delete('/:id')
-  deleteBoardById(@Param('id') id: string): Promise<BoardsEntity> {
-    return this.boardsService.deleteBoardById(id);
+  deleteBoardById(
+    @Param('id') id: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.deleteBoardById(id, user);
   }
 
   @Patch('/:id/name')
   updateNameById(
     @Param('id') id: string,
     @Body('name') name: string,
+    @GetUser() user: UserEntity,
   ): Promise<BoardsEntity> {
-    return this.boardsService.updateNameById(id, name);
+    return this.boardsService.updateNameById(id, name, user);
   }
 }
