@@ -6,9 +6,14 @@ import { BoardsService } from './boards.service';
 import { BoardsController } from './boards.controller';
 import { ColumnEntity } from 'src/columns/columns.entity';
 import { AuthModule } from 'src/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BoardsEntity, ColumnEntity]), AuthModule],
+  imports: [
+    ConfigModule,
+    TypeOrmModule.forFeature([BoardsEntity, ColumnEntity]),
+    AuthModule,
+  ],
   providers: [BoardsService],
   controllers: [BoardsController],
 })

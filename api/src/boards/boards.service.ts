@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { Repository, DataSource } from 'typeorm';
 
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -8,6 +8,8 @@ import { UserEntity } from 'src/auth/user.entity';
 
 @Injectable()
 export class BoardsService extends Repository<BoardsEntity> {
+  private logger = new Logger('BoardsService', { timestamp: true });
+
   constructor(private dataSource: DataSource) {
     super(BoardsEntity, dataSource.createEntityManager());
   }
@@ -36,8 +38,17 @@ export class BoardsService extends Repository<BoardsEntity> {
       );
     }
 
-    const boards = await query.getMany();
-    return boards;
+    try {
+      const boards = await query.getMany();
+      return boards;
+    } catch (error) {
+      this.logger.error(
+        `Failed to get boards for user "${
+          user.userName
+        }". Filters: ${JSON.stringify(search)}`,
+        error.stack,
+      );
+    }
   }
 
   async getBoardByIdWithColumns(id: string): Promise<BoardsEntity> {

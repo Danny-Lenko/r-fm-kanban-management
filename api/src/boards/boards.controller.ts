@@ -8,6 +8,7 @@ import {
   Patch,
   Query,
   UseGuards,
+  Logger,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -17,17 +18,31 @@ import { FilterDto } from './dto/filter.dto';
 import { BoardsEntity } from './boards.entity';
 import { UserEntity } from 'src/auth/user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
-  constructor(private boardsService: BoardsService) {}
+  private logger = new Logger('BoardsController', { timestamp: true });
+
+  constructor(
+    private boardsService: BoardsService,
+    private configService: ConfigService,
+  ) {
+    console.log('boards.controller:', configService.get('TEST_VALUE'))
+  }
 
   @Get()
   getBoards(
     @Query() filterDto: FilterDto,
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity[]> {
+    this.logger.verbose(
+      `User ${user.userName} is retrieving all tasks. Filters: ${JSON.stringify(
+        filterDto,
+      )}`,
+    );
+
     return this.boardsService.getBoards(filterDto, user);
   }
 
