@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
-import { ColumnEntity } from 'src/columns/columns.entity';
+import { ColumnsEntity } from 'src/columns/columns.entity';
 import { UserEntity } from 'src/auth/user.entity';
 
 @Entity()
@@ -21,10 +21,10 @@ export class BoardsEntity {
   @Column({ default: 'New' })
   category: string;
 
-  @OneToMany(() => ColumnEntity, (column) => column.board, {
+  @OneToMany(() => ColumnsEntity, (column) => column.board, {
     cascade: true, // Allows cascading operations (e.g., insert, update, delete) on related columns
   })
-  columns: ColumnEntity[];
+  columns: ColumnsEntity[];
 
   @ManyToOne(() => UserEntity, (user) => user.boards, { eager: false })
   @Exclude({ toPlainOnly: true })

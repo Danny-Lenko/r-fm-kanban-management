@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 import { BoardsEntity } from './boards.entity';
 import { BoardsService } from './boards.service';
 import { BoardsController } from './boards.controller';
-import { ColumnEntity } from 'src/columns/columns.entity';
+import { ColumnsEntity } from 'src/columns/columns.entity';
 import { AuthModule } from 'src/auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     ConfigModule,
-    TypeOrmModule.forFeature([BoardsEntity, ColumnEntity]),
+    TypeOrmModule.forFeature([BoardsEntity, ColumnsEntity]),
     AuthModule,
   ],
   providers: [BoardsService],
