@@ -8,7 +8,7 @@ import { BoardsController } from './boards.controller';
 import { ColumnsEntity } from 'src/columns/columns.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { SharedService } from 'src/shared/shared.service';
-import { BoardsRepository } from 'src/shared/boards.repository';
+import { BoardsRepository } from 'src/boards/boards.repository';
 import { ColumnsRepository } from 'src/columns/columns.repository';
 import { ColumnsService } from 'src/columns/columns.service';
 

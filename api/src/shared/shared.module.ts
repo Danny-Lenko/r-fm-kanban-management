@@ -5,7 +5,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { BoardsEntity } from 'src/boards/boards.entity';
 import { ColumnsEntity } from 'src/columns/columns.entity';
 import { SharedService } from './shared.service';
-import { BoardsRepository } from './boards.repository';
+import { BoardsRepository } from '../boards/boards.repository';
 
 @Module({
   imports: [

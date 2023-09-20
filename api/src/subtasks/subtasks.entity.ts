@@ -10,7 +10,7 @@ export class SubtasksEntity {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ default: false })
   isCompleted: boolean;
 
   @ManyToOne(() => TasksEntity, (task) => task.subtasks, {

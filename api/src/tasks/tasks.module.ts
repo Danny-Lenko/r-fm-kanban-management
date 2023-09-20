@@ -7,6 +7,9 @@ import { ColumnsEntity } from 'src/columns/columns.entity';
 import { TasksService } from './tasks.service';
 import { TasksController } from './tasks.controller';
 import { TasksEntity } from './tasks.entity';
+import { TasksRepository } from './tasks.repository';
+import { BoardsRepository } from 'src/boards/boards.repository';
+import { SharedService } from 'src/shared/shared.service';
 
 @Module({
   imports: [
@@ -15,6 +18,6 @@ import { TasksEntity } from './tasks.entity';
     AuthModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService],
+  providers: [TasksService, TasksRepository, BoardsRepository, SharedService],
 })
 export class TasksModule {}

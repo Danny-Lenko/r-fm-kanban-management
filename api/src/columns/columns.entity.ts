@@ -23,7 +23,6 @@ export class ColumnsEntity {
 
   @ManyToOne(() => BoardsEntity, (board) => board.columns, {
     onDelete: 'CASCADE',
-    // cascade: true,
     onUpdate: 'CASCADE',
   })
   @Exclude({ toPlainOnly: true })

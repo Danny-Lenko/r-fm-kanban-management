@@ -8,7 +8,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { TasksEntity } from 'src/tasks/tasks.entity';
 import { ColumnsController } from './columns.controller';
 import { SharedService } from 'src/shared/shared.service';
-import { BoardsRepository } from 'src/shared/boards.repository';
+import { BoardsRepository } from 'src/boards/boards.repository';
 import { ColumnsRepository } from 'src/columns/columns.repository';
 
 @Module({

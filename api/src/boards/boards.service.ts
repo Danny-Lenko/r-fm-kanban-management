@@ -6,7 +6,7 @@ import { BoardsEntity } from './boards.entity';
 import { UserEntity } from 'src/auth/user.entity';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { SharedService } from '../shared/shared.service';
-import { BoardsRepository } from '../shared/boards.repository';
+import { BoardsRepository } from './boards.repository';
 import { ColumnsService } from '../columns/columns.service';
 
 @Injectable()
@@ -62,25 +62,6 @@ export class BoardsService {
     }
   }
 
-  async getBoardByIdWithColumns(
-    id: string,
-    user: UserEntity,
-  ): Promise<BoardsEntity> {
-    const board = await this.boardsRepository.findOne({
-      where: {
-        id: id,
-        user,
-      },
-      relations: ['columns'],
-    });
-
-    if (!board) {
-      throw new NotFoundException(`board with id: ${id} not found`);
-    }
-
-    return board;
-  }
-
   async createBoard(
     createBoardDto: CreateBoardDto,
     user: UserEntity,
@@ -119,7 +100,7 @@ export class BoardsService {
   ): Promise<void> {
     const { name, category, columns } = updateBoardDto;
 
-    const board = await this.getBoardByIdWithColumns(id, user);
+    const board = await this.sharedService.getBoardByIdWithColumns(id, user);
 
     if (name) {
       board.name = name;
