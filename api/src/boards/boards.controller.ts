@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Body,
   Param,
   Delete,
@@ -19,6 +20,8 @@ import { BoardsEntity } from './boards.entity';
 import { UserEntity } from 'src/auth/user.entity';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { ConfigService } from '@nestjs/config';
+import { UpdateBoardDto } from './dto/update-board.dto';
+import { SharedService } from '../shared/shared.service';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -28,8 +31,9 @@ export class BoardsController {
   constructor(
     private boardsService: BoardsService,
     private configService: ConfigService,
+    private sharedService: SharedService,
   ) {
-    console.log('boards.controller:', configService.get('TEST_VALUE'))
+    console.log('boards.controller:', configService.get('TEST_VALUE'));
   }
 
   @Get()
@@ -46,12 +50,17 @@ export class BoardsController {
     return this.boardsService.getBoards(filterDto, user);
   }
 
+  @Get('with-columns')
+  getBoardsWithColumns(@GetUser() user: UserEntity): Promise<BoardsEntity[]> {
+    return this.boardsService.getBoardsWithColumns(user);
+  }
+
   @Get('/:id')
   getBoardById(
     @Param('id') id: string,
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity> {
-    return this.boardsService.getBoardById(id, user);
+    return this.sharedService.getBoardById(id, user);
   }
 
   @Post()
@@ -77,5 +86,14 @@ export class BoardsController {
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity> {
     return this.boardsService.updateNameById(id, name, user);
+  }
+
+  @Put('/:id')
+  updateBoardById(
+    @Param('id') id: string,
+    @Body() updateBoardDto: UpdateBoardDto,
+    @GetUser() user: UserEntity,
+  ): Promise<void> {
+    return this.boardsService.updateBoardById(id, updateBoardDto, user);
   }
 }

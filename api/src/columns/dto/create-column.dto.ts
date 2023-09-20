@@ -5,7 +5,7 @@ export class CreateColumnDto {
   name: string;
 
   @IsOptional()
-  color: string;
+  color?: string;
 
   board: BoardDto;
 }

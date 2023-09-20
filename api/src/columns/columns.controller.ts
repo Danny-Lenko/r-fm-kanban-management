@@ -1,4 +1,11 @@
-import { Controller, UseGuards, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  UseGuards,
+  Post,
+  Body,
+  Patch,
+  Param,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { ColumnsService } from './columns.service';
@@ -18,5 +25,14 @@ export class ColumnsController {
     @GetUser() user: UserEntity,
   ): Promise<ColumnsEntity> {
     return this.columnsService.createColumn(createColumnDto, user);
+  }
+
+  @Patch('/:id/name')
+  updateNameById(
+    @Param('id') id: string,
+    @Body('name') name: string,
+    // @GetUser() user: UserEntity,
+  ): Promise<ColumnsEntity> {
+    return this.columnsService.updateColumnNameById(id, name);
   }
 }

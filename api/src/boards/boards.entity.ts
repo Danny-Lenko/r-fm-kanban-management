@@ -23,6 +23,7 @@ export class BoardsEntity {
 
   @OneToMany(() => ColumnsEntity, (column) => column.board, {
     cascade: true, // Allows cascading operations (e.g., insert, update, delete) on related columns
+    // eager: true,
   })
   columns: ColumnsEntity[];
 

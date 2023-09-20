@@ -7,7 +7,9 @@ import { ColumnsService } from './columns.service';
 import { AuthModule } from 'src/auth/auth.module';
 import { TasksEntity } from 'src/tasks/tasks.entity';
 import { ColumnsController } from './columns.controller';
-import { BoardsService } from 'src/boards/boards.service';
+import { SharedService } from 'src/shared/shared.service';
+import { BoardsRepository } from 'src/shared/boards.repository';
+import { ColumnsRepository } from 'src/columns/columns.repository';
 
 @Module({
   imports: [
@@ -15,7 +17,12 @@ import { BoardsService } from 'src/boards/boards.service';
     TypeOrmModule.forFeature([ColumnsEntity, TasksEntity]),
     AuthModule,
   ],
-  providers: [ColumnsService, BoardsService],
+  providers: [
+    ColumnsService,
+    SharedService,
+    BoardsRepository,
+    ColumnsRepository,
+  ],
   controllers: [ColumnsController],
 })
 export class ColumnsModule {}

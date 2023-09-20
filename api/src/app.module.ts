@@ -8,6 +8,7 @@ import { ColumnsModule } from './columns/columns.module';
 import { TasksModule } from './tasks/tasks.module';
 import { configValidationSchema } from './config.schema';
 import { SubtasksModule } from './subtasks/subtasks.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { SubtasksModule } from './subtasks/subtasks.module';
     }),
     AuthModule,
     SubtasksModule,
+    SharedModule,
   ],
 })
 export class AppModule {}
