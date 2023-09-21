@@ -1,10 +1,14 @@
 import { Module } from '@nestjs/common';
-import { TasksModule } from './tasks/tasks.module';
-import { BoardsModule } from './boards/boards.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
+import { AuthModule } from './auth/auth.module';
+import { BoardsModule } from './boards/boards.module';
+import { ColumnsModule } from './columns/columns.module';
+import { TasksModule } from './tasks/tasks.module';
 import { configValidationSchema } from './config.schema';
+import { SubtasksModule } from './subtasks/subtasks.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -14,6 +18,7 @@ import { configValidationSchema } from './config.schema';
     }),
     TasksModule,
     BoardsModule,
+    ColumnsModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -30,6 +35,8 @@ import { configValidationSchema } from './config.schema';
       }),
     }),
     AuthModule,
+    SubtasksModule,
+    SharedModule,
   ],
 })
 export class AppModule {}

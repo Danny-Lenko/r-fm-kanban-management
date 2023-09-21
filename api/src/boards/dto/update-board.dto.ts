@@ -1,7 +1,10 @@
 import { IsNotEmpty, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateBoardDto {
+export class UpdateBoardDto {
+  // @IsNotEmpty()
+  // id: string;
+
   @IsNotEmpty()
   name: string;
 
@@ -14,6 +17,9 @@ export class CreateBoardDto {
 }
 
 class ColumnDto {
+  @IsOptional()
+  id: string;
+
   @IsNotEmpty()
   name: string;
 }

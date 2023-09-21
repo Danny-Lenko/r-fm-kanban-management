@@ -50,6 +50,8 @@ export class AuthService extends Repository<UserEntity> {
   ): Promise<{ accessToken: string }> {
     const { userNameOrEmail, password } = signInCredentialsDto;
 
+    console.log(userNameOrEmail, password);
+
     const isEmail = userNameOrEmail.includes('@');
 
     const user = isEmail
