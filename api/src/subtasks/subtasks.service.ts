@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { SubtasksEntity } from './subtasks.entity';
 import { SubtasksRepository } from './subtasks.repository';
+import { CreateSubtaskDto } from './dto/create-subtask.dto';
 
 @Injectable()
 export class SubtasksService {
@@ -22,5 +23,26 @@ export class SubtasksService {
 
     result.isCompleted = isCompleted;
     this.subtasksRepository.save(result);
+  }
+
+  async updateSubtaskTitle(id: string, title: string): Promise<void> {
+    const result = await this.getSubtaskById(id);
+
+    result.title = title;
+    this.subtasksRepository.save(result);
+  }
+
+  async createSubtask(createSubtaskDto: CreateSubtaskDto): Promise<void> {
+    const subtask = this.subtasksRepository.create(createSubtaskDto);
+    this.subtasksRepository.save(subtask);
+  }
+
+  async deleteSubtask(id: string): Promise<void> {
+    const result = await this.subtasksRepository.delete({ id });
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`subtask with id: ${id} not found`);
+    }
+    return;
   }
 }

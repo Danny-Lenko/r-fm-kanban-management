@@ -1,8 +1,17 @@
-import { Controller, Patch, UseGuards, Param, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Patch,
+  UseGuards,
+  Param,
+  Body,
+  Get,
+  Post,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { SubtasksService } from './subtasks.service';
 import { SubtasksEntity } from './subtasks.entity';
+import { CreateSubtaskDto } from './dto/create-subtask.dto';
 
 @Controller('subtasks')
 @UseGuards(AuthGuard())
@@ -20,5 +29,10 @@ export class SubtasksController {
     @Body('isCompleted') isCompleted: boolean,
   ) {
     return await this.subtasksService.updateSubtaskState(id, isCompleted);
+  }
+
+  @Post()
+  async creaSubtask(@Body() createSubtaskDto: CreateSubtaskDto): Promise<void> {
+    return this.subtasksService.createSubtask(createSubtaskDto);
   }
 }

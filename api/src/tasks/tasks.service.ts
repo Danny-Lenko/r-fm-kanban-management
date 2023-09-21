@@ -7,6 +7,7 @@ import { UserEntity } from 'src/auth/user.entity';
 import { SharedService } from '../shared/shared.service';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { SubtasksService } from '../subtasks/subtasks.service';
+import { EditTaskDto } from './dto/edit-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -17,7 +18,10 @@ export class TasksService {
   ) {}
 
   async getTaskById(id: string): Promise<TasksEntity> {
-    const task = await this.tasksRepository.findOne({ where: { id } });
+    const task = await this.tasksRepository.findOne({
+      where: { id },
+      relations: ['subtasks'],
+    });
 
     if (!task) {
       throw new NotFoundException(`task with id: ${id} was not found`);
@@ -53,7 +57,6 @@ export class TasksService {
     user: UserEntity,
   ): Promise<void> {
     const { boardId, status, subtasks } = updateTaskDto;
-
     const { columns } = await this.sharedService.getBoardByIdWithColumns(
       boardId,
       user,
@@ -69,6 +72,50 @@ export class TasksService {
 
     for (const { id, isCompleted } of subtasks) {
       await this.subtasksService.updateSubtaskState(id, isCompleted);
+    }
+  }
+
+  async editTaskById(
+    id: string,
+    editTaskDto: EditTaskDto,
+    user: UserEntity,
+  ): Promise<void> {
+    const { boardId, title, status, subtasks, description } = editTaskDto;
+    const { columns } = await this.sharedService.getBoardByIdWithColumns(
+      boardId,
+      user,
+    );
+
+    const column = columns.find((column) => column.name === status);
+
+    const task = await this.getTaskById(id);
+    task.title = title;
+    task.description = description;
+    task.status = status;
+    task.column = column;
+
+    await this.tasksRepository.save(task);
+
+    if (subtasks) {
+      for (const { id, title } of subtasks) {
+        const existingSubtask = task.subtasks.find(
+          (subtask) => id === subtask.id,
+        );
+
+        if (existingSubtask) {
+          await this.subtasksService.updateSubtaskTitle(id, title);
+        } else {
+          await this.subtasksService.createSubtask({ title, task });
+        }
+      }
+    }
+
+    const dtoSubtaskIds = subtasks.map((dtoSub) => dtoSub.id);
+
+    for (const { id } of task.subtasks) {
+      if (!dtoSubtaskIds.includes(id)) {
+        await this.subtasksService.deleteSubtask(id);
+      }
     }
   }
 }

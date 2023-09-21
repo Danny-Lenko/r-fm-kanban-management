@@ -51,7 +51,7 @@ export class ColumnsService {
     const result = await this.columnsRepository.delete({ id });
 
     if (result.affected === 0) {
-      throw new NotFoundException(`board with id: ${id} not found`);
+      throw new NotFoundException(`column with id: ${id} not found`);
     }
     return;
   }
