@@ -10,6 +10,8 @@ import { TasksEntity } from './tasks.entity';
 import { TasksRepository } from './tasks.repository';
 import { BoardsRepository } from 'src/boards/boards.repository';
 import { SharedService } from 'src/shared/shared.service';
+import { SubtasksService } from 'src/subtasks/subtasks.service';
+import { SubtasksRepository } from 'src/subtasks/subtasks.repository';
 
 @Module({
   imports: [
@@ -18,6 +20,13 @@ import { SharedService } from 'src/shared/shared.service';
     AuthModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService, TasksRepository, BoardsRepository, SharedService],
+  providers: [
+    TasksService,
+    TasksRepository,
+    BoardsRepository,
+    SharedService,
+    SubtasksService,
+    SubtasksRepository,
+  ],
 })
 export class TasksModule {}

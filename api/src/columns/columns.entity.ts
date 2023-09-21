@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   OneToMany,
+  Unique,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 
@@ -11,6 +12,7 @@ import { BoardsEntity } from 'src/boards/boards.entity';
 import { TasksEntity } from 'src/tasks/tasks.entity';
 
 @Entity()
+@Unique(['name', 'board'])
 export class ColumnsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
