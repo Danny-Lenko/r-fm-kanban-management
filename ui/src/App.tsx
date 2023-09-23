@@ -7,8 +7,14 @@ import {
 } from './library/utilities/ColorModeToggler';
 import { useDragDrop } from './library/common/hooks';
 
-import { Layout, Main } from './modules';
+import { AllBoards, Board, Layout, SignUp } from './modules';
 import { AppModal } from './library/common/components';
+
+import { Routes, Route } from 'react-router-dom';
+import { PrivateRoutes } from './modules/Router/PrivateRoutes';
+
+import { SignIn } from './modules';
+
 
 function App() {
    const myTheme = ColorModeToggler();
@@ -18,13 +24,25 @@ function App() {
       <ThemeProvider theme={myTheme.theme}>
          <ColorModeContext.Provider value={myTheme.colorMode}>
             <CssBaseline />
-
             <DragDropContext onDragEnd={handleDragDrop}>
-               <Layout>
-                  <Main />
-               </Layout>
-            </DragDropContext>
+               <Routes>
+                  <Route element={<PrivateRoutes />}>
+                     <Route element={<AllBoards />} path='/' />
 
+                     <Route
+                        element={
+                           <Layout>
+                              <Board />
+                           </Layout>
+                        }
+                        path='/:board'
+                     />
+                  </Route>
+
+                  <Route element={<SignIn />} path='/sign-in' />
+                  <Route element={<SignUp />} path='/sign-up' />
+               </Routes>
+            </DragDropContext>
             <AppModal />
          </ColorModeContext.Provider>
       </ThemeProvider>

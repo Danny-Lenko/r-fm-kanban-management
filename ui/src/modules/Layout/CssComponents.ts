@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { styled } from '@mui/system';
+import { AppBtn } from '../../library/common/components';
 
 export const CssLayout = styled(Stack)({
    overflowX: 'auto',
@@ -25,3 +26,17 @@ export const CssLayout = styled(Stack)({
 CssLayout.defaultProps = {
    direction: 'row',
 };
+
+export const EyeBtn = styled(AppBtn)({
+   zIndex: 1000,
+   width: '80px',
+   paddingRight: 2,
+   paddingLeft: 5,
+   position: 'absolute',
+   bottom: '5%',
+   left: -25,
+   minHeight: '40px',
+   '& svg': {
+      transform: 'translateY(25%) translateX(25%)',
+   },
+});

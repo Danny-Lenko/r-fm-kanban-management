@@ -1,4 +1,6 @@
 export * from './Layout';
-export * from './Main';
 export * from './Board';
+export * from './Router';
+export * from './Auth';
+export * from './AllBoards';
 export { NoColumnsBoard } from './NoColumnsBoard';

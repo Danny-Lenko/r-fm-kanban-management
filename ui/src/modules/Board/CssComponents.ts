@@ -1,4 +1,4 @@
-import { Stack, Button, } from '@mui/material';
+import { Stack, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import { AppbarHeight } from '../../library/common/constants';
 
@@ -31,3 +31,4 @@ export const CssColumnButton = styled(Button)(({ theme }) => ({
       color: theme.palette.greyCustom[200],
    },
 }));
+
