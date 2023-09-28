@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +10,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+
+import { apiBaseUrl } from '../../library/common/constants';
 
 function Copyright(props: any) {
    return (
@@ -31,9 +32,6 @@ function Copyright(props: any) {
    );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-// const defaultTheme = createTheme();
-
 export function SignUp() {
    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -44,8 +42,10 @@ export function SignUp() {
       });
    };
 
+   const navigate = useNavigate();
+   const handleSigninLink = () => navigate('/sign-in');
+
    return (
-      //  <ThemeProvider theme={defaultTheme}>
       <Container component='main' maxWidth='xs'>
          <CssBaseline />
          <Box
@@ -69,25 +69,15 @@ export function SignUp() {
                sx={{ mt: 3 }}
             >
                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12}>
                      <TextField
-                        autoComplete='given-name'
-                        name='firstName'
+                        autoComplete='username'
+                        name='userName'
                         required
                         fullWidth
-                        id='firstName'
-                        label='First Name'
+                        id='userName'
+                        label='User Name'
                         autoFocus
-                     />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                     <TextField
-                        required
-                        fullWidth
-                        id='lastName'
-                        label='Last Name'
-                        name='lastName'
-                        autoComplete='family-name'
                      />
                   </Grid>
                   <Grid item xs={12}>
@@ -130,7 +120,7 @@ export function SignUp() {
                </Button>
                <Grid container justifyContent='flex-end'>
                   <Grid item>
-                     <Link href='#' variant='body2'>
+                     <Link onClick={handleSigninLink} variant='body2'>
                         Already have an account? Sign in
                      </Link>
                   </Grid>
@@ -139,6 +129,5 @@ export function SignUp() {
          </Box>
          <Copyright sx={{ mt: 5 }} />
       </Container>
-      //  </ThemeProvider>
    );
 }

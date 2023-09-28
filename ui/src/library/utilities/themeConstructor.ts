@@ -32,6 +32,14 @@ const assembleThemeObj = (mode: any, theme: any) => ({
             },
          },
       },
+
+      MuiLink: {
+         styleOverrides: {
+            root: {
+               cursor: 'pointer',
+            },
+         },
+      },
    },
 
    // ==================================== typography

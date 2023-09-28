@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,48 +10,80 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// function Copyright(props: any) {
-//    return (
-//       <Typography
-//          variant='body2'
-//          color='text.secondary'
-//          align='center'
-//          {...props}
-//       >
-//          {'Copyright © '}
-//          <Link color='inherit' href='https://mui.com/'>
-//             Your Website
-//          </Link>{' '}
-//          {new Date().getFullYear()}
-//          {'.'}
-//       </Typography>
-//    );
-// }
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-// TODO remove, this demo shouldn't need to reset the theme.
-// const defaultTheme = createTheme();
+import { apiBaseUrl } from '../../library/common/constants';
+
+import { useAppDispatch } from '../../library/common/hooks';
+
+import { setJwt } from '../../main/store/auth/authSlice';
+import { setAuthHeader } from '../../library/utilities/auth';
+
+function Copyright(props: any) {
+   return (
+      <Typography
+         variant='body2'
+         color='text.secondary'
+         align='center'
+         {...props}
+      >
+         {'Copyright © '}
+         <Link color='inherit' href='https://mui.com/'>
+            Your Website
+         </Link>{' '}
+         {new Date().getFullYear()}
+         {'.'}
+      </Typography>
+   );
+}
+
+interface ISigninBody {
+   userNameOrEmail: FormDataEntryValue;
+   password: FormDataEntryValue;
+}
 
 export function SignIn() {
-   // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-   //    event.preventDefault();
-   //    const data = new FormData(event.currentTarget);
-   //    console.log({
-   //       email: data.get('email'),
-   //       password: data.get('password'),
-   //    });
-   // };
+   const dispatch = useAppDispatch();
+
+   const fetchUser = async (reqBody: ISigninBody) => {
+      try {
+         const { data } = await axios.post(
+            `${apiBaseUrl}/auth/signin`,
+            reqBody,
+         );
+         const token = data.accessToken;
+
+         dispatch(setJwt(token));
+         setAuthHeader(token);
+      } catch (error) {
+         console.log(error);
+      }
+   };
+
+   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
+      const data = new FormData(event.currentTarget);
+      const userNameOrEmail = data.get('userName');
+      const password = data.get('password');
+
+      if (userNameOrEmail && password) {
+         return await fetchUser({ userNameOrEmail, password });
+      }
+
+      console.log('not all credentials');
+   };
+
+   const navigate = useNavigate();
+
+   const handleSignupLink = () => navigate('/sign-up');
 
    return (
-      // <ThemeProvider theme={defaultTheme}>
       <Container component='main' maxWidth='xs'>
-         <Typography component='h1' variant='h5'>
-            Sign in
-         </Typography>
-
-         {/* <CssBaseline /> */}
-         {/* <Box
+         <CssBaseline />
+         <Box
             sx={{
                marginTop: 8,
                display: 'flex',
@@ -76,10 +107,10 @@ export function SignIn() {
                   margin='normal'
                   required
                   fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
+                  id='userName'
+                  label='Username Or Email'
+                  name='userName'
+                  autoComplete='userName'
                   autoFocus
                />
                <TextField
@@ -111,15 +142,14 @@ export function SignIn() {
                      </Link>
                   </Grid>
                   <Grid item>
-                     <Link href='#' variant='body2'>
+                     <Link variant='body2' onClick={handleSignupLink}>
                         {"Don't have an account? Sign Up"}
                      </Link>
                   </Grid>
                </Grid>
             </Box>
          </Box>
-         <Copyright sx={{ mt: 8, mb: 4 }} /> */}
+         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-      // </ThemeProvider>
    );
 }

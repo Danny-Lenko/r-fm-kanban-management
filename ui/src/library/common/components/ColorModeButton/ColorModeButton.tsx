@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { SvgIcon } from '@mui/material';
 
-import { ColorModeContext } from '../../../utilities/ColorModeToggler';
+import { ColorModeContext } from '../../../../App';
 import { Android12Switch, CssWrapper } from '.';
 
 import { ReactComponent as LightModeIcon } from '../../../../resources/assets/icon-light-theme.svg';

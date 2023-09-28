@@ -1,28 +1,29 @@
+import { createContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import {
-   ColorModeToggler,
-   ColorModeContext,
-} from './library/utilities/ColorModeToggler';
-import { useDragDrop } from './library/common/hooks';
+import { useDragDrop, useColorMode } from './library/common/hooks';
 
-import { AllBoards, Board, Layout, SignUp } from './modules';
+import {
+   AllBoards,
+   Board,
+   Layout,
+   SignIn,
+   SignUp,
+   PrivateRoutes,
+} from './modules';
 import { AppModal } from './library/common/components';
 
-import { Routes, Route } from 'react-router-dom';
-import { PrivateRoutes } from './modules/Router/PrivateRoutes';
-
-import { SignIn } from './modules';
-
+export const ColorModeContext = createContext({ toggleClrMode: () => {} });
 
 function App() {
-   const myTheme = ColorModeToggler();
+   const { theme, colorMode } = useColorMode();
    const { handleDragDrop } = useDragDrop();
 
    return (
-      <ThemeProvider theme={myTheme.theme}>
-         <ColorModeContext.Provider value={myTheme.colorMode}>
+      <ThemeProvider theme={theme}>
+         <ColorModeContext.Provider value={colorMode}>
             <CssBaseline />
             <DragDropContext onDragEnd={handleDragDrop}>
                <Routes>
