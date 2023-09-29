@@ -6,3 +6,4 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export * from './useDragDrop';
 export * from './useColorMode';
+export * from './useApi';

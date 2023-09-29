@@ -5,9 +5,9 @@ import { RootState } from '../store';
 export const authSlice = createSlice({
    name: 'auth',
    initialState: {
-      // user: null,
-      jwt: null,
-      user: { user: 'User' },
+      user: {},
+      jwt: '',
+      // user: { user: 'User' },
    },
    reducers: {
       setJwt: (state, { payload }) => {

@@ -42,7 +42,7 @@ export class BoardsController {
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity[]> {
     this.logger.verbose(
-      `User ${user.userName} is retrieving all tasks. Filters: ${JSON.stringify(
+      `User ${user.userName} is retrieving all boards. Filters: ${JSON.stringify(
         filterDto,
       )}`,
     );

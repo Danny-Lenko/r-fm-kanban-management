@@ -11,13 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { apiBaseUrl } from '../../library/common/constants';
-
 import { useAppDispatch } from '../../library/common/hooks';
-
 import { setJwt } from '../../main/store/auth/authSlice';
 import { setAuthHeader } from '../../library/utilities/auth';
 
@@ -46,8 +44,9 @@ interface ISigninBody {
 
 export function SignIn() {
    const dispatch = useAppDispatch();
+   const navigate = useNavigate();
 
-   const fetchUser = async (reqBody: ISigninBody) => {
+   const signIn = async (reqBody: ISigninBody) => {
       try {
          const { data } = await axios.post(
             `${apiBaseUrl}/auth/signin`,
@@ -57,6 +56,7 @@ export function SignIn() {
 
          dispatch(setJwt(token));
          setAuthHeader(token);
+         navigate('/');
       } catch (error) {
          console.log(error);
       }
@@ -70,13 +70,11 @@ export function SignIn() {
       const password = data.get('password');
 
       if (userNameOrEmail && password) {
-         return await fetchUser({ userNameOrEmail, password });
+         return await signIn({ userNameOrEmail, password });
       }
 
       console.log('not all credentials');
    };
-
-   const navigate = useNavigate();
 
    const handleSignupLink = () => navigate('/sign-up');
 

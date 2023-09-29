@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../library/common/hooks';
-import { selectUser } from '../../main/store/auth/authSlice';
+import { selectJwt } from '../../main/store/auth/authSlice';
 
 export const PrivateRoutes = () => {
-   const isAuthenticated = useAppSelector(selectUser);
+   const isAuthenticated = useAppSelector(selectJwt);
 
    return isAuthenticated ? <Outlet /> : <Navigate to='/sign-in' />;
 };

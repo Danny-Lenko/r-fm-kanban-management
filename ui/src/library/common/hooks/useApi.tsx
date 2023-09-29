@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../../utilities/auth';
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 
 interface UseApiReturnType<T> {
    data: T | null;
@@ -8,7 +8,7 @@ interface UseApiReturnType<T> {
    error: Error | null;
 }
 
-const useApi = <T,>(endpoint: string): UseApiReturnType<T> => {
+export const useApi = <T,>(endpoint: string): UseApiReturnType<T> => {
    const [data, setData] = useState<T | null>(null);
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState<Error | null>(null);
@@ -19,7 +19,12 @@ const useApi = <T,>(endpoint: string): UseApiReturnType<T> => {
             const response = await axios.get<T>(endpoint);
             setData(response.data);
          } catch (err) {
-            setError(err as AxiosError);
+            if (isAxiosError(err)) {
+               setError(err);
+               // throw err;
+            } else {
+               throw new Error(`error: ${err}`);
+            }
          } finally {
             setLoading(false);
          }
@@ -30,5 +35,3 @@ const useApi = <T,>(endpoint: string): UseApiReturnType<T> => {
 
    return { data, loading, error };
 };
-
-export default useApi;
