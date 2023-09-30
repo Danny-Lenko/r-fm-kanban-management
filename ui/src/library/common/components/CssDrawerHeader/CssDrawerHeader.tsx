@@ -10,9 +10,9 @@ export const CssDrawerHeader = styled('div')(({ theme }) => ({
    alignItems: 'center',
    justifyContent: 'flex-start',
    minHeight: AppbarHeight.Xs,
+   marginTop: theme.spacing(1),
 
    [theme.breakpoints.up('sm')]: {
       minHeight: AppbarHeight.Sm,
    },
 }));
-

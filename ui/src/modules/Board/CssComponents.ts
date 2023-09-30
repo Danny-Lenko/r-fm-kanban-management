@@ -3,9 +3,9 @@ import { styled } from '@mui/system';
 import { AppbarHeight } from '../../library/common/constants';
 
 export const CssBoard = styled(Stack)(({ theme }) => ({
-   height: `calc(100vh - ${AppbarHeight.Xs} - ${theme.spacing(3)})`,
+   height: `calc(100vh - ${AppbarHeight.Xs} - ${theme.spacing(4)})`,
    [theme.breakpoints.up('sm')]: {
-      height: `calc(100vh - ${AppbarHeight.Sm} - ${theme.spacing(3)})`,
+      height: `calc(100vh - ${AppbarHeight.Sm} - ${theme.spacing(4)})`,
    },
 }));
 CssBoard.defaultProps = {
@@ -31,4 +31,3 @@ export const CssColumnButton = styled(Button)(({ theme }) => ({
       color: theme.palette.greyCustom[200],
    },
 }));
-

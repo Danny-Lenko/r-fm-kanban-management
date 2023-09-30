@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { useTheme, useMediaQuery } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
@@ -17,6 +18,9 @@ export const Layout: React.FC<Props> = ({ children }) => {
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+   const { pathname } = useLocation();
+   const isHome = pathname === '/' || pathname === '/backlog';
+
    const dispatch = useAppDispatch();
 
    const handleOpenDrawer = () => {
@@ -25,7 +29,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
 
    return (
       <CssLayout>
-         <AppBar />
+         <AppBar isHome={isHome} />
          <AppDrawer />
 
          {/*---- Complements the drawer ----*/}
@@ -35,7 +39,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
             {children}
          </CssMain>
 
-         {!sxScreen && (
+         {!sxScreen && !isHome && (
             <EyeBtn
                color='primary'
                icon={eyeIcon}

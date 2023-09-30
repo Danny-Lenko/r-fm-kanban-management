@@ -8,10 +8,11 @@ import { useDragDrop, useColorMode } from './library/common/hooks';
 import {
    AllBoards,
    Board,
-   Layout,
    SignIn,
    SignUp,
    PrivateRoutes,
+   Backlog,
+   Masonry,
 } from './modules';
 import { AppModal } from './library/common/components';
 
@@ -28,16 +29,12 @@ function App() {
             <DragDropContext onDragEnd={handleDragDrop}>
                <Routes>
                   <Route element={<PrivateRoutes />}>
-                     <Route element={<AllBoards />} path='/' />
+                     <Route element={<AllBoards />} path='/'>
+                        <Route element={<Masonry />} path='/' />
+                        <Route element={<Backlog />} path='/backlog' />
+                     </Route>
 
-                     <Route
-                        element={
-                           <Layout>
-                              <Board />
-                           </Layout>
-                        }
-                        path='/:board'
-                     />
+                     <Route element={<Board />} path='/:board' />
                   </Route>
 
                   <Route element={<SignIn />} path='/sign-in' />

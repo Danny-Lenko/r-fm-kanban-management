@@ -24,6 +24,6 @@ export enum DrawerWidth {
 }
 
 export enum AppbarHeight {
-   Xs = '64px',
-   Sm = '72px',
+   Xs = '48px',
+   Sm = '56px',
 }
