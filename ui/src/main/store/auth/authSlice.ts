@@ -6,8 +6,8 @@ export const authSlice = createSlice({
    name: 'auth',
    initialState: {
       user: {},
-      // jwt: '',
-      jwt: 'hello'
+      jwt: '',
+      // jwt: 'hello'
       // user: { user: 'User' },
    },
    reducers: {

@@ -8,6 +8,7 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 import { SharedService } from '../shared/shared.service';
 import { BoardsRepository } from './boards.repository';
 import { ColumnsService } from '../columns/columns.service';
+import { ICategory } from './categories.interface';
 
 @Injectable()
 export class BoardsService {
@@ -44,6 +45,28 @@ export class BoardsService {
         error.stack,
       );
     }
+  }
+
+  async getAllBoardsByCategories(user: UserEntity): Promise<ICategory[]> {
+    const boards = await this.getBoards({}, user);
+
+    const categoriesMap = new Map<string, BoardsEntity[]>();
+    boards.forEach((board) => {
+      const category = board.category || 'Uncategorized';
+      if (!categoriesMap.has(category)) {
+        categoriesMap.set(category, []);
+      }
+      categoriesMap.get(category).push(board);
+    });
+
+    const categoriesArray = Array.from(categoriesMap).map(
+      ([category, boards]) => ({
+        category,
+        boards,
+      }),
+    );
+
+    return categoriesArray;
   }
 
   async getBoardsWithColumns(user: UserEntity): Promise<BoardsEntity[]> {
