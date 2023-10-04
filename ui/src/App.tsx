@@ -12,7 +12,7 @@ import {
    SignUp,
    PrivateRoutes,
    Backlog,
-   Masonry,
+   MasonryGrid,
 } from './modules';
 import { AppModal } from './library/common/components';
 
@@ -30,7 +30,7 @@ function App() {
                <Routes>
                   <Route element={<PrivateRoutes />}>
                      <Route element={<AllBoards />} path='/'>
-                        <Route element={<Masonry />} path='/' />
+                        <Route element={<MasonryGrid />} path='/' />
                         <Route element={<Backlog />} path='/backlog' />
                      </Route>
 

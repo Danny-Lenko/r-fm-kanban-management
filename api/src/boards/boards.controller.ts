@@ -22,6 +22,7 @@ import { GetUser } from 'src/auth/get-user.decorator';
 import { ConfigService } from '@nestjs/config';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { SharedService } from '../shared/shared.service';
+import { ICategory } from './categories.interface';
 
 @Controller('boards')
 @UseGuards(AuthGuard())
@@ -42,9 +43,9 @@ export class BoardsController {
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity[]> {
     this.logger.verbose(
-      `User ${user.userName} is retrieving all boards. Filters: ${JSON.stringify(
-        filterDto,
-      )}`,
+      `User ${
+        user.userName
+      } is retrieving all boards. Filters: ${JSON.stringify(filterDto)}`,
     );
 
     return this.boardsService.getBoards(filterDto, user);
@@ -53,6 +54,11 @@ export class BoardsController {
   @Get('with-columns')
   getBoardsWithColumns(@GetUser() user: UserEntity): Promise<BoardsEntity[]> {
     return this.boardsService.getBoardsWithColumns(user);
+  }
+
+  @Get('by-categories')
+  getBoardsByCategories(@GetUser() user: UserEntity): Promise<ICategory[]> {
+    return this.boardsService.getAllBoardsByCategories(user);
   }
 
   @Get('/:id')

@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { MutationKey, useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 class RequestData {
    name: string;
@@ -13,10 +13,16 @@ class RequestData {
    }
 }
 
-export const GetBoards = new RequestData('boards', '/boards', ['boards']);
+export const Boards = new RequestData('boards', '/boards', ['boards']);
+export const Categories = new RequestData(
+   'categories',
+   '/boards/by-categories',
+   ['boards', 'by-categories'],
+);
 
 export const getDataTypes = {
-   boards: GetBoards,
+   boards: Boards,
+   categories: Categories,
 };
 
 export const SignIn = new RequestData('signin', '/auth/signin', ['signin']);

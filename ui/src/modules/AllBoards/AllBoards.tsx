@@ -1,11 +1,11 @@
-import { Link, Outlet } from 'react-router-dom';
-import { Tabs, Tab } from '@mui/material';
+import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { Tab } from '@mui/material';
 
 import { useGetData } from '../../library/common/hooks';
 import { CssContainer, useRouteMatch, CssTabs, CssUnderline } from '.';
 
 import { getDataTypes } from '../../library/common/hooks';
-import { UseQueryResult } from '@tanstack/react-query';
+import { IBoard } from '../../library/interfaces/interfaces';
 
 // https://mui.com/material-ui/guides/routing/#tabs
 function ViewTabs() {
@@ -39,26 +39,35 @@ function ViewTabs() {
    );
 }
 
-interface IBoard {
-   name: string;
+interface ICategory {
+   category: string;
+   boards: IBoard[];
 }
 
 export const AllBoards = () => {
-   const dataType = getDataTypes.boards.name;
-   const { isLoading, error, data } = useGetData<IBoard>(
-      dataType as keyof typeof getDataTypes,
+   const { categories } = getDataTypes;
+   const categoriesType = categories.name;
+
+   const { isLoading, error, data } = useGetData<ICategory[]>(
+      categoriesType as keyof typeof getDataTypes,
    );
 
-   if (data) {
-      console.log(data);
-   }
+   // if (data) {
+   //    console.log(data);
+   // }
+
+   if (isLoading) return <h1>...Loading</h1>;
 
    return (
       <>
          <CssContainer>
             <ViewTabs />
-            <Outlet />
+            <Outlet context={data} />
          </CssContainer>
       </>
    );
 };
+
+export function useCategories() {
+   return useOutletContext<ICategory[]>();
+}
