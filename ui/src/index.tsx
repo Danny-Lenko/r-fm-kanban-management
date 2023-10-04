@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { store } from './main/store/store';
 import App from './App';
 import './resources/index.css';
+import { AuthProvider } from './main/AuthProvider';
 
 const queryClient = new QueryClient();
 
@@ -19,9 +20,11 @@ root.render(
    // <React.StrictMode>
    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
-         <BrowserRouter>
-            <App />
-         </BrowserRouter>
+         <AuthProvider>
+            <BrowserRouter>
+               <App />
+            </BrowserRouter>
+         </AuthProvider>
          <ReactQueryDevtools />
       </QueryClientProvider>
    </Provider>,

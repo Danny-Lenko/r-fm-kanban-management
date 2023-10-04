@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,13 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
-import { apiBaseUrl } from '../../library/common/constants';
-import { useAppDispatch } from '../../library/common/hooks';
-import { setJwt } from '../../main/store/auth/authSlice';
-import { setAuthHeader } from '../../library/utilities/auth';
+import { useAuth } from '../../main/AuthProvider';
 
 function Copyright(props: any) {
    return (
@@ -37,30 +32,9 @@ function Copyright(props: any) {
    );
 }
 
-interface ISigninBody {
-   userNameOrEmail: FormDataEntryValue;
-   password: FormDataEntryValue;
-}
-
 export function SignIn() {
-   const dispatch = useAppDispatch();
    const navigate = useNavigate();
-
-   const signIn = async (reqBody: ISigninBody) => {
-      try {
-         const { data } = await axios.post(
-            `${apiBaseUrl}/auth/signin`,
-            reqBody,
-         );
-         const token = data.accessToken;
-
-         dispatch(setJwt(token));
-         setAuthHeader(token);
-         navigate('/');
-      } catch (error) {
-         console.log(error);
-      }
-   };
+   const { signIn } = useAuth();
 
    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -70,7 +44,8 @@ export function SignIn() {
       const password = data.get('password');
 
       if (userNameOrEmail && password) {
-         return await signIn({ userNameOrEmail, password });
+         await signIn({ userNameOrEmail, password });
+         return navigate('/');
       }
 
       console.log('not all credentials');

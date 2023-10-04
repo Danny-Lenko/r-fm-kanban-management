@@ -1,8 +1,11 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Tabs, Tab } from '@mui/material';
 
-import { useApi } from '../../library/common/hooks';
+import { useGetData } from '../../library/common/hooks';
 import { CssContainer, useRouteMatch, CssTabs, CssUnderline } from '.';
+
+import { getDataTypes } from '../../library/common/hooks';
+import { UseQueryResult } from '@tanstack/react-query';
 
 // https://mui.com/material-ui/guides/routing/#tabs
 function ViewTabs() {
@@ -36,8 +39,15 @@ function ViewTabs() {
    );
 }
 
+interface IBoard {
+   name: string;
+}
+
 export const AllBoards = () => {
-   const { data, loading, error } = useApi('/boards');
+   const dataType = getDataTypes.boards.name;
+   const { isLoading, error, data } = useGetData<IBoard>(
+      dataType as keyof typeof getDataTypes,
+   );
 
    if (data) {
       console.log(data);

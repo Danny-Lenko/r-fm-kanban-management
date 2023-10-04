@@ -1,37 +1,56 @@
-import { useEffect, useState } from 'react';
-import axios from '../../utilities/auth';
-import { isAxiosError } from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { MutationKey, useMutation, useQuery } from '@tanstack/react-query';
 
-interface UseApiReturnType<T> {
-   data: T | null;
-   loading: boolean;
-   error: Error | null;
+class RequestData {
+   name: string;
+   endpoint: string;
+   key: string[];
+
+   constructor(name: string, endpoint: string, key: string[]) {
+      this.name = name;
+      this.endpoint = endpoint;
+      this.key = key;
+   }
 }
 
-export const useApi = <T,>(endpoint: string): UseApiReturnType<T> => {
-   const [data, setData] = useState<T | null>(null);
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState<Error | null>(null);
+export const GetBoards = new RequestData('boards', '/boards', ['boards']);
 
-   useEffect(() => {
-      const fetchData = async () => {
-         try {
-            const response = await axios.get<T>(endpoint);
-            setData(response.data);
-         } catch (err) {
-            if (isAxiosError(err)) {
-               setError(err);
-               // throw err;
-            } else {
-               throw new Error(`error: ${err}`);
-            }
-         } finally {
-            setLoading(false);
-         }
-      };
-
-      fetchData();
-   }, [endpoint]);
-
-   return { data, loading, error };
+export const getDataTypes = {
+   boards: GetBoards,
 };
+
+export const SignIn = new RequestData('signin', '/auth/signin', ['signin']);
+
+export const postDataTypes = {
+   signin: SignIn,
+};
+
+const getData = async <T,>(endpoint: string): Promise<T> => {
+   const { data } = await axios.get<T>(endpoint);
+   return data;
+};
+
+export function useGetData<T>(dataType: keyof typeof getDataTypes) {
+   const { key, endpoint } = getDataTypes[dataType];
+
+   if (!endpoint) {
+      throw new Error(`Invalid dataType: ${dataType}`);
+   }
+
+   return useQuery(key, () => getData<T>(endpoint));
+}
+
+const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
+   const { data } = await axios.post<R>(endpoint, bodyReq);
+   return data;
+};
+
+export function usePostData<T, R>(dataType: keyof typeof postDataTypes) {
+   const { endpoint } = postDataTypes[dataType];
+
+   if (!endpoint) {
+      throw new Error(`Invalid dataType: ${dataType}`);
+   }
+
+   return useMutation((bodyReq: T) => postData<T, R>(endpoint, bodyReq));
+}

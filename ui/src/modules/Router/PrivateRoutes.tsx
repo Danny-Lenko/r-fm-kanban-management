@@ -1,10 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../library/common/hooks';
-import { selectJwt } from '../../main/store/auth/authSlice';
 import { Layout } from '../Layout';
+import { useAuth } from '../../main/AuthProvider';
 
 export const PrivateRoutes = () => {
-   const isAuthenticated = useAppSelector(selectJwt);
+   const { isAuthenticated } = useAuth();
 
    return isAuthenticated ? (
       <Layout>
