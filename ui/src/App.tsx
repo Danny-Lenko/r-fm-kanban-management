@@ -30,11 +30,11 @@ function App() {
                <Routes>
                   <Route element={<PrivateRoutes />}>
                      <Route element={<AllBoards />} path='/'>
-                        <Route element={<MasonryGrid />} path='/' />
-                        <Route element={<Backlog />} path='/backlog' />
+                        <Route element={<MasonryGrid />} path='' />
+                        <Route element={<Backlog />} path='backlog' />
                      </Route>
 
-                     <Route element={<Board />} path='/:board' />
+                     <Route element={<Board />} path='boards/:id' />
                   </Route>
 
                   <Route element={<SignIn />} path='/sign-in' />

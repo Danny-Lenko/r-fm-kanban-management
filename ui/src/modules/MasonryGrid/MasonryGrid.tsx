@@ -1,43 +1,17 @@
-import { styled } from '@mui/material/styles';
+import { useCallback } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Masonry from '@mui/lab/Masonry';
 import {
-   Accordion,
    AccordionDetails,
    AccordionSummary,
+   Stack,
    Typography,
 } from '@mui/material';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
+import { BoardCard, CssAccordion, CssContainer } from '.';
+
 import { useCategories } from '../AllBoards';
-
-const heights = [150, 30, 90, 70, 90, 100, 150, 30, 50, 80];
-
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-   color: theme.palette.text.secondary,
-
-   // '& .Mui-expanded': {
-   //    '& .MuiAccordionSummary-root': {
-   //       border: '1px solid black',
-   //    },
-   // },
-
-   '& .MuiAccordionSummary-root.Mui-expanded': {
-      // border: '1px solid black',
-      background: 'lightgrey',
-   },
-}));
-
-const boxSx = {
-   // border: '1px solid black',
-   display: 'flex',
-   justifyContent: 'center',
-   px: '8px',
-   pt: '24px',
-   minHeight: '50vh',
-};
 
 const gridColumns = {
    xs: 1,
@@ -52,22 +26,38 @@ export const MasonryGrid = () => {
 
    console.log(categories);
 
+   const handleBoardDoubleClick = useCallback((board: any) => {
+      console.log('Clicked on board:', board);
+   }, []);
+
    return (
       <>
-         <Box sx={boxSx}>
+         <CssContainer>
             <Masonry columns={gridColumns} spacing={3}>
                {categories.map(({ category, boards }, i) => (
-                  <Paper key={crypto.randomUUID()}>
-                     <StyledAccordion defaultExpanded={i === 0}>
+                  <Paper elevation={0} key={crypto.randomUUID()}>
+                     <CssAccordion elevation={0} defaultExpanded={i === 0}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                            <Typography>{category}</Typography>
                         </AccordionSummary>
-                        <AccordionDetails>Contents</AccordionDetails>
-                     </StyledAccordion>
+                        <AccordionDetails>
+                           <Stack gap={2}>
+                              {boards.map((board) => (
+                                 <BoardCard
+                                    key={board.id}
+                                    board={board}
+                                    onDoubleClick={() =>
+                                       handleBoardDoubleClick(board)
+                                    }
+                                 />
+                              ))}
+                           </Stack>
+                        </AccordionDetails>
+                     </CssAccordion>
                   </Paper>
                ))}
             </Masonry>
-         </Box>
+         </CssContainer>
       </>
    );
 };

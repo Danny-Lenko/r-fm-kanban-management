@@ -1,9 +1,10 @@
 import { styled } from '@mui/material/styles';
-import { Paper, Tabs } from '@mui/material';
+import { Paper, Tabs, Box } from '@mui/material';
 
 export const CssContainer = styled(Paper)(({ theme }) => ({
    margin: `0 -${theme.spacing(1)}`,
    borderRadius: '12px',
+   boxShadow: 'unset',
 }));
 
 export const CssTabs = styled(Tabs)(({ theme }) => ({

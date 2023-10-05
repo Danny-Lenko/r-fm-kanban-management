@@ -48,7 +48,7 @@ export class BoardsService {
   }
 
   async getAllBoardsByCategories(user: UserEntity): Promise<ICategory[]> {
-    const boards = await this.getBoards({}, user);
+    const boards = await this.getBoardsWithColumns(user);
 
     const categoriesMap = new Map<string, BoardsEntity[]>();
     boards.forEach((board) => {

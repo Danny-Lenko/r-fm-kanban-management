@@ -69,6 +69,14 @@ export class BoardsController {
     return this.sharedService.getBoardById(id, user);
   }
 
+  @Get('/:id/with-columns')
+  getBoardByIdWithColumns(
+    @Param('id') id: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.sharedService.getBoardByIdWithColumns(id, user);
+  }
+
   @Post()
   createBoard(
     @Body() createBoardDto: CreateBoardDto,

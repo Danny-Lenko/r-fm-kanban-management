@@ -1,4 +1,4 @@
-import { Link, Outlet, useOutletContext } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import { Tab } from '@mui/material';
 
 import { useGetData } from '../../library/common/hooks';
@@ -11,6 +11,8 @@ import { IBoard } from '../../library/interfaces/interfaces';
 function ViewTabs() {
    const routeMatch = useRouteMatch(['/', '/backlog']);
    const currentTab = routeMatch?.pattern?.path;
+
+   const navigate = useNavigate();
 
    const tabSx = {
       textTransform: 'unset',
@@ -33,6 +35,7 @@ function ViewTabs() {
                component={Link}
                label={currentTab === '/backlog' ? 'Backlog' : 'View as Backlog'}
             />
+            {/* <button onClick={() => navigate('/my-board')}>Go To a Board</button> */}
          </CssTabs>
          <CssUnderline />
       </>
