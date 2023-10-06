@@ -85,6 +85,22 @@ export class BoardsService {
     }
   }
 
+  async getBoardByIdWithDetails(
+    id: string,
+    user: UserEntity,
+  ): Promise<BoardsEntity | undefined> {
+    const board = await this.boardsRepository.findOne({
+      where: { id, user },
+      relations: ['columns', 'columns.tasks', 'columns.tasks.subtasks'],
+    });
+
+    if (!board) {
+      throw new NotFoundException(`Board with id: ${id} not found`);
+    }
+
+    return board;
+  }
+
   async createBoard(
     createBoardDto: CreateBoardDto,
     user: UserEntity,

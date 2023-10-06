@@ -1,10 +1,9 @@
 import { Link, Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import { Tab } from '@mui/material';
 
-import { useGetData } from '../../library/common/hooks';
+import { useGetQuery, dataTypeNames } from '../../library/common/hooks';
 import { CssContainer, useRouteMatch, CssTabs, CssUnderline } from '.';
 
-import { getDataTypes } from '../../library/common/hooks';
 import { IBoard } from '../../library/interfaces/interfaces';
 
 // https://mui.com/material-ui/guides/routing/#tabs
@@ -48,16 +47,8 @@ interface ICategory {
 }
 
 export const AllBoards = () => {
-   const { categories } = getDataTypes;
-   const categoriesType = categories.name;
-
-   const { isLoading, error, data } = useGetData<ICategory[]>(
-      categoriesType as keyof typeof getDataTypes,
-   );
-
-   // if (data) {
-   //    console.log(data);
-   // }
+   const categories = dataTypeNames.categories;
+   const { isLoading, error, data } = useGetQuery<ICategory[]>(categories);
 
    if (isLoading) return <h1>...Loading</h1>;
 

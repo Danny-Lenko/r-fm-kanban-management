@@ -2,7 +2,7 @@ import React from 'react';
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { Typography, Stack } from '@mui/material';
 
-import { CssColumn, CssColorLabel } from '.';
+import { CssColumn, CssColorLabel, CssTaskButton } from '.';
 
 interface Props {
    name: string;
@@ -32,6 +32,7 @@ export const Column: React.FC<Props> = React.memo(
                </Typography>
             </Stack>
             {children}
+            <CssTaskButton children='+ add task' tasksNum={tasksNum} />
          </CssColumn>
       );
    },

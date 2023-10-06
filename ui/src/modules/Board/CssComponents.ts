@@ -10,7 +10,7 @@ export const CssBoard = styled(Stack)(({ theme }) => ({
 }));
 CssBoard.defaultProps = {
    direction: 'row',
-   spacing: 3,
+   // spacing: 3,
 };
 
 export const CssInteractiveScreen = styled(Stack)({});
@@ -21,13 +21,18 @@ CssInteractiveScreen.defaultProps = {
    spacing: 3,
 };
 
-export const CssColumnButton = styled(Button)(({ theme }) => ({
-   maxHeight: `calc(100% - 16px)`,
+export const CssAddButton = styled(Button)(({ theme }) => ({
+   color: theme.palette.greyCustom[200],
+   height: 'fit-content',
    borderRadius: '8px',
    textTransform: 'capitalize',
-   minWidth: '280px',
    backgroundColor: theme.palette.mode === 'light' ? '#E9EFFA' : '#2B2C37',
    '& .MuiTypography-root': {
       color: theme.palette.greyCustom[200],
    },
+}));
+
+export const CssColumnButton = styled(CssAddButton)(({ theme }) => ({
+   padding: '48px 0',
+   minWidth: '280px',
 }));

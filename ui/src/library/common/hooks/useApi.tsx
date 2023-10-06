@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-class RequestData {
+class QueryData {
    name: string;
    endpoint: string;
    key: string[];
@@ -13,31 +13,37 @@ class RequestData {
    }
 }
 
-export const Boards = new RequestData('boards', '/boards', ['boards']);
-export const Categories = new RequestData(
-   'categories',
-   '/boards/by-categories',
-   ['boards', 'by-categories'],
-);
-
-export const getDataTypes = {
-   boards: Boards,
-   categories: Categories,
-};
-
-export const SignIn = new RequestData('signin', '/auth/signin', ['signin']);
-
-export const postDataTypes = {
-   signin: SignIn,
-};
-
 const getData = async <T,>(endpoint: string): Promise<T> => {
    const { data } = await axios.get<T>(endpoint);
    return data;
 };
 
-export function useGetData<T>(dataType: keyof typeof getDataTypes) {
-   const { key, endpoint } = getDataTypes[dataType];
+export enum dataTypeNames {
+   boards = 'boards',
+   categories = 'categories',
+   boardDetails = 'boardDetails',
+}
+
+export function useGetQuery<T>(dataType: string, id?: string) {
+   const Boards = new QueryData('boards', '/boards', ['boards']);
+   const Categories = new QueryData('categories', '/boards/by-categories', [
+      'boards',
+      'by-categories',
+   ]);
+   const DetailedBoard = new QueryData(
+      'boardDetails',
+      `/boards/${id!}/with-details`,
+      ['boards', id!, 'with-details'],
+   );
+
+   const getDataTypes = {
+      boards: Boards,
+      categories: Categories,
+      boardDetails: DetailedBoard,
+   };
+
+   const { key, endpoint } =
+      getDataTypes[dataType as keyof typeof getDataTypes];
 
    if (!endpoint) {
       throw new Error(`Invalid dataType: ${dataType}`);
@@ -49,6 +55,12 @@ export function useGetData<T>(dataType: keyof typeof getDataTypes) {
 const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
    const { data } = await axios.post<R>(endpoint, bodyReq);
    return data;
+};
+
+export const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
+
+export const postDataTypes = {
+   signin: SignIn,
 };
 
 export function usePostData<T, R>(dataType: keyof typeof postDataTypes) {

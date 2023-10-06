@@ -1,6 +1,10 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Typography } from '@mui/material';
 
+import { useGetQuery, dataTypeNames } from '../../library/common/hooks';
+
+import { IBoard } from '../../library/interfaces';
+
 import {
    CssBoard,
    CssInteractiveScreen,
@@ -9,9 +13,20 @@ import {
    useNewColumn,
    TasksList,
 } from '.';
+import { useParams } from 'react-router-dom';
 
 export const Board = () => {
-   const { columns, addNewColumn } = useNewColumn();
+   // const { columns, addNewColumn } = useNewColumn();
+   const { id } = useParams<string>();
+
+   const boardDetails = dataTypeNames.boardDetails;
+   const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id);
+
+   if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
+
+   console.log(data);
+
+   const { columns } = data!;
 
    return (
       <CssBoard>
@@ -46,7 +61,9 @@ export const Board = () => {
             )}
          </Droppable>
 
-         <CssColumnButton onClick={addNewColumn}>
+         <CssColumnButton 
+            // onClick={addNewColumn}
+         >
             <Typography variant='h2'>+ New Column</Typography>
          </CssColumnButton>
       </CssBoard>

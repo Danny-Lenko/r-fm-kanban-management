@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import { BoardCard, CssAccordion, CssContainer } from '.';
 
 import { useCategories } from '../AllBoards';
+import { useNavigate } from 'react-router-dom';
 
 const gridColumns = {
    xs: 1,
@@ -23,11 +24,12 @@ const gridColumns = {
 
 export const MasonryGrid = () => {
    const categories = useCategories();
+   const navigate = useNavigate();
 
    console.log(categories);
 
-   const handleBoardDoubleClick = useCallback((board: any) => {
-      console.log('Clicked on board:', board);
+   const handleBoardDoubleClick = useCallback((id: string) => {
+      navigate(`/boards/${id}`);
    }, []);
 
    return (
@@ -47,7 +49,7 @@ export const MasonryGrid = () => {
                                     key={board.id}
                                     board={board}
                                     onDoubleClick={() =>
-                                       handleBoardDoubleClick(board)
+                                       handleBoardDoubleClick(board.id)
                                     }
                                  />
                               ))}
