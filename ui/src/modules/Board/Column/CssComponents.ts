@@ -21,16 +21,16 @@ export const CssColorLabel = styled(Box)<ColorLabel>(({ color }) => ({
 }));
 
 interface Props extends ButtonProps {
-   tasksNum: number;
+   tasksnum: number;
 }
 
 export const CssTaskButton = styled(CssAddButton)<Props>(
-   ({ theme, tasksNum }) => ({
+   ({ theme, tasksnum }) => ({
       padding: '28px 0',
       border: `3px solid ${theme.palette.divider}`,
       background: 'transparent',
       maxWidth: '100%',
       fontSize: 'larger',
-      transform: tasksNum === 0 ? 'translateY(-20px)' : 'none',
+      transform: tasksnum === 0 ? 'translateY(-20px)' : 'none',
    }),
 );

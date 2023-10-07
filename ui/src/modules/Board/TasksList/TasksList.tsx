@@ -12,7 +12,7 @@ interface Props {
 export const TasksList: React.FC<Props> = ({ columnId, tasks }) => {
    return (
       <Droppable droppableId={columnId} type='tasks'>
-         {(provided) => (
+         {(provided, snapshot) => (
             <CssList
                {...provided.droppableProps}
                ref={provided.innerRef}
@@ -20,13 +20,14 @@ export const TasksList: React.FC<Props> = ({ columnId, tasks }) => {
             >
                {tasks.map((task, index) => (
                   <Draggable draggableId={task.id} index={index} key={task.id}>
-                     {(provided) => (
+                     {(provided, snapshot) => (
                         <TaskCard
                            key={task.title}
                            {...{
                               ...task,
                               columnId,
                               provided,
+                              snapshot,
                            }}
                         />
                      )}

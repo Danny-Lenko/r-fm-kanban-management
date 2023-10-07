@@ -32,7 +32,7 @@ export const Column: React.FC<Props> = React.memo(
                </Typography>
             </Stack>
             {children}
-            <CssTaskButton children='+ add task' tasksNum={tasksNum} />
+            <CssTaskButton children='+ add task' tasksnum={tasksNum} />
          </CssColumn>
       );
    },

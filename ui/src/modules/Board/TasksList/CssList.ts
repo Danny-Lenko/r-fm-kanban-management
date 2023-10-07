@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { styled } from '@mui/system';
+import { motion } from 'framer-motion';
 
 export const CssList = styled(Stack)({
    overflowY: 'auto',
@@ -24,3 +25,4 @@ export const CssList = styled(Stack)({
 CssList.defaultProps = {
    spacing: 2.5,
 };
+

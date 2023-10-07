@@ -56,7 +56,7 @@ export const dataSlice = createSlice({
       boards: mockData,
       activeBoardId: '0',
       activeColumnId: '0',
-      activeTaskId: '0',
+      activeTaskId: '',
    },
 
    reducers: {

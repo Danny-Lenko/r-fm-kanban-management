@@ -19,10 +19,14 @@ const getModal = (type: ModalTypes) =>
       [ModalTypes.XsBoards]: XsBoardsModal,
    }[type]);
 
-export const AppModal: React.FC = () => {
+interface Props {
+   propType?: ModalTypes;
+}
+
+export const AppModal: React.FC<Props> = ({ propType }) => {
    const { type, open, getOnClose } = useAppModal();
 
-   const CustomModal = getModal(type);
+   const CustomModal = getModal(propType || type);
    const onClose = getOnClose(type);
    return (
       <Modal open={open} onClose={onClose}>

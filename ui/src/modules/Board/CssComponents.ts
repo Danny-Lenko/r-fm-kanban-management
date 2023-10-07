@@ -3,6 +3,7 @@ import { styled } from '@mui/system';
 import { AppbarHeight } from '../../library/common/constants';
 
 export const CssBoard = styled(Stack)(({ theme }) => ({
+   position: 'relative',
    height: `calc(100vh - ${AppbarHeight.Xs} - ${theme.spacing(4)})`,
    [theme.breakpoints.up('sm')]: {
       height: `calc(100vh - ${AppbarHeight.Sm} - ${theme.spacing(4)})`,

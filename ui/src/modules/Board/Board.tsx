@@ -1,7 +1,10 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Typography } from '@mui/material';
 
-import { useGetQuery, dataTypeNames } from '../../library/common/hooks';
+import {
+   useGetQuery,
+   dataTypeNames,
+} from '../../library/common/hooks';
 
 import { IBoard } from '../../library/interfaces';
 
@@ -14,6 +17,7 @@ import {
    TasksList,
 } from '.';
 import { useParams } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Board = () => {
    // const { columns, addNewColumn } = useNewColumn();
@@ -61,11 +65,13 @@ export const Board = () => {
             )}
          </Droppable>
 
-         <CssColumnButton 
-            // onClick={addNewColumn}
+         <CssColumnButton
+         // onClick={addNewColumn}
          >
             <Typography variant='h2'>+ New Column</Typography>
          </CssColumnButton>
+
+
       </CssBoard>
    );
 };
