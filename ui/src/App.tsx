@@ -15,6 +15,7 @@ import {
    MasonryGrid,
 } from './modules';
 import { AppModal } from './library/common/components';
+import { TestingPage } from './modules/TestingPage/TestingPage';
 
 export const ColorModeContext = createContext({ toggleClrMode: () => {} });
 
@@ -39,6 +40,9 @@ function App() {
 
                   <Route element={<SignIn />} path='/sign-in' />
                   <Route element={<SignUp />} path='/sign-up' />
+                  
+                  {/* =============================== Testing Page =============================== */}
+                  <Route element={<TestingPage />} path='testing-page' />
                </Routes>
             </DragDropContext>
             <AppModal />

@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -123,6 +124,7 @@ export function SignIn() {
             </Box>
          </Box>
          <Copyright sx={{ mt: 8, mb: 4 }} />
+         <RouterLink to={'/testing-page'}>GO TO TESTING PAGE</RouterLink>
       </Container>
    );
 }

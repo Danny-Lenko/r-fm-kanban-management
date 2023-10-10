@@ -1,34 +1,12 @@
+import React, { useState, useLayoutEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import React, {
-   SetStateAction,
-   useCallback,
-   useEffect,
-   useLayoutEffect,
-   useState,
-} from 'react';
-
-import { AnyAction, Dispatch } from '@reduxjs/toolkit';
-
-// import { Dispatch } from 'react';
-
+import { motion, AnimatePresence } from 'framer-motion';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { Box } from '@mui/material';
 
 import { ITask } from '../../../../library/interfaces/interfaces';
-import {
-   useAppDispatch,
-   useAppSelector,
-} from '../../../../library/common/hooks';
-import {
-   selectActiveTaskId,
-   setActiveColumndId,
-   setActiveTaskId,
-   setTaskManaging,
-} from '../../../../main/store';
 
 import { CssCard, CssTitle, CssSubtasks, ExpandedCard, Overlay } from '.';
-
-import { motion, AnimatePresence, usePresence } from 'framer-motion';
-import { Box } from '@mui/material';
 
 interface Props extends ITask {
    columnId: string;
@@ -38,37 +16,29 @@ interface Props extends ITask {
 
 export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
-      const dispatch = useAppDispatch();
+      const [expandId, setExpandId] = useState<string | null>('');
 
-      const [isPresent, safeToRemove] = usePresence();
-
-      const expandId = useAppSelector(selectActiveTaskId);
+      const ref = useRef<HTMLDivElement | null>(null);
 
       const completed =
          subtasks.length &&
          subtasks.filter(({ isCompleted }) => isCompleted).length;
 
-      const handleExpand = (id?: string) => {
-         if (id) {
-            return dispatch(setActiveTaskId(id));
-         }
-         dispatch(setActiveTaskId(null));
+      const handleExpand = () => {
+         setExpandId(id);
       };
 
       const handleCollapse = () => {
-         return dispatch(setActiveTaskId(null));
+         console.log(ref.current);
+
+         setExpandId(null);
       };
 
-      useEffect(() => {
+      useLayoutEffect(() => {
          console.log('provided');
-
-         dispatch(setActiveTaskId(null));
-         dispatch(setActiveTaskId(''));
-
-         return () => {
-            dispatch(setActiveTaskId(null));
-            dispatch(setActiveTaskId(''));
-         };
+         // setExpandId('hello');
+         // setExpandId(null);
+         // setExpandId('');
       }, [provided]);
 
       return (
@@ -89,9 +59,7 @@ export const TaskCard: React.FC<Props> = React.memo(
                   style={{
                      background: '#fff',
                   }}
-                  key={id}
-                  onClick={() => handleExpand(id)}
-                  initial={false}
+                  onClick={handleExpand}
                >
                   <CssTitle>{title}</CssTitle>
                   <CssSubtasks>
@@ -102,17 +70,12 @@ export const TaskCard: React.FC<Props> = React.memo(
                </CssCard>
             </Box>
 
-            <ModalWrapper
-               isShowing={!!expandId}
-               dispatch={dispatch}
-               setId={setActiveTaskId}
-            >
+            <ModalWrapper expandId={expandId} setExpandId={setExpandId}>
                <ExpandedCard
+                  ref={ref}
+                  // itemRef={ref}
                   layoutId={id}
-                  initial={false}
-                  onClick={() => {
-                     handleCollapse();
-                  }}
+                  onClick={handleCollapse}
                   key={id}
                >
                   <motion.h1>{title}</motion.h1>
@@ -125,26 +88,18 @@ export const TaskCard: React.FC<Props> = React.memo(
 
 interface ModalWrapperProps {
    children: React.ReactNode;
-   isShowing: boolean;
-   dispatch: Dispatch;
-   setId: (id: string) => AnyAction;
+   expandId: string | null;
+   setExpandId: (id: string) => void;
 }
 
-const ModalWrapper = ({
-   children,
-   isShowing,
-   dispatch,
-   setId,
-}: ModalWrapperProps) =>
+const ModalWrapper = ({ children, expandId, setExpandId }: ModalWrapperProps) =>
    ReactDOM.createPortal(
       <AnimatePresence
          initial={false}
-         onExitComplete={() => {
-            dispatch(setId(''));
-         }}
+         onExitComplete={() => setExpandId('')}
          mode='wait'
       >
-         {isShowing && <Overlay>{children}</Overlay>}
+         {!!expandId && <Overlay>{children}</Overlay>}
       </AnimatePresence>,
       document.body,
    );
