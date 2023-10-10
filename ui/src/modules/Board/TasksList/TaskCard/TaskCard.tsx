@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
@@ -18,7 +18,7 @@ export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
       const [expandId, setExpandId] = useState<string | null>('');
 
-      const ref = useRef<HTMLDivElement | null>(null);
+      const [isDragged, setIsDragged] = useState(false);
 
       const completed =
          subtasks.length &&
@@ -29,17 +29,20 @@ export const TaskCard: React.FC<Props> = React.memo(
       };
 
       const handleCollapse = () => {
-         console.log(ref.current);
-
          setExpandId(null);
+         setIsDragged(false);
       };
 
       useLayoutEffect(() => {
-         console.log('provided');
-         // setExpandId('hello');
-         // setExpandId(null);
-         // setExpandId('');
-      }, [provided]);
+         if (snapshot.isDragging) {
+            setIsDragged(true);
+         }
+      }, [snapshot.isDragging]);
+
+      const exitAfterDragDrop = {
+         transform: 'translate(0 0)',
+         opacity: 0,
+      };
 
       return (
          <>
@@ -72,11 +75,11 @@ export const TaskCard: React.FC<Props> = React.memo(
 
             <ModalWrapper expandId={expandId} setExpandId={setExpandId}>
                <ExpandedCard
-                  ref={ref}
-                  // itemRef={ref}
+                  // ref={ref}
                   layoutId={id}
                   onClick={handleCollapse}
                   key={id}
+                  exit={isDragged ? exitAfterDragDrop : undefined}
                >
                   <motion.h1>{title}</motion.h1>
                </ExpandedCard>

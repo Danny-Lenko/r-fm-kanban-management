@@ -41,9 +41,12 @@ export const TestingPage = () => {
                const style = refElement.getAttribute('style');
                if (style) {
                   const match = style.match(/circle\((\d+)px/);
+                  if (!match) {
+                     refElement.style.clipPath = `circle(${radius}px at ${cursorPosition.x}px ${cursorPosition.y}px)`;
+                  }
                   if (match && match[1]) {
                      const currentRadius = parseInt(match[1], 10);
-                     if (currentRadius > radius) {
+                     if (currentRadius !== radius) {
                         console.log('try return');
                         refElement.style.clipPath = `circle(${radius}px at ${cursorPosition.x}px ${cursorPosition.y}px)`;
                      }
@@ -77,7 +80,7 @@ export const TestingPage = () => {
                />
                <img
                   ref={ref}
-                  id='myId'
+                  // id='myId'
                   src={normal}
                   alt='Normal Question'
                   style={{
