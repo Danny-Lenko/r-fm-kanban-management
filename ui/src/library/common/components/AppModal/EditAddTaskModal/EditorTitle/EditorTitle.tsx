@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { CssTextField, CssLabel } from '../..';
+import { CssTextField, CssLabel } from '../../../modals/AppModal';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,

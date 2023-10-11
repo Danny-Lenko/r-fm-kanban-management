@@ -1,7 +1,7 @@
 import { MenuItem } from '@mui/material';
 import { FormikValues } from 'formik';
 
-import { CssLabel } from '../..';
+import { CssLabel } from '../../../modals/AppModal';
 import { AppSelect } from '../../..';
 
 interface Props extends FormikValues {

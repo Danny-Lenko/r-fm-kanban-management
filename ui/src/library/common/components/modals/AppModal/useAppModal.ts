@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
    setBoardDeleting,
    setTaskDeleting,
@@ -14,7 +14,7 @@ import {
    selectBoardEditing,
    selectBoardDeleting,
    selectXsBoardsOpen,
-} from '../../../../main/store';
+} from '../../../../../main/store';
 
 export enum ModalTypes {
    TaskManager,
