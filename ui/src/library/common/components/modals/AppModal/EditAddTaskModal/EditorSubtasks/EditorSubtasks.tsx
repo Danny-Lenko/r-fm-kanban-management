@@ -1,7 +1,7 @@
 import { FieldArray, FieldArrayRenderProps, FormikValues } from 'formik';
 import { Stack } from '@mui/material';
 
-import { AppBtn, CssLabel } from '../../..';
+import { AppBtn, CssLabel } from '../../../..';
 import { Subtask } from '.';
 
 export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {

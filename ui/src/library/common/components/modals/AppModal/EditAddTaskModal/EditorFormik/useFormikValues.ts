@@ -1,4 +1,4 @@
-import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { useAppSelector, useAppDispatch } from '../../../../../hooks';
 
 import { Values, createTask, saveChanges } from '.';
 import {
@@ -7,7 +7,7 @@ import {
    selectActiveTask,
    selectBoards,
    selectTaskIsExisting,
-} from '../../../../../../main/store';
+} from '../../../../../../../main/store';
 
 export const useFormikValues = () => {
    const boards = useAppSelector(selectBoards);

@@ -10,9 +10,9 @@ import {
    selectActiveColumnInfo,
    selectActiveTaskInfo,
    selectBoardDeleting,
-} from '../../../../../main/store';
-import { useAppSelector, useAppDispatch } from '../../../hooks';
-import { generateId } from '../../../../utilities/utils';
+} from '../../../../../../main/store';
+import { useAppSelector, useAppDispatch } from '../../../../hooks';
+import { generateId } from '../../../../../utilities/utils';
 
 export const useDeleteModal = () => {
    const boards = useAppSelector(selectBoards);

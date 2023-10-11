@@ -3,12 +3,12 @@ import {
    setExistingTask,
    setBoards,
    setActiveBoardId,
-} from '../../../../../../main/store';
+} from '../../../../../../../main/store';
 import {
    countCompletedSubtasks,
    generateId,
-} from '../../../../../utilities/utils';
-import { ISumbissionParams } from '../../../../../interfaces';
+} from '../../../../../../utilities/utils';
+import { ISumbissionParams } from '../../../../../../interfaces';
 
 export type Values = {
    title: string;

@@ -8,13 +8,13 @@ import {
    EditorSubtasks,
    EditorFormik,
 } from '.';
-import { AppBtn } from '../..';
+import { AppBtn } from '../../..';
 
-import { useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../../../hooks';
 import {
    selectActiveBoard,
    selectTaskIsExisting,
-} from '../../../../../main/store';
+} from '../../../../../../main/store';
 
 export const EditAddTaskModal = () => {
    const taskIsExisting = useAppSelector(selectTaskIsExisting);

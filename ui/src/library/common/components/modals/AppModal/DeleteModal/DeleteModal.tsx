@@ -1,5 +1,5 @@
 import { Typography, Stack } from '@mui/material';
-import { AppBtn } from '../../AppBtn';
+import { AppBtn } from '../../../AppBtn';
 import { DeleteBtn, useDeleteModal } from '.';
 
 export const DeleteModal: React.FC = () => {
