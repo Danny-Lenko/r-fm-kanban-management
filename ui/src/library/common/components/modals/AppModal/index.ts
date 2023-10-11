@@ -6,5 +6,5 @@ export * from './AppModal';
 export * from './CssContent';
 export * from './CssLabel';
 export * from './CssTextField';
-export * from '../../AppModal/EditBoardModal';
+export * from './EditBoardModal';
 export * from './XsBoardsModal';

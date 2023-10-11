@@ -3,10 +3,10 @@ import { v4 as uuid } from 'uuid';
 import {
    setBoardEditing,
    setBoardIsExisting,
-} from '../../../../../../main/store/modals/modalSlice';
-import { setBoards, setActiveBoardId } from '../../../../../../main/store';
+} from '../../../../../../../main/store/modals/modalSlice';
+import { setBoards, setActiveBoardId } from '../../../../../../../main/store';
 
-import { ISumbissionParams } from '../../../../../interfaces';
+import { ISumbissionParams } from '../../../../../../interfaces';
 
 export type BoardValues = {
    name: string;
