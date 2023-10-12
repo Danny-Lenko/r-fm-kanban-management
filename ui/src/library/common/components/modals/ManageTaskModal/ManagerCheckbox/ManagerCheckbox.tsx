@@ -2,7 +2,7 @@ import { FormikProps, FormikValues } from 'formik';
 import { FormGroup } from '@mui/material';
 
 import { CssControlLabel, CssCheckbox } from '.';
-import { CssLabel } from '../../../modals/AppModal';
+import { CssLabel } from '../../AppModal';
 
 type Props = {
    formikValues: {

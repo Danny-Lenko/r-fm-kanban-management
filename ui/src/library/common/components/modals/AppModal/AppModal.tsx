@@ -4,7 +4,7 @@ import {
    ModalTypes,
    DeleteModal,
    CssContent,
-   ManageTaskModal,
+   // ManageTaskModal,
    EditAddTaskModal,
    EditBoardModal,
    XsBoardsModal,
@@ -12,7 +12,7 @@ import {
 
 const getModal = (type: ModalTypes) =>
    ({
-      [ModalTypes.TaskManager]: ManageTaskModal,
+      // [ModalTypes.TaskManager]: ManageTaskModal,
       [ModalTypes.TaskEditor]: EditAddTaskModal,
       [ModalTypes.BoardEditor]: EditBoardModal,
       [ModalTypes.Remover]: DeleteModal,

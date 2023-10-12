@@ -22,9 +22,14 @@ export enum dataTypeNames {
    boards = 'boards',
    categories = 'categories',
    boardDetails = 'boardDetails',
+   taskById = 'taskById',
 }
 
-export function useGetQuery<T>(dataType: string, id?: string) {
+export function useGetQuery<T>(
+   dataType: string,
+   id?: string,
+   useQueryConfig?: Record<string, string | number>,
+) {
    const Boards = new QueryData('boards', '/boards', ['boards']);
    const Categories = new QueryData('categories', '/boards/by-categories', [
       'boards',
@@ -35,11 +40,13 @@ export function useGetQuery<T>(dataType: string, id?: string) {
       `/boards/${id!}/with-details`,
       ['boards', id!, 'with-details'],
    );
+   const TaskById = new QueryData('taskById', `tasks/${id}`, ['tasks', id!]);
 
    const getDataTypes = {
       boards: Boards,
       categories: Categories,
       boardDetails: DetailedBoard,
+      taskById: TaskById,
    };
 
    const { key, endpoint } =
@@ -49,8 +56,10 @@ export function useGetQuery<T>(dataType: string, id?: string) {
       throw new Error(`Invalid dataType: ${dataType}`);
    }
 
-   return useQuery(key, () => getData<T>(endpoint));
+   return useQuery(key, () => getData<T>(endpoint), useQueryConfig);
 }
+
+// ============================ POST
 
 const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
    const { data } = await axios.post<R>(endpoint, bodyReq);

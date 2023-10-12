@@ -13,11 +13,11 @@ import {
    CssInteractiveScreen,
    CssColumnButton,
    Column,
-   useNewColumn,
+   // useNewColumn,
    TasksList,
 } from '.';
 import { useParams } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+// import { AnimatePresence, motion } from 'framer-motion';
 
 export const Board = () => {
    // const { columns, addNewColumn } = useNewColumn();

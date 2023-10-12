@@ -1,12 +1,12 @@
-import React, { useState, useLayoutEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Box } from '@mui/material';
 
 import { ITask } from '../../../../library/interfaces/interfaces';
 
-import { CssCard, CssTitle, CssSubtasks, ExpandedCard, Overlay } from '.';
+import { CssCard, CssTitle, CssSubtasks } from '.';
+
+import { ManageTaskModal } from '../../../../library/common/components/modals/ManageTaskModal';
 
 interface Props extends ITask {
    columnId: string;
@@ -18,8 +18,6 @@ export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
       const [expandId, setExpandId] = useState<string | null>('');
 
-      const [isDragged, setIsDragged] = useState(false);
-
       const completed =
          subtasks.length &&
          subtasks.filter(({ isCompleted }) => isCompleted).length;
@@ -28,21 +26,7 @@ export const TaskCard: React.FC<Props> = React.memo(
          setExpandId(id);
       };
 
-      const handleCollapse = () => {
-         setExpandId(null);
-         setIsDragged(false);
-      };
-
-      useLayoutEffect(() => {
-         if (snapshot.isDragging) {
-            setIsDragged(true);
-         }
-      }, [snapshot.isDragging]);
-
-      const exitAfterDragDrop = {
-         transform: 'translate(0 0)',
-         opacity: 0,
-      };
+      const isDragging = snapshot.isDragging;
 
       return (
          <>
@@ -73,38 +57,12 @@ export const TaskCard: React.FC<Props> = React.memo(
                </CssCard>
             </Box>
 
-            <ModalWrapper expandId={expandId} setExpandId={setExpandId}>
-               <ExpandedCard
-                  // ref={ref}
-                  layoutId={id}
-                  onClick={handleCollapse}
-                  key={id}
-                  exit={isDragged ? exitAfterDragDrop : undefined}
-               >
-                  <motion.h1>{title}</motion.h1>
-               </ExpandedCard>
-            </ModalWrapper>
+            <ManageTaskModal
+               expandId={expandId}
+               setExpandId={setExpandId}
+               isDragging={isDragging}
+            />
          </>
       );
    },
 );
-
-interface ModalWrapperProps {
-   children: React.ReactNode;
-   expandId: string | null;
-   setExpandId: (id: string) => void;
-}
-
-const ModalWrapper = ({ children, expandId, setExpandId }: ModalWrapperProps) =>
-   ReactDOM.createPortal(
-      <AnimatePresence
-         initial={false}
-         onExitComplete={() => setExpandId('')}
-         mode='wait'
-      >
-         {!!expandId && <Overlay>{children}</Overlay>}
-      </AnimatePresence>,
-      document.body,
-   );
-
-export default ModalWrapper;

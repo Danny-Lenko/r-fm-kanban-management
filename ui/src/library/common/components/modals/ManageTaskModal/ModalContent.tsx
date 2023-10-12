@@ -13,7 +13,7 @@ import {
 
 import { CssHeading } from './CssComponents';
 
-export const ManageTaskModal = () => {
+export const ModalContent = () => {
    const submissionTrigger = useAppSelector(selectSubmissionTrigger);
    const dispatch = useAppDispatch();
 

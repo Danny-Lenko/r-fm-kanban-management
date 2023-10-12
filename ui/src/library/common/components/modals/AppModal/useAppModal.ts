@@ -8,7 +8,7 @@ import {
    setBoardEditing,
    setBoardIsExisting,
    setXsBoardsOpen,
-   selectTaskManaging,
+   // selectTaskManaging,
    selectTaskEditing,
    selectTaskDeleting,
    selectBoardEditing,
@@ -17,7 +17,7 @@ import {
 } from '../../../../../main/store';
 
 export enum ModalTypes {
-   TaskManager,
+   // TaskManager,
    TaskEditor,
    BoardEditor,
    Remover,
@@ -26,7 +26,7 @@ export enum ModalTypes {
 
 export const useAppModal = () => {
    // task modals
-   const taskManaging = useAppSelector(selectTaskManaging);
+   // const taskManaging = useAppSelector(selectTaskManaging);
    const taskEditing = useAppSelector(selectTaskEditing);
    const taskDeleting = useAppSelector(selectTaskDeleting);
    // board modals
@@ -36,7 +36,7 @@ export const useAppModal = () => {
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
    const open =
-      taskManaging ||
+      // taskManaging ||
       taskEditing ||
       boardEditing ||
       boardDeleting ||
@@ -47,8 +47,8 @@ export const useAppModal = () => {
 
    const type = boardDeleting
       ? ModalTypes.Remover
-      : taskManaging
-      ? ModalTypes.TaskManager
+      // : taskManaging
+      // ? ModalTypes.TaskManager
       : taskEditing
       ? ModalTypes.TaskEditor
       : boardEditing
@@ -62,9 +62,9 @@ export const useAppModal = () => {
       dispatch(setTaskDeleting(false));
    }
 
-   function closeTaskManager() {
-      dispatch(setSubmissionTrigger(true));
-   }
+   // function closeTaskManager() {
+   //    dispatch(setSubmissionTrigger(true));
+   // }
 
    function closeTaskEditor() {
       dispatch(setTaskEditing(false));
@@ -83,7 +83,7 @@ export const useAppModal = () => {
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
-         [ModalTypes.TaskManager]: closeTaskManager,
+         // [ModalTypes.TaskManager]: closeTaskManager,
          [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.BoardEditor]: closeBoardEditor,
          [ModalTypes.XsBoards]: closeXsBoards,

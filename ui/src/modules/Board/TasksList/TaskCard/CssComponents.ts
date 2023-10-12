@@ -1,4 +1,4 @@
-import { Paper, Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 import { motion } from 'framer-motion';
@@ -31,26 +31,3 @@ export const CssSubtasks = styled(motion.p)(({ theme }) => ({
 //    variant: 'body2',
 // };
 
-export const Overlay = styled(Box)({
-   position: 'absolute',
-   top: 0,
-   left: 0,
-   width: '100%',
-   height: '100%',
-   display: 'flex',
-   justifyContent: 'center',
-   alignItems: 'center',
-   background: 'rgba(0, 0, 0, 0.4)',
-   border: '1px solid black',
-
-   zIndex: 10000,
-});
-
-export const ExpandedCard = styled(motion.div)({
-   border: '1px solid black',
-   width: '400px',
-   background: '#fff',
-   cursor: 'pointer',
-   zIndex: 100,
-   boxShadow: '0px 4px 6px rgba(54, 78, 126, 0.101545)',
-});

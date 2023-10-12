@@ -1,5 +1,5 @@
 export { EditAddTaskModal } from './EditAddTaskModal';
-export { ManageTaskModal } from '../../AppModal/ManageTaskModal';
+export { ManageTaskModal } from '../ManageTaskModal';
 export * from './DeleteModal';
 export * from './useAppModal';
 export * from './AppModal';

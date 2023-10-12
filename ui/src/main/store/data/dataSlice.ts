@@ -89,7 +89,7 @@ export const dataSlice = createSlice({
       },
 
       dropTask: (state, { payload }) => {
-         state.boards = dropTaskHelper(state, payload);
+         state.boards = dropTaskHelper(state, payload); 
       },
    },
 });
