@@ -6,7 +6,9 @@ import { ITask } from '../../../../library/interfaces/interfaces';
 
 import { CssCard, CssTitle, CssSubtasks } from '.';
 
-import { ManageTaskModal } from '../../../../library/common/components/modals/ManageTaskModal';
+// import { ManageTaskModal } from '../../../../library/common/components/modals/ManageTaskModal';
+
+import { EditTaskModal } from '../../../../library/common/components';
 
 interface Props extends ITask {
    columnId: string;
@@ -57,10 +59,11 @@ export const TaskCard: React.FC<Props> = React.memo(
                </CssCard>
             </Box>
 
-            <ManageTaskModal
+            <EditTaskModal
                expandId={expandId}
                setExpandId={setExpandId}
                isDragging={isDragging}
+               title={title}
             />
          </>
       );

@@ -13,23 +13,39 @@ import {
 
 import { CssHeading } from './CssComponents';
 
-export const ModalContent = () => {
-   const submissionTrigger = useAppSelector(selectSubmissionTrigger);
-   const dispatch = useAppDispatch();
+import { dataTypeNames, useGetQuery } from '../../../hooks';
+import { ITask } from '../../../../interfaces';
 
-   const formikValues = useFormikValues();
-   const { formik, activeTask } = formikValues;
-   const { values, handleSubmit } = formik;
-   const { title, description } = activeTask!;
+export const ModalContent = ({ id }: { id: string }) => {
+   const taskById = dataTypeNames.taskById;
+   const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
+      staleTime: 60000,
+   });
 
-   useEffect(() => {
-      if (submissionTrigger) {
-         formik.handleSubmit();
+   if (isLoading) return <h1>...Loading</h1>;
 
-         dispatch(setSubmissionTrigger(false));
-         dispatch(setTaskManaging(false));
-      }
-   }, [submissionTrigger]);
+   if (error) return <h1>Error</h1>;
+
+   const { title, description } = data!;
+
+   console.log(data);
+
+   // const submissionTrigger = useAppSelector(selectSubmissionTrigger);
+   // const dispatch = useAppDispatch();
+
+   // const formikValues = useFormikValues();
+   // const { formik, activeTask } = formikValues;
+   // const { values, handleSubmit } = formik;
+   // const { title, description } = activeTask!;
+
+   // useEffect(() => {
+   //    if (submissionTrigger) {
+   //       formik.handleSubmit();
+
+   //       dispatch(setSubmissionTrigger(false));
+   //       dispatch(setTaskManaging(false));
+   //    }
+   // }, [submissionTrigger]);
 
    return (
       <>
@@ -39,14 +55,14 @@ export const ModalContent = () => {
          </CssHeading>
          <Typography variant='body1'>{description}</Typography>
 
-         <Formik initialValues={values} onSubmit={() => handleSubmit()}>
+         {/* <Formik initialValues={values} onSubmit={() => handleSubmit()}>
             {
                <Form>
                   <ManagerCheckbox formikValues={formikValues} />
                   <ManagerSelect formikValues={formikValues} />
                </Form>
             }
-         </Formik>
+         </Formik> */}
       </>
    );
 };

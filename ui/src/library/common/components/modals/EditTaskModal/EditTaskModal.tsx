@@ -16,7 +16,7 @@ const exitAfterDragDrop = {
    opacity: 0,
 };
 
-export const ManageTaskModal = ({
+export const EditTaskModal = ({
    expandId,
    setExpandId,
    isDragging,
