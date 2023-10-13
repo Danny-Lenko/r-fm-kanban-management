@@ -1,7 +1,13 @@
+import { useState, useEffect } from 'react';
+
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
 import { useFormikValues, Values } from '.';
+import { selectActiveTaskId } from '../../../../../../main/store/data/dataSelectors';
+
+import { useAppSelector, dataTypeNames, useGetQuery } from '../../../../hooks';
+import { ITask } from '../../../../../interfaces';
 
 type FormikValues = FormikProps<Values>;
 
@@ -43,15 +49,24 @@ const schema = Yup.object().shape({
 });
 
 export const EditorFormik: React.FC<Props> = ({ children }) => {
-   const { initialValues, submit } = useFormikValues();
+   // const { initialValues, submit } = useFormikValues();
+
+   // const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
+   //    staleTime: 60000,
+   // });
+
+   // const [initialValues, setInitialValues] = useState({});
+
+
+
+   // console.log(initialValues);
+
+
+
+
+   const submit = (values: Values) => {};
 
    return (
-      <Formik
-         initialValues={initialValues}
-         validationSchema={schema}
-         onSubmit={(values) => submit(values)}
-      >
-         {children}
-      </Formik>
+      <>Hello</>
    );
 };

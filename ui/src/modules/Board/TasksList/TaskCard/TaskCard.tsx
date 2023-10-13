@@ -8,6 +8,9 @@ import { CssCard, CssTitle, CssSubtasks } from '.';
 
 // import { ManageTaskModal } from '../../../../library/common/components/modals/ManageTaskModal';
 
+import { setActiveTaskId } from '../../../../main/store';
+import { useAppDispatch } from '../../../../library/common/hooks';
+
 import { EditTaskModal } from '../../../../library/common/components';
 
 interface Props extends ITask {
@@ -20,11 +23,14 @@ export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
       const [expandId, setExpandId] = useState<string | null>('');
 
+      const dispatch = useAppDispatch();
+
       const completed =
          subtasks.length &&
          subtasks.filter(({ isCompleted }) => isCompleted).length;
 
       const handleExpand = () => {
+         dispatch(setActiveTaskId(id));
          setExpandId(id);
       };
 

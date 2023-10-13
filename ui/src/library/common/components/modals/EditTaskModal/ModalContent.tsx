@@ -1,4 +1,6 @@
-import { Form } from 'formik';
+import { useState, useEffect, useLayoutEffect } from 'react';
+
+import { Form, Formik, FormikProps } from 'formik';
 import { Typography } from '@mui/material';
 
 import { dataTypeNames, useGetQuery } from '../../../hooks';
@@ -12,22 +14,10 @@ import {
    EditorSelect,
    EditorSubtasks,
    EditorFormik,
+   Values,
 } from '.';
 
 export const ModalContent = ({ id }: { id: string }) => {
-   const taskById = dataTypeNames.taskById;
-   const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
-      staleTime: 60000,
-   });
-
-   // if (isLoading) return <h1>...Loading</h1>;
-
-   // if (error) return <h1>Error</h1>;
-
-   // const { title, description } = data!;
-
-   console.log(data);
-
    const btnProps = {
       type: 'submit' as 'submit',
       buttonSize: 'small' as 'small',
@@ -36,28 +26,84 @@ export const ModalContent = ({ id }: { id: string }) => {
       sx: { marginTop: 4 },
    };
 
+   // console.log(initialValues);
+
+   const submit = (values: Values) => {};
+
+   const taskById = dataTypeNames.taskById;
+   const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
+      staleTime: 60000,
+   });
+
+   const loadingValues = {
+      title: '...Loading',
+      description: '...Loading',
+      subtasks: ['...Loading', '...Loading'],
+      status: '...Loading',
+   };
+
+   // const initialValues = {
+   //    title: data?.title,
+   //    description: data!.description,
+   //    subtasks: data!.subtasks.map((sub) => sub.title),
+   //    status: data!.status,
+   // };
+
+   console.log(isLoading);
+   console.log(data);
+
    return (
       <>
          {/* <Typography variant='h3'>
             {taskIsExisting ? 'Edit task' : 'Add new task'}
          </Typography> */}
+         {/* <EditorFormik> */}
 
-         <EditorFormik>
-            {(props) => {
-               return (
-                  <Form>
-                     <EditorTitle {...props} />
-                     <EditorDescription {...props} />
-                     <EditorSubtasks {...props} />
-                     {/* <EditorSelect options={selectOptions} {...props} /> */}
-                     <AppBtn {...btnProps}>
-                        {/* {taskIsExisting ? 'Save Changes' : 'Create Task'} */}
-                        {'Save Changes'}
-                     </AppBtn>
-                  </Form>
-               );
-            }}
-         </EditorFormik>
+         {isLoading && (
+            <Formik initialValues={loadingValues} onSubmit={submit}>
+               {(props) => {
+                  return (
+                     <Form>
+                        <EditorTitle {...props} />
+                        <EditorDescription {...props} />
+                        <EditorSubtasks {...props} />
+                        {/* <EditorSelect options={selectOptions} {...props} /> */}
+                        <AppBtn {...btnProps}>
+                           {/* {taskIsExisting ? 'Save Changes' : 'Create Task'} */}
+                           {'Save Changes'}
+                        </AppBtn>
+                     </Form>
+                  );
+               }}
+            </Formik>
+         )}
+
+         {data && (
+            <Formik
+               initialValues={{
+                  title: data?.title,
+                  description: data!.description,
+                  subtasks: data!.subtasks.map((sub) => sub.title),
+                  status: data!.status,
+               }}
+               onSubmit={submit}
+            >
+               {(props) => {
+                  return (
+                     <Form>
+                        <EditorTitle {...props} />
+                        <EditorDescription {...props} />
+                        <EditorSubtasks {...props} />
+                        {/* <EditorSelect options={selectOptions} {...props} /> */}
+                        <AppBtn {...btnProps}>
+                           {/* {taskIsExisting ? 'Save Changes' : 'Create Task'} */}
+                           {'Save Changes'}
+                        </AppBtn>
+                     </Form>
+                  );
+               }}
+            </Formik>
+         )}
       </>
    );
 };
