@@ -1,7 +1,5 @@
 import { Form, Formik } from 'formik';
 
-import { AppBtn } from '../../..';
-
 import {
    EditorTitle,
    EditorDescription,
@@ -10,8 +8,11 @@ import {
    Values,
    editTaskSchema,
 } from '..';
+import { CssButton } from '.';
 
 import { ISubtask } from '../../../../../interfaces';
+
+import { ManagerCheckbox } from '../../ManageTaskModal';
 
 interface Props {
    title: string;
@@ -28,20 +29,13 @@ export const EditTaskFormik: React.FC<Props> = ({
 }) => {
    const submit = (values: Values) => {};
 
-   const btnProps = {
-      type: 'submit' as 'submit',
-      buttonSize: 'small' as 'small',
-      color: 'primary' as 'primary',
-      fullWidth: true,
-      sx: { marginTop: 4 },
-   };
-
    return (
       <Formik
          initialValues={{
             title,
             description,
             subtasks: subtasks.map((sub) => sub.title),
+            // subtasks,
             status,
          }}
          onSubmit={submit}
@@ -53,11 +47,10 @@ export const EditTaskFormik: React.FC<Props> = ({
                   <EditorTitle {...props} />
                   <EditorDescription {...props} />
                   <EditorSubtasks {...props} />
+
+                  <ManagerCheckbox {...{ ...props, subtasks }} />
                   {/* <EditorSelect options={selectOptions} {...props} /> */}
-                  <AppBtn {...btnProps}>
-                     {/* {taskIsExisting ? 'Save Changes' : 'Create Task'} */}
-                     {'Save Changes'}
-                  </AppBtn>
+                  <CssButton />
                </Form>
             );
          }}

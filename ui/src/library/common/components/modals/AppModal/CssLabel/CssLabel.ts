@@ -8,5 +8,5 @@ export const CssLabel = styled(InputLabel)(({ theme }) => ({
       theme.palette.mode === 'light'
          ? theme.palette.greyCustom[200]
          : theme.palette.common.white,
-   margin: '24px 0 8px',
+   margin: '16px 0 4px',
 }));

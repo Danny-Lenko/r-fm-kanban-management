@@ -24,7 +24,6 @@ export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
 
    const stackProps = {
       direction: 'row' as 'row',
-      gap: 2,
    };
 
    const fieldProps = {
@@ -36,7 +35,7 @@ export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
    };
 
    const xButtonProps = {
-      sx: { '&:hover': { backgroundColor: 'transparent' } },
+      // sx: { '&:hover': { backgroundColor: 'transparent' } },
       onClick: () => removeSubtask({ arrayHelpers, index }),
    };
 

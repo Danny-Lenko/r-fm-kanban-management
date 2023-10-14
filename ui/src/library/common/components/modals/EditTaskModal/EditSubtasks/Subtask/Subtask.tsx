@@ -4,7 +4,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { IFieldArray } from '../../../../../../interfaces';
 
 import { useSubtaskProps } from '.';
-import { CssTextField } from '../../..';
+import { CssTextField } from '../..';
 
 export const Subtask: React.FC<IFieldArray> = (props) => {
    const { stackProps, field, fieldProps, xButtonProps } =

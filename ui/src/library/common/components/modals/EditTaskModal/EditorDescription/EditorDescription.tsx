@@ -1,5 +1,7 @@
 import { FormikValues } from 'formik';
-import { CssLabel, CssTextField } from '../../AppModal';
+import { CssLabel } from '../../AppModal';
+
+import { CssTextField } from '../CssTextField';
 
 export const EditorDescription: React.FC<FormikValues> = ({
    values,
@@ -10,7 +12,7 @@ export const EditorDescription: React.FC<FormikValues> = ({
    const fieldProps = {
       placeholder: `e.g. It's always good to take a break. This 15 minute break will recharge the batteries a little.`,
       multiline: true,
-      rows: 4,
+      maxRows: 3,
       fullWidth: true,
       id: 'description',
       name: 'description',

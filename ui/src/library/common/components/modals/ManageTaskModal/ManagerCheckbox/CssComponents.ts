@@ -10,6 +10,7 @@ type Props = {
 
 export const CssControlLabel = styled(FormControlLabel)<Props>(
    ({ theme, subtask }) => ({
+      maxWidth: 'min-content',
       backgroundColor: theme.palette.background.default,
       margin: 0,
       marginTop: '8px',

@@ -4,54 +4,70 @@ import { FormGroup } from '@mui/material';
 import { CssControlLabel, CssCheckbox } from '.';
 import { CssLabel } from '../../AppModal';
 
-type Props = {
-   formikValues: {
-      formik: FormikProps<FormikValues>;
-      activeTask: Task;
-   };
-};
+// type Props = {
+//    formikValues: {
+//       formik: FormikProps<FormikValues>;
+//       activeTask: Task;
+//    };
+// };
 
-type Task = {
-   id: string;
-   completedSubtasks: number;
-   title: string;
-   description: string;
-   status: string;
-   subtasks: Subtask[];
-};
+// type Task = {
+//    id: string;
+//    completedSubtasks: number;
+//    title: string;
+//    description: string;
+//    status: string;
+//    subtasks: Subtask[];
+// };
 
-type Subtask = {
-   title: string;
-   isCompleted: boolean;
-};
+// type Subtask = {
+//    title: string;
+//    isCompleted: boolean;
+// };
 
-export const ManagerCheckbox: React.FC<Props> = ({ formikValues }) => {
-   const { formik, activeTask } = formikValues;
-   const { completedSubtasks, subtasks } = activeTask;
+import { Subtask } from '../../EditTaskModal';
+
+import { ISubtask } from '../../../../../interfaces';
+
+export const ManagerCheckbox: React.FC<FormikValues> = ({
+   values,
+   subtasks,
+}) => {
+   // const { formik, activeTask } = formikValues;
+   // const { completedSubtasks, subtasks } = activeTask;
+
+   // const subtasks = values.subtasks as ISubtask[];
+
+   console.log(values);
 
    return (
       <>
-         <CssLabel>
+         {/* <CssLabel>
             Subtasks ({completedSubtasks} of {subtasks.length})
-         </CssLabel>
+         </CssLabel> */}
          <FormGroup>
-            {subtasks.map((subtask) => {
+            {subtasks.map((subtask: ISubtask) => {
                const { title, isCompleted } = subtask;
 
                return (
-                  <CssControlLabel
-                     key={title}
-                     subtask={subtask}
-                     control={
-                        <CssCheckbox
-                           value={title}
-                           defaultChecked={isCompleted}
-                        />
-                     }
-                     label={title}
-                     name='checked'
-                     onChange={formik.handleChange}
-                  />
+                  <>
+                     <CssControlLabel
+                        key={title}
+                        subtask={subtask}
+                        // subtask={'hello'}
+
+                        control={
+                           <CssCheckbox
+                              value={title}
+                              defaultChecked={isCompleted}
+                           />
+                        }
+                        label={''}
+                        name='checked'
+                        // onChange={formik.handleChange}
+                     />
+                     {/* <Subtask  /> */}
+                  </>
                );
             })}
          </FormGroup>

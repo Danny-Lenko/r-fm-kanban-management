@@ -1,5 +1,10 @@
 import { FormikValues } from 'formik';
-import { CssTextField, CssLabel } from '../../AppModal';
+import {
+   // CssTextField,
+   CssLabel,
+} from '../../AppModal';
+import { CssTextField } from '..';
+// import { sx } from '../../AppModal/EditBoardModal/ColumnFields/boardColumnsFieldArrStyles';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,
@@ -18,6 +23,10 @@ export const EditorTitle: React.FC<FormikValues> = ({
       onBlur: handleBlur,
       error: touched.title && !!errors.title,
       helperText: touched.title && errors.title,
+      fontSize: '1.1rem'
+      // sx: {{
+      //    fontSize: '1.1rem',
+      // }},
    };
 
    return (

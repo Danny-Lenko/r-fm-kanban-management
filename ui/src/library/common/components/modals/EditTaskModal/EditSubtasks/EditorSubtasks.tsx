@@ -9,6 +9,8 @@ export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
       arr.push('');
    };
 
+   const { subtasks } = values;
+
    return (
       <>
          <CssLabel children='Subtask' />
@@ -16,8 +18,8 @@ export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
          <FieldArray
             name='subtasks'
             render={(arrayHelpers) => (
-               <Stack gap={1.5}>
-                  {values.subtasks.map((_: string, index: number) => (
+               <Stack>
+                  {subtasks.map((_: string, index: number) => (
                      <Subtask
                         key={index}
                         index={index}
@@ -29,6 +31,7 @@ export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
                      onClick={() => addSubtask(arrayHelpers)}
                      buttonSize='small'
                      color='secondary'
+                     sx={{ marginTop: 1 }}
                   >
                      + Add New Subtask
                   </AppBtn>
