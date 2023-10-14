@@ -46,7 +46,8 @@ export const TestingPage = () => {
          //     ? (clientX / width) * 100
          //     : (clientX / (width + 800)) * 100;
          const percentageX = (clientX / width) * 100;
-         const percentageY = ((clientY - radius) / height) * 100;
+         //  const percentageY = ((clientY - radius) / height) * 100;
+         const percentageY = (clientY / height) * 100;
 
          return setTextRelativePosition({ x: percentageX, y: percentageY });
       }
@@ -56,7 +57,8 @@ export const TestingPage = () => {
 
    const getCroppedStyles = () => {
       const { x, y } = cursorPosition;
-      const yCorrection = y - radius - textHeight;
+      const yCorrection = y - textHeight;
+      // const yCorrection = y - radius - textHeight;
 
       return {
          clipPath: `circle(${radius}px at ${x}px ${yCorrection}px)`,
@@ -111,7 +113,7 @@ export const TestingPage = () => {
    }, []);
 
    return (
-      <div onMouseMove={handleMouseMove}>
+      <div onMouseMove={handleMouseMove} style={{ cursor: 'none' }}>
          <h1 style={{ margin: 0 }}>Hello Testing Page</h1>
          <div
             style={{
