@@ -37,6 +37,7 @@ export interface IBoard {
 export interface IFieldArray {
    index: number;
    arrayHelpers: FieldArrayRenderProps;
+   subtask?: ISubtask;
 }
 
 export interface ISumbissionParams {

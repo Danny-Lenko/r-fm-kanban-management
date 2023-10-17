@@ -2,31 +2,19 @@ import { styled } from '@mui/system';
 import { FormControlLabel, Checkbox } from '@mui/material';
 
 type Props = {
-   subtask: {
-      title: string;
-      isCompleted: boolean;
-   };
+   completed: number | null;
 };
 
 export const CssControlLabel = styled(FormControlLabel)<Props>(
-   ({ theme, subtask }) => ({
+   ({ theme, completed }) => ({
       maxWidth: 'min-content',
+
       backgroundColor: theme.palette.background.default,
       margin: 0,
-      marginTop: '8px',
       borderRadius: '4px',
+      marginRight: '8px',
       '&:hover': {
          backgroundColor: 'rgba(99, 95, 199, 0.25)',
-      },
-
-      '& .MuiTypography-root': {
-         padding: '8px 0 8px 0',
-         marginBottom: 0,
-         fontSize: 12 / 16 + 'rem',
-         fontWeight: 700,
-         color: !subtask.isCompleted
-            ? theme.palette.text.primary
-            : theme.palette.greyCustom[200],
       },
    }),
 );

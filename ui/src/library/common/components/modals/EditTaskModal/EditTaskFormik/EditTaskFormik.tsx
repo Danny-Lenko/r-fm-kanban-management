@@ -46,9 +46,9 @@ export const EditTaskFormik: React.FC<Props> = ({
                <Form>
                   <EditorTitle {...props} />
                   <EditorDescription {...props} />
-                  <EditorSubtasks {...props} />
+                  <EditorSubtasks {...{ ...props, subtasks }} />
 
-                  <ManagerCheckbox {...{ ...props, subtasks }} />
+                  {/* <ManagerCheckbox {...{ ...props, subtasks }} /> */}
                   {/* <EditorSelect options={selectOptions} {...props} /> */}
                   <CssButton />
                </Form>

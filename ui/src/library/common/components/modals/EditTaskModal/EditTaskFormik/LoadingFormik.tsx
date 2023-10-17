@@ -27,7 +27,7 @@ export const LoadingFormik = () => {
                <Form>
                   <EditorTitle {...props} />
                   <EditorDescription {...props} />
-                  <EditorSubtasks {...props} />
+                  {/* <EditorSubtasks {...props} /> */}
                   {/* <EditorSelect options={selectOptions} {...props} /> */}
                   <CssButton />
                </Form>

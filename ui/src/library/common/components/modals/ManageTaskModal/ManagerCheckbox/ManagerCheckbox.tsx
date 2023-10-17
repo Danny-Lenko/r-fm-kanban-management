@@ -50,24 +50,22 @@ export const ManagerCheckbox: React.FC<FormikValues> = ({
                const { title, isCompleted } = subtask;
 
                return (
-                  <>
-                     <CssControlLabel
-                        key={title}
-                        subtask={subtask}
-                        // subtask={'hello'}
-
-                        control={
-                           <CssCheckbox
-                              value={title}
-                              defaultChecked={isCompleted}
-                           />
-                        }
-                        label={''}
-                        name='checked'
-                        // onChange={formik.handleChange}
-                     />
-                     {/* <Subtask  /> */}
-                  </>
+                  // <>
+                  <CssControlLabel
+                     key={title}
+                     completed={isCompleted ? 1 : null}
+                     control={
+                        <CssCheckbox
+                           value={title}
+                           defaultChecked={isCompleted}
+                        />
+                     }
+                     // label={title}
+                     label={''}
+                     name='checked'
+                     // onChange={formik.handleChange}
+                  />
+                  // </>
                );
             })}
          </FormGroup>
