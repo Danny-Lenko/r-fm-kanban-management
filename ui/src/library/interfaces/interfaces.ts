@@ -18,6 +18,7 @@ export interface ITask {
    description: string;
    status: string;
    subtasks: ISubtask[];
+   columnOptions: string[];
 }
 
 export interface IColumn {

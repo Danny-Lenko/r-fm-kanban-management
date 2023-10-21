@@ -3,11 +3,7 @@ import { Stack } from '@mui/material';
 
 import { AppBtn, CssLabel } from '../../..';
 import { Subtask } from '.';
-
-import { CssControlLabel } from '../../ManageTaskModal';
 import { ISubtask } from '../../../../../interfaces';
-
-import { CssCheckbox } from '../../ManageTaskModal';
 
 interface Props extends FormikValues {
    subtasks: ISubtask[];
@@ -18,12 +14,9 @@ export const EditorSubtasks: React.FC<Props> = ({ values, subtasks }) => {
       arr.push('');
    };
 
-   console.log(subtasks);
-   // const { subtasks } = values;
-
    return (
       <>
-         <CssLabel children='Subtask' />
+         <CssLabel children='Subtasks' />
 
          <FieldArray
             name='subtasks'

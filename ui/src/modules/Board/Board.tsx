@@ -1,10 +1,7 @@
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Typography } from '@mui/material';
 
-import {
-   useGetQuery,
-   dataTypeNames,
-} from '../../library/common/hooks';
+import { useGetQuery, dataTypeNames } from '../../library/common/hooks';
 
 import { IBoard } from '../../library/interfaces';
 
@@ -24,13 +21,18 @@ export const Board = () => {
    const { id } = useParams<string>();
 
    const boardDetails = dataTypeNames.boardDetails;
-   const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id);
+   const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id, {
+      staleTime: 1000 * 60 * 20,
+   });
 
    if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
 
    console.log(data);
 
    const { columns } = data!;
+   const columnNames = columns.map((column) => column.name);
+
+   
 
    return (
       <CssBoard>
@@ -70,8 +72,6 @@ export const Board = () => {
          >
             <Typography variant='h2'>+ New Column</Typography>
          </CssColumnButton>
-
-
       </CssBoard>
    );
 };

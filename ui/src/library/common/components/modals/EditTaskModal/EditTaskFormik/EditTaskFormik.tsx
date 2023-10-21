@@ -12,13 +12,12 @@ import { CssButton } from '.';
 
 import { ISubtask } from '../../../../../interfaces';
 
-import { ManagerCheckbox } from '../../ManageTaskModal';
-
 interface Props {
    title: string;
    description: string;
    subtasks: ISubtask[];
    status: string;
+   columnOptions: string[];
 }
 
 export const EditTaskFormik: React.FC<Props> = ({
@@ -26,6 +25,7 @@ export const EditTaskFormik: React.FC<Props> = ({
    description,
    subtasks,
    status,
+   columnOptions,
 }) => {
    const submit = (values: Values) => {};
 
@@ -35,21 +35,20 @@ export const EditTaskFormik: React.FC<Props> = ({
             title,
             description,
             subtasks: subtasks.map((sub) => sub.title),
-            // subtasks,
             status,
+            columnOptions,
          }}
          onSubmit={submit}
          validationSchema={editTaskSchema}
       >
          {(props) => {
+            console.log(props);
             return (
                <Form>
                   <EditorTitle {...props} />
                   <EditorDescription {...props} />
                   <EditorSubtasks {...{ ...props, subtasks }} />
-
-                  {/* <ManagerCheckbox {...{ ...props, subtasks }} /> */}
-                  {/* <EditorSelect options={selectOptions} {...props} /> */}
+                  <EditorSelect {...{ ...props, columnOptions }} />
                   <CssButton />
                </Form>
             );
@@ -57,30 +56,3 @@ export const EditTaskFormik: React.FC<Props> = ({
       </Formik>
    );
 };
-
-{
-   /* <Formik
-initialValues={{
-   title: data?.title,
-   description: data!.description,
-   subtasks: data!.subtasks.map((sub) => sub.title),
-   status: data!.status,
-}}
-onSubmit={submit}
->
-{(props) => {
-   return (
-      <Form>
-         <EditorTitle {...props} />
-         <EditorDescription {...props} />
-         <EditorSubtasks {...props} />
-         <EditorSelect options={selectOptions} {...props} />
-         <AppBtn {...btnProps}>
-            {taskIsExisting ? 'Save Changes' : 'Create Task'}
-            {'Save Changes'}
-         </AppBtn>
-      </Form>
-   );
-}}
-</Formik> */
-}

@@ -41,10 +41,10 @@ export const useBoardFormik = () => {
       activeColumnId,
    };
 
-   const submit = (values: BoardValues) =>
-      boardIsExisting
-         ? saveBoardChanges({ values, ...submissionParams })
-         : createBoard({ values, ...submissionParams });
+   const submit = (values: BoardValues) => {};
+   // boardIsExisting
+   //    ? saveBoardChanges({ values, ...submissionParams })
+   //    : createBoard({ values, ...submissionParams });
 
    return {
       initialValues,

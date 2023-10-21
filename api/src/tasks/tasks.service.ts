@@ -20,12 +20,24 @@ export class TasksService {
   async getTaskById(id: string): Promise<TasksEntity> {
     const task = await this.tasksRepository.findOne({
       where: { id },
-      relations: ['subtasks'],
+      relations: ['subtasks', 'column', 'column.board', 'column.board.columns'],
     });
 
     if (!task) {
       throw new NotFoundException(`task with id: ${id} was not found`);
     }
+
+    const column = task.column;
+
+    if (!column) {
+      throw new NotFoundException(
+        `Column associated with task id: ${id} was not found`,
+      );
+    }
+
+    const columnOptions = column.board.columns.map((column) => column.name);
+
+    task['columnOptions'] = columnOptions;
 
     return task;
   }
@@ -118,5 +130,4 @@ export class TasksService {
       }
     }
   }
-  
 }
