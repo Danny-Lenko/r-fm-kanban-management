@@ -16,7 +16,14 @@ export const LoadingFormik = () => {
    const loadingValues = {
       title: '...Loading',
       description: '...Loading',
-      subtasks: ['...Loading', '...Loading'],
+      subtasks: [
+         {
+            title: '...Loading',
+            description: 'loading',
+            status: 'loading',
+            isCompleted: false,
+         },
+      ],
       status: '...Loading',
    };
 

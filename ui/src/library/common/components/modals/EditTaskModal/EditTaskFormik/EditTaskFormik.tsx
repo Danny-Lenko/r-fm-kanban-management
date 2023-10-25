@@ -11,6 +11,7 @@ import {
 import { CssButton } from '.';
 
 import { ISubtask } from '../../../../../interfaces';
+import { Stack } from '@mui/material';
 
 interface Props {
    title: string;
@@ -27,29 +28,41 @@ export const EditTaskFormik: React.FC<Props> = ({
    status,
    columnOptions,
 }) => {
-   const submit = (values: Values) => {};
+   const submit = (values: Values) => {
+      console.log(values);
+   };
 
    return (
       <Formik
          initialValues={{
             title,
             description,
-            subtasks: subtasks.map((sub) => sub.title),
+            // subtasks: subtasks.map((sub) => sub.title),
+            subtasks: subtasks,
             status,
             columnOptions,
          }}
-         onSubmit={submit}
+         onSubmit={(values) => submit(values)}
          validationSchema={editTaskSchema}
       >
          {(props) => {
-            console.log(props);
+            console.log(props.dirty);
             return (
                <Form>
                   <EditorTitle {...props} />
                   <EditorDescription {...props} />
                   <EditorSubtasks {...{ ...props, subtasks }} />
                   <EditorSelect {...{ ...props, columnOptions }} />
-                  <CssButton />
+                  <Stack direction='row' gap={1}>
+                     <CssButton disabled={!props.dirty} />
+                     <CssButton
+                        type='button'
+                        disabled={!props.dirty}
+                        onClick={() => props.resetForm()}
+                        children={'reset form'}
+                        color='warning'
+                     />
+                  </Stack>
                </Form>
             );
          }}

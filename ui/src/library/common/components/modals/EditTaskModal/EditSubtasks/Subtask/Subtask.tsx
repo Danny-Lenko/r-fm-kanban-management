@@ -22,12 +22,13 @@ export const Subtask: React.FC<IFieldArray> = (props) => {
       event: React.ChangeEvent<HTMLInputElement>,
    ) => {
       setIsChecked(event.target.checked);
-      console.log('state changed')
+      console.log('state changed');
    };
 
    return (
       <Stack {...stackProps}>
          <CssControlLabel
+            // {...field}
             key={title}
             completed={isCompleted ? 1 : null}
             control={

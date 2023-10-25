@@ -8,12 +8,12 @@ import {
    countCompletedSubtasks,
    generateId,
 } from '../../../../../utilities/utils';
-import { ISumbissionParams } from '../../../../../interfaces';
+import { ISubtask, ISumbissionParams } from '../../../../../interfaces';
 
 export type Values = {
    title: string;
    description: string;
-   subtasks: string[];
+   subtasks: ISubtask[];
    status: string;
 };
 
@@ -63,68 +63,68 @@ export const createTask = ({
 };
 
 // saveChanges
-export const saveChanges = ({
-   values,
-   columns,
-   boards,
-   activeBoard,
-   activeBoardId,
-   dispatch,
-   activeTask,
-   activeColumnId,
-}: Props) => {
-   let taskUpdated = {
-      ...activeTask,
-      ...values,
-      subtasks: values.subtasks.map((sub, i) =>
-         activeTask!.subtasks[i] && sub === activeTask!.subtasks[i].title
-            ? activeTask!.subtasks[i]
-            : { title: sub, isCompleted: false },
-      ),
-   };
-   taskUpdated = {
-      ...taskUpdated,
-      completedSubtasks: countCompletedSubtasks(taskUpdated),
-   };
-   const pastCol = columns.find((col) => col.id === activeColumnId);
-   const futureCol = columns.find((col) => col.name === values.status);
-   const statusChanged = taskUpdated.status !== pastCol!.name;
+// export const saveChanges = ({
+//    values,
+//    columns,
+//    boards,
+//    activeBoard,
+//    activeBoardId,
+//    dispatch,
+//    activeTask,
+//    activeColumnId,
+// }: Props) => {
+//    let taskUpdated = {
+//       ...activeTask,
+//       ...values,
+//       subtasks: values.subtasks.map((sub, i) =>
+//          activeTask!.subtasks[i] && sub === activeTask!.subtasks[i].title
+//             ? activeTask!.subtasks[i]
+//             : { title: sub, isCompleted: false },
+//       ),
+//    };
+//    taskUpdated = {
+//       ...taskUpdated,
+//       completedSubtasks: countCompletedSubtasks(taskUpdated),
+//    };
+//    const pastCol = columns.find((col) => col.id === activeColumnId);
+//    const futureCol = columns.find((col) => col.name === values.status);
+//    const statusChanged = taskUpdated.status !== pastCol!.name;
 
-   const boardsUpdated = boards.map((board) =>
-      board.id !== activeBoard.id
-         ? board
-         : {
-              ...board,
-              columns: board.columns.map((col) =>
-                 col.id === pastCol!.id
-                    ? // changing past column depending on if the status changed or not
-                      {
-                         ...col,
-                         tasks: statusChanged
-                            ? col.tasks.filter(
-                                 (task) => task.id !== taskUpdated.id,
-                              )
-                            : col.tasks.map((task) =>
-                                 task.id !== taskUpdated.id
-                                    ? task
-                                    : taskUpdated,
-                              ),
-                      }
-                    : // changing future column if the status changed
-                    col.id === futureCol!.id
-                    ? {
-                         ...col,
-                         tasks: statusChanged
-                            ? [taskUpdated, ...col.tasks]
-                            : col.tasks,
-                      }
-                    : col,
-              ),
-           },
-   );
+//    const boardsUpdated = boards.map((board) =>
+//       board.id !== activeBoard.id
+//          ? board
+//          : {
+//               ...board,
+//               columns: board.columns.map((col) =>
+//                  col.id === pastCol!.id
+//                     ? // changing past column depending on if the status changed or not
+//                       {
+//                          ...col,
+//                          tasks: statusChanged
+//                             ? col.tasks.filter(
+//                                  (task) => task.id !== taskUpdated.id,
+//                               )
+//                             : col.tasks.map((task) =>
+//                                  task.id !== taskUpdated.id
+//                                     ? task
+//                                     : taskUpdated,
+//                               ),
+//                       }
+//                     : // changing future column if the status changed
+//                     col.id === futureCol!.id
+//                     ? {
+//                          ...col,
+//                          tasks: statusChanged
+//                             ? [taskUpdated, ...col.tasks]
+//                             : col.tasks,
+//                       }
+//                     : col,
+//               ),
+//            },
+//    );
 
-   dispatch(setBoards(boardsUpdated));
-   dispatch(setActiveBoardId(activeBoardId));
-   dispatch(setTaskEditing(false));
-   dispatch(setExistingTask(false));
-};
+//    dispatch(setBoards(boardsUpdated));
+//    dispatch(setActiveBoardId(activeBoardId));
+//    dispatch(setTaskEditing(false));
+//    dispatch(setExistingTask(false));
+// };

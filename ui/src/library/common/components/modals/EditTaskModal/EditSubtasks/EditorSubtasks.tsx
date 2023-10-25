@@ -9,7 +9,7 @@ interface Props extends FormikValues {
    subtasks: ISubtask[];
 }
 
-export const EditorSubtasks: React.FC<Props> = ({ values, subtasks }) => {
+export const EditorSubtasks: React.FC<Props> = ({ subtasks }) => {
    const addSubtask = (arr: FieldArrayRenderProps) => {
       arr.push('');
    };

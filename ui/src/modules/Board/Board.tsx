@@ -32,8 +32,6 @@ export const Board = () => {
    const { columns } = data!;
    const columnNames = columns.map((column) => column.name);
 
-   
-
    return (
       <CssBoard>
          <Droppable droppableId='columns' type='columns' direction='horizontal'>
