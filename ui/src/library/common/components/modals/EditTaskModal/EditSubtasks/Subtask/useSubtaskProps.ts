@@ -10,7 +10,11 @@ const placeholders = [
 ];
 
 export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
-   const [field, meta] = useField(`subtasks.${index}`);
+   const [field, meta] = useField(`subtasks.${index}.title`);
+
+   const [checkboxField, checkboxMeta] = useField(
+      `subtasks.${index}.isCompleted`,
+   );
 
    const isTouched = meta.touched;
    const error = isTouched && meta.error;
@@ -24,7 +28,7 @@ export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
 
    const stackProps = {
       direction: 'row' as 'row',
-      alignItems: 'center'
+      alignItems: 'center',
    };
 
    const fieldProps = {
@@ -40,5 +44,5 @@ export const useSubtaskProps = ({ index, arrayHelpers }: IFieldArray) => {
       // onClick: () => removeSubtask({ arrayHelpers, index }),
    };
 
-   return { field, stackProps, fieldProps, xButtonProps };
+   return { field, checkboxField, stackProps, fieldProps, xButtonProps };
 };

@@ -1,18 +1,6 @@
 import { FormikValues, useFormikContext } from 'formik';
-import {
-   // CssTextField,
-   CssLabel,
-} from '../../AppModal';
-import { CssTextField } from '..';
-// import { sx } from '../../AppModal/EditBoardModal/ColumnFields/boardColumnsFieldArrStyles';
-
-type FormValues = {
-   title: string;
-   description: string;
-   subtasks: string[]; // Adjust the type according to your data structure
-   status: string;
-   columnOptions: string[];
-};
+import { CssLabel } from '../../AppModal';
+import { CssTextField, FormValues } from '..';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,
@@ -23,7 +11,6 @@ export const EditorTitle: React.FC<FormikValues> = ({
 }) => {
    const formik = useFormikContext<FormValues>();
    const { title } = formik.values!;
-   console.log(formik.initialValues);
 
    const fieldProps = {
       placeholder: 'e.g. Take coffee break',

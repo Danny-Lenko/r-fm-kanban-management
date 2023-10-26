@@ -7,6 +7,7 @@ export interface AppBarProps extends MuiAppBarProps {
 }
 
 export interface ISubtask {
+   id: string;
    title: string;
    isCompleted: boolean;
 }

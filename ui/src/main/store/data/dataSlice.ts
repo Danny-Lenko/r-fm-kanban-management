@@ -73,7 +73,7 @@ export const dataSlice = createSlice({
       },
 
       updateColumns: (state, { payload }) => {
-         state.boards = updateColumnsHelper(state, payload);
+         // state.boards = updateColumnsHelper(state, payload);
       },
 
       dropColumn: (state, { payload }) => {

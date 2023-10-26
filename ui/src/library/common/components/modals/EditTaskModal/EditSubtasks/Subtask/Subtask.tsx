@@ -11,8 +11,10 @@ import { CssControlLabel } from '../../../ManageTaskModal';
 import { CssCheckbox } from '../../../ManageTaskModal';
 
 export const Subtask: React.FC<IFieldArray> = (props) => {
-   const { stackProps, field, fieldProps, xButtonProps } =
+   const { stackProps, field, checkboxField, fieldProps, xButtonProps } =
       useSubtaskProps(props);
+
+   const { arrayHelpers } = props;
 
    const { title, isCompleted } = props.subtask!;
 
@@ -22,13 +24,14 @@ export const Subtask: React.FC<IFieldArray> = (props) => {
       event: React.ChangeEvent<HTMLInputElement>,
    ) => {
       setIsChecked(event.target.checked);
-      console.log('state changed');
+      console.log(isChecked);
    };
 
    return (
       <Stack {...stackProps}>
          <CssControlLabel
             // {...field}
+            {...checkboxField}
             key={title}
             completed={isCompleted ? 1 : null}
             control={

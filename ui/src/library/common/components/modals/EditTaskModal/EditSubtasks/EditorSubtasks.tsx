@@ -1,18 +1,36 @@
-import { FieldArray, FieldArrayRenderProps, FormikValues } from 'formik';
+import {
+   FieldArray,
+   FieldArrayRenderProps,
+   FormikValues,
+   useFormikContext,
+} from 'formik';
 import { Stack } from '@mui/material';
 
 import { AppBtn, CssLabel } from '../../..';
 import { Subtask } from '.';
-import { ISubtask } from '../../../../../interfaces';
+import { FormValues } from '..';
+// import { ISubtask } from '../../../../../interfaces';
+import { useEffect } from 'react';
 
-interface Props extends FormikValues {
-   subtasks: ISubtask[];
-}
+// interface Props extends FormikValues {
+//    subtasks: ISubtask[];
+// }
 
-export const EditorSubtasks: React.FC<Props> = ({ subtasks }) => {
+export const EditorSubtasks: React.FC<FormikValues> = () => {
+   const { values } = useFormikContext<FormValues>();
+   const { subtasks } = values;
+
    const addSubtask = (arr: FieldArrayRenderProps) => {
-      arr.push('');
+      arr.push({
+         id: crypto.randomUUID(),
+         title: `New Subtask`,
+         isCompleted: false,
+      });
    };
+
+   useEffect(() => {
+      console.log(values);
+   }, [values]);
 
    return (
       <>
