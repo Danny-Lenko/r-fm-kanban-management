@@ -77,7 +77,7 @@ export const dataSlice = createSlice({
       },
 
       dropColumn: (state, { payload }) => {
-         state.boards = dropColumnHelper(state, payload);
+         // state.boards = dropColumnHelper(state, payload);
       },
 
       setActiveTaskId: (state, { payload }) => {

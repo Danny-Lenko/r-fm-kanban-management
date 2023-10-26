@@ -9,16 +9,11 @@ import { Stack } from '@mui/material';
 import { AppBtn, CssLabel } from '../../..';
 import { Subtask } from '.';
 import { FormValues } from '..';
-// import { ISubtask } from '../../../../../interfaces';
-import { useEffect } from 'react';
-
-// interface Props extends FormikValues {
-//    subtasks: ISubtask[];
-// }
 
 export const EditorSubtasks: React.FC<FormikValues> = () => {
-   const { values } = useFormikContext<FormValues>();
+   const { values, initialValues } = useFormikContext<FormValues>();
    const { subtasks } = values;
+   const initialSubtasks = initialValues.subtasks;
 
    const addSubtask = (arr: FieldArrayRenderProps) => {
       arr.push({
@@ -27,10 +22,6 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
          isCompleted: false,
       });
    };
-
-   useEffect(() => {
-      console.log(values);
-   }, [values]);
 
    return (
       <>
@@ -46,6 +37,7 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
                         index={index}
                         arrayHelpers={arrayHelpers}
                         subtask={subtask}
+                        initialValue={initialSubtasks[index]}
                      />
                   ))}
 

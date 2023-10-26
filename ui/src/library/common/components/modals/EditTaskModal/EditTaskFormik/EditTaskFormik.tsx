@@ -11,7 +11,6 @@ import {
 } from '..';
 import { CssButton } from '.';
 
-import { ISubtask } from '../../../../../interfaces';
 import { Stack } from '@mui/material';
 
 export const EditTaskFormik: React.FC<FormValues> = ({
@@ -25,6 +24,10 @@ export const EditTaskFormik: React.FC<FormValues> = ({
       console.log(values);
    };
 
+   const reset = (values: Values) => {
+      console.log(values.subtasks)
+   }
+
    return (
       <Formik
          initialValues={{
@@ -37,6 +40,7 @@ export const EditTaskFormik: React.FC<FormValues> = ({
          }}
          onSubmit={submit}
          validationSchema={editTaskSchema}
+         onReset={reset}
       >
          {(props) => {
             return (

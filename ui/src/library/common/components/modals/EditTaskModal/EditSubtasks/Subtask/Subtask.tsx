@@ -1,37 +1,29 @@
-import { useState } from 'react';
 import { IconButton, Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { IFieldArray } from '../../../../../../interfaces';
-
 import { useSubtaskProps } from '.';
-import { CssTextField } from '../..';
-
+import { CssTextField, SubtaskProps } from '../..';
 import { CssControlLabel } from '../../../ManageTaskModal';
 import { CssCheckbox } from '../../../ManageTaskModal';
 
-export const Subtask: React.FC<IFieldArray> = (props) => {
-   const { stackProps, field, checkboxField, fieldProps, xButtonProps } =
-      useSubtaskProps(props);
+export const Subtask: React.FC<SubtaskProps> = (props) => {
+   const {
+      title,
+      isCompleted,
+      isChecked,
+      handleCheckboxChange,
+      initiallyCompleted,
+      stackProps,
+      field,
+      fieldProps,
+      xButtonProps,
+   } = useSubtaskProps(props);
 
-   const { arrayHelpers } = props;
-
-   const { title, isCompleted } = props.subtask!;
-
-   const [isChecked, setIsChecked] = useState(isCompleted);
-
-   const handleCheckboxChange = (
-      event: React.ChangeEvent<HTMLInputElement>,
-   ) => {
-      setIsChecked(event.target.checked);
-      console.log(isChecked);
-   };
+   console.log(props);
 
    return (
       <Stack {...stackProps}>
          <CssControlLabel
-            // {...field}
-            {...checkboxField}
             key={title}
             completed={isCompleted ? 1 : null}
             control={
@@ -48,7 +40,7 @@ export const Subtask: React.FC<IFieldArray> = (props) => {
          <CssTextField
             {...field}
             {...fieldProps}
-            completed={isCompleted ? 1 : undefined}
+            completed={initiallyCompleted ? 1 : undefined}
             checked={isChecked ? 1 : undefined}
          />
          <IconButton {...xButtonProps}>
