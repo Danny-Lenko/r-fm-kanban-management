@@ -1,4 +1,10 @@
-import MenuItem from '@mui/material/MenuItem';
+import { ListItemText, SvgIconTypeMap } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import TaskIcon from '@mui/icons-material/Task';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { IconProps, SvgIconProps } from '@mui/material';
+
 import { useAppDispatch } from '../../hooks';
 import {
    setTaskManaging,
@@ -10,18 +16,55 @@ import {
    setTaskDeleting,
 } from '../../../../main/store/modals/modalSlice';
 
-export const DotsMenuItem = ({ option, handleClose }: any) => {
+import { CssListIcon, CssMenuItem } from './CssComponents';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+interface Props {
+   option: string;
+   handleClose: () => void;
+}
+
+export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    const dispatch = useAppDispatch();
+   const optionAction = option.split(' ')[0].toLowerCase();
+
+   const navigate = useNavigate();
+   const { pathname } = useLocation();
+
+   const createIconComponent = (
+      Component: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
+         muiName: string;
+      },
+      rest?: SvgIconProps,
+   ) => {
+      return <Component fontSize='small' {...rest} />;
+   };
+
+   const icons = {
+      open: createIconComponent(TaskIcon),
+      close: createIconComponent(CloseIcon),
+      delete: createIconComponent(DeleteForeverIcon, { color: 'warning' }),
+   };
+
+   const getIcon = (option: string) => {
+      return icons[option as keyof typeof icons];
+   };
 
    const handleEditBoard = () => {
       dispatch(setBoardIsExisting(true));
       dispatch(setBoardEditing(true));
    };
 
-   const handleEditTask = () => {
-      dispatch(setTaskManaging(false));
-      dispatch(setExistingTask(true));
-      dispatch(setTaskEditing(true));
+   // const handleEditTask = () => {
+   //    dispatch(setTaskManaging(false));
+   //    dispatch(setExistingTask(true));
+   //    dispatch(setTaskEditing(true));
+   // };
+
+   const handleRedirect = () => {
+      console.log('redirecting...');
+      navigate(`${pathname}/tasks/id`);
    };
 
    const handleDeleteBoard = () => {
@@ -33,33 +76,27 @@ export const DotsMenuItem = ({ option, handleClose }: any) => {
       dispatch(setTaskDeleting(true));
    };
 
-   const itemStyles = {
-      color:
-         option.split(' ')[0] === 'Delete' ? 'destructCustom.main' : 'inherit',
+   const handleClick = () => {
+      switch (option) {
+         case 'Open Task Page':
+            handleRedirect();
+            break;
+         case 'Edit Board':
+            handleEditBoard();
+            break;
+         case 'Delete Board':
+            handleDeleteBoard();
+            break;
+         default:
+            handleDeleteTask();
+      }
+      handleClose();
    };
 
    return (
-      <MenuItem
-         sx={itemStyles}
-         selected={option === 'Pyxis'}
-         onClick={() => {
-            switch (option) {
-               case 'Edit Task':
-                  handleEditTask();
-                  break;
-               case 'Edit Board':
-                  handleEditBoard();
-                  break;
-               case 'Delete Board':
-                  handleDeleteBoard();
-                  break;
-               default:
-                  handleDeleteTask();
-            }
-            handleClose();
-         }}
-      >
-         {option}
-      </MenuItem>
+      <CssMenuItem onClick={handleClick} option={optionAction}>
+         <ListItemText>{option}</ListItemText>
+         <CssListIcon>{getIcon(optionAction)}</CssListIcon>
+      </CssMenuItem>
    );
 };

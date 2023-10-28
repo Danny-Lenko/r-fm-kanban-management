@@ -2,15 +2,10 @@ import React, { useState } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Box } from '@mui/material';
 
-import { ITask } from '../../../../library/interfaces/interfaces';
-
 import { CssCard, CssTitle, CssSubtasks } from '.';
-
-// import { ManageTaskModal } from '../../../../library/common/components/modals/ManageTaskModal';
-
 import { setActiveTaskId } from '../../../../main/store';
+import { ITask } from '../../../../library/interfaces/interfaces';
 import { useAppDispatch } from '../../../../library/common/hooks';
-
 import { EditTaskModal } from '../../../../library/common/components';
 
 interface Props extends ITask {

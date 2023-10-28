@@ -33,7 +33,6 @@ export const EditTaskFormik: React.FC<FormValues> = ({
          initialValues={{
             title,
             description,
-            // subtasks: subtasks.map((sub) => sub.title),
             subtasks: subtasks,
             status,
             columnOptions,

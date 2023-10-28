@@ -8,9 +8,9 @@ export const CssHeading = styled(Box)(({ theme }) => ({
    justifyContent: 'space-between',
    alignItems: 'center',
    gap: '1rem',
-   marginBottom: '12px',
    '& .MuiTypography-h3': {
       color: theme.palette.text.primary,
+      margin: 0
    },
 }));
 
@@ -36,8 +36,8 @@ export const ExpandedCard = styled(motion.div)(({ theme }) => ({
    border: '2px solid #000',
    borderRadius: '8px',
    boxShadow: '24',
-   width: 300,
-   padding: '24px',
+   width: 340,
+   padding: '16px',
 
    [theme.breakpoints.up('sm')]: {
       width: '480px',

@@ -62,8 +62,7 @@ export const useSubtaskProps = ({
    };
 
    const xButtonProps = {
-      // sx: { '&:hover': { backgroundColor: 'transparent' } },
-      // onClick: () => removeSubtask({ arrayHelpers, index }),
+      onClick: () => removeSubtask({ arrayHelpers, index }),
    };
 
    return {

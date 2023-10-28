@@ -11,8 +11,10 @@ export const COLUMNCOLORS = [
 
 export const BTNWIDTH = '255px';
 
-export const TASKMENU = ['Edit Task', 'Delete Task'];
-export const BOARDMENU = ['Edit Board', 'Delete Board'];
+export const dotsMenuOptions = {
+   taskMenu: ['Open Task Page', 'Close Modal', 'Delete Task'],
+   boardMenu: ['Edit Board', 'Delete Board'],
+};
 
 export enum DrawerPaddingX {
    Xs = '24px',

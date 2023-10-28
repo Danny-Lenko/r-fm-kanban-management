@@ -44,14 +44,11 @@ export const EditTaskModal = ({
          {!!expandId && (
             <Overlay onClick={handleCollapse}>
                <ExpandedCard
-                  // layoutId={id}
-                  // key={id}
                   layoutId={expandId}
                   key={expandId}
                   onClick={(e) => e.stopPropagation()}
                   exit={wasDragged ? exitAfterDragDrop : undefined}
                >
-                  {/* <motion.h1>{title}</motion.h1> */}
                   <ModalContent id={expandId} />
                </ExpandedCard>
             </Overlay>

@@ -15,6 +15,10 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
    const { subtasks } = values;
    const initialSubtasks = initialValues.subtasks;
 
+   const getInitialValue = (id: string) => {
+      return initialSubtasks.find((subtask) => subtask.id === id);
+   };
+
    const addSubtask = (arr: FieldArrayRenderProps) => {
       arr.push({
          id: crypto.randomUUID(),
@@ -37,7 +41,7 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
                         index={index}
                         arrayHelpers={arrayHelpers}
                         subtask={subtask}
-                        initialValue={initialSubtasks[index]}
+                        initialValue={getInitialValue(subtask.id)!}
                      />
                   ))}
 
