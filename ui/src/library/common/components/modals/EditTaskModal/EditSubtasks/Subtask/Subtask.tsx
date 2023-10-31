@@ -19,7 +19,6 @@ export const Subtask: React.FC<SubtaskProps> = (props) => {
       xButtonProps,
    } = useSubtaskProps(props);
 
-   console.log(props);
 
    return (
       <Stack {...stackProps}>

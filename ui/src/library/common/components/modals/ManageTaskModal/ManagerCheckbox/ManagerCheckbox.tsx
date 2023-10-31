@@ -38,7 +38,6 @@ export const ManagerCheckbox: React.FC<FormikValues> = ({
 
    // const subtasks = values.subtasks as ISubtask[];
 
-   console.log(values);
 
    return (
       <>

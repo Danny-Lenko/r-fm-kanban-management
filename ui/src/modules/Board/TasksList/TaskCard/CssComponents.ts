@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { styled } from '@mui/system';
 
 import { motion } from 'framer-motion';
@@ -9,6 +8,7 @@ export const CssCard = styled(motion.div)({
    boxShadow: '0px 4px 6px rgba(54, 78, 126, 0.101545)',
    padding: '20px 16px',
    borderRadius: '4px',
+   background: '#fff',
 });
 
 export const CssTitle = styled(motion.p)(({ theme }) => ({
@@ -23,11 +23,3 @@ export const CssSubtasks = styled(motion.p)(({ theme }) => ({
    margin: 0,
    color: theme.palette.greyCustom[200],
 }));
-
-// export const CssSubtasks = styled(Typography)(({ theme }) => ({
-//    color: theme.palette.greyCustom[200],
-// }));
-// CssSubtasks.defaultProps = {
-//    variant: 'body2',
-// };
-

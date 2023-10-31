@@ -27,7 +27,6 @@ export const Board = () => {
 
    if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
 
-   console.log(data);
 
    const { columns } = data!;
    const columnNames = columns.map((column) => column.name);

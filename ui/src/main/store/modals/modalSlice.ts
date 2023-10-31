@@ -12,6 +12,8 @@ export const modalSlice = createSlice({
       boardIsExisting: false,
       boardDeleting: false,
       xsBoardsOpen: false,
+      taskModalExpansionId: '',
+      taskCardWasDragged: false,
    },
 
    reducers: {
@@ -50,6 +52,14 @@ export const modalSlice = createSlice({
       setXsBoardsOpen: (state, { payload }) => {
          state.xsBoardsOpen = payload;
       },
+
+      setTaskModalExpansionId: (state, { payload }) => {
+         state.taskModalExpansionId = payload;
+      },
+
+      setTaskCardWasDragged: (state, { payload }) => {
+         state.taskCardWasDragged = payload;
+      },
    },
 });
 
@@ -63,5 +73,7 @@ export const {
    setBoardDeleting,
    setTaskDeleting,
    setXsBoardsOpen,
+   setTaskModalExpansionId,
+   setTaskCardWasDragged,
 } = modalSlice.actions;
 export default modalSlice.reducer;

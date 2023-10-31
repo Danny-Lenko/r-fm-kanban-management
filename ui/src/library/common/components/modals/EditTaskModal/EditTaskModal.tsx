@@ -1,12 +1,17 @@
-import { useState, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 import { Overlay, ExpandedCard, ModalContent } from '.';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import {
+   selectTaskModalExpansionId,
+   selectTaskCardWasDragged,
+   setTaskModalExpansionId,
+   setTaskCardWasDragged,
+} from '../../../../../main/store';
 
 interface Props {
-   expandId: string | null;
-   setExpandId: (id: string | null) => void;
    isDragging: boolean;
    title: string;
 }
@@ -16,40 +21,39 @@ const exitAfterDragDrop = {
    opacity: 0,
 };
 
-export const EditTaskModal = ({
-   expandId,
-   setExpandId,
-   isDragging,
-   title,
-}: Props) => {
-   const [wasDragged, setWasDragged] = useState(false);
+export const EditTaskModal = ({ isDragging, title }: Props) => {
+   const wasDragged = useAppSelector(selectTaskCardWasDragged);
+   const expansionId = useAppSelector(selectTaskModalExpansionId);
+   const dispatch = useAppDispatch();
+
+   const handleExitComplete = () => {
+      dispatch(setTaskModalExpansionId(''));
+   };
 
    useLayoutEffect(() => {
       if (isDragging) {
-         setWasDragged(true);
+         dispatch(setTaskCardWasDragged(true));
       }
    }, [isDragging]);
 
    const handleCollapse = () => {
-      setExpandId(null);
-      setWasDragged(false);
+      dispatch(setTaskModalExpansionId(null));
+      dispatch(setTaskCardWasDragged(false));
    };
 
    return ReactDOM.createPortal(
       <AnimatePresence
-         initial={false}
-         onExitComplete={() => setExpandId('')}
-         mode='wait'
+         onExitComplete={() => dispatch(setTaskModalExpansionId(''))}
       >
-         {!!expandId && (
+         {!!expansionId && (
             <Overlay onClick={handleCollapse}>
                <ExpandedCard
-                  layoutId={expandId}
-                  key={expandId}
+                  layoutId={expansionId}
+                  key={expansionId}
                   onClick={(e) => e.stopPropagation()}
                   exit={wasDragged ? exitAfterDragDrop : undefined}
                >
-                  <ModalContent id={expandId} />
+                  <ModalContent id={expansionId} />
                </ExpandedCard>
             </Overlay>
          )}

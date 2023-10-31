@@ -28,7 +28,6 @@ export const ModalContent = ({ id }: { id: string }) => {
 
    const { title, description } = data!;
 
-   console.log(data);
 
    // const submissionTrigger = useAppSelector(selectSubmissionTrigger);
    // const dispatch = useAppDispatch();

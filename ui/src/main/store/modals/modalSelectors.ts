@@ -50,3 +50,13 @@ export const selectTaskIsExisting = createSelector(
    [selectModalsReducer],
    (modals) => modals.taskIsExisting,
 );
+
+export const selectTaskModalExpansionId = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskModalExpansionId,
+);
+
+export const selectTaskCardWasDragged = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskCardWasDragged,
+);

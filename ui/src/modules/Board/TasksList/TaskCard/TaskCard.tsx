@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Box } from '@mui/material';
 
 import { CssCard, CssTitle, CssSubtasks } from '.';
-import { setActiveTaskId } from '../../../../main/store';
+import {
+   selectTaskModalExpansionId,
+   setActiveTaskId,
+} from '../../../../main/store';
 import { ITask } from '../../../../library/interfaces/interfaces';
-import { useAppDispatch } from '../../../../library/common/hooks';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../library/common/hooks';
 import { EditTaskModal } from '../../../../library/common/components';
+import { setTaskModalExpansionId } from '../../../../main/store';
 
 interface Props extends ITask {
    columnId: string;
@@ -16,8 +23,8 @@ interface Props extends ITask {
 
 export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
-      const [expandId, setExpandId] = useState<string | null>('');
-
+      // this expansionId ensures working animation
+      const expansionId = useAppSelector(selectTaskModalExpansionId);
       const dispatch = useAppDispatch();
 
       const completed =
@@ -26,7 +33,7 @@ export const TaskCard: React.FC<Props> = React.memo(
 
       const handleExpand = () => {
          dispatch(setActiveTaskId(id));
-         setExpandId(id);
+         dispatch(setTaskModalExpansionId(id));
       };
 
       const isDragging = snapshot.isDragging;
@@ -44,13 +51,7 @@ export const TaskCard: React.FC<Props> = React.memo(
                         : 'none',
                }}
             >
-               <CssCard
-                  layoutId={id}
-                  style={{
-                     background: '#fff',
-                  }}
-                  onClick={handleExpand}
-               >
+               <CssCard layoutId={id} onClick={handleExpand}>
                   <CssTitle>{title}</CssTitle>
                   <CssSubtasks>
                      {subtasks.length
@@ -60,12 +61,7 @@ export const TaskCard: React.FC<Props> = React.memo(
                </CssCard>
             </Box>
 
-            <EditTaskModal
-               expandId={expandId}
-               setExpandId={setExpandId}
-               isDragging={isDragging}
-               title={title}
-            />
+            <EditTaskModal isDragging={isDragging} title={title} />
          </>
       );
    },

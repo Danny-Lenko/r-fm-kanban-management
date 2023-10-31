@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { IconProps, SvgIconProps } from '@mui/material';
 
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
    setTaskEditing,
@@ -19,6 +19,7 @@ import {
 import { CssListIcon, CssMenuItem } from './CssComponents';
 import { OverridableComponent } from '@mui/material/OverridableComponent';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { selectActiveTaskId } from '../../../../main/store';
 
 interface Props {
    option: string;
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
+   const id = useAppSelector(selectActiveTaskId);
    const dispatch = useAppDispatch();
    const optionAction = option.split(' ')[0].toLowerCase();
 
@@ -63,8 +65,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    // };
 
    const handleRedirect = () => {
-      console.log('redirecting...');
-      navigate(`${pathname}/tasks/id`);
+      navigate(`${pathname}/tasks/${id}`);
    };
 
    const handleDeleteBoard = () => {
@@ -80,6 +81,9 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       switch (option) {
          case 'Open Task Page':
             handleRedirect();
+            break;
+         case 'Close Modal':
+            handleClose();
             break;
          case 'Edit Board':
             handleEditBoard();

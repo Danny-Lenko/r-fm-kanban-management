@@ -35,7 +35,6 @@ export const useSubtaskProps = ({
 
    useEffect(() => {
       arrayHelpers.replace(index, { ...subtask, isCompleted: isChecked });
-      console.log(arrayHelpers);
    }, [isChecked]);
 
    const handleCheckboxChange = (
