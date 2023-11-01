@@ -1,5 +1,5 @@
 import {
-   setTaskEditing,
+   setTaskAdding,
    setExistingTask,
    setBoards,
    setActiveBoardId,
@@ -8,12 +8,23 @@ import {
    countCompletedSubtasks,
    generateId,
 } from '../../../../../../utilities/utils';
-import { ISumbissionParams } from '../../../../../../interfaces';
+import { ISubtask, ISumbissionParams } from '../../../../../../interfaces';
+
+type Subtask = {
+   title: string;
+};
 
 export type Values = {
    title: string;
    description: string;
    subtasks: string[];
+   status: string;
+};
+
+export type SubmitValues = {
+   title: string;
+   description: string;
+   subtasks: Subtask[];
    status: string;
 };
 
@@ -59,7 +70,7 @@ export const createTask = ({
 
    dispatch(setBoards(boardsUpdated));
    dispatch(setActiveBoardId(activeBoardId));
-   dispatch(setTaskEditing(false));
+   dispatch(setTaskAdding(false));
 };
 
 // saveChanges
@@ -125,6 +136,6 @@ export const saveChanges = ({
 
    dispatch(setBoards(boardsUpdated));
    dispatch(setActiveBoardId(activeBoardId));
-   dispatch(setTaskEditing(false));
+   dispatch(setTaskAdding(false));
    dispatch(setExistingTask(false));
 };

@@ -36,9 +36,14 @@ export const selectTaskManaging = createSelector(
    (modals) => modals.taskManaging,
 );
 
-export const selectTaskEditing = createSelector(
+export const selectTaskAdding = createSelector(
    [selectModalsReducer],
-   (modals) => modals.taskEditing,
+   (modals) => modals.taskAdding,
+);
+
+export const selectTaskAddingColumn = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskAddingColumn,
 );
 
 export const selectTaskDeleting = createSelector(

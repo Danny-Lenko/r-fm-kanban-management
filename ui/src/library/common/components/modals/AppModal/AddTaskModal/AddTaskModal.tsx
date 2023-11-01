@@ -13,15 +13,21 @@ import { AppBtn } from '../../..';
 import { useAppSelector } from '../../../../hooks';
 import {
    selectActiveBoard,
+   selectTaskAddingColumn,
    selectTaskIsExisting,
 } from '../../../../../../main/store';
 
-export const EditAddTaskModal = () => {
+export const AddTaskModal = () => {
    const taskIsExisting = useAppSelector(selectTaskIsExisting);
+   const taskAddingColumn = useAppSelector(selectTaskAddingColumn);
 
    const activeBoard = useAppSelector(selectActiveBoard)!;
    const { columns } = activeBoard;
    const selectOptions = columns.map((col) => col.name);
+
+   // const handleCreate = () => {
+   //    console.log('create');
+   // };
 
    const btnProps = {
       type: 'submit' as 'submit',
@@ -44,9 +50,11 @@ export const EditAddTaskModal = () => {
                      <EditorTitle {...props} />
                      <EditorDescription {...props} />
                      <EditorSubtasks {...props} />
-                     <EditorSelect options={selectOptions} {...props} />
+                     {!taskAddingColumn && (
+                        <EditorSelect options={selectOptions} {...props} />
+                     )}
                      <AppBtn {...btnProps}>
-                        {taskIsExisting ? 'Save Changes' : 'Create Task'}
+                        {'Create Task'}
                      </AppBtn>
                   </Form>
                );

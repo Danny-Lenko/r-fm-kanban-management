@@ -5,7 +5,7 @@ import {
    DeleteModal,
    CssContent,
    // ManageTaskModal,
-   EditAddTaskModal,
+   AddTaskModal,
    EditBoardModal,
    XsBoardsModal,
 } from '.';
@@ -13,7 +13,7 @@ import {
 const getModal = (type: ModalTypes) =>
    ({
       // [ModalTypes.TaskManager]: ManageTaskModal,
-      [ModalTypes.TaskEditor]: EditAddTaskModal,
+      [ModalTypes.TaskEditor]: AddTaskModal,
       [ModalTypes.BoardEditor]: EditBoardModal,
       [ModalTypes.Remover]: DeleteModal,
       [ModalTypes.XsBoards]: XsBoardsModal,
@@ -29,7 +29,7 @@ export const AppModal: React.FC<Props> = ({ propType }) => {
    const CustomModal = getModal(propType || type);
    const onClose = getOnClose(type);
    return (
-      <Modal open={open} onClose={onClose}>
+      <Modal open={open} onClose={onClose} sx={{ zIndex: 20000 }}>
          <CssContent>
             <CustomModal />
          </CssContent>

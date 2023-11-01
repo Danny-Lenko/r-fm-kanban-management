@@ -61,7 +61,7 @@ export const TaskCard: React.FC<Props> = React.memo(
                </CssCard>
             </Box>
 
-            <EditTaskModal isDragging={isDragging} title={title} />
+            {/* <EditTaskModal isDragging={isDragging} title={title} /> */}
          </>
       );
    },

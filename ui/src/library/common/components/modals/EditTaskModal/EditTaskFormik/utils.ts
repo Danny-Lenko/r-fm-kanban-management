@@ -1,5 +1,5 @@
 import {
-   setTaskEditing,
+   setTaskAdding,
    setExistingTask,
    setBoards,
    setActiveBoardId,
@@ -59,7 +59,7 @@ export const createTask = ({
 
    dispatch(setBoards(boardsUpdated));
    dispatch(setActiveBoardId(activeBoardId));
-   dispatch(setTaskEditing(false));
+   dispatch(setTaskAdding(false));
 };
 
 // saveChanges
@@ -125,6 +125,6 @@ export const createTask = ({
 
 //    dispatch(setBoards(boardsUpdated));
 //    dispatch(setActiveBoardId(activeBoardId));
-//    dispatch(setTaskEditing(false));
+//    dispatch(setTaskAdding(false));
 //    dispatch(setExistingTask(false));
 // };

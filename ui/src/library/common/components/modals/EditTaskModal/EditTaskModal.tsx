@@ -43,7 +43,8 @@ export const EditTaskModal = ({ isDragging, title }: Props) => {
 
    return ReactDOM.createPortal(
       <AnimatePresence
-         onExitComplete={() => dispatch(setTaskModalExpansionId(''))}
+         // onExitComplete={() => dispatch(setTaskModalExpansionId(''))}
+         onExitComplete={handleExitComplete}
       >
          {!!expansionId && (
             <Overlay onClick={handleCollapse}>

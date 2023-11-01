@@ -3,13 +3,13 @@ import {
    setBoardDeleting,
    setTaskDeleting,
    setSubmissionTrigger,
-   setTaskEditing,
+   setTaskAdding,
    setExistingTask,
    setBoardEditing,
    setBoardIsExisting,
    setXsBoardsOpen,
    // selectTaskManaging,
-   selectTaskEditing,
+   selectTaskAdding,
    selectTaskDeleting,
    selectBoardEditing,
    selectBoardDeleting,
@@ -27,7 +27,7 @@ export enum ModalTypes {
 export const useAppModal = () => {
    // task modals
    // const taskManaging = useAppSelector(selectTaskManaging);
-   const taskEditing = useAppSelector(selectTaskEditing);
+   const taskEditing = useAppSelector(selectTaskAdding);
    const taskDeleting = useAppSelector(selectTaskDeleting);
    // board modals
    const boardEditing = useAppSelector(selectBoardEditing);
@@ -67,7 +67,7 @@ export const useAppModal = () => {
    // }
 
    function closeTaskEditor() {
-      dispatch(setTaskEditing(false));
+      dispatch(setTaskAdding(false));
       dispatch(setExistingTask(false));
    }
 

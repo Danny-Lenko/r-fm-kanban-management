@@ -8,12 +8,14 @@ import { IconProps, SvgIconProps } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
-   setTaskEditing,
+   setTaskAdding,
    setExistingTask,
    setBoardIsExisting,
    setBoardEditing,
    setBoardDeleting,
    setTaskDeleting,
+   setTaskModalExpansionId,
+   setTaskCardWasDragged,
 } from '../../../../main/store/modals/modalSlice';
 
 import { CssListIcon, CssMenuItem } from './CssComponents';
@@ -64,12 +66,17 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    //    dispatch(setTaskEditing(true));
    // };
 
+   const handleDeleteBoard = () => {
+      dispatch(setBoardDeleting(true));
+   };
+
    const handleRedirect = () => {
       navigate(`${pathname}/tasks/${id}`);
    };
 
-   const handleDeleteBoard = () => {
-      dispatch(setBoardDeleting(true));
+   const handleCloseModal = () => {
+      dispatch(setTaskModalExpansionId(null));
+      dispatch(setTaskCardWasDragged(false));
    };
 
    const handleDeleteTask = () => {
@@ -83,7 +90,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
             handleRedirect();
             break;
          case 'Close Modal':
-            handleClose();
+            handleCloseModal();
             break;
          case 'Edit Board':
             handleEditBoard();

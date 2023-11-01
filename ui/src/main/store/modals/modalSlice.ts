@@ -4,16 +4,18 @@ export const modalSlice = createSlice({
    name: 'modals',
    initialState: {
       taskManaging: false,
-      taskEditing: false,
+      taskAdding: false,
+      taskAddingColumn: '',
       taskIsExisting: false,
       taskDeleting: false,
+      taskModalExpansionId: '',
+      taskCardWasDragged: false,
+
       boardEditing: false,
       submissionTrigger: false,
       boardIsExisting: false,
       boardDeleting: false,
       xsBoardsOpen: false,
-      taskModalExpansionId: '',
-      taskCardWasDragged: false,
    },
 
    reducers: {
@@ -21,8 +23,12 @@ export const modalSlice = createSlice({
          state.taskManaging = payload;
       },
 
-      setTaskEditing: (state, { payload }) => {
-         state.taskEditing = payload;
+      setTaskAdding: (state, { payload }) => {
+         state.taskAdding = payload;
+      },
+
+      setTaskAddingColumn: (state, { payload }) => {
+         state.taskAddingColumn = payload;
       },
 
       setExistingTask: (state, { payload }) => {
@@ -65,7 +71,7 @@ export const modalSlice = createSlice({
 
 export const {
    setTaskManaging,
-   setTaskEditing,
+   setTaskAdding,
    setExistingTask,
    setBoardEditing,
    setSubmissionTrigger,
@@ -75,5 +81,6 @@ export const {
    setXsBoardsOpen,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
+   setTaskAddingColumn,
 } = modalSlice.actions;
 export default modalSlice.reducer;

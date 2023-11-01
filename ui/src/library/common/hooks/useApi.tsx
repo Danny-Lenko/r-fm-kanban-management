@@ -63,16 +63,19 @@ export function useGetQuery<T>(
 
 const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
    const { data } = await axios.post<R>(endpoint, bodyReq);
+   console.log(bodyReq);
    return data;
 };
 
-export const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
+const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
+const NewTask = new QueryData('newTask', '/tasks', ['task']);
 
 export const postDataTypes = {
    signin: SignIn,
+   newTask: NewTask,
 };
 
-export function usePostData<T, R>(dataType: keyof typeof postDataTypes) {
+export function usePostQuery<T, R>(dataType: keyof typeof postDataTypes) {
    const { endpoint } = postDataTypes[dataType];
 
    if (!endpoint) {

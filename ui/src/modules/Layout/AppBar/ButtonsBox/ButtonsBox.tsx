@@ -4,7 +4,10 @@ import {
    useAppSelector,
    useAppDispatch,
 } from '../../../../library/common/hooks';
-import { setTaskEditing } from '../../../../main/store/modals/modalSlice';
+import {
+   setTaskAdding,
+   setTaskAddingColumn,
+} from '../../../../main/store/modals/modalSlice';
 import { AppBtn, DotsMenu } from '../../../../library/common/components';
 import { selectActiveBoard } from '../../../../main/store';
 
@@ -19,7 +22,8 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen }) => {
    const dispatch = useAppDispatch();
 
    const editTask = () => {
-      dispatch(setTaskEditing(true));
+      dispatch(setTaskAddingColumn(''));
+      dispatch(setTaskAdding(true));
    };
 
    const xsButtonProps = {
