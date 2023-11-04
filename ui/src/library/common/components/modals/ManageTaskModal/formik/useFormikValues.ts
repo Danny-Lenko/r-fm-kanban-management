@@ -1,6 +1,7 @@
 import { useFormik, FormikValues } from 'formik';
 
-import { countCompletedSubtasks } from '../../../../../utilities/utils';
+// import { countCompletedSubtasks } from '../../../../../utilities/utils';
+import { countCompletedSubtasks } from '../../../../../utilities';
 import { useAppSelector, useAppDispatch } from '../../../../hooks';
 import {
    setActiveBoardId,

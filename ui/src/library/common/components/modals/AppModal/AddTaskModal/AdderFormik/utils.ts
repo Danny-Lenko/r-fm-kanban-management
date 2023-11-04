@@ -4,10 +4,7 @@ import {
    setBoards,
    setActiveBoardId,
 } from '../../../../../../../main/store';
-import {
-   countCompletedSubtasks,
-   generateId,
-} from '../../../../../../utilities/utils';
+import { countCompletedSubtasks } from '../../../../../../utilities';
 import { ISubtask, ISumbissionParams } from '../../../../../../interfaces';
 
 type Subtask = {
@@ -32,46 +29,48 @@ interface Props extends ISumbissionParams {
    values: Values;
 }
 
+export const createTask = () => console.log('tempo');
+
 // createTask
-export const createTask = ({
-   values,
-   columns,
-   boards,
-   activeBoard,
-   activeBoardId,
-   dispatch,
-}: Props) => {
-   const activeCol = columns.find((col) => col.name === values.status);
-   const newTask = {
-      ...values,
-      subtasks: values.subtasks.map((sub) => ({
-         title: sub,
-         isCompleted: false,
-      })),
-      completedSubtasks: 0,
-      id: generateId(),
-   };
+// export const createTask = ({
+//    values,
+//    columns,
+//    boards,
+//    activeBoard,
+//    activeBoardId,
+//    dispatch,
+// }: Props) => {
+//    const activeCol = columns.find((col) => col.name === values.status);
+//    const newTask = {
+//       ...values,
+//       subtasks: values.subtasks.map((sub) => ({
+//          title: sub,
+//          isCompleted: false,
+//       })),
+//       completedSubtasks: 0,
+//       id: generateId(),
+//    };
 
-   const boardsUpdated = boards.map((board) =>
-      board.id !== activeBoard.id
-         ? board
-         : {
-              ...board,
-              columns: board.columns.map((col) =>
-                 col.id !== activeCol!.id
-                    ? col
-                    : {
-                         ...col,
-                         tasks: [newTask, ...col.tasks],
-                      },
-              ),
-           },
-   );
+//    const boardsUpdated = boards.map((board) =>
+//       board.id !== activeBoard.id
+//          ? board
+//          : {
+//               ...board,
+//               columns: board.columns.map((col) =>
+//                  col.id !== activeCol!.id
+//                     ? col
+//                     : {
+//                          ...col,
+//                          tasks: [newTask, ...col.tasks],
+//                       },
+//               ),
+//            },
+//    );
 
-   dispatch(setBoards(boardsUpdated));
-   dispatch(setActiveBoardId(activeBoardId));
-   dispatch(setTaskAdding(false));
-};
+//    dispatch(setBoards(boardsUpdated));
+//    dispatch(setActiveBoardId(activeBoardId));
+//    dispatch(setTaskAdding(false));
+// };
 
 // saveChanges
 export const saveChanges = ({

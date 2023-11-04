@@ -13,11 +13,11 @@ import {
 
 import { CssHeading } from './CssComponents';
 
-import { dataTypeNames, useGetQuery } from '../../../hooks';
+import { getQueryNames, useGetQuery } from '../../../hooks';
 import { ITask } from '../../../../interfaces';
 
 export const ModalContent = ({ id }: { id: string }) => {
-   const taskById = dataTypeNames.taskById;
+   const taskById = getQueryNames.taskById;
    const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
       staleTime: 60000,
    });

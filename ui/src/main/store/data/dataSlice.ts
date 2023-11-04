@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import rowData from '../../../resources/data/data.json';
 
-import { countCompletedSubtasks } from '../../../library/utilities/utils';
+import { countCompletedSubtasks } from '../../../library/utilities';
 import { COLUMNCOLORS } from '../../../library/common/constants';
 import { IBoard, IColumn, ITask } from '../../../library/interfaces';
 
@@ -85,11 +85,11 @@ export const dataSlice = createSlice({
       },
 
       updateActiveTask: (state, { payload }) => {
-         state.boards = updateTaskHelper(state, payload);
+         // state.boards = updateTaskHelper(state, payload);
       },
 
       dropTask: (state, { payload }) => {
-         state.boards = dropTaskHelper(state, payload); 
+         // state.boards = dropTaskHelper(state, payload); 
       },
    },
 });

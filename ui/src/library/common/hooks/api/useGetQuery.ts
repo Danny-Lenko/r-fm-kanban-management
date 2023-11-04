@@ -1,24 +1,14 @@
 import axios from 'axios';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-class QueryData {
-   name: string;
-   endpoint: string;
-   key: string[];
+import { QueryData } from '../../../utilities';
 
-   constructor(name: string, endpoint: string, key: string[]) {
-      this.name = name;
-      this.endpoint = endpoint;
-      this.key = key;
-   }
-}
-
-const getData = async <T,>(endpoint: string): Promise<T> => {
+const getData = async <T>(endpoint: string): Promise<T> => {
    const { data } = await axios.get<T>(endpoint);
    return data;
 };
 
-export enum dataTypeNames {
+export enum getQueryNames {
    boards = 'boards',
    categories = 'categories',
    boardDetails = 'boardDetails',
@@ -57,30 +47,4 @@ export function useGetQuery<T>(
    }
 
    return useQuery(key, () => getData<T>(endpoint), useQueryConfig);
-}
-
-// ============================ POST
-
-const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
-   const { data } = await axios.post<R>(endpoint, bodyReq);
-   console.log(bodyReq);
-   return data;
-};
-
-const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
-const NewTask = new QueryData('newTask', '/tasks', ['task']);
-
-export const postDataTypes = {
-   signin: SignIn,
-   newTask: NewTask,
-};
-
-export function usePostQuery<T, R>(dataType: keyof typeof postDataTypes) {
-   const { endpoint } = postDataTypes[dataType];
-
-   if (!endpoint) {
-      throw new Error(`Invalid dataType: ${dataType}`);
-   }
-
-   return useMutation((bodyReq: T) => postData<T, R>(endpoint, bodyReq));
 }

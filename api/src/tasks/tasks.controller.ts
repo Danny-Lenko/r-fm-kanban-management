@@ -6,6 +6,7 @@ import {
   Post,
   Body,
   Put,
+  Delete,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -51,5 +52,10 @@ export class TasksController {
     @GetUser() user: UserEntity,
   ): Promise<void> {
     return this.tasksService.editTaskById(id, editTaskDto, user);
+  }
+
+  @Delete('/:id')
+  deleteTaskById(@Param('id') id: string): Promise<void> {
+    return this.tasksService.deleteTaskById(id);
   }
 }

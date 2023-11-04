@@ -13,7 +13,7 @@ import {
 } from '.';
 import {
    useGetQuery,
-   dataTypeNames,
+   getQueryNames,
    useAppDispatch,
 } from '../../library/common/hooks';
 import { IBoard } from '../../library/interfaces';
@@ -27,7 +27,7 @@ export const Board = () => {
    const dispatch = useAppDispatch();
    const { id } = useParams<string>();
 
-   const boardDetails = dataTypeNames.boardDetails;
+   const boardDetails = getQueryNames.boardDetails;
    const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id, {
       staleTime: 1000 * 60 * 20,
    });

@@ -1,13 +1,13 @@
 import { Typography } from '@mui/material';
 
-import { dataTypeNames, useGetQuery } from '../../../hooks';
+import { getQueryNames, useGetQuery } from '../../../hooks';
 import { ITask } from '../../../../interfaces';
 
 import { EditTaskFormik, LoadingFormik, CssHeading } from '.';
 import { DotsMenu } from '../../DotsMenu';
 
 export const ModalContent = ({ id }: { id: string }) => {
-   const taskById = dataTypeNames.taskById;
+   const taskById = getQueryNames.taskById;
    const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
       staleTime: 60000,
    });

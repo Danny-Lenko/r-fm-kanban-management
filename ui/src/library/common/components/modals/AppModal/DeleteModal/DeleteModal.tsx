@@ -3,8 +3,7 @@ import { AppBtn } from '../../../AppBtn';
 import { DeleteBtn, useDeleteModal } from '.';
 
 export const DeleteModal: React.FC = () => {
-   const { boardDeleting, activeBoard, activeTask, handleDelete, handleClose } =
-      useDeleteModal();
+   const { boardDeleting, handleDelete, handleClose, name } = useDeleteModal();
 
    return (
       <>
@@ -14,15 +13,14 @@ export const DeleteModal: React.FC = () => {
          <Typography variant='body1'>
             {boardDeleting ? (
                <>
-                  Are you sure you want to delete the{' '}
-                  <b>‘{activeBoard.name}’</b> board? This action will remove all
-                  columns and tasks and cannot be reversed.
+                  Are you sure you want to delete the <b>‘${name}’</b> board?
+                  This action will remove all columns and tasks and cannot be
+                  reversed.
                </>
             ) : (
                <>
-                  Are you sure you want to delete the{' '}
-                  <b>‘{activeTask?.title}’</b> task and its subtasks? This
-                  action cannot be reversed.
+                  Are you sure you want to delete the <b>‘{name}’</b> task and
+                  its subtasks? This action cannot be reversed.
                </>
             )}
          </Typography>
