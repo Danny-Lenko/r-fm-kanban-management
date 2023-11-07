@@ -3,13 +3,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import TaskIcon from '@mui/icons-material/Task';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { IconProps, SvgIconProps } from '@mui/material';
+import { SvgIconProps } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
-   setTaskAdding,
-   setExistingTask,
    setBoardIsExisting,
    setBoardEditing,
    setBoardDeleting,
@@ -59,12 +57,6 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       dispatch(setBoardIsExisting(true));
       dispatch(setBoardEditing(true));
    };
-
-   // const handleEditTask = () => {
-   //    dispatch(setTaskManaging(false));
-   //    dispatch(setExistingTask(true));
-   //    dispatch(setTaskEditing(true));
-   // };
 
    const handleDeleteBoard = () => {
       dispatch(setBoardDeleting(true));

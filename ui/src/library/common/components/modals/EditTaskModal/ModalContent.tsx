@@ -12,6 +12,8 @@ export const ModalContent = ({ id }: { id: string }) => {
       staleTime: 60000,
    });
 
+   // console.log(data);
+
    return (
       <>
          <CssHeading>

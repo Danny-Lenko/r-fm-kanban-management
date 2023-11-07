@@ -8,15 +8,30 @@ const postData = async <T, R>(endpoint: string, bodyReq: T): Promise<R> => {
    return data;
 };
 
-const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
-const NewTask = new QueryData('newTask', '/tasks', ['task']);
+export enum postQueryNames {
+   signin = 'signin',
+   newTask = 'newTask',
+   // editTaskById = 'editTaskById',
+}
 
-export const postDataTypes = {
-   signin: SignIn,
-   newTask: NewTask,
-};
+export function usePostQuery<T, R>(
+   dataType: keyof typeof postDataTypes,
+   id?: string,
+) {
+   const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
+   const NewTask = new QueryData('newTask', '/tasks', ['task']);
+   // const EditTaskById = new QueryData('editTaskById', `/tasks/edit/${id}`, [
+   //    'tasks',
+   //    'edit',
+   //    id!,
+   // ]);
 
-export function usePostQuery<T, R>(dataType: keyof typeof postDataTypes) {
+   const postDataTypes = {
+      signin: SignIn,
+      newTask: NewTask,
+      // editTaskById: EditTaskById,
+   };
+
    const { endpoint } = postDataTypes[dataType];
 
    if (!endpoint) {

@@ -61,7 +61,9 @@ export const useDeleteModal = () => {
 
    const deleteTask = async () => {
       await query.mutateAsync();
-      queryClient.invalidateQueries(['boards', activeBoardId, 'with-details']);
+      queryClient.invalidateQueries(['boards', activeBoardId, 'with-details'], {
+         exact: true,
+      });
       handleClose();
    };
    function handleClose() {

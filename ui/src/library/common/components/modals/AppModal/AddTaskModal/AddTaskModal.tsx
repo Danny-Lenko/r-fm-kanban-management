@@ -25,10 +25,6 @@ export const AddTaskModal = () => {
    const { columns } = activeBoard;
    const selectOptions = columns.map((col) => col.name);
 
-   // const handleCreate = () => {
-   //    console.log('create');
-   // };
-
    const btnProps = {
       type: 'submit' as 'submit',
       buttonSize: 'small' as 'small',

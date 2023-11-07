@@ -98,6 +98,8 @@ export class TasksService {
       user,
     );
 
+    
+
     const column = columns.find((column) => column.name === status);
 
     const task = await this.getTaskById(id);
@@ -109,13 +111,13 @@ export class TasksService {
     await this.tasksRepository.save(task);
 
     if (subtasks) {
-      for (const { id, title } of subtasks) {
+      for (const { id, title, isCompleted } of subtasks) {
         const existingSubtask = task.subtasks.find(
           (subtask) => id === subtask.id,
         );
 
         if (existingSubtask) {
-          await this.subtasksService.updateSubtaskTitle(id, title);
+          await this.subtasksService.updateSubtask(id, title, isCompleted);
         } else {
           await this.subtasksService.createSubtask({ title, task });
         }

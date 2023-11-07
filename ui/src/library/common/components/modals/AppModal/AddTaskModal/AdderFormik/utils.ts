@@ -11,19 +11,19 @@ type Subtask = {
    title: string;
 };
 
-export type Values = {
+type Values = {
    title: string;
    description: string;
    subtasks: string[];
    status: string;
 };
 
-export type SubmitValues = {
-   title: string;
-   description: string;
-   subtasks: Subtask[];
-   status: string;
-};
+// export type SubmitValues = {
+//    title: string;
+//    description: string;
+//    subtasks: Subtask[];
+//    status: string;
+// };
 
 interface Props extends ISumbissionParams {
    values: Values;

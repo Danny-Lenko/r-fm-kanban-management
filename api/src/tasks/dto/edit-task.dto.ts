@@ -25,4 +25,7 @@ class SubtaskDto {
 
   @IsNotEmpty()
   title: string;
+
+  @IsNotEmpty()
+  isCompleted: boolean;
 }

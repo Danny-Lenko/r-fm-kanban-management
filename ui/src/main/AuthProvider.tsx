@@ -2,7 +2,7 @@ import { useEffect, useRef, createContext, useContext } from 'react';
 import axios from 'axios';
 
 import { apiBaseUrl } from '../library/common/constants';
-import { postDataTypes, usePostQuery } from '../library/common/hooks';
+import { postQueryNames, usePostQuery } from '../library/common/hooks';
 
 type AuthContextType = {
    isAuthenticated: boolean;
@@ -26,10 +26,8 @@ export const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
    const accessTokenRef = useRef<string>();
 
-   const dataType = postDataTypes.signin.name;
-   const loginQuery = usePostQuery<ISigninBody, ISigninReturn>(
-      dataType as keyof typeof postDataTypes,
-   );
+   const dataType = postQueryNames.signin;
+   const loginQuery = usePostQuery<ISigninBody, ISigninReturn>(dataType);
 
    const signIn = async (reqBody: ISigninBody) => {
       await loginQuery.mutateAsync(reqBody, {

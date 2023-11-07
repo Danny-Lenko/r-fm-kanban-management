@@ -7,7 +7,7 @@ import {
    selectTaskModalExpansionId,
    setActiveTaskId,
 } from '../../../../main/store';
-import { ITask } from '../../../../library/interfaces/interfaces';
+import { ITask } from '../../../../library/interfaces';
 import {
    useAppDispatch,
    useAppSelector,

@@ -2,6 +2,7 @@ import { FieldArrayRenderProps } from 'formik';
 import { ISubtask } from '../../../../interfaces';
 
 export type FormValues = {
+   id?: string;
    title: string;
    description: string;
    subtasks: ISubtask[];

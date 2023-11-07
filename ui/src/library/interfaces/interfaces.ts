@@ -6,20 +6,31 @@ export interface AppBarProps extends MuiAppBarProps {
    open?: boolean;
 }
 
-export interface ISubtask {
-   id: string;
+export interface INewSubtask {
    title: string;
+}
+
+export interface ISubtask extends INewSubtask {
+   id: string;
    isCompleted: boolean;
 }
 
-export interface ITask {
-   id: string;
-   completedSubtasks: number;
+export interface INewTask {
    title: string;
    description: string;
    status: string;
-   subtasks: ISubtask[];
+   subtasks: INewSubtask[];
+}
+
+export interface IEditTask extends INewTask {
+   boardId: string;
+}
+
+export interface ITask extends INewTask {
+   id: string;
+   completedSubtasks: number;
    columnOptions: string[];
+   subtasks: ISubtask[];
 }
 
 export interface IColumn {

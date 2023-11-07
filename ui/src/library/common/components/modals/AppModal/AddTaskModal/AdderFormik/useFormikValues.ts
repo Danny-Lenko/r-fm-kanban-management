@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
-import { Values, SubmitValues } from '.';
+import { SubmitValues } from '.';
 import {
    selectActiveBoardId,
    selectTaskAddingColumn,
@@ -9,9 +9,10 @@ import {
 import {
    useAppSelector,
    useAppDispatch,
-   postDataTypes,
+   postQueryNames,
    usePostQuery,
 } from '../../../../../hooks';
+import { INewTask } from '../../../../../../interfaces';
 
 export const useFormikValues = () => {
    const dispatch = useAppDispatch();
@@ -19,18 +20,15 @@ export const useFormikValues = () => {
    const activeBoardId = useAppSelector(selectActiveBoardId);
 
    const queryClient = useQueryClient();
-   const dataType = postDataTypes.newTask.name;
-   const query = usePostQuery<SubmitValues, void>(
-      dataType as keyof typeof postDataTypes,
-   );
-   const createTask = async (values: SubmitValues) => {
+   const dataType = postQueryNames.newTask;
+   const query = usePostQuery<INewTask, void>(dataType);
+   const createTask = async (values: INewTask) => {
       await query.mutateAsync(values, {
          onSuccess: (data) => {
-            queryClient.invalidateQueries([
-               'boards',
-               activeBoardId,
-               'with-details',
-            ]);
+            queryClient.invalidateQueries(
+               ['boards', activeBoardId, 'with-details'],
+               { exact: true },
+            );
             dispatch(setTaskAdding(false));
          },
       });
@@ -44,7 +42,7 @@ export const useFormikValues = () => {
       status: taskAddingColumn,
    };
 
-   const submit = (values: Values) => {
+   const submit = (values: SubmitValues) => {
       const { subtasks } = values;
       const editedSubtasks = subtasks.map((subtask) => ({
          title: subtask,

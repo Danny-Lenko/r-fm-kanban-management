@@ -1,9 +1,9 @@
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 
-import { useFormikValues, Values } from '.';
+import { useFormikValues, SubmitValues } from '.';
 
-type FormikValues = FormikProps<Values>;
+type FormikValues = FormikProps<SubmitValues>;
 
 type Props = {
    children: (props: FormikValues) => React.ReactNode;
