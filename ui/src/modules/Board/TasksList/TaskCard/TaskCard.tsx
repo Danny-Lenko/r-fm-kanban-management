@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
 import { Box } from '@mui/material';
 
@@ -6,13 +6,13 @@ import { CssCard, CssTitle, CssSubtasks } from '.';
 import {
    selectTaskModalExpansionId,
    setActiveTaskId,
+   setTaskCardWasDragged,
 } from '../../../../main/store';
 import { ITask } from '../../../../library/interfaces';
 import {
    useAppDispatch,
    useAppSelector,
 } from '../../../../library/common/hooks';
-import { EditTaskModal } from '../../../../library/common/components';
 import { setTaskModalExpansionId } from '../../../../main/store';
 
 interface Props extends ITask {
@@ -25,6 +25,7 @@ export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
       // this expansionId ensures working animation
       const expansionId = useAppSelector(selectTaskModalExpansionId);
+      const { isDragging } = snapshot;
       const dispatch = useAppDispatch();
 
       const completed =
@@ -36,33 +37,33 @@ export const TaskCard: React.FC<Props> = React.memo(
          dispatch(setTaskModalExpansionId(id));
       };
 
-      const isDragging = snapshot.isDragging;
+      useEffect(() => {
+         if (isDragging) {
+            dispatch(setTaskCardWasDragged(true));
+         }
+      }, [isDragging]);
 
       return (
-         <>
-            <Box
-               {...provided.dragHandleProps}
-               {...provided.draggableProps}
-               ref={provided.innerRef}
-               sx={{
-                  border: (theme) =>
-                     snapshot.isDragging
-                        ? `2px solid ${theme.palette.primary.main}`
-                        : 'none',
-               }}
-            >
-               <CssCard layoutId={id} onClick={handleExpand}>
-                  <CssTitle>{title}</CssTitle>
-                  <CssSubtasks>
-                     {subtasks.length
-                        ? `${completed} of ${subtasks.length} subtasks`
-                        : 'no subtasks yet'}
-                  </CssSubtasks>
-               </CssCard>
-            </Box>
-
-            {/* <EditTaskModal isDragging={isDragging} title={title} /> */}
-         </>
+         <Box
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+            sx={{
+               border: (theme) =>
+                  isDragging
+                     ? `2px solid ${theme.palette.primary.main}`
+                     : 'none',
+            }}
+         >
+            <CssCard layoutId={id} onClick={handleExpand}>
+               <CssTitle>{title}</CssTitle>
+               <CssSubtasks>
+                  {subtasks.length
+                     ? `${completed} of ${subtasks.length} subtasks`
+                     : 'no subtasks yet'}
+               </CssSubtasks>
+            </CssCard>
+         </Box>
       );
    },
 );

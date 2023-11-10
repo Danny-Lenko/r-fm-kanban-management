@@ -1,4 +1,6 @@
-const assembleThemeObj = (mode: any, theme: any) => ({
+import { PaletteMode } from '@mui/material';
+
+const assembleThemeObj = (mode: PaletteMode) => ({
    // ================================= component overrides
    components: {
       // select element menu items
@@ -37,6 +39,28 @@ const assembleThemeObj = (mode: any, theme: any) => ({
          styleOverrides: {
             root: {
                cursor: 'pointer',
+            },
+         },
+      },
+
+      MuiCssBaseline: {
+         styleOverrides: {
+            body: {
+               scrollbarWidth: 'thin',
+            },
+            '::-webkit-scrollbar': {
+               width: '0.4em',
+            },
+            '::-webkit-scrollbar-track': {
+               background: '#f1f1f1',
+               borderRadius: '8px',
+            },
+            '::-webkit-scrollbar-thumb': {
+               backgroundColor: '#888',
+               borderRadius: '8px',
+            },
+            '::-webkit-scrollbar-thumb:hover': {
+               background: '#555',
             },
          },
       },

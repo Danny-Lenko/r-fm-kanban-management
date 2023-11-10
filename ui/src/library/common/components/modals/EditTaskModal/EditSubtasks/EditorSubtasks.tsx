@@ -4,11 +4,10 @@ import {
    FormikValues,
    useFormikContext,
 } from 'formik';
-import { Stack } from '@mui/material';
 
-import { AppBtn, CssLabel } from '../../..';
-import { Subtask } from '.';
+import { Subtask, CssStack } from '.';
 import { FormValues } from '..';
+import { AppBtn, CssLabel } from '../../..';
 
 export const EditorSubtasks: React.FC<FormikValues> = () => {
    const { values, initialValues } = useFormikContext<FormValues>();
@@ -34,7 +33,7 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
          <FieldArray
             name='subtasks'
             render={(arrayHelpers) => (
-               <Stack>
+               <CssStack>
                   {subtasks.map((subtask, index) => (
                      <Subtask
                         key={index}
@@ -53,7 +52,7 @@ export const EditorSubtasks: React.FC<FormikValues> = () => {
                   >
                      + Add New Subtask
                   </AppBtn>
-               </Stack>
+               </CssStack>
             )}
          />
       </>

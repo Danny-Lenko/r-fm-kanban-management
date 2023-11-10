@@ -18,7 +18,6 @@ import {
 } from '../../library/common/hooks';
 import { IBoard } from '../../library/interfaces';
 import { setActiveBoardId } from '../../main/store';
-// import { AnimatePresence, motion } from 'framer-motion';
 
 import { EditTaskModal } from '../../library/common/components';
 
@@ -39,8 +38,6 @@ export const Board = () => {
    }, [id]);
 
    if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
-
-   // console.log(id);
 
    const { columns } = data!;
    const columnNames = columns.map((column) => column.name);
@@ -85,7 +82,7 @@ export const Board = () => {
          </CssColumnButton>
 
          {/* Mocked props: change to use redux state */}
-         <EditTaskModal isDragging={false} title={'Title'} />
+         <EditTaskModal />
       </CssBoard>
    );
 };

@@ -16,7 +16,7 @@ function useColorMode() {
    );
 
    let theme = useMemo(
-      () => createTheme(assembleThemeObj(mode, defaultTheme)),
+      () => createTheme(assembleThemeObj(mode)),
       [mode, defaultTheme],
    );
 

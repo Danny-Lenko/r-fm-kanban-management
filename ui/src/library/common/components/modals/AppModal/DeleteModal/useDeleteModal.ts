@@ -3,6 +3,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import {
    setBoardDeleting,
+   setTaskModalExpansionId,
+   setTaskCardWasDragged,
    setTaskDeleting,
    setBoards,
    setActiveBoardId,
@@ -61,14 +63,19 @@ export const useDeleteModal = () => {
 
    const deleteTask = async () => {
       await query.mutateAsync();
-      queryClient.invalidateQueries(['boards', activeBoardId, 'with-details'], {
-         exact: true,
-      });
+      await queryClient.invalidateQueries(
+         ['boards', activeBoardId, 'with-details'],
+         {
+            exact: true,
+         },
+      );
       handleClose();
    };
    function handleClose() {
       dispatch(setBoardDeleting(false));
       dispatch(setTaskDeleting(false));
+      dispatch(setTaskCardWasDragged(false));
+      dispatch(setTaskModalExpansionId(null));
    }
 
    const handleDelete = deleteTask;
