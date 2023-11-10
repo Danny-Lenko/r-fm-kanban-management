@@ -65,3 +65,8 @@ export const selectTaskCardWasDragged = createSelector(
    [selectModalsReducer],
    (modals) => modals.taskCardWasDragged,
 );
+
+export const selectModalIsSubmitting = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.modalIsSubmitting,
+);

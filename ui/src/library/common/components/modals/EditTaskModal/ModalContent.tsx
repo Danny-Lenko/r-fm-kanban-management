@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import { getQueryNames, useGetQuery } from '../../../hooks';
 import { ITask } from '../../../../interfaces';
 
-import { EditTaskFormik, LoadingFormik, CssHeading } from '.';
+import { EditTaskFormik, LoadingContent, CssHeading } from '.';
 import { DotsMenu } from '../../DotsMenu';
 
 export const ModalContent = ({ id }: { id: string }) => {
@@ -19,7 +19,7 @@ export const ModalContent = ({ id }: { id: string }) => {
             <DotsMenu isTaskMenu={true} />
          </CssHeading>
 
-         {isLoading && <LoadingFormik />}
+         {isLoading && <LoadingContent />}
          {data && <EditTaskFormik {...data} />}
       </>
    );

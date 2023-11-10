@@ -10,12 +10,15 @@ import {
    setTaskModalExpansionId,
    setTaskCardWasDragged,
    selectActiveBoardId,
+   selectModalIsSubmitting,
 } from '../../../../../main/store';
 
 export const EditTaskModal = () => {
    const wasDragged = useAppSelector(selectTaskCardWasDragged);
    const expansionId = useAppSelector(selectTaskModalExpansionId);
    const boardId = useAppSelector(selectActiveBoardId);
+   const modalIsSubmitting = useAppSelector(selectModalIsSubmitting);
+
    const dispatch = useAppDispatch();
    const queryClient = useQueryClient();
 
@@ -24,6 +27,8 @@ export const EditTaskModal = () => {
    };
 
    const handleCollapse = () => {
+      if (modalIsSubmitting) return;
+
       queryClient.invalidateQueries(['boards', boardId, 'with-details'], {
          exact: true,
       });

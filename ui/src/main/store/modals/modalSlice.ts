@@ -16,6 +16,8 @@ export const modalSlice = createSlice({
       boardIsExisting: false,
       boardDeleting: false,
       xsBoardsOpen: false,
+
+      modalIsSubmitting: false,
    },
 
    reducers: {
@@ -66,6 +68,10 @@ export const modalSlice = createSlice({
       setTaskCardWasDragged: (state, { payload }) => {
          state.taskCardWasDragged = payload;
       },
+
+      setModalIsSubmitting: (state, { payload }) => {
+         state.modalIsSubmitting = payload;
+      },
    },
 });
 
@@ -82,5 +88,6 @@ export const {
    setTaskModalExpansionId,
    setTaskCardWasDragged,
    setTaskAddingColumn,
+   setModalIsSubmitting,
 } = modalSlice.actions;
 export default modalSlice.reducer;

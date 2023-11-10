@@ -7,9 +7,12 @@ import { Values } from './utils';
 export const useSaveChanges = (id: string) => {
    const queryClient = useQueryClient();
    const dataType = putQueryNames.editTaskById;
-   const query = usePutQuery<IEditTask, void>(dataType, id);
+   const { mutateAsync, isLoading, isError } = usePutQuery<IEditTask, void>(
+      dataType,
+      id,
+   );
    const saveChanges = async (values: Values, boardId: string) => {
-      await query.mutateAsync(
+      await mutateAsync(
          { ...values, boardId },
          {
             onSuccess: (data) => {
@@ -21,5 +24,7 @@ export const useSaveChanges = (id: string) => {
 
    return {
       saveChanges,
+      isLoading,
+      isError,
    };
 };

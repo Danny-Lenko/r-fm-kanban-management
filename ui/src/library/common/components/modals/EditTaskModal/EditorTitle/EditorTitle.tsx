@@ -1,6 +1,11 @@
 import { FormikValues, useFormikContext } from 'formik';
-import { CssLabel } from '../../AppModal';
+
 import { CssTextField, FormValues } from '..';
+import { CssLabel } from '../../AppModal';
+
+import { useAppDispatch } from '../../../../hooks';
+import { setModalIsSubmitting } from '../../../../../../main/store';
+import { useEffect } from 'react';
 
 export const EditorTitle: React.FC<FormikValues> = ({
    values,
@@ -8,9 +13,16 @@ export const EditorTitle: React.FC<FormikValues> = ({
    handleBlur,
    touched,
    errors,
+   isSubmitting,
 }) => {
+   const dispatch = useAppDispatch();
+
    const formik = useFormikContext<FormValues>();
    const { title } = formik.values!;
+
+   useEffect(() => {
+      dispatch(setModalIsSubmitting(isSubmitting));
+   }, [isSubmitting]);
 
    const fieldProps = {
       placeholder: 'e.g. Take coffee break',
