@@ -11,6 +11,7 @@ import {
    editTaskSchema,
    FormValues,
 } from '..';
+import { Error } from '../../..';
 import { useAppSelector } from '../../../../hooks';
 import { selectActiveBoardId } from '../../../../../../main/store';
 
@@ -22,12 +23,21 @@ export const EditTaskFormik: React.FC<FormValues> = ({
    status,
    columnOptions,
 }) => {
-   const { saveChanges, isLoading, isError } = useSaveChanges(id!);
+   const { saveChanges, isError } = useSaveChanges(id!);
    const boardId = useAppSelector(selectActiveBoardId);
 
    const submit = (values: Values, boardId: string) => {
       saveChanges(values, boardId);
    };
+
+   if (isError)
+      return (
+         <Error>
+            {
+               'Your changes were not saved. Please check your internet connection and try again.'
+            }
+         </Error>
+      );
 
    return (
       <Formik

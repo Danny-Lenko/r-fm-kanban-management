@@ -4,13 +4,17 @@ import { getQueryNames, useGetQuery } from '../../../hooks';
 import { ITask } from '../../../../interfaces';
 
 import { EditTaskFormik, LoadingContent, CssHeading } from '.';
-import { DotsMenu } from '../../DotsMenu';
+import { DotsMenu, Error } from '../..';
 
 export const ModalContent = ({ id }: { id: string }) => {
    const taskById = getQueryNames.taskById;
-   const { isLoading, error, data } = useGetQuery<ITask>(taskById, id, {
+   const { isLoading, isError, data } = useGetQuery<ITask>(taskById, id, {
       staleTime: 60000,
    });
+
+   if (isError) return <Error>
+      {'Error'}
+   </Error>;
 
    return (
       <>

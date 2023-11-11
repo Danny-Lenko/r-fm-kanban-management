@@ -6,3 +6,4 @@ export * from './modals';
 export * from './AppSelect';
 export * from './CssDrawerHeader';
 export * from './BoardsList';
+export * from './Error';
