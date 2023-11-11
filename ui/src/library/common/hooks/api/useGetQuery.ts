@@ -3,9 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { QueryData } from '../../../utilities';
 
-const getData = async <T>(endpoint: string): Promise<T> => {
-   const { data } = await axios.get<T>(endpoint);
-   return data;
+const getData = async <T>(endpoint: string): Promise<T | undefined> => {
+   try {
+      const { data } = await axios.get<T>(endpoint);
+      return data;
+   } catch (err) {
+      console.error('An error occurred');
+      throw new Error('Internal Server Error');
+   }
 };
 
 export enum getQueryNames {

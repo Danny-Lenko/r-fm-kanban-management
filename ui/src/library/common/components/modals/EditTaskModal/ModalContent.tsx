@@ -13,7 +13,7 @@ export const ModalContent = ({ id }: { id: string }) => {
    });
 
    if (isError) return <Error>
-      {'Error'}
+      {'Failed to load data. Check your connection'}
    </Error>;
 
    return (
