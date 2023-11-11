@@ -6,7 +6,7 @@ import {
    setActiveBoardId,
 } from '../../main/store';
 import { COLUMNCOLORS } from '../../library/common/constants';
-import { generateId } from '../../library/utilities/utils';
+// import { generateId } from '../../library/utilities/utils';
 
 export const useNewColumn = () => {
    const boards = useAppSelector(selectBoards);
@@ -14,31 +14,33 @@ export const useNewColumn = () => {
    const { columns } = activeBoard!;
    const dispatch = useAppDispatch();
 
-   const addNewColumn = () => {
-      const boardsUpdated = boards.map((board) => {
-         const { id, columns } = board;
+   // const addNewColumn = () => {
+   //    const boardsUpdated = boards.map((board) => {
+   //       const { id, columns } = board;
 
-         return id !== activeBoardId
-            ? board
-            : {
-                 ...board,
-                 columns: [
-                    ...board.columns,
-                    {
-                       id: generateId(),
-                       name: `NewColumn${columns.length + 1}`,
-                       tasks: [],
-                       color: COLUMNCOLORS[columns.length]
-                          ? COLUMNCOLORS[columns.length]
-                          : '#E4EBFA',
-                    },
-                 ],
-              };
-      });
+   //       return id !== activeBoardId
+   //          ? board
+   //          : {
+   //               ...board,
+   //               columns: [
+   //                  ...board.columns,
+   //                  {
+   //                     id: generateId(),
+   //                     name: `NewColumn${columns.length + 1}`,
+   //                     tasks: [],
+   //                     color: COLUMNCOLORS[columns.length]
+   //                        ? COLUMNCOLORS[columns.length]
+   //                        : '#E4EBFA',
+   //                  },
+   //               ],
+   //            };
+   //    });
 
-      dispatch(setBoards(boardsUpdated));
-      dispatch(setActiveBoardId(activeBoardId));
-   };
+   //    dispatch(setBoards(boardsUpdated));
+   //    dispatch(setActiveBoardId(activeBoardId));
+   // };
+
+   const addNewColumn = () => console.log('tempo')
 
    return { columns, addNewColumn };
 };

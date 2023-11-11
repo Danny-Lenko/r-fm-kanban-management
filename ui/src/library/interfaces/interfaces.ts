@@ -6,17 +6,30 @@ export interface AppBarProps extends MuiAppBarProps {
    open?: boolean;
 }
 
-export interface ISubtask {
+export interface INewSubtask {
    title: string;
+}
+
+export interface ISubtask extends INewSubtask {
+   id: string;
    isCompleted: boolean;
 }
 
-export interface ITask {
-   id: string;
-   completedSubtasks: number;
+export interface INewTask {
    title: string;
    description: string;
    status: string;
+   subtasks: INewSubtask[];
+}
+
+export interface IEditTask extends INewTask {
+   boardId: string;
+}
+
+export interface ITask extends INewTask {
+   id: string;
+   completedSubtasks: number;
+   columnOptions: string[];
    subtasks: ISubtask[];
 }
 
@@ -37,6 +50,7 @@ export interface IBoard {
 export interface IFieldArray {
    index: number;
    arrayHelpers: FieldArrayRenderProps;
+   subtask?: ISubtask;
 }
 
 export interface ISumbissionParams {

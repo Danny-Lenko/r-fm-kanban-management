@@ -19,7 +19,7 @@ import logoDark from '../../../resources/assets/logo-dark.svg';
 import logoLight from '../../../resources/assets/logo-light.svg';
 import logoMobile from '../../../resources/assets/logo-mobile.svg';
 
-export const AppBar = () => {
+export const AppBar = ({ isHome }: { isHome: boolean }) => {
    const { drawer, modals } = useAppSelector((state) => state);
    const { open } = drawer;
    const { xsBoardsOpen } = modals;
@@ -44,6 +44,8 @@ export const AppBar = () => {
       ? logoDark
       : logoLight;
 
+   const title = isHome ? 'All Boards View' : activeBoard.name;
+
    return (
       <CssAppBar open={open}>
          <Toolbar>
@@ -51,7 +53,7 @@ export const AppBar = () => {
                <CssLogo src={logo} />
             </CssLogoWrapper>
 
-            <CssBoardTitle onClick={handleClick} children={activeBoard.name} />
+            <CssBoardTitle onClick={handleClick} children={title} />
 
             {xsScreen &&
                (xsBoardsOpen ? (

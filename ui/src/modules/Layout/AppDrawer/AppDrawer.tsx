@@ -13,6 +13,8 @@ import logoDark from '../../../resources/assets/logo-dark.svg';
 import logoLight from '../../../resources/assets/logo-light.svg';
 import { selectIsDrawerOpen } from '../../../main/store';
 
+const sx = { transform: 'translateY(8px)', width: '153px' };
+
 export const AppDrawer: React.FC = () => {
    const open = useAppSelector(selectIsDrawerOpen);
    const theme = useTheme();
@@ -22,7 +24,7 @@ export const AppDrawer: React.FC = () => {
          <CssDrawerHeader>
             <Box
                component='img'
-               width='153px'
+               sx={sx}
                src={theme.palette.mode === 'light' ? logoDark : logoLight}
                alt='kanban'
             ></Box>

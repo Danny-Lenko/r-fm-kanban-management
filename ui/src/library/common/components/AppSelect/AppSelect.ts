@@ -15,6 +15,10 @@ export const AppSelect = styled(Select)(({ theme }) => ({
    '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.divider,
    },
+
+   '&.MuiPopover-root': {
+      position: 'unset',
+   },
 }));
 
 AppSelect.defaultProps = {

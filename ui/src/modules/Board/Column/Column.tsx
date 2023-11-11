@@ -2,7 +2,9 @@ import React from 'react';
 import { DraggableProvided } from 'react-beautiful-dnd';
 import { Typography, Stack } from '@mui/material';
 
-import { CssColumn, CssColorLabel } from '.';
+import { CssColumn, CssColorLabel, CssTaskButton } from '.';
+import { useAppDispatch } from '../../../library/common/hooks';
+import { setTaskAdding, setTaskAddingColumn } from '../../../main/store';
 
 interface Props {
    name: string;
@@ -14,6 +16,13 @@ interface Props {
 
 export const Column: React.FC<Props> = React.memo(
    ({ name, color, tasksNum, children, provided }) => {
+      const dispatch = useAppDispatch();
+
+      const handleAddTask = () => {
+         dispatch(setTaskAdding(true));
+         dispatch(setTaskAddingColumn(name));
+      };
+
       return (
          <CssColumn
             {...provided.dragHandleProps}
@@ -32,6 +41,11 @@ export const Column: React.FC<Props> = React.memo(
                </Typography>
             </Stack>
             {children}
+            <CssTaskButton
+               children='+ add task'
+               tasksnum={tasksNum}
+               onClick={handleAddTask}
+            />
          </CssColumn>
       );
    },

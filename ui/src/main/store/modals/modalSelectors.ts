@@ -36,9 +36,14 @@ export const selectTaskManaging = createSelector(
    (modals) => modals.taskManaging,
 );
 
-export const selectTaskEditing = createSelector(
+export const selectTaskAdding = createSelector(
    [selectModalsReducer],
-   (modals) => modals.taskEditing,
+   (modals) => modals.taskAdding,
+);
+
+export const selectTaskAddingColumn = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskAddingColumn,
 );
 
 export const selectTaskDeleting = createSelector(
@@ -49,4 +54,19 @@ export const selectTaskDeleting = createSelector(
 export const selectTaskIsExisting = createSelector(
    [selectModalsReducer],
    (modals) => modals.taskIsExisting,
+);
+
+export const selectTaskModalExpansionId = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskModalExpansionId,
+);
+
+export const selectTaskCardWasDragged = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.taskCardWasDragged,
+);
+
+export const selectModalIsSubmitting = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.modalIsSubmitting,
 );

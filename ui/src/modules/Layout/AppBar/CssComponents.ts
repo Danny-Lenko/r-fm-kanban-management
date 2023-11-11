@@ -12,12 +12,19 @@ interface LogoWrapper extends BoxProps {
 export const CssAppBar = styled(AppBar, {
    shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
+   margin: `${theme.spacing(2)} ${theme.spacing(2)}`,
    borderBottom: '1.5px solid',
    borderBottomColor: theme.palette.divider,
+   borderRadius: '12px',
    transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
    }),
+
+   // applies margin left
+   // 32 px is the default mui setting
+   marginLeft: '32px',
+   width: `calc(100% - ${32}px)`,
 
    '& .MuiToolbar-root': {
       minHeight: AppbarHeight.Xs,
@@ -30,6 +37,7 @@ export const CssAppBar = styled(AppBar, {
    // drawer is open state
    ...(open && {
       width: `calc(100% - ${DrawerWidth.Md})`,
+      paddingLeft: theme.spacing(2),
       [theme.breakpoints.down('md')]: {
          width: `calc(100% - ${DrawerWidth.Sm}) !important`,
       },

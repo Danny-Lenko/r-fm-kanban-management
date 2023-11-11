@@ -20,7 +20,7 @@ export class ColumnsController {
   constructor(private columnsService: ColumnsService) {}
 
   @Post()
-  createBoard(
+  createColumn(
     @Body() createColumnDto: CreateColumnDto,
     @GetUser() user: UserEntity,
   ): Promise<ColumnsEntity> {

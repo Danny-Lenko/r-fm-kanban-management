@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import rowData from '../../../resources/data/data.json';
 
-import { countCompletedSubtasks } from '../../../library/utilities/utils';
+import { countCompletedSubtasks } from '../../../library/utilities';
 import { COLUMNCOLORS } from '../../../library/common/constants';
 import { IBoard, IColumn, ITask } from '../../../library/interfaces';
 
@@ -56,7 +56,7 @@ export const dataSlice = createSlice({
       boards: mockData,
       activeBoardId: '0',
       activeColumnId: '0',
-      activeTaskId: '0',
+      activeTaskId: '',
    },
 
    reducers: {
@@ -73,11 +73,11 @@ export const dataSlice = createSlice({
       },
 
       updateColumns: (state, { payload }) => {
-         state.boards = updateColumnsHelper(state, payload);
+         // state.boards = updateColumnsHelper(state, payload);
       },
 
       dropColumn: (state, { payload }) => {
-         state.boards = dropColumnHelper(state, payload);
+         // state.boards = dropColumnHelper(state, payload);
       },
 
       setActiveTaskId: (state, { payload }) => {
@@ -85,11 +85,11 @@ export const dataSlice = createSlice({
       },
 
       updateActiveTask: (state, { payload }) => {
-         state.boards = updateTaskHelper(state, payload);
+         // state.boards = updateTaskHelper(state, payload);
       },
 
       dropTask: (state, { payload }) => {
-         state.boards = dropTaskHelper(state, payload);
+         // state.boards = dropTaskHelper(state, payload); 
       },
    },
 });

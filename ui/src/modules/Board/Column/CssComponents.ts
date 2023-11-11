@@ -1,5 +1,6 @@
-import { Stack, Box, BoxProps } from '@mui/material';
+import { Stack, Box, BoxProps, ButtonProps } from '@mui/material';
 import { styled } from '@mui/system';
+import { CssAddButton } from '..';
 
 export const CssColumn = styled(Stack)({
    minWidth: '280px',
@@ -18,3 +19,18 @@ export const CssColorLabel = styled(Box)<ColorLabel>(({ color }) => ({
    width: '15px',
    borderRadius: '50%',
 }));
+
+interface Props extends ButtonProps {
+   tasksnum: number;
+}
+
+export const CssTaskButton = styled(CssAddButton)<Props>(
+   ({ theme, tasksnum }) => ({
+      padding: '28px 0',
+      border: `3px solid ${theme.palette.divider}`,
+      background: 'transparent',
+      maxWidth: '100%',
+      fontSize: 'larger',
+      transform: tasksnum === 0 ? 'translateY(-20px)' : 'none',
+   }),
+);

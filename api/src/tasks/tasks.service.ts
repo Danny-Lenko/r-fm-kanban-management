@@ -20,12 +20,24 @@ export class TasksService {
   async getTaskById(id: string): Promise<TasksEntity> {
     const task = await this.tasksRepository.findOne({
       where: { id },
-      relations: ['subtasks'],
+      relations: ['subtasks', 'column', 'column.board', 'column.board.columns'],
     });
 
     if (!task) {
       throw new NotFoundException(`task with id: ${id} was not found`);
     }
+
+    const column = task.column;
+
+    if (!column) {
+      throw new NotFoundException(
+        `Column associated with task id: ${id} was not found`,
+      );
+    }
+
+    const columnOptions = column.board.columns.map((column) => column.name);
+
+    task['columnOptions'] = columnOptions;
 
     return task;
   }
@@ -86,6 +98,8 @@ export class TasksService {
       user,
     );
 
+    
+
     const column = columns.find((column) => column.name === status);
 
     const task = await this.getTaskById(id);
@@ -97,13 +111,13 @@ export class TasksService {
     await this.tasksRepository.save(task);
 
     if (subtasks) {
-      for (const { id, title } of subtasks) {
+      for (const { id, title, isCompleted } of subtasks) {
         const existingSubtask = task.subtasks.find(
           (subtask) => id === subtask.id,
         );
 
         if (existingSubtask) {
-          await this.subtasksService.updateSubtaskTitle(id, title);
+          await this.subtasksService.updateSubtask(id, title, isCompleted);
         } else {
           await this.subtasksService.createSubtask({ title, task });
         }
@@ -117,5 +131,14 @@ export class TasksService {
         await this.subtasksService.deleteSubtask(id);
       }
     }
+  }
+
+  async deleteTaskById(id: string): Promise<void> {
+    const result = await this.tasksRepository.delete({ id });
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`task with id: ${id} not found`);
+    }
+    return;
   }
 }

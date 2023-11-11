@@ -6,6 +6,8 @@ import {
   OneToMany,
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
+
 import { ColumnsEntity } from 'src/columns/columns.entity';
 import { SubtasksEntity } from 'src/subtasks/subtasks.entity';
 
@@ -26,6 +28,7 @@ export class TasksEntity {
   @ManyToOne(() => ColumnsEntity, (column) => column.tasks, {
     onDelete: 'CASCADE',
   })
+  @Exclude({ toPlainOnly: true })
   column: ColumnsEntity;
 
   @OneToMany(() => SubtasksEntity, (subtask) => subtask.task, {

@@ -32,6 +32,18 @@ export class SubtasksService {
     this.subtasksRepository.save(result);
   }
 
+  async updateSubtask(
+    id: string,
+    title: string,
+    isCompleted: boolean,
+  ): Promise<void> {
+    const result = await this.getSubtaskById(id);
+
+    result.title = title;
+    result.isCompleted = isCompleted;
+    this.subtasksRepository.save(result);
+  }
+
   async createSubtask(createSubtaskDto: CreateSubtaskDto): Promise<void> {
     const subtask = this.subtasksRepository.create(createSubtaskDto);
     this.subtasksRepository.save(subtask);

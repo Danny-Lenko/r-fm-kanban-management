@@ -1,43 +1,69 @@
-import React, { useCallback } from 'react';
-import { DraggableProvided } from 'react-beautiful-dnd';
-
-import { ITask } from '../../../../library/interfaces/interfaces';
-import { useAppDispatch } from '../../../../library/common/hooks';
-import {
-   setActiveColumndId,
-   setActiveTaskId,
-   setTaskManaging,
-} from '../../../../main/store';
+import React, { useEffect } from 'react';
+import { DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import { Box } from '@mui/material';
 
 import { CssCard, CssTitle, CssSubtasks } from '.';
+import {
+   selectTaskModalExpansionId,
+   setActiveTaskId,
+   setTaskCardWasDragged,
+} from '../../../../main/store';
+import { ITask } from '../../../../library/interfaces';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../library/common/hooks';
+import { setTaskModalExpansionId } from '../../../../main/store';
 
 interface Props extends ITask {
    columnId: string;
    provided: DraggableProvided;
+   snapshot: DraggableStateSnapshot;
 }
 
 export const TaskCard: React.FC<Props> = React.memo(
-   ({ title, completedSubtasks, subtasks, id, columnId, provided }) => {
+   ({ title, subtasks, id, columnId, provided, snapshot }) => {
+      // this expansionId ensures working animation
+      const expansionId = useAppSelector(selectTaskModalExpansionId);
+      const { isDragging } = snapshot;
       const dispatch = useAppDispatch();
 
-      const handleClick = useCallback(() => {
-         dispatch(setActiveColumndId(columnId));
+      const completed =
+         subtasks.length &&
+         subtasks.filter(({ isCompleted }) => isCompleted).length;
+
+      const handleExpand = () => {
          dispatch(setActiveTaskId(id));
-         dispatch(setTaskManaging(true));
-      }, [columnId, id]);
+         dispatch(setTaskModalExpansionId(id));
+      };
+
+      useEffect(() => {
+         if (isDragging) {
+            dispatch(setTaskCardWasDragged(true));
+         }
+      }, [isDragging]);
 
       return (
-         <CssCard
-            onClick={handleClick}
+         <Box
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
+            sx={{
+               border: (theme) =>
+                  isDragging
+                     ? `2px solid ${theme.palette.primary.main}`
+                     : 'none',
+            }}
          >
-            <CssTitle>{title}</CssTitle>
-            <CssSubtasks>
-               {completedSubtasks} of {subtasks.length} subtasks
-            </CssSubtasks>
-         </CssCard>
+            <CssCard layoutId={id} onClick={handleExpand}>
+               <CssTitle>{title}</CssTitle>
+               <CssSubtasks>
+                  {subtasks.length
+                     ? `${completed} of ${subtasks.length} subtasks`
+                     : 'no subtasks yet'}
+               </CssSubtasks>
+            </CssCard>
+         </Box>
       );
    },
 );

@@ -1,30 +1,50 @@
+import { createContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
-import {
-   ColorModeToggler,
-   ColorModeContext,
-} from './library/utilities/ColorModeToggler';
-import { useDragDrop } from './library/common/hooks';
+import { useDragDrop, useColorMode } from './library/common/hooks';
 
-import { Layout, Main } from './modules';
+import {
+   AllBoards,
+   Board,
+   SignIn,
+   SignUp,
+   PrivateRoutes,
+   Backlog,
+   MasonryGrid,
+} from './modules';
 import { AppModal } from './library/common/components';
+import { TestingPage } from './modules/TestingPage/TestingPage';
+
+export const ColorModeContext = createContext({ toggleClrMode: () => {} });
 
 function App() {
-   const myTheme = ColorModeToggler();
+   const { theme, colorMode } = useColorMode();
    const { handleDragDrop } = useDragDrop();
 
    return (
-      <ThemeProvider theme={myTheme.theme}>
-         <ColorModeContext.Provider value={myTheme.colorMode}>
+      <ThemeProvider theme={theme}>
+         <ColorModeContext.Provider value={colorMode}>
             <CssBaseline />
-
             <DragDropContext onDragEnd={handleDragDrop}>
-               <Layout>
-                  <Main />
-               </Layout>
-            </DragDropContext>
+               <Routes>
+                  <Route element={<PrivateRoutes />}>
+                     <Route element={<AllBoards />} path='/'>
+                        <Route element={<MasonryGrid />} path='' />
+                        <Route element={<Backlog />} path='backlog' />
+                     </Route>
 
+                     <Route element={<Board />} path='boards/:id' />
+                  </Route>
+
+                  <Route element={<SignIn />} path='/sign-in' />
+                  <Route element={<SignUp />} path='/sign-up' />
+                  
+                  {/* =============================== Testing Page =============================== */}
+                  <Route element={<TestingPage />} path='testing-page' />
+               </Routes>
+            </DragDropContext>
             <AppModal />
          </ColorModeContext.Provider>
       </ThemeProvider>

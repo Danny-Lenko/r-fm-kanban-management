@@ -4,21 +4,23 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { TASKMENU, BOARDMENU } from '../../constants';
+import { dotsMenuOptions } from '../../constants';
 
 import { DotsMenuItem } from '.';
 
 export const DotsMenu = ({ isTaskMenu }: { isTaskMenu: boolean }) => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
+
+   const { taskMenu, boardMenu } = dotsMenuOptions;
+   const options = isTaskMenu ? taskMenu : boardMenu;
+
    const handleClick = (event: MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);
    };
    const handleClose = () => {
       setAnchorEl(null);
    };
-
-   const options = isTaskMenu ? TASKMENU : BOARDMENU;
 
    return (
       <div>

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { Typography } from '@mui/material';
 
@@ -6,12 +8,39 @@ import {
    CssInteractiveScreen,
    CssColumnButton,
    Column,
-   useNewColumn,
+   // useNewColumn,
    TasksList,
 } from '.';
+import {
+   useGetQuery,
+   getQueryNames,
+   useAppDispatch,
+} from '../../library/common/hooks';
+import { IBoard } from '../../library/interfaces';
+import { setActiveBoardId } from '../../main/store';
+
+import { EditTaskModal } from '../../library/common/components';
 
 export const Board = () => {
-   const { columns, addNewColumn } = useNewColumn();
+   // const { columns, addNewColumn } = useNewColumn();
+   const dispatch = useAppDispatch();
+   const { id } = useParams<string>();
+
+   const boardDetails = getQueryNames.boardDetails;
+   const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id, {
+      staleTime: 1000 * 60 * 20,
+   });
+
+   useEffect(() => {
+      if (id) {
+         dispatch(setActiveBoardId(id));
+      }
+   }, [id]);
+
+   if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
+
+   const { columns } = data!;
+   const columnNames = columns.map((column) => column.name);
 
    return (
       <CssBoard>
@@ -46,9 +75,14 @@ export const Board = () => {
             )}
          </Droppable>
 
-         <CssColumnButton onClick={addNewColumn}>
+         <CssColumnButton
+         // onClick={addNewColumn}
+         >
             <Typography variant='h2'>+ New Column</Typography>
          </CssColumnButton>
+
+         {/* Mocked props: change to use redux state */}
+         <EditTaskModal />
       </CssBoard>
    );
 };

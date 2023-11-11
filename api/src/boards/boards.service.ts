@@ -8,6 +8,7 @@ import { UpdateBoardDto } from './dto/update-board.dto';
 import { SharedService } from '../shared/shared.service';
 import { BoardsRepository } from './boards.repository';
 import { ColumnsService } from '../columns/columns.service';
+import { ICategory } from './categories.interface';
 
 @Injectable()
 export class BoardsService {
@@ -46,6 +47,28 @@ export class BoardsService {
     }
   }
 
+  async getAllBoardsByCategories(user: UserEntity): Promise<ICategory[]> {
+    const boards = await this.getBoardsWithColumns(user);
+
+    const categoriesMap = new Map<string, BoardsEntity[]>();
+    boards.forEach((board) => {
+      const category = board.category || 'Uncategorized';
+      if (!categoriesMap.has(category)) {
+        categoriesMap.set(category, []);
+      }
+      categoriesMap.get(category).push(board);
+    });
+
+    const categoriesArray = Array.from(categoriesMap).map(
+      ([category, boards]) => ({
+        category,
+        boards,
+      }),
+    );
+
+    return categoriesArray;
+  }
+
   async getBoardsWithColumns(user: UserEntity): Promise<BoardsEntity[]> {
     const query = this.boardsRepository.createQueryBuilder('board');
     query.where({ user });
@@ -60,6 +83,22 @@ export class BoardsService {
         error.stack,
       );
     }
+  }
+
+  async getBoardByIdWithDetails(
+    id: string,
+    user: UserEntity,
+  ): Promise<BoardsEntity | undefined> {
+    const board = await this.boardsRepository.findOne({
+      where: { id, user },
+      relations: ['columns', 'columns.tasks', 'columns.tasks.subtasks'],
+    });
+
+    if (!board) {
+      throw new NotFoundException(`Board with id: ${id} not found`);
+    }
+
+    return board;
   }
 
   async createBoard(
