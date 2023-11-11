@@ -21,6 +21,15 @@ export class TasksService {
     const task = await this.tasksRepository.findOne({
       where: { id },
       relations: ['subtasks', 'column', 'column.board', 'column.board.columns'],
+      order: {
+        column: {
+          board: {
+            columns: {
+              order: 'ASC',
+            },
+          },
+        },
+      },
     });
 
     if (!task) {
@@ -97,8 +106,6 @@ export class TasksService {
       boardId,
       user,
     );
-
-    
 
     const column = columns.find((column) => column.name === status);
 

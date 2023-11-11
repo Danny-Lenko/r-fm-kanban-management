@@ -17,6 +17,9 @@ export class ColumnsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ default: 0 })
+  order: number;
+
   @Column()
   name: string;
 
