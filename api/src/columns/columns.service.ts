@@ -22,9 +22,16 @@ export class ColumnsService {
     const { board } = createColumnDto;
     const result = await this.sharedService.getBoardById(board.id, user);
 
+    const maxOrderColumn = await this.columnsRepository
+      .createQueryBuilder('column')
+      .select('MAX(column.order)', 'maxOrder')
+      .where('column.boardId = :boardId', { boardId: board.id })
+      .getRawOne();
+
     const column = this.columnsRepository.create({
       ...createColumnDto,
       board: result,
+      order: (maxOrderColumn?.maxOrder || 0) + 1,
     });
 
     return this.columnsRepository.save(column);

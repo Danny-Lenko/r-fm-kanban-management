@@ -1,6 +1,6 @@
 export const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-export const COLUMNCOLORS = [
+export const columnColors = [
    '#49C4E5',
    '#8471F2',
    '#67E2AE',

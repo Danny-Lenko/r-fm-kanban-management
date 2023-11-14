@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import rowData from '../../../resources/data/data.json';
 
 import { countCompletedSubtasks } from '../../../library/utilities';
-import { COLUMNCOLORS } from '../../../library/common/constants';
+import { columnColors } from '../../../library/common/constants';
 import { IBoard, IColumn, ITask } from '../../../library/interfaces';
 
 const mockData = rowData.boards.map((board, i) => ({
@@ -15,7 +15,7 @@ const mockData = rowData.boards.map((board, i) => ({
       .join('-'),
    columns: board.columns.map((col, i) => ({
       ...col,
-      color: COLUMNCOLORS[i],
+      color: columnColors[i],
       id: col.id,
       tasks: col.tasks.map((task, i) => {
          let completed = 0;
