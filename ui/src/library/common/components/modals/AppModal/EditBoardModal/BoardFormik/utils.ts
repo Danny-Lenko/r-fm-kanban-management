@@ -6,11 +6,16 @@ import {
 } from '../../../../../../../main/store/modals/modalSlice';
 import { setBoards, setActiveBoardId } from '../../../../../../../main/store';
 
-import { ISumbissionParams } from '../../../../../../interfaces';
+import { IColumn, ISumbissionParams } from '../../../../../../interfaces';
+
+// export type BoardValues = {
+//    name: string;
+//    columns: string[];
+// };
 
 export type BoardValues = {
    name: string;
-   columns: string[];
+   columns: IColumn[];
 };
 
 interface Props extends ISumbissionParams {
@@ -18,33 +23,33 @@ interface Props extends ISumbissionParams {
 }
 
 // saveBoardChanges
-export const saveBoardChanges = ({
-   values,
-   boards,
-   dispatch,
-   activeBoard,
-}: Props) => {
-   const boardUpdated = {
-      id: activeBoard.id,
-      columns: values.columns.map(
-         (col, i) =>
-            activeBoard.columns[i] && { ...activeBoard.columns[i], name: col },
-      ),
-      name: values.name,
-      path: values.name
-         .split(' ')
-         .map((word) => word.toLowerCase())
-         .join('-'),
-   };
+// export const saveBoardChanges = ({
+//    values,
+//    boards,
+//    dispatch,
+//    activeBoard,
+// }: Props) => {
+//    const boardUpdated = {
+//       id: activeBoard.id,
+//       columns: values.columns.map(
+//          (col, i) =>
+//             activeBoard.columns[i] && { ...activeBoard.columns[i], name: col },
+//       ),
+//       name: values.name,
+//       path: values.name
+//          .split(' ')
+//          .map((word) => word.toLowerCase())
+//          .join('-'),
+//    };
 
-   const boardsUpdated = [...boards];
-   boardsUpdated[+activeBoard.id] = boardUpdated;
+//    const boardsUpdated = [...boards];
+//    boardsUpdated[+activeBoard.id] = boardUpdated;
 
-   dispatch(setBoards(boardsUpdated));
-   dispatch(setActiveBoardId(activeBoard.id));
-   dispatch(setBoardIsExisting(false));
-   dispatch(setBoardEditing(false));
-};
+//    dispatch(setBoards(boardsUpdated));
+//    dispatch(setActiveBoardId(activeBoard.id));
+//    dispatch(setBoardIsExisting(false));
+//    dispatch(setBoardEditing(false));
+// };
 
 // createBoard
 export const createBoard = ({ values, boards, dispatch }: Props) => {

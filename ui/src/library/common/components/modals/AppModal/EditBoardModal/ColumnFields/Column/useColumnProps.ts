@@ -10,7 +10,7 @@ const placeholders = [
 ];
 
 export const useColumnProps = ({ index, arrayHelpers }: IFieldArray) => {
-   const [field, meta] = useField(`columns.${index}`);
+   const [field, meta] = useField(`columns.${index}.name`);
 
    const placeholder = placeholders[index]
       ? placeholders[index]

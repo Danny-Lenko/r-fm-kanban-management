@@ -18,6 +18,7 @@ const putData = async <T, R>(
 
 export enum putQueryNames {
    editTaskById = 'editTaskById',
+   updateBoardById = 'updateBoardById',
 }
 
 export function usePutQuery<T, R>(
@@ -30,8 +31,14 @@ export function usePutQuery<T, R>(
       id!,
    ]);
 
+   const UpdateBoardById = new QueryData('updateBoardById', `/boards/${id}`, [
+      'boards',
+      id,
+   ]);
+
    const postDataTypes = {
       editTaskById: EditTaskById,
+      updateBoardById: UpdateBoardById,
    };
 
    const { endpoint } = postDataTypes[dataType];
