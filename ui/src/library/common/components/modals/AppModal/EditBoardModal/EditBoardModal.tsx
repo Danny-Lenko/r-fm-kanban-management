@@ -1,28 +1,22 @@
 import { Form } from 'formik';
 import { useQueryClient } from '@tanstack/react-query';
-
 import { Typography } from '@mui/material';
 
-import { BoardFormik, NameField, ColumnFields } from '.';
-import { AppBtn } from '../../..';
+import { BoardFormik, NameField, ColumnFields, CssButton } from '.';
 import { useAppSelector, putQueryNames, usePutQuery } from '../../../../hooks';
-import {
-   selectActiveBoardId,
-   selectBoardIsExisting,
-} from '../../../../../../main/store';
+import { selectActiveBoardId } from '../../../../../../main/store';
+import { LoadingOverlay } from '../../../LoadingOverlay/LoadingOverlay';
 
 interface SubmitColumn {
    id?: string;
    name: string;
 }
-
 interface SubmitValues {
    name: string;
    columns: SubmitColumn[];
 }
 
 export const EditBoardModal: React.FC = () => {
-   // const boardIsExisting = useAppSelector(selectBoardIsExisting);
    const boardId = useAppSelector(selectActiveBoardId);
 
    const queryClient = useQueryClient();
@@ -31,6 +25,7 @@ export const EditBoardModal: React.FC = () => {
       dataType,
       boardId,
    );
+
    const saveChanges = async (values: SubmitValues) => {
       await mutateAsync(
          { ...values },
@@ -49,29 +44,20 @@ export const EditBoardModal: React.FC = () => {
 
    console.log(isLoading);
 
-   const buttonProps = {
-      sx: {
-         marginTop: 4,
-      },
-      fullWidth: true,
-      type: 'submit' as 'submit',
-      buttonSize: 'small' as 'small',
-      color: 'primary' as 'primary',
-      // children: boardIsExisting ? 'Save Changes' : 'Create New Board',
-   };
-
    return (
       <>
-         {/* <Typography variant='h3'>
-            {boardIsExisting ? 'Edit board' : 'Add new board'}
-         </Typography> */}
+         <Typography variant='h3'>{'Edit board'}</Typography>
 
          <BoardFormik saveChanges={saveChanges}>
             {(props) => (
                <Form>
                   <NameField {...props} />
                   <ColumnFields {...props} />
-                  <AppBtn {...buttonProps}></AppBtn>
+                  <CssButton disabled={!props.dirty || props.isSubmitting}>
+                     {'Save Changes'}
+                  </CssButton>
+
+                  {props.isSubmitting && <LoadingOverlay />}
                </Form>
             )}
          </BoardFormik>

@@ -7,6 +7,7 @@ export const schemaBoard = Yup.object().shape({
    name: Yup.string().trim().required("Can't be empty"),
    columns: Yup.array().of(
       Yup.object().shape({
+         id: Yup.string().optional(),
          name: Yup.string().trim().required("Can't be empty"),
       }),
    ),
@@ -32,6 +33,7 @@ export const BoardFormik: React.FC<Props> = ({ children, saveChanges }) => {
 
    const submit = (values: BoardValues) => {
       const { name, columns } = values;
+
       const submitColumns = columns.map((column) => ({
          id: column.id,
          name: column.name,
@@ -41,8 +43,6 @@ export const BoardFormik: React.FC<Props> = ({ children, saveChanges }) => {
          columns: submitColumns,
       };
 
-      // console.log(submitValues);
-
       saveChanges(submitValues);
    };
 
@@ -50,8 +50,8 @@ export const BoardFormik: React.FC<Props> = ({ children, saveChanges }) => {
       <Formik
          initialValues={initialValues}
          validationSchema={schemaBoard}
-         // onSubmit={(values) => submit(values)}
          onSubmit={(values) => submit(values)}
+         enableReinitialize
       >
          {children}
       </Formik>

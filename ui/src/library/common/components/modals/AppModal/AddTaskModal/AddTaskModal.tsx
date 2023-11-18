@@ -5,8 +5,8 @@ import {
    EditorTitle,
    EditorDescription,
    EditorSelect,
-   EditorSubtasks,
-   EditorFormik,
+   AdderSubtasks,
+   AdderFormik,
 } from '.';
 import { AppBtn } from '../../..';
 
@@ -39,13 +39,13 @@ export const AddTaskModal = () => {
             {taskIsExisting ? 'Edit task' : 'Add new task'}
          </Typography>
 
-         <EditorFormik>
+         <AdderFormik>
             {(props) => {
                return (
                   <Form>
                      <EditorTitle {...props} />
                      <EditorDescription {...props} />
-                     <EditorSubtasks {...props} />
+                     <AdderSubtasks {...props} />
                      {!taskAddingColumn && (
                         <EditorSelect options={selectOptions} {...props} />
                      )}
@@ -55,7 +55,7 @@ export const AddTaskModal = () => {
                   </Form>
                );
             }}
-         </EditorFormik>
+         </AdderFormik>
       </>
    );
 };

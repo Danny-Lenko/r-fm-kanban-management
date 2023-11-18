@@ -35,5 +35,5 @@ export const useColumnProps = ({ index, arrayHelpers }: IFieldArray) => {
       onClick: () => removeColumn({ arrayHelpers, index }),
    };
 
-   return { field, fieldProps, removeColumn, buttonProps };
+   return { field, fieldProps, removeColumn, buttonProps, meta };
 };

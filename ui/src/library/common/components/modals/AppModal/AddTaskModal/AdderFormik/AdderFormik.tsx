@@ -42,7 +42,7 @@ const schema = Yup.object().shape({
       ),
 });
 
-export const EditorFormik: React.FC<Props> = ({ children }) => {
+export const AdderFormik: React.FC<Props> = ({ children }) => {
    const { initialValues, submit } = useFormikValues();
 
    return (

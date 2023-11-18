@@ -1,12 +1,16 @@
 import { Stack } from '@mui/material';
-import { FieldArray, FieldArrayRenderProps, FormikValues } from 'formik';
+import {
+   FieldArray,
+   FieldArrayRenderProps,
+   FormikValues,
+} from 'formik';
 
 import { Column } from '.';
 import { AppBtn, CssLabel } from '../../../..';
 
 export const ColumnFields: React.FC<FormikValues> = ({ values }) => {
    const addColumn = (arr: FieldArrayRenderProps) => {
-      arr.push('');
+      arr.push({ name: '' });
    };
 
    return (

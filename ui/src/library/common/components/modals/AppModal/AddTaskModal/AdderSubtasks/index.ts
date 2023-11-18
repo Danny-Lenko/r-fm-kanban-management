@@ -1,2 +1,2 @@
-export * from './EditorSubtasks';
+export * from './AdderSubtasks';
 export * from './Subtask';
