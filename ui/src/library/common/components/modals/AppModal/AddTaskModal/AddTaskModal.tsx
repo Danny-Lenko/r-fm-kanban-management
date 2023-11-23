@@ -7,37 +7,29 @@ import {
    EditorSelect,
    AdderSubtasks,
    AdderFormik,
+   CssButton,
 } from '.';
-import { AppBtn } from '../../..';
 
-import { useAppSelector } from '../../../../hooks';
+import { getQueryNames, useAppSelector, useGetQuery } from '../../../../hooks';
 import {
-   selectActiveBoard,
+   selectActiveBoardId,
    selectTaskAddingColumn,
-   selectTaskIsExisting,
 } from '../../../../../../main/store';
+import { IBoard } from '../../../../../interfaces';
 
 export const AddTaskModal = () => {
-   const taskIsExisting = useAppSelector(selectTaskIsExisting);
    const taskAddingColumn = useAppSelector(selectTaskAddingColumn);
-
-   const activeBoard = useAppSelector(selectActiveBoard)!;
-   const { columns } = activeBoard;
-   const selectOptions = columns.map((col) => col.name);
-
-   const btnProps = {
-      type: 'submit' as 'submit',
-      buttonSize: 'small' as 'small',
-      color: 'primary' as 'primary',
-      fullWidth: true,
-      sx: { marginTop: 4 },
-   };
+   const id = useAppSelector(selectActiveBoardId);
+   const boardDetails = getQueryNames.boardDetails;
+   const { isLoading, error, data } = useGetQuery<IBoard>(boardDetails, id, {
+      staleTime: 1000 * 60 * 20,
+   });
+   const columns = data?.columns;
+   const selectOptions = columns?.map((column) => column.name);
 
    return (
       <>
-         <Typography variant='h3'>
-            {taskIsExisting ? 'Edit task' : 'Add new task'}
-         </Typography>
+         <Typography variant='h3'>{'Add New Task'}</Typography>
 
          <AdderFormik>
             {(props) => {
@@ -46,12 +38,10 @@ export const AddTaskModal = () => {
                      <EditorTitle {...props} />
                      <EditorDescription {...props} />
                      <AdderSubtasks {...props} />
-                     {!taskAddingColumn && (
+                     {!taskAddingColumn && selectOptions && (
                         <EditorSelect options={selectOptions} {...props} />
                      )}
-                     <AppBtn {...btnProps}>
-                        {'Create Task'}
-                     </AppBtn>
+                     <CssButton>{'Create Task'}</CssButton>
                   </Form>
                );
             }}

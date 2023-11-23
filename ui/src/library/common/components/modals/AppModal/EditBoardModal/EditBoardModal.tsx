@@ -42,7 +42,6 @@ export const EditBoardModal: React.FC = () => {
       );
    };
 
-   console.log(isLoading);
 
    return (
       <>

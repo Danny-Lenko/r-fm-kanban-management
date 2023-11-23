@@ -7,7 +7,6 @@ const postData = async <T, R>(
    endpoint: string,
    bodyReq: T,
 ): Promise<R | undefined> => {
-   console.log('frontend: ', bodyReq);
 
    try {
       const { data } = await axios.post<R>(endpoint, bodyReq);
