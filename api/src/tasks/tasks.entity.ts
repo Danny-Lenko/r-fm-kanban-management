@@ -19,6 +19,9 @@ export class TasksEntity {
   @Column()
   title: string;
 
+  @Column({ default: 0 })
+  order: number;
+
   @Column({ default: '' })
   description: string;
 

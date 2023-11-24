@@ -95,6 +95,9 @@ export class BoardsService {
       order: {
         columns: {
           order: 'ASC',
+          tasks: {
+            order: 'ASC',
+          },
         },
       },
     });
