@@ -29,6 +29,9 @@ export class TasksService {
             },
           },
         },
+        subtasks: {
+          order: 'ASC',
+        },
       },
     });
 
@@ -156,6 +159,7 @@ export class TasksService {
   async deleteTaskById(id: string): Promise<void> {
     const deletedTask = await this.tasksRepository.findOne({
       where: { id },
+      relations: ['column'],
     });
 
     if (!deletedTask) {
@@ -168,13 +172,18 @@ export class TasksService {
     await queryRunner.startTransaction();
 
     try {
+      const { order, column } = deletedTask;
+
       await queryRunner.manager.remove(deletedTask);
 
       await queryRunner.manager
         .createQueryBuilder()
         .update(TasksEntity)
         .set({ order: () => '"order" - 1' })
-        .where('"order" > :order', { order: deletedTask.order })
+        .where('"order" > :order AND "columnId" = :columnId', {
+          order,
+          columnId: column.id,
+        })
         .execute();
 
       await queryRunner.commitTransaction();
