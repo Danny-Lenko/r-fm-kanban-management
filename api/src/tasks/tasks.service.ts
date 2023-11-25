@@ -64,9 +64,22 @@ export class TasksService {
 
     const column = columns.find((column) => column.name === status);
 
+    if (!column) {
+      throw new NotFoundException(`Column with name ${status} not found`);
+    }
+
+    const maxOrderTask = await this.tasksRepository
+      .createQueryBuilder('task')
+      .select('MAX(task.order)', 'maxOrder')
+      .where('task.column = :column', { column: column.id })
+      .getRawOne();
+
+    const maxOrder = maxOrderTask ? maxOrderTask.maxOrder || 0 : 0;
+
     const task = this.tasksRepository.create({
       ...createTaskDto,
       column: column,
+      order: maxOrder + 1,
     });
 
     return await this.tasksRepository.save(task);
@@ -141,11 +154,35 @@ export class TasksService {
   }
 
   async deleteTaskById(id: string): Promise<void> {
-    const result = await this.tasksRepository.delete({ id });
+    const deletedTask = await this.tasksRepository.findOne({
+      where: { id },
+    });
 
-    if (result.affected === 0) {
+    if (!deletedTask) {
       throw new NotFoundException(`task with id: ${id} not found`);
     }
-    return;
+
+    const queryRunner =
+      this.tasksRepository.manager.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      await queryRunner.manager.remove(deletedTask);
+
+      await queryRunner.manager
+        .createQueryBuilder()
+        .update(TasksEntity)
+        .set({ order: () => '"order" - 1' })
+        .where('"order" > :order', { order: deletedTask.order })
+        .execute();
+
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      await queryRunner.rollbackTransaction();
+      throw err;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

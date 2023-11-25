@@ -1,8 +1,9 @@
 import { MenuItem } from '@mui/material';
-import { FormikValues } from 'formik';
+import { FormikValues, useFormikContext } from 'formik';
 
 import { CssLabel } from '../..';
 import { AppSelect } from '../../../..';
+import { useEffect } from 'react';
 
 interface Props extends FormikValues {
    options: string[];
@@ -13,6 +14,12 @@ export const EditorSelect: React.FC<Props> = ({
    handleChange,
    options,
 }) => {
+   const formik = useFormikContext();
+
+   useEffect(() => {
+      formik.setFieldValue('status', values.status || options[0]);
+   }, []);
+
    return (
       <>
          <CssLabel children='Status' htmlFor='status' />
