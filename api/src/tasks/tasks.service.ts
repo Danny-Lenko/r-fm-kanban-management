@@ -142,7 +142,11 @@ export class TasksService {
         if (existingSubtask) {
           await this.subtasksService.updateSubtask(id, title, isCompleted);
         } else {
-          await this.subtasksService.createSubtask({ title, task });
+          const latestTask = await this.getTaskById(task.id);
+          await this.subtasksService.createSubtask({
+            title,
+            task: latestTask,
+          });
         }
       }
     }
