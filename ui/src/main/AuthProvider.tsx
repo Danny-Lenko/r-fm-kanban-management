@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
    const signIn = async (reqBody: ISigninBody) => {
       await loginQuery.mutateAsync(reqBody, {
          onSuccess: (data) => {
-            const { accessToken } = data;
+            const { accessToken } = data!;
             accessTokenRef.current = accessToken;
             axios.defaults.headers.common[
                'Authorization'

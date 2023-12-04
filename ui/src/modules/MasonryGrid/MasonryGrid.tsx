@@ -26,8 +26,6 @@ export const MasonryGrid = () => {
    const categories = useCategories();
    const navigate = useNavigate();
 
-   console.log(categories);
-
    const handleBoardDoubleClick = useCallback((id: string) => {
       navigate(`/boards/${id}`);
    }, []);

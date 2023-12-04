@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { AppBtn, CssLabel } from '../../../..';
 import { Subtask } from '.';
 
-export const EditorSubtasks: React.FC<FormikValues> = ({ values }) => {
+export const AdderSubtasks: React.FC<FormikValues> = ({ values }) => {
    const addSubtask = (arr: FieldArrayRenderProps) => {
       arr.push('');
    };

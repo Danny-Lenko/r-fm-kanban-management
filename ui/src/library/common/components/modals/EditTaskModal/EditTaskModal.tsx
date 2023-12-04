@@ -53,4 +53,4 @@ export const EditTaskModal = () => {
       </AnimatePresence>,
       document.body,
    );
-};
+};  

@@ -1,53 +1,61 @@
-import { useAppSelector, useAppDispatch } from '../../../../../hooks';
-
-import { BoardValues, saveBoardChanges, createBoard } from '.';
+import { BoardValues } from '.';
 import {
-   selectActiveBoardInfo,
-   selectActiveColumnId,
-   selectActiveTask,
-   selectBoardIsExisting,
-   selectBoards,
-} from '../../../../../../../main/store';
+   useAppSelector,
+   useGetQuery,
+   getQueryNames,
+} from '../../../../../hooks';
+import { IBoard } from '../../../../../../interfaces';
+import { selectActiveBoardId } from '../../../../../../../main/store';
 
 export const useBoardFormik = () => {
-   const boards = useAppSelector(selectBoards);
-   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
-   const { columns } = activeBoard;
+   const boardId = useAppSelector(selectActiveBoardId);
 
-   const activeColumnId = useAppSelector(selectActiveColumnId);
-   const activeTask = useAppSelector(selectActiveTask);
+   const boardDetails = getQueryNames.boardDetails;
+   const { isLoading, error, data } = useGetQuery<IBoard>(
+      boardDetails,
+      boardId,
+   );
 
-   const boardIsExisting = useAppSelector(selectBoardIsExisting);
-
-   const dispatch = useAppDispatch();
-
-   const initialValues = boardIsExisting
-      ? {
-           name: activeBoard.name,
-           columns: activeBoard.columns.map((col) => col.name),
-        }
-      : {
-           name: '',
-           columns: ['', ''],
-        };
-
-   const submissionParams = {
-      columns,
-      boards,
-      activeBoard,
-      activeBoardId,
-      dispatch,
-      activeTask,
-      activeColumnId,
+   const initialValues = {
+      name: data!.name,
+      columns: data!.columns,
    };
 
-   const submit = (values: BoardValues) => {};
-   // boardIsExisting
-   //    ? saveBoardChanges({ values, ...submissionParams })
-   //    : createBoard({ values, ...submissionParams });
+   // const initialValues = data
+   //    ? {
+   //         name: data.name,
+   //         //   columns: data.columns.map((col) => col.name),
+   //         columns: data.columns,
+   //      }
+   //    : {
+   //         name: '',
+   //         columns: ['', ''],
+   //      };
+
+   // const initialValues = {
+   //    name: '',
+   //    columns: ['', ''],
+   // };
+
+   // const submissionParams = {
+   //    columns,
+   //    boards,
+   //    activeBoard,
+   //    activeBoardId,
+   //    dispatch,
+   //    activeTask,
+   //    activeColumnId,
+   // };
+
+   // const saveBoardChanges = (values: BoardValues) => {};
+
+   // const submit = (values: BoardValues) =>
+   //    initialValues?.name ? console.log(values) : console.log('create board');
+   // // ? saveBoardChanges({ values, ...submissionParams })
+   // // : createBoard({ values, ...submissionParams });
 
    return {
       initialValues,
-      submit,
+      // submit,
    };
 };

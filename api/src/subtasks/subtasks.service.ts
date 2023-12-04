@@ -45,7 +45,20 @@ export class SubtasksService {
   }
 
   async createSubtask(createSubtaskDto: CreateSubtaskDto): Promise<void> {
-    const subtask = this.subtasksRepository.create(createSubtaskDto);
+    const { task } = createSubtaskDto;
+
+    const maxOrderTask = await this.subtasksRepository
+      .createQueryBuilder('subtask')
+      .select('MAX(subtask.order)', 'maxOrder')
+      .where('subtask.task = :task', { task: task.id })
+      .getRawOne();
+
+    const maxOrder = maxOrderTask ? maxOrderTask.maxOrder || 0 : 0;
+
+    const subtask = this.subtasksRepository.create({
+      ...createSubtaskDto,
+      order: maxOrder + 1,
+    });
     this.subtasksRepository.save(subtask);
   }
 

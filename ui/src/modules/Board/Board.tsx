@@ -8,8 +8,8 @@ import {
    CssInteractiveScreen,
    CssColumnButton,
    Column,
-   // useNewColumn,
    TasksList,
+   useNewColumn,
 } from '.';
 import {
    useGetQuery,
@@ -22,7 +22,6 @@ import { setActiveBoardId } from '../../main/store';
 import { EditTaskModal } from '../../library/common/components';
 
 export const Board = () => {
-   // const { columns, addNewColumn } = useNewColumn();
    const dispatch = useAppDispatch();
    const { id } = useParams<string>();
 
@@ -37,10 +36,11 @@ export const Board = () => {
       }
    }, [id]);
 
+   const { createColumn } = useNewColumn(data?.columns.length);
+
    if (isLoading) return <Typography variant='h1'>...Loading</Typography>;
 
    const { columns } = data!;
-   const columnNames = columns.map((column) => column.name);
 
    return (
       <CssBoard>
@@ -75,9 +75,7 @@ export const Board = () => {
             )}
          </Droppable>
 
-         <CssColumnButton
-         // onClick={addNewColumn}
-         >
+         <CssColumnButton onClick={createColumn}>
             <Typography variant='h2'>+ New Column</Typography>
          </CssColumnButton>
 

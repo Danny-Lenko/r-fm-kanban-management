@@ -34,9 +34,9 @@ export interface ITask extends INewTask {
 }
 
 export interface IColumn {
+   id: string;
    name: string;
    color: string;
-   id: string;
    tasks: ITask[];
 }
 

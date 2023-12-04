@@ -1,8 +1,14 @@
 import React from 'react';
 import { DraggableProvided } from 'react-beautiful-dnd';
-import { Typography, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 
-import { CssColumn, CssColorLabel, CssTaskButton } from '.';
+import {
+   CssColumn,
+   CssColorLabel,
+   CssTaskButton,
+   CssNameContainer,
+   CssName,
+} from '.';
 import { useAppDispatch } from '../../../library/common/hooks';
 import { setTaskAdding, setTaskAddingColumn } from '../../../main/store';
 
@@ -31,14 +37,9 @@ export const Column: React.FC<Props> = React.memo(
          >
             <Stack direction='row' spacing={1}>
                <CssColorLabel color={color} />
-               <Typography
-                  {...{
-                     variant: 'h5',
-                     textTransform: 'uppercase',
-                  }}
-               >
-                  {name} ({tasksNum})
-               </Typography>
+               <CssNameContainer>
+                  <CssName>{name}</CssName> ({tasksNum})
+               </CssNameContainer>
             </Stack>
             {children}
             <CssTaskButton

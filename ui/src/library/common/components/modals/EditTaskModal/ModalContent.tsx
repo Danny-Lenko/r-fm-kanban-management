@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material';
 
-import { getQueryNames, useGetQuery } from '../../../hooks';
-import { ITask } from '../../../../interfaces';
-
 import { EditTaskFormik, LoadingContent, CssHeading } from '.';
 import { DotsMenu, Error } from '../..';
+import { getQueryNames, useGetQuery } from '../../../hooks';
+import { ITask } from '../../../../interfaces';
 
 export const ModalContent = ({ id }: { id: string }) => {
    const taskById = getQueryNames.taskById;
@@ -12,9 +11,8 @@ export const ModalContent = ({ id }: { id: string }) => {
       staleTime: 60000,
    });
 
-   if (isError) return <Error>
-      {'Failed to load data. Check your connection'}
-   </Error>;
+   if (isError)
+      return <Error>{'Failed to load data. Check your connection'}</Error>;
 
    return (
       <>

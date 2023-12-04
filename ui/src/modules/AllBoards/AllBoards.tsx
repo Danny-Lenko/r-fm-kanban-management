@@ -1,11 +1,7 @@
 import { Link, Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import { Tab } from '@mui/material';
 
-import {
-   useGetQuery,
-   // getQuery,
-   getQueryNames,
-} from '../../library/common/hooks';
+import { useGetQuery, getQueryNames } from '../../library/common/hooks';
 import { CssContainer, useRouteMatch, CssTabs, CssUnderline } from '.';
 
 import { IBoard } from '../../library/interfaces/interfaces';

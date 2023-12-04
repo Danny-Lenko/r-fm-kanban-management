@@ -5,7 +5,7 @@ import {
    setActiveBoardId,
 } from '../../main/store';
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { COLUMNCOLORS } from '../../library/common/constants';
+import { columnColors } from '../../library/common/constants';
 // import { generateId } from '../../library/utilities/utils';
 
 import { CssBoard, CssText, CssColumnButton } from '.';

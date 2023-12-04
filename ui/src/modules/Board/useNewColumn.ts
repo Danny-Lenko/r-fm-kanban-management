@@ -1,46 +1,41 @@
-import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import {
-   selectActiveBoardInfo,
-   selectBoards,
-   setBoards,
-   setActiveBoardId,
-} from '../../main/store';
-import { COLUMNCOLORS } from '../../library/common/constants';
-// import { generateId } from '../../library/utilities/utils';
+import { useAppSelector } from '../../library/common/hooks';
+import { selectActiveBoardId } from '../../main/store';
+import { columnColors } from '../../library/common/constants';
 
-export const useNewColumn = () => {
-   const boards = useAppSelector(selectBoards);
-   const { activeBoard, activeBoardId } = useAppSelector(selectActiveBoardInfo);
-   const { columns } = activeBoard!;
-   const dispatch = useAppDispatch();
+import { useQueryClient } from '@tanstack/react-query';
+import { usePostQuery, postQueryNames } from '../../library/common/hooks';
+import { IColumn } from '../../library/interfaces';
 
-   // const addNewColumn = () => {
-   //    const boardsUpdated = boards.map((board) => {
-   //       const { id, columns } = board;
+interface NewColumn extends Omit<IColumn, 'id' | 'tasks'> {
+   board: {
+      id: string;
+   };
+}
 
-   //       return id !== activeBoardId
-   //          ? board
-   //          : {
-   //               ...board,
-   //               columns: [
-   //                  ...board.columns,
-   //                  {
-   //                     id: generateId(),
-   //                     name: `NewColumn${columns.length + 1}`,
-   //                     tasks: [],
-   //                     color: COLUMNCOLORS[columns.length]
-   //                        ? COLUMNCOLORS[columns.length]
-   //                        : '#E4EBFA',
-   //                  },
-   //               ],
-   //            };
-   //    });
+export const useNewColumn = (columnsNumber?: number) => {
+   const boardId = useAppSelector(selectActiveBoardId);
 
-   //    dispatch(setBoards(boardsUpdated));
-   //    dispatch(setActiveBoardId(activeBoardId));
-   // };
+   const newColumnValues = {
+      name:
+         'New-column ' + crypto.randomUUID().split('-').splice(0, 2).join('-'),
+      color: (columnsNumber && columnColors[columnsNumber]) || '#E4EBFA',
+      board: {
+         id: boardId,
+      },
+   };
 
-   const addNewColumn = () => console.log('tempo')
+   const queryClient = useQueryClient();
+   const dataType = postQueryNames.newColumn;
+   const query = usePostQuery<NewColumn, void>(dataType);
+   const createColumn = () => {
+      query.mutate(newColumnValues, {
+         onSuccess: (data) => {
+            queryClient.invalidateQueries(['boards', boardId, 'with-details'], {
+               exact: true,
+            });
+         },
+      });
+   };
 
-   return { columns, addNewColumn };
+   return { createColumn };
 };

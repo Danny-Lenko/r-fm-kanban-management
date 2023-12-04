@@ -2,6 +2,7 @@ import { ListItemText, SvgIconTypeMap } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import TaskIcon from '@mui/icons-material/Task';
 import CloseIcon from '@mui/icons-material/Close';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 import { SvgIconProps } from '@mui/material';
 
@@ -47,6 +48,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       open: createIconComponent(TaskIcon),
       close: createIconComponent(CloseIcon),
       delete: createIconComponent(DeleteForeverIcon, { color: 'warning' }),
+      edit: createIconComponent(EditOutlinedIcon),
    };
 
    const getIcon = (option: string) => {

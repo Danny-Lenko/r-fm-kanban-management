@@ -43,6 +43,8 @@ export const useFormikValues = () => {
    };
 
    const submit = (values: SubmitValues) => {
+      console.log(values);
+
       const { subtasks } = values;
       const editedSubtasks = subtasks.map((subtask) => ({
          title: subtask,

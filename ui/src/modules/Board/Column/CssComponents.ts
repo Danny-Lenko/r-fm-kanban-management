@@ -1,4 +1,4 @@
-import { Stack, Box, BoxProps, ButtonProps } from '@mui/material';
+import { Stack, Box, BoxProps, ButtonProps, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import { CssAddButton } from '..';
 
@@ -16,9 +16,29 @@ interface ColorLabel extends BoxProps {
 }
 export const CssColorLabel = styled(Box)<ColorLabel>(({ color }) => ({
    backgroundColor: color,
-   width: '15px',
+   minWidth: '15px',
+   maxWidth: '15px',
+   height: '15px',
    borderRadius: '50%',
 }));
+
+export const CssNameContainer = styled(Typography)({
+   textTransform: 'uppercase',
+   display: 'flex',
+   alignItems: 'center',
+});
+CssNameContainer.defaultProps = {
+   variant: 'h5',
+};
+
+export const CssName = styled('span')({
+   display: 'inline-block',
+   maxWidth: 200,
+   overflow: 'hidden',
+   textOverflow: 'ellipsis',
+   whiteSpace: 'nowrap',
+   marginRight: 4,
+});
 
 interface Props extends ButtonProps {
    tasksnum: number;

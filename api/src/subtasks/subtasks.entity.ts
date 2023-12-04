@@ -10,6 +10,9 @@ export class SubtasksEntity {
   @Column()
   title: string;
 
+  @Column({ default: 0 })
+  order: number;
+
   @Column({ default: false })
   isCompleted: boolean;
 

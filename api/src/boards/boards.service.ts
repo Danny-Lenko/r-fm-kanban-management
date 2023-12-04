@@ -92,6 +92,14 @@ export class BoardsService {
     const board = await this.boardsRepository.findOne({
       where: { id, user },
       relations: ['columns', 'columns.tasks', 'columns.tasks.subtasks'],
+      order: {
+        columns: {
+          order: 'ASC',
+          tasks: {
+            order: 'ASC',
+          },
+        },
+      },
     });
 
     if (!board) {
