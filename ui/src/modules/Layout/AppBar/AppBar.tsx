@@ -3,9 +3,14 @@ import { useTheme } from '@mui/material/styles';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 
-import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
+import {
+   getQueryNames,
+   useAppDispatch,
+   useAppSelector,
+   useGetQuery,
+} from '../../../library/common/hooks';
 import { setXsBoardsOpen } from '../../../main/store/modals/modalSlice';
-import { selectActiveBoard } from '../../../main/store';
+import { selectActiveBoard, selectActiveBoardId } from '../../../main/store';
 
 import {
    ButtonsBox,
@@ -18,13 +23,21 @@ import {
 import logoDark from '../../../resources/assets/logo-dark.svg';
 import logoLight from '../../../resources/assets/logo-light.svg';
 import logoMobile from '../../../resources/assets/logo-mobile.svg';
+import { IBoard } from '../../../library/interfaces';
 
 export const AppBar = ({ isHome }: { isHome: boolean }) => {
    const { drawer, modals } = useAppSelector((state) => state);
    const { open } = drawer;
    const { xsBoardsOpen } = modals;
 
-   const activeBoard = useAppSelector(selectActiveBoard);
+   const id = useAppSelector(selectActiveBoardId);
+
+   const boardDetails = getQueryNames.boardDetails;
+
+   const { isLoading, data, isError } = useGetQuery<IBoard>(boardDetails, id, {
+      staleTime: 1000 * 60 * 20,
+      enabled: !!id,
+   });
 
    const dispatch = useAppDispatch();
 
@@ -44,12 +57,16 @@ export const AppBar = ({ isHome }: { isHome: boolean }) => {
       ? logoDark
       : logoLight;
 
-   const title = isHome ? 'All Boards View' : activeBoard.name;
+   const title = isHome
+      ? 'All Boards View'
+      : isLoading
+      ? 'Loading...'
+      : data?.name;
 
    return (
-      <CssAppBar open={open}>
+      <CssAppBar isOpen={open}>
          <Toolbar>
-            <CssLogoWrapper open={open}>
+            <CssLogoWrapper to='/' isOpen={open}>
                <CssLogo src={logo} />
             </CssLogoWrapper>
 

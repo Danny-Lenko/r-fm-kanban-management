@@ -23,7 +23,7 @@ export enum getQueryNames {
 export function useGetQuery<T>(
    dataType: string,
    id?: string,
-   useQueryConfig?: Record<string, string | number>,
+   useQueryConfig?: Record<string, string | number | boolean>,
 ) {
    const Boards = new QueryData('boards', '/boards', ['boards']);
    const Categories = new QueryData('categories', '/boards/by-categories', [
