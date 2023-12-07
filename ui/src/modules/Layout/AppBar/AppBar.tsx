@@ -10,7 +10,7 @@ import {
    useGetQuery,
 } from '../../../library/common/hooks';
 import { setXsBoardsOpen } from '../../../main/store/modals/modalSlice';
-import { selectActiveBoard, selectActiveBoardId } from '../../../main/store';
+import { selectActiveBoardId } from '../../../main/store';
 
 import {
    ButtonsBox,
@@ -79,7 +79,7 @@ export const AppBar = ({ isHome }: { isHome: boolean }) => {
                   <ExpandMoreRoundedIcon />
                ))}
 
-            <ButtonsBox xsScreen={xsScreen} />
+            <ButtonsBox xsScreen={xsScreen} isHome={isHome} />
          </Toolbar>
       </CssAppBar>
    );

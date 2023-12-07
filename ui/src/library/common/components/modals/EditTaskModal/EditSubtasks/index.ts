@@ -1,3 +1,3 @@
 export * from './EditorSubtasks';
-export * from './Subtask';
 export * from './CssStack';
+export { Subtask } from './Subtask';

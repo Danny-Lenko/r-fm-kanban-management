@@ -8,7 +8,6 @@ import {
    setBoardEditing,
    setBoardIsExisting,
    setXsBoardsOpen,
-   // selectTaskManaging,
    selectTaskAdding,
    selectTaskDeleting,
    selectBoardEditing,
@@ -17,7 +16,6 @@ import {
 } from '../../../../../main/store';
 
 export enum ModalTypes {
-   // TaskManager,
    TaskEditor,
    BoardEditor,
    Remover,
@@ -26,7 +24,6 @@ export enum ModalTypes {
 
 export const useAppModal = () => {
    // task modals
-   // const taskManaging = useAppSelector(selectTaskManaging);
    const taskEditing = useAppSelector(selectTaskAdding);
    const taskDeleting = useAppSelector(selectTaskDeleting);
    // board modals
@@ -36,7 +33,6 @@ export const useAppModal = () => {
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
    const open =
-      // taskManaging ||
       taskEditing ||
       boardEditing ||
       boardDeleting ||
@@ -47,8 +43,6 @@ export const useAppModal = () => {
 
    const type = boardDeleting
       ? ModalTypes.Remover
-      // : taskManaging
-      // ? ModalTypes.TaskManager
       : taskEditing
       ? ModalTypes.TaskEditor
       : boardEditing
@@ -61,10 +55,6 @@ export const useAppModal = () => {
       dispatch(setBoardDeleting(false));
       dispatch(setTaskDeleting(false));
    }
-
-   // function closeTaskManager() {
-   //    dispatch(setSubmissionTrigger(true));
-   // }
 
    function closeTaskEditor() {
       dispatch(setTaskAdding(false));
@@ -83,7 +73,6 @@ export const useAppModal = () => {
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
-         // [ModalTypes.TaskManager]: closeTaskManager,
          [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.BoardEditor]: closeBoardEditor,
          [ModalTypes.XsBoards]: closeXsBoards,
