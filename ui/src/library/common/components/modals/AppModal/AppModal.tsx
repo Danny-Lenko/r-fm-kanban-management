@@ -4,19 +4,19 @@ import {
    ModalTypes,
    DeleteModal,
    CssContent,
-   // ManageTaskModal,
    AddTaskModal,
    EditBoardModal,
    XsBoardsModal,
+   CategoryCreator,
 } from '.';
 
 const getModal = (type: ModalTypes) =>
    ({
-      // [ModalTypes.TaskManager]: ManageTaskModal,
       [ModalTypes.TaskEditor]: AddTaskModal,
       [ModalTypes.BoardEditor]: EditBoardModal,
       [ModalTypes.Remover]: DeleteModal,
       [ModalTypes.XsBoards]: XsBoardsModal,
+      [ModalTypes.CategoryCreator]: CategoryCreator,
    }[type]);
 
 interface Props {

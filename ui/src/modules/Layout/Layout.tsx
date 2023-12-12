@@ -19,7 +19,7 @@ export const Layout: React.FC<Props> = ({ children }) => {
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
    const { pathname } = useLocation();
-   const isHome = pathname === '/' || pathname === '/backlog';
+   const isHome = pathname === '/' || pathname === '/categories-grid';
 
    const dispatch = useAppDispatch();
 

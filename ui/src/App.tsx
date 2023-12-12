@@ -31,8 +31,11 @@ function App() {
                <Routes>
                   <Route element={<PrivateRoutes />}>
                      <Route element={<AllBoards />} path='/'>
-                        <Route element={<MasonryGrid />} path='' />
-                        <Route element={<Backlog />} path='backlog' />
+                        <Route element={<Backlog />} path='' />
+                        <Route
+                           element={<MasonryGrid />}
+                           path='categories-grid'
+                        />
                      </Route>
 
                      <Route element={<Board />} path='boards/:id' />
@@ -40,7 +43,7 @@ function App() {
 
                   <Route element={<SignIn />} path='/sign-in' />
                   <Route element={<SignUp />} path='/sign-up' />
-                  
+
                   {/* =============================== Testing Page =============================== */}
                   <Route element={<TestingPage />} path='testing-page' />
                </Routes>

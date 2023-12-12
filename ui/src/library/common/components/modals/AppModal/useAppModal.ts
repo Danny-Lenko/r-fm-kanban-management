@@ -13,6 +13,8 @@ import {
    selectBoardEditing,
    selectBoardDeleting,
    selectXsBoardsOpen,
+   setCategoryIsCreating,
+   selectCategoryIsCreating,
 } from '../../../../../main/store';
 
 export enum ModalTypes {
@@ -20,6 +22,7 @@ export enum ModalTypes {
    BoardEditor,
    Remover,
    XsBoards,
+   CategoryCreator,
 }
 
 export const useAppModal = () => {
@@ -32,11 +35,14 @@ export const useAppModal = () => {
 
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
+   const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
+
    const open =
       taskEditing ||
       boardEditing ||
       boardDeleting ||
       taskDeleting ||
+      categoryIsCreating ||
       xsBoardsOpen;
 
    const dispatch = useAppDispatch();
@@ -47,6 +53,8 @@ export const useAppModal = () => {
       ? ModalTypes.TaskEditor
       : boardEditing
       ? ModalTypes.BoardEditor
+      : categoryIsCreating
+      ? ModalTypes.CategoryCreator
       : xsBoardsOpen
       ? ModalTypes.XsBoards
       : ModalTypes.Remover;
@@ -70,12 +78,17 @@ export const useAppModal = () => {
       dispatch(setXsBoardsOpen(false));
    }
 
+   function closeCategoryCreator() {
+      dispatch(setCategoryIsCreating(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
          [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.BoardEditor]: closeBoardEditor,
          [ModalTypes.XsBoards]: closeXsBoards,
+         [ModalTypes.CategoryCreator]: closeCategoryCreator,
       }[type]);
 
    return { type, open, getOnClose };

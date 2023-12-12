@@ -5,6 +5,7 @@ import {
    useAppDispatch,
 } from '../../../../library/common/hooks';
 import {
+   setCategoryIsCreating,
    setTaskAdding,
    setTaskAddingColumn,
 } from '../../../../main/store/modals/modalSlice';
@@ -28,8 +29,8 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
    };
 
    const addNewCategory = () => {
-      
-   }
+      dispatch(setCategoryIsCreating(true));
+   };
 
    const xsButtonProps = {
       disabled: !activeBoard.columns[0],
@@ -50,7 +51,6 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
                <AddRoundedIcon />
             </XsPlusButton>
          ) : (
-            // <AppBtn {...appBtnProps}>+ Add New Task</AppBtn>
             <AppBtn {...appBtnProps} />
          )}
 

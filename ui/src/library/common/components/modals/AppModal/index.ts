@@ -7,3 +7,4 @@ export * from '../CssLabel';
 export * from './CssTextField';
 export * from './EditBoardModal';
 export * from './XsBoardsModal';
+export { CategoryCreator } from './CategoryCreator';

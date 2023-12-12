@@ -70,3 +70,10 @@ export const selectModalIsSubmitting = createSelector(
    [selectModalsReducer],
    (modals) => modals.modalIsSubmitting,
 );
+
+// category
+
+export const selectCategoryIsCreating = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.categoryIsCreating,
+);

@@ -8,7 +8,7 @@ import { IBoard } from '../../library/interfaces/interfaces';
 
 // https://mui.com/material-ui/guides/routing/#tabs
 function ViewTabs() {
-   const routeMatch = useRouteMatch(['/', '/backlog']);
+   const routeMatch = useRouteMatch(['/', '/categories-grid']);
    const currentTab = routeMatch?.pattern?.path;
 
    const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ViewTabs() {
    return (
       <>
          <CssTabs value={currentTab}>
-            <Tab
+            {/* <Tab
                sx={tabSx}
                label={currentTab === '/' ? 'Grid' : 'View as Grid'}
                value='/'
@@ -33,6 +33,23 @@ function ViewTabs() {
                to='/backlog'
                component={Link}
                label={currentTab === '/backlog' ? 'Backlog' : 'View as Backlog'}
+            /> */}
+
+            <Tab
+               sx={tabSx}
+               label={currentTab === '/' ? 'Backlog' : 'View as Backlog'}
+               value='/'
+               to='/'
+               component={Link}
+            />
+            <Tab
+               sx={tabSx}
+               value='/categories-grid'
+               to='/categories-grid'
+               component={Link}
+               label={
+                  currentTab === '/categories-grid' ? 'Grid' : 'View as Grid'
+               }
             />
             {/* <button onClick={() => navigate('/my-board')}>Go To a Board</button> */}
          </CssTabs>
