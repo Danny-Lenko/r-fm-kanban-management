@@ -6,9 +6,8 @@ type Props = {
 };
 
 export const CssControlLabel = styled(FormControlLabel)<Props>(
-   ({ theme, completed }) => ({
+   ({ theme }) => ({
       maxWidth: 'min-content',
-
       backgroundColor: theme.palette.background.default,
       margin: 0,
       borderRadius: '4px',

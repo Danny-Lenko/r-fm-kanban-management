@@ -54,7 +54,7 @@ export const dataSlice = createSlice({
    name: 'data',
    initialState: {
       boards: mockData,
-      activeBoardId: '0',
+      activeBoardId: '',
       activeColumnId: '0',
       activeTaskId: '',
    },

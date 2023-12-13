@@ -1,10 +1,8 @@
 import { IconButton, Stack } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
-import { useSubtaskProps } from '.';
+import { useSubtaskProps, CssControlLabel, CssCheckbox } from '.';
 import { CssTextField, SubtaskProps } from '../..';
-import { CssControlLabel } from '../../../ManageTaskModal';
-import { CssCheckbox } from '../../../ManageTaskModal';
 
 export const Subtask: React.FC<SubtaskProps> = (props) => {
    const {
@@ -18,7 +16,6 @@ export const Subtask: React.FC<SubtaskProps> = (props) => {
       fieldProps,
       xButtonProps,
    } = useSubtaskProps(props);
-
 
    return (
       <Stack {...stackProps}>

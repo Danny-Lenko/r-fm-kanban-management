@@ -5,6 +5,7 @@ import {
    useAppDispatch,
 } from '../../../../library/common/hooks';
 import {
+   setCategoryIsCreating,
    setTaskAdding,
    setTaskAddingColumn,
 } from '../../../../main/store/modals/modalSlice';
@@ -15,9 +16,10 @@ import { CssBox, XsPlusButton } from '.';
 
 interface Props {
    xsScreen: boolean;
+   isHome: boolean;
 }
 
-export const ButtonsBox: React.FC<Props> = ({ xsScreen }) => {
+export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
    const activeBoard = useAppSelector(selectActiveBoard);
    const dispatch = useAppDispatch();
 
@@ -26,10 +28,15 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen }) => {
       dispatch(setTaskAdding(true));
    };
 
+   const addNewCategory = () => {
+      dispatch(setCategoryIsCreating(true));
+   };
+
    const xsButtonProps = {
       disabled: !activeBoard.columns[0],
       color: 'primary' as 'primary',
-      onClick: editTask,
+      onClick: isHome ? addNewCategory : editTask,
+      children: isHome ? '+ Add Category' : '+ Add New Task',
    };
 
    const appBtnProps = {
@@ -44,7 +51,7 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen }) => {
                <AddRoundedIcon />
             </XsPlusButton>
          ) : (
-            <AppBtn {...appBtnProps}>+ Add New Task</AppBtn>
+            <AppBtn {...appBtnProps} />
          )}
 
          <DotsMenu isTaskMenu={false} />

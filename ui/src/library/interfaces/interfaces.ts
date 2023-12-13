@@ -1,10 +1,5 @@
-import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { FieldArrayRenderProps } from 'formik';
 import { Dispatch } from '@reduxjs/toolkit';
-
-export interface AppBarProps extends MuiAppBarProps {
-   open?: boolean;
-}
 
 export interface INewSubtask {
    title: string;

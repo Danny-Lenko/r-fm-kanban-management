@@ -8,25 +8,25 @@ import {
    setBoardEditing,
    setBoardIsExisting,
    setXsBoardsOpen,
-   // selectTaskManaging,
    selectTaskAdding,
    selectTaskDeleting,
    selectBoardEditing,
    selectBoardDeleting,
    selectXsBoardsOpen,
+   setCategoryIsCreating,
+   selectCategoryIsCreating,
 } from '../../../../../main/store';
 
 export enum ModalTypes {
-   // TaskManager,
    TaskEditor,
    BoardEditor,
    Remover,
    XsBoards,
+   CategoryCreator,
 }
 
 export const useAppModal = () => {
    // task modals
-   // const taskManaging = useAppSelector(selectTaskManaging);
    const taskEditing = useAppSelector(selectTaskAdding);
    const taskDeleting = useAppSelector(selectTaskDeleting);
    // board modals
@@ -35,24 +35,26 @@ export const useAppModal = () => {
 
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
+   const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
+
    const open =
-      // taskManaging ||
       taskEditing ||
       boardEditing ||
       boardDeleting ||
       taskDeleting ||
+      categoryIsCreating ||
       xsBoardsOpen;
 
    const dispatch = useAppDispatch();
 
    const type = boardDeleting
       ? ModalTypes.Remover
-      // : taskManaging
-      // ? ModalTypes.TaskManager
       : taskEditing
       ? ModalTypes.TaskEditor
       : boardEditing
       ? ModalTypes.BoardEditor
+      : categoryIsCreating
+      ? ModalTypes.CategoryCreator
       : xsBoardsOpen
       ? ModalTypes.XsBoards
       : ModalTypes.Remover;
@@ -61,10 +63,6 @@ export const useAppModal = () => {
       dispatch(setBoardDeleting(false));
       dispatch(setTaskDeleting(false));
    }
-
-   // function closeTaskManager() {
-   //    dispatch(setSubmissionTrigger(true));
-   // }
 
    function closeTaskEditor() {
       dispatch(setTaskAdding(false));
@@ -80,13 +78,17 @@ export const useAppModal = () => {
       dispatch(setXsBoardsOpen(false));
    }
 
+   function closeCategoryCreator() {
+      dispatch(setCategoryIsCreating(false));
+   }
+
    const getOnClose = (type: ModalTypes) =>
       ({
          [ModalTypes.Remover]: closeRemover,
-         // [ModalTypes.TaskManager]: closeTaskManager,
          [ModalTypes.TaskEditor]: closeTaskEditor,
          [ModalTypes.BoardEditor]: closeBoardEditor,
          [ModalTypes.XsBoards]: closeXsBoards,
+         [ModalTypes.CategoryCreator]: closeCategoryCreator,
       }[type]);
 
    return { type, open, getOnClose };
