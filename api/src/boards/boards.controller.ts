@@ -93,6 +93,14 @@ export class BoardsController {
     return this.boardsService.createBoard(createBoardDto, user);
   }
 
+  @Post('/category')
+  createCategory(
+    @Body() { category },
+    @GetUser() user: UserEntity,
+  ): Promise<void> {
+    return this.boardsService.createCategory({ category }, user);
+  }
+
   @Delete('/:id')
   deleteBoardById(
     @Param('id') id: string,

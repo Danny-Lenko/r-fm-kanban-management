@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Masonry from '@mui/lab/Masonry';
 import {
    AccordionDetails,
    AccordionSummary,
@@ -8,11 +8,10 @@ import {
    Typography,
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
+import Masonry from '@mui/lab/Masonry';
 
 import { BoardCard, CssAccordion, CssContainer } from '.';
-
-import { useCategories } from '../AllBoards';
-import { useNavigate } from 'react-router-dom';
+import { useCategories } from '..';
 
 const gridColumns = {
    xs: 1,

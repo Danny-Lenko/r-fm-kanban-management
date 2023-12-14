@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  Logger,
+  ConflictException,
+} from '@nestjs/common';
 
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
@@ -109,6 +114,8 @@ export class BoardsService {
     return board;
   }
 
+  // ================================================ Create
+
   async createBoard(
     createBoardDto: CreateBoardDto,
     user: UserEntity,
@@ -126,6 +133,29 @@ export class BoardsService {
     }
     return;
   }
+
+  async createCategory({ category }, user: UserEntity): Promise<void> {
+    const existingBoard = await this.boardsRepository.findOne({
+      where: { user, category },
+    });
+
+    if (existingBoard) {
+      // throw new Error(`Board with category '${category}' already exists`);
+      throw new ConflictException(
+        `Board with category '${category}' already exists`,
+      );
+    }
+
+    const newBoard = {
+      category,
+      name: 'New Board',
+      columns: [{ name: 'Column 1' }],
+    };
+    const board = this.boardsRepository.create({ ...newBoard, user });
+    await this.boardsRepository.save(board);
+  }
+
+  // ====================================================== Update
 
   async updateNameById(
     id: string,
