@@ -1,19 +1,20 @@
 import { useState, MouseEvent } from 'react';
-
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+import { DotsMenuItem } from '.';
 import { dotsMenuOptions } from '../../constants';
 
-import { DotsMenuItem } from '.';
+interface Props {
+   mode: keyof typeof dotsMenuOptions;
+}
 
-export const DotsMenu = ({ isTaskMenu }: { isTaskMenu: boolean }) => {
+export const DotsMenu: React.FC<Props> = ({ mode }) => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
 
-   const { taskMenu, boardMenu } = dotsMenuOptions;
-   const options = isTaskMenu ? taskMenu : boardMenu;
+   const options = dotsMenuOptions[mode as keyof typeof dotsMenuOptions];
 
    const handleClick = (event: MouseEvent<HTMLElement>) => {
       setAnchorEl(event.currentTarget);

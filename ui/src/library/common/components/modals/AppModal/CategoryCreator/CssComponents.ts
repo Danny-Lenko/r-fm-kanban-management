@@ -14,7 +14,9 @@ interface Props extends ButtonProps {
    isConflict: boolean;
 }
 
-export const CssButton = styled(AppBtn)<Props>(({ theme, isConflict }) => ({
+export const CssButton = styled(AppBtn, {
+   shouldForwardProp: (prop) => prop !== 'isConflict',
+})<Props>(({ theme, isConflict }) => ({
    display: 'block',
    minWidth: '50%',
    width: 'fit-content',

@@ -18,7 +18,7 @@ export const ModalContent = ({ id }: { id: string }) => {
       <>
          <CssHeading>
             <Typography variant='h3'>{'Edit task'}</Typography>
-            <DotsMenu isTaskMenu={true} />
+            <DotsMenu mode={'taskMenu'} />
          </CssHeading>
 
          {isLoading && <LoadingContent />}

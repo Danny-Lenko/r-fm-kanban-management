@@ -44,6 +44,8 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
       ...xsButtonProps,
    };
 
+   const dotsMode = isHome ? 'categoryMenu' : 'boardMenu';
+
    return (
       <CssBox>
          {xsScreen ? (
@@ -54,7 +56,7 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
             <AppBtn {...appBtnProps} />
          )}
 
-         <DotsMenu isTaskMenu={false} />
+         <DotsMenu mode={dotsMode} />
       </CssBox>
    );
 };

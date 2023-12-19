@@ -1,10 +1,10 @@
-import { ListItemText, SvgIconTypeMap } from '@mui/material';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ListItemText, SvgIconTypeMap, SvgIconProps } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import TaskIcon from '@mui/icons-material/Task';
 import CloseIcon from '@mui/icons-material/Close';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-
-import { SvgIconProps } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
@@ -15,12 +15,11 @@ import {
    setTaskDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
-} from '../../../../main/store/modals/modalSlice';
+   selectActiveTaskId,
+   setEditMode,
+} from '../../../../main/store';
 
 import { CssListIcon, CssMenuItem } from './CssComponents';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { selectActiveTaskId } from '../../../../main/store';
 
 interface Props {
    option: string;
@@ -30,7 +29,10 @@ interface Props {
 export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    const id = useAppSelector(selectActiveTaskId);
    const dispatch = useAppDispatch();
-   const optionAction = option.split(' ')[0].toLowerCase();
+   const optionAction = option
+      .split(' ')
+      .filter((word) => word.toLowerCase() !== 'enter')[0]
+      .toLowerCase();
 
    const navigate = useNavigate();
    const { pathname } = useLocation();
@@ -78,6 +80,10 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       dispatch(setTaskDeleting(true));
    };
 
+   const handleEditMode = () => {
+      dispatch(setEditMode(true));
+   };
+
    const handleClick = () => {
       switch (option) {
          case 'Open Task Page':
@@ -91,6 +97,9 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
             break;
          case 'Delete Board':
             handleDeleteBoard();
+            break;
+         case 'Enter Edit Board':
+            handleEditMode();
             break;
          default:
             handleDeleteTask();
