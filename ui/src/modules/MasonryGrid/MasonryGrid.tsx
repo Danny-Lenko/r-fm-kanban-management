@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
    AccordionDetails,
    AccordionSummary,
@@ -9,9 +8,12 @@ import {
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { BoardCard, CssAccordion, CssContainer } from '.';
+import { BoardCard, CssAccordion, CssContainer, CssDeleteIcon } from '.';
 import { useCategories } from '..';
+import { useAppDispatch, useAppSelector } from '../../library/common/hooks';
+import { selectEditMode, setDeleteModalMode } from '../../main/store';
 
 const gridColumns = {
    xs: 1,
@@ -22,6 +24,8 @@ const gridColumns = {
 };
 
 export const MasonryGrid = () => {
+   const dispatch = useAppDispatch();
+   const isEditMode = useAppSelector(selectEditMode);
    const categories = useCategories();
    const navigate = useNavigate();
 
@@ -38,6 +42,15 @@ export const MasonryGrid = () => {
                      <CssAccordion elevation={0} defaultExpanded={i === 0}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                            <Typography>{category}</Typography>
+                           {isEditMode && (
+                              <CssDeleteIcon
+                                 fontSize='medium'
+                                 onClick={(e) => {
+                                    e.stopPropagation();
+                                    dispatch(setDeleteModalMode('category'));
+                                 }}
+                              />
+                           )}
                         </AccordionSummary>
                         <AccordionDetails>
                            <Stack gap={2}>

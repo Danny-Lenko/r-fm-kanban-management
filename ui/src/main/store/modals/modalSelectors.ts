@@ -77,3 +77,10 @@ export const selectCategoryIsCreating = createSelector(
    [selectModalsReducer],
    (modals) => modals.categoryIsCreating,
 );
+
+// delete modal
+
+export const selectDeleteModalMode = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.deleteModalMode,
+);

@@ -10,7 +10,7 @@ import {
    setTaskAddingColumn,
 } from '../../../../main/store/modals/modalSlice';
 import { AppBtn, DotsMenu } from '../../../../library/common/components';
-import { selectActiveBoard } from '../../../../main/store';
+import { selectActiveBoard, selectEditMode } from '../../../../main/store';
 
 import { CssBox, XsPlusButton } from '.';
 
@@ -21,6 +21,7 @@ interface Props {
 
 export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
    const activeBoard = useAppSelector(selectActiveBoard);
+   const isEditMode = useAppSelector(selectEditMode);
    const dispatch = useAppDispatch();
 
    const editTask = () => {
@@ -44,7 +45,11 @@ export const ButtonsBox: React.FC<Props> = ({ xsScreen, isHome }) => {
       ...xsButtonProps,
    };
 
-   const dotsMode = isHome ? 'categoryMenu' : 'boardMenu';
+   const dotsMode = isEditMode
+      ? 'editCategoryMenu'
+      : isHome
+      ? 'categoryMenu'
+      : 'boardMenu';
 
    return (
       <CssBox>

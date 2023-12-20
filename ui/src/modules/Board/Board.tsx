@@ -17,7 +17,7 @@ import {
    useAppDispatch,
 } from '../../library/common/hooks';
 import { IBoard } from '../../library/interfaces';
-import { setActiveBoardId } from '../../main/store';
+import { setActiveBoardId, setEditMode } from '../../main/store';
 
 import { EditTaskModal } from '../../library/common/components';
 
@@ -31,6 +31,8 @@ export const Board = () => {
    });
 
    useEffect(() => {
+      dispatch(setEditMode(false));
+
       if (id) {
          dispatch(setActiveBoardId(id));
       }
