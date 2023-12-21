@@ -15,6 +15,7 @@ import {
    selectBoardDeleting,
    selectActiveTaskId,
    selectActiveBoardId,
+   selectActiveCategoryName,
 } from '../../../../../../main/store';
 import {
    useAppSelector,
@@ -35,13 +36,11 @@ export const useDeleteModal = () => {
    const activeBoardId = useAppSelector(selectActiveBoardId);
    const boardDeleting = useAppSelector(selectBoardDeleting);
 
-   
 
-   const taskById = getQueryNames.taskById;
-   const { isLoading, error, data } = useGetQuery<ITask>(
-      taskById,
-      activeTaskId,
-   );
+
+      
+      // const categoryName = useAppSelector(selectActiveCategoryName);
+   // const taskName = task?.title
 
    const queryClient = useQueryClient();
    const deleteTaskById = deleteQueryNames.taskById;
@@ -83,11 +82,9 @@ export const useDeleteModal = () => {
    const handleDelete = deleteTask;
    // const handleDelete = boardDeleting ? deleteBoard : deleteTask;
 
-   const name = boardDeleting ? 'THIS BOARD' : data?.title;
 
    return {
       boardDeleting,
-      name,
       handleDelete,
       handleClose,
    };

@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-// type DeleteModes = {
-//    'category' | null
-// }
-
-const deleteModes = {
-   category: {},
-   board: {},
-   task: {}
-};
+import { DeleteModalTypes } from '../../../library/types';
 
 export const modalSlice = createSlice({
    name: 'modals',
@@ -30,7 +21,7 @@ export const modalSlice = createSlice({
       modalIsSubmitting: false,
       categoryIsCreating: false,
 
-      deleteModalMode: null as keyof typeof deleteModes | null,
+      deleteModalMode: null as DeleteModalTypes | null,
    },
 
    reducers: {

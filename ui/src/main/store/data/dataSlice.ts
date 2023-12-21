@@ -57,6 +57,7 @@ export const dataSlice = createSlice({
       activeBoardId: '',
       activeColumnId: '0',
       activeTaskId: '',
+      activeCategoryName: '',
    },
 
    reducers: {
@@ -70,6 +71,10 @@ export const dataSlice = createSlice({
 
       setActiveColumndId: (state, { payload }) => {
          state.activeColumnId = payload;
+      },
+
+      setActiveCategoryName: (state, { payload }) => {
+         state.activeCategoryName = payload;
       },
 
       updateColumns: (state, { payload }) => {
@@ -89,7 +94,7 @@ export const dataSlice = createSlice({
       },
 
       dropTask: (state, { payload }) => {
-         // state.boards = dropTaskHelper(state, payload); 
+         // state.boards = dropTaskHelper(state, payload);
       },
    },
 });
@@ -99,6 +104,7 @@ export const {
    setActiveBoardId,
    setActiveColumndId,
    setActiveTaskId,
+   setActiveCategoryName,
    updateColumns,
    updateActiveTask,
    dropColumn,

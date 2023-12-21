@@ -9,6 +9,11 @@ export const selectBoards = createSelector(
    (data) => data.boards,
 );
 
+export const selectActiveCategoryName = createSelector(
+   [selectDataReducer],
+   (data) => data.activeCategoryName,
+);
+
 // active board info
 export const selectActiveBoardId = createSelector(
    [selectDataReducer],

@@ -13,7 +13,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { BoardCard, CssAccordion, CssContainer, CssDeleteIcon } from '.';
 import { useCategories } from '..';
 import { useAppDispatch, useAppSelector } from '../../library/common/hooks';
-import { selectEditMode, setDeleteModalMode } from '../../main/store';
+import {
+   selectEditMode,
+   setActiveCategoryName,
+   setDeleteModalMode,
+} from '../../main/store';
 
 const gridColumns = {
    xs: 1,
@@ -48,6 +52,11 @@ export const MasonryGrid = () => {
                                  onClick={(e) => {
                                     e.stopPropagation();
                                     dispatch(setDeleteModalMode('category'));
+                                    dispatch(
+                                       setActiveCategoryName(
+                                          category as string,
+                                       ),
+                                    );
                                  }}
                               />
                            )}
