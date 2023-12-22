@@ -1,19 +1,11 @@
 import { Typography, Stack } from '@mui/material';
-import { AppBtn } from '../../../AppBtn';
-import { DeleteBtn, useDeleteModal } from '.';
-import {
-   deleteQueryNames,
-   getQueryNames,
-   useAppSelector,
-} from '../../../../hooks';
-import { selectDeleteModalMode } from '../../../../../../main/store';
-import { useModalMessage } from './useModalMessage';
+
+import { DeleteBtn, useMessage, useHandlers } from '.';
+import { AppBtn } from '../../..';
 
 export const DeleteModal: React.FC = () => {
-   const mode = useAppSelector(selectDeleteModalMode);
-   const { boardDeleting, handleDelete, handleClose } = useDeleteModal();
-
-   const { message } = useModalMessage(mode || 'category');
+   const { mode, handleDelete, handleClose } = useHandlers();
+   const { message } = useMessage();
 
    return (
       <>

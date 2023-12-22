@@ -10,8 +10,8 @@ const deleteData = async (endpoint: string) => {
 
 export enum deleteQueryNames {
    // boards = 'boards',
-   // categories = 'categories',
    // boardDetails = 'boardDetails',
+   category = 'boardsByCategory',
    taskById = 'taskById',
 }
 
@@ -21,10 +21,11 @@ export function useDeleteQuery(
    useQueryConfig?: Record<string, string | number>,
 ) {
    // const Boards = new QueryData('boards', '/boards', ['boards']);
-   // const Categories = new QueryData('categories', '/boards/by-categories', [
-   //    'boards',
-   //    'by-categories',
-   // ]);
+   const Category = new QueryData(
+      'boardsByCategory',
+      `/boards/by-category/${id}`,
+      ['boards', 'by-category'],
+   );
    // const DetailedBoard = new QueryData(
    //    'boardDetails',
    //    `/boards/${id!}/with-details`,
@@ -36,6 +37,7 @@ export function useDeleteQuery(
       // boards: Boards,
       // categories: Categories,
       // boardDetails: DetailedBoard,
+      boardsByCategory: Category,
       taskById: TaskById,
    };
 

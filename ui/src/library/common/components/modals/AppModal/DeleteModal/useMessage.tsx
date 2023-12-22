@@ -2,12 +2,15 @@ import {
    selectActiveBoardId,
    selectActiveCategoryName,
    selectActiveTaskId,
+   selectDeleteModalMode,
 } from '../../../../../../main/store';
 import { IBoard, ITask } from '../../../../../interfaces';
 import { DeleteModalTypes } from '../../../../../types';
 import { getQueryNames, useAppSelector, useGetQuery } from '../../../../hooks';
 
-export const useModalMessage = (mode: DeleteModalTypes) => {
+export const useMessage = () => {
+   const mode = useAppSelector(selectDeleteModalMode);
+
    const categoryName = useAppSelector(selectActiveCategoryName);
 
    const boardId = useAppSelector(selectActiveBoardId);
@@ -48,6 +51,6 @@ export const useModalMessage = (mode: DeleteModalTypes) => {
    };
 
    return {
-      message: modals[mode],
+      message: modals[mode as DeleteModalTypes],
    };
 };

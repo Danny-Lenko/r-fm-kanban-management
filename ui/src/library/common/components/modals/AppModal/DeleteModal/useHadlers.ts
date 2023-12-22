@@ -16,6 +16,8 @@ import {
    selectActiveTaskId,
    selectActiveBoardId,
    selectActiveCategoryName,
+   setDeleteModalMode,
+   selectDeleteModalMode,
 } from '../../../../../../main/store';
 import {
    useAppSelector,
@@ -26,28 +28,52 @@ import {
    useDeleteQuery,
 } from '../../../../hooks';
 import { ITask } from '../../../../../interfaces';
+import { DeleteModalTypes } from '../../../../../types';
 // import { generateId } from '../../../../../utilities/utils';
 // import { deleteQueryNames } from '../../../../hooks/api/useDeleteQuery';
 
-export const useDeleteModal = () => {
+export const useHandlers = () => {
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
+   const queryClient = useQueryClient();
+
+   const mode = useAppSelector(selectDeleteModalMode);
+
    const activeTaskId = useAppSelector(selectActiveTaskId);
    const activeBoardId = useAppSelector(selectActiveBoardId);
-   const boardDeleting = useAppSelector(selectBoardDeleting);
+   const activeCategory = useAppSelector(selectActiveCategoryName);
 
-
-
-      
-      // const categoryName = useAppSelector(selectActiveCategoryName);
+   // const categoryName = useAppSelector(selectActiveCategoryName);
    // const taskName = task?.title
 
-   const queryClient = useQueryClient();
    const deleteTaskById = deleteQueryNames.taskById;
    const query = useDeleteQuery(
       deleteTaskById as keyof typeof deleteQueryNames,
       activeTaskId,
    );
+   const deleteTask = async () => {
+      await query.mutateAsync();
+      await queryClient.invalidateQueries(
+         ['boards', activeBoardId, 'with-details'],
+         {
+            exact: true,
+         },
+      );
+      handleClose();
+   };
+
+   const deleteCat = deleteQueryNames.category;
+   const categoryQuery = useDeleteQuery(
+      deleteCat as keyof typeof deleteQueryNames,
+      activeCategory,
+   );
+   const deleteCategory = async () => {
+      await categoryQuery.mutateAsync();
+      await queryClient.invalidateQueries(['boards', 'by-categories'], {
+         exact: true,
+      });
+      handleClose();
+   };
    // const deleteTask = async () => {
    //    await query.mutateAsync(, {
    //       onSuccess: (data) => {
@@ -62,29 +88,22 @@ export const useDeleteModal = () => {
    //    });
    // };
 
-   const deleteTask = async () => {
-      await query.mutateAsync();
-      await queryClient.invalidateQueries(
-         ['boards', activeBoardId, 'with-details'],
-         {
-            exact: true,
-         },
-      );
-      handleClose();
+   const deleteHandlers = {
+      category: deleteCategory,
+      board: () => null,
+      task: deleteTask,
    };
+   const handleDelete = deleteHandlers[mode as DeleteModalTypes];
+
    function handleClose() {
-      dispatch(setBoardDeleting(false));
-      dispatch(setTaskDeleting(false));
       dispatch(setTaskCardWasDragged(false));
       dispatch(setTaskModalExpansionId(null));
+      dispatch(setDeleteModalMode(null));
    }
 
-   const handleDelete = deleteTask;
-   // const handleDelete = boardDeleting ? deleteBoard : deleteTask;
-
-
    return {
-      boardDeleting,
+      mode,
+      // boardDeleting,
       handleDelete,
       handleClose,
    };

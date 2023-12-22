@@ -101,6 +101,15 @@ export class BoardsController {
     return this.boardsService.createCategory({ category }, user);
   }
 
+  @Patch('/:id/name')
+  updateNameById(
+    @Param('id') id: string,
+    @Body('name') name: string,
+    @GetUser() user: UserEntity,
+  ): Promise<BoardsEntity> {
+    return this.boardsService.updateNameById(id, name, user);
+  }
+
   @Delete('/:id')
   deleteBoardById(
     @Param('id') id: string,
@@ -109,13 +118,12 @@ export class BoardsController {
     return this.boardsService.deleteBoardById(id, user);
   }
 
-  @Patch('/:id/name')
-  updateNameById(
-    @Param('id') id: string,
-    @Body('name') name: string,
+  @Delete('by-category/:category')
+  deleteBoardsByCategory(
+    @Param('category') category: string,
     @GetUser() user: UserEntity,
-  ): Promise<BoardsEntity> {
-    return this.boardsService.updateNameById(id, name, user);
+  ): Promise<void> {
+    return this.boardsService.deleteBoardsByCategory(category, user);
   }
 
   @Put('/:id')

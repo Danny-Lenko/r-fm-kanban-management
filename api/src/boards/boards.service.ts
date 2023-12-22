@@ -3,6 +3,7 @@ import {
   NotFoundException,
   Logger,
   ConflictException,
+  InternalServerErrorException,
 } from '@nestjs/common';
 
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -211,6 +212,33 @@ export class BoardsService {
       if (!dtoColumnIds.includes(id)) {
         await this.columnsService.deleteColumnById(id);
       }
+    }
+  }
+
+  // ======================================== Delete
+
+  async deleteBoardsByCategory(
+    category: string,
+    user: UserEntity,
+  ): Promise<void> {
+    const emptyOrNotCategory = category !== 'Uncategorized' ? category : '';
+
+    const existingBoards = await this.boardsRepository.find({
+      where: { category: emptyOrNotCategory, user },
+    });
+
+    if (!existingBoards || existingBoards.length === 0) {
+      throw new NotFoundException(
+        `No boards with category '${category}' found`,
+      );
+    }
+
+    try {
+      await this.boardsRepository.remove(existingBoards);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error deleting boards with category '${category}': ${error.message}`,
+      );
     }
   }
 }
