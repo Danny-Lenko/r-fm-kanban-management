@@ -58,7 +58,7 @@ function ViewTabs() {
    );
 }
 
-interface ICategory {
+export interface ICategory {
    category: string;
    boards: IBoard[];
 }

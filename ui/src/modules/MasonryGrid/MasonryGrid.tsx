@@ -1,23 +1,7 @@
-import { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-   AccordionDetails,
-   AccordionSummary,
-   Stack,
-   Typography,
-} from '@mui/material';
-import Paper from '@mui/material/Paper';
 import Masonry from '@mui/lab/Masonry';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { BoardCard, CssAccordion, CssContainer, CssDeleteIcon } from '.';
+import { Accordion, CssContainer } from '.';
 import { useCategories } from '..';
-import { useAppDispatch, useAppSelector } from '../../library/common/hooks';
-import {
-   selectEditMode,
-   setActiveCategoryName,
-   setDeleteModalMode,
-} from '../../main/store';
 
 const gridColumns = {
    xs: 1,
@@ -28,57 +12,19 @@ const gridColumns = {
 };
 
 export const MasonryGrid = () => {
-   const dispatch = useAppDispatch();
-   const isEditMode = useAppSelector(selectEditMode);
    const categories = useCategories();
-   const navigate = useNavigate();
-
-   const handleBoardDoubleClick = useCallback((id: string) => {
-      navigate(`/boards/${id}`);
-   }, []);
 
    return (
-      <>
-         <CssContainer>
-            <Masonry columns={gridColumns} spacing={3}>
-               {categories.map(({ category, boards }, i) => (
-                  <Paper elevation={0} key={crypto.randomUUID()}>
-                     <CssAccordion elevation={0} defaultExpanded={i === 0}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                           <Typography>{category}</Typography>
-                           {isEditMode && (
-                              <CssDeleteIcon
-                                 fontSize='medium'
-                                 onClick={(e) => {
-                                    e.stopPropagation();
-                                    dispatch(setDeleteModalMode('category'));
-                                    dispatch(
-                                       setActiveCategoryName(
-                                          category as string,
-                                       ),
-                                    );
-                                 }}
-                              />
-                           )}
-                        </AccordionSummary>
-                        <AccordionDetails>
-                           <Stack gap={2}>
-                              {boards.map((board) => (
-                                 <BoardCard
-                                    key={board.id}
-                                    board={board}
-                                    onDoubleClick={() =>
-                                       handleBoardDoubleClick(board.id)
-                                    }
-                                 />
-                              ))}
-                           </Stack>
-                        </AccordionDetails>
-                     </CssAccordion>
-                  </Paper>
-               ))}
-            </Masonry>
-         </CssContainer>
-      </>
+      <CssContainer>
+         <Masonry columns={gridColumns} spacing={3}>
+            {categories.map((category, idx) => (
+               <Accordion
+                  key={crypto.randomUUID()}
+                  category={category}
+                  idx={idx}
+               />
+            ))}
+         </Masonry>
+      </CssContainer>
    );
 };
