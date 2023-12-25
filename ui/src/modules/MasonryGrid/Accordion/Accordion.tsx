@@ -2,7 +2,8 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AccordionDetails, Stack, Paper } from '@mui/material';
 
-import { BoardCard, CssAccordion, Summary } from '..';
+import { CssAccordion, CssCreateButton } from '.';
+import { BoardCard, Summary } from '..';
 import { ICategory } from '../..';
 import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
 import {
@@ -55,6 +56,7 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
                      />
                   ))}
                </Stack>
+               <CssCreateButton>{'+ Create Board'}</CssCreateButton>
             </AccordionDetails>
          </CssAccordion>
       </Paper>
