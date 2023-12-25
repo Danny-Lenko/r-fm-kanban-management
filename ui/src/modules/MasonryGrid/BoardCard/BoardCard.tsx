@@ -9,6 +9,7 @@ import {
    setActiveBoardId,
    setDeleteModalMode,
 } from '../../../main/store';
+import { AppBtn } from '../../../library/common/components';
 
 interface Props {
    board: IBoard;
@@ -38,6 +39,7 @@ export const BoardCard: React.FC<Props> = React.memo(
                   <Typography key={id}>{name}</Typography>
                ))}
             </CssStack>
+            <AppBtn>{'Create Board'}</AppBtn>
          </CssCard>
       );
    },

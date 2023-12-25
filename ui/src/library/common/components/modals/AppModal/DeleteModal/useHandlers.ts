@@ -1,18 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import {
-   setBoardDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
-   setTaskDeleting,
-   setBoards,
-   setActiveBoardId,
-   selectBoards,
-   selectActiveBoardInfo,
-   selectActiveColumnInfo,
-   selectActiveTaskInfo,
-   selectBoardDeleting,
    selectActiveTaskId,
    selectActiveBoardId,
    selectActiveCategoryName,
@@ -22,18 +13,14 @@ import {
 import {
    useAppSelector,
    useAppDispatch,
-   getQueryNames,
-   useGetQuery,
    deleteQueryNames,
    useDeleteQuery,
 } from '../../../../hooks';
-import { ITask } from '../../../../../interfaces';
 import { DeleteModalTypes } from '../../../../../types';
-// import { generateId } from '../../../../../utilities/utils';
-// import { deleteQueryNames } from '../../../../hooks/api/useDeleteQuery';
 
 export const useHandlers = () => {
    const navigate = useNavigate();
+   const { pathname } = useLocation();
    const dispatch = useAppDispatch();
    const queryClient = useQueryClient();
 
@@ -42,6 +29,8 @@ export const useHandlers = () => {
    const activeTaskId = useAppSelector(selectActiveTaskId);
    const activeBoardId = useAppSelector(selectActiveBoardId);
    const activeCategory = useAppSelector(selectActiveCategoryName);
+
+   function emptyArgument() {}
 
    const deleteTaskById = deleteQueryNames.taskById;
    const query = useDeleteQuery(
@@ -64,12 +53,16 @@ export const useHandlers = () => {
       deleteBoardById as keyof typeof deleteQueryNames,
       activeBoardId,
    );
-   const deleteBoard = async () => {
-      await boardQuery.mutateAsync();
-      await queryClient.invalidateQueries(['boards', 'by-categories'], {
-         exact: true,
+   const deleteBoard = () => {
+      boardQuery.mutate(emptyArgument(), {
+         onSuccess: async () => {
+            await queryClient.invalidateQueries(['boards', 'by-categories'], {
+               exact: true,
+            });
+            handleClose();
+            pathname.includes('boards/') && navigate(-1);
+         },
       });
-      handleClose();
    };
 
    const deleteCat = deleteQueryNames.category;
@@ -84,19 +77,6 @@ export const useHandlers = () => {
       });
       handleClose();
    };
-   // const deleteTask = async () => {
-   //    await query.mutateAsync(, {
-   //       onSuccess: (data) => {
-   //          queryClient.invalidateQueries([
-   //             'boards',
-   //             activeBoardId,
-   //             'with-details',
-   //          ]);
-   //          // dispatch(setTaskDeleting(false));
-   //          handleClose();
-   //       },
-   //    });
-   // };
 
    const deleteHandlers = {
       category: deleteCategory,

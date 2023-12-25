@@ -13,12 +13,12 @@ import {
    setTaskManaging,
    setBoardIsExisting,
    setBoardEditing,
-   setBoardDeleting,
    setTaskDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
    selectActiveTaskId,
    setEditMode,
+   setDeleteModalMode,
 } from '../../../../main/store';
 
 import { CssListIcon, CssMenuItem } from './CssComponents';
@@ -68,7 +68,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    };
 
    const handleDeleteBoard = () => {
-      dispatch(setBoardDeleting(true));
+      dispatch(setDeleteModalMode('board'));
    };
 
    const handleRedirect = () => {

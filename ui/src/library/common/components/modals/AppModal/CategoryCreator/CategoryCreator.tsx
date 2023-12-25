@@ -33,7 +33,7 @@ export const CategoryCreator: React.FC = () => {
          { category: title },
          {
             onSuccess: () => {
-               queryClient.invalidateQueries(['boards', 'with-categories'], {
+               queryClient.invalidateQueries(['boards', 'by-categories'], {
                   exact: true,
                });
                dispatch(setCategoryIsCreating(false));

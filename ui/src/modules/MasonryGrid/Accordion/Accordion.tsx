@@ -21,7 +21,7 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
    const navigate = useNavigate();
    const dispatch = useAppDispatch();
    const expandedCategories = useAppSelector(selectExpandedCategories);
-   
+
    const expanded = expandedCategories.includes(idx);
 
    const handleChange = () => {
@@ -34,6 +34,7 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
 
    const handleBoardDoubleClick = useCallback((id: string) => {
       navigate(`/boards/${id}`);
+      dispatch(setExpandedCategories([0]));
    }, []);
 
    return (
