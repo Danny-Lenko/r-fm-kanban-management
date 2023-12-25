@@ -23,8 +23,8 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
       <Paper elevation={0}>
          <CssAccordion
             elevation={0}
-            defaultExpanded={idx === 0}
-            TransitionProps={{ unmountOnExit: true }}
+            // defaultExpanded={idx === 0}
+            // TransitionProps={{ unmountOnExit: true }}
          >
             <Summary category={category} />
             <AccordionDetails>

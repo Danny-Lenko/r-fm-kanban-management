@@ -1,11 +1,16 @@
 import { Paper, Typography, Stack } from '@mui/material';
 import { styled } from '@mui/system';
+import { CssDeleteIcon } from '../CssComponents';
+
+const cardPaddingY = '24px';
+const cardPaddingX = '16px';
 
 export const CssCard = styled(Paper)({
+   position: 'relative',
    cursor: 'pointer',
    zIndex: 100,
    boxShadow: '0px 4px 6px rgba(54, 78, 126, 0.101545)',
-   padding: '24px 16px',
+   padding: `${cardPaddingY} ${cardPaddingX}`,
 
    '&:hover': {
       '& .MuiTypography-root.MuiTypography-h3': {
@@ -39,11 +44,11 @@ CssTitle.defaultProps = {
    mb: 1,
 };
 
-export const CssSubtasks = styled(Typography)(({ theme }) => ({
+export const CssLabel = styled(Typography)(({ theme }) => ({
    color: theme.palette.greyCustom[200],
    marginBottom: '4px',
 }));
-CssSubtasks.defaultProps = {
+CssLabel.defaultProps = {
    variant: 'body2',
 };
 
@@ -54,3 +59,9 @@ CssStack.defaultProps = {
    columnGap: '8px',
    rowGap: '0',
 };
+
+export const CssDeleteBoardIcon = styled(CssDeleteIcon)({
+   position: 'absolute',
+   top: cardPaddingY,
+   right: cardPaddingX,
+});

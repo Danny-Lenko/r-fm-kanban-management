@@ -43,9 +43,6 @@ export const useHandlers = () => {
    const activeBoardId = useAppSelector(selectActiveBoardId);
    const activeCategory = useAppSelector(selectActiveCategoryName);
 
-   // const categoryName = useAppSelector(selectActiveCategoryName);
-   // const taskName = task?.title
-
    const deleteTaskById = deleteQueryNames.taskById;
    const query = useDeleteQuery(
       deleteTaskById as keyof typeof deleteQueryNames,
@@ -59,6 +56,19 @@ export const useHandlers = () => {
             exact: true,
          },
       );
+      handleClose();
+   };
+
+   const deleteBoardById = deleteQueryNames.boardById;
+   const boardQuery = useDeleteQuery(
+      deleteBoardById as keyof typeof deleteQueryNames,
+      activeBoardId,
+   );
+   const deleteBoard = async () => {
+      await boardQuery.mutateAsync();
+      await queryClient.invalidateQueries(['boards', 'by-categories'], {
+         exact: true,
+      });
       handleClose();
    };
 
@@ -90,7 +100,7 @@ export const useHandlers = () => {
 
    const deleteHandlers = {
       category: deleteCategory,
-      board: () => null,
+      board: deleteBoard,
       task: deleteTask,
    };
    const handleDelete = deleteHandlers[mode as DeleteModalTypes];
@@ -103,34 +113,7 @@ export const useHandlers = () => {
 
    return {
       mode,
-      // boardDeleting,
       handleDelete,
       handleClose,
    };
 };
-
-// const deleteBoard = () => {
-//    const boardsUpdated = boards.filter(
-//       (board) => board.id !== activeBoardId,
-//    );
-//    dispatch(setBoards(boardsUpdated));
-
-//    navigate('/');
-
-//    if (boards.length <= 1) {
-//       const zeroBoards = [
-//          {
-//             id: generateId(),
-//             name: 'Zero Board',
-//             columns: [],
-//             path: 'zero-board',
-//          },
-//       ];
-//       dispatch(setBoards(zeroBoards));
-//       dispatch(setActiveBoardId(zeroBoards[0].id));
-//    } else {
-//       dispatch(setActiveBoardId(boardsUpdated[0].id));
-//    }
-
-//    handleClose();
-// };

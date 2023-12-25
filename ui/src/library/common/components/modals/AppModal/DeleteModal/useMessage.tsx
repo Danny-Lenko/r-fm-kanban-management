@@ -36,7 +36,7 @@ export const useMessage = () => {
 
       board: (
          <>
-            Are you sure you want to delete the <b>‘${board?.name}’</b> board?
+            Are you sure you want to delete the <b>‘{board?.name}’</b> board?
             This action will remove all columns and tasks and cannot be
             reversed.
          </>
