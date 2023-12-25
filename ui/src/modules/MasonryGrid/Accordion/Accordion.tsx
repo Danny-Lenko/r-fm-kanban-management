@@ -4,6 +4,11 @@ import { AccordionDetails, Stack, Paper } from '@mui/material';
 
 import { BoardCard, CssAccordion, Summary } from '..';
 import { ICategory } from '../..';
+import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
+import {
+   selectExpandedCategories,
+   setExpandedCategories,
+} from '../../../main/store';
 
 interface Props {
    category: ICategory;
@@ -11,9 +16,21 @@ interface Props {
 }
 
 export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
-   const navigate = useNavigate();
-
    const { category, boards } = cat;
+
+   const navigate = useNavigate();
+   const dispatch = useAppDispatch();
+   const expandedCategories = useAppSelector(selectExpandedCategories);
+   
+   const expanded = expandedCategories.includes(idx);
+
+   const handleChange = () => {
+      if (expanded) {
+         const categories = expandedCategories.filter((item) => item !== idx);
+         return dispatch(setExpandedCategories(categories));
+      }
+      dispatch(setExpandedCategories([...expandedCategories, idx]));
+   };
 
    const handleBoardDoubleClick = useCallback((id: string) => {
       navigate(`/boards/${id}`);
@@ -23,8 +40,8 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
       <Paper elevation={0}>
          <CssAccordion
             elevation={0}
-            // defaultExpanded={idx === 0}
-            // TransitionProps={{ unmountOnExit: true }}
+            expanded={expanded}
+            onChange={handleChange}
          >
             <Summary category={category} />
             <AccordionDetails>

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import drawerReducer from './drawer/drawerSlice';
+import uiElementsReducer from './uiElements/uiElementsSlice';
 import dataReducer from './data/dataSlice';
 import modalsReducer from './modals/modalSlice';
 import authReducer from './auth/authSlice';
@@ -7,7 +7,7 @@ import modeReducer from './modes/modeSlice';
 
 export const store = configureStore({
    reducer: {
-      drawer: drawerReducer,
+      uiElements: uiElementsReducer,
       data: dataReducer,
       modals: modalsReducer,
       auth: authReducer,
