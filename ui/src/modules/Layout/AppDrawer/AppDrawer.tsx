@@ -11,12 +11,12 @@ import { DrawerBlindBtn, CssDrawer } from '.';
 
 import logoDark from '../../../resources/assets/logo-dark.svg';
 import logoLight from '../../../resources/assets/logo-light.svg';
-import { selectIsDrawerOpen } from '../../../main/store';
+import { selectDrawerIsOpen } from '../../../main/store';
 
 const sx = { transform: 'translateY(8px)', width: '153px' };
 
 export const AppDrawer: React.FC = () => {
-   const open = useAppSelector(selectIsDrawerOpen);
+   const open = useAppSelector(selectDrawerIsOpen);
    const theme = useTheme();
 
    return (

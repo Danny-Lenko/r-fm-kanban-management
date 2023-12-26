@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { DeleteModalTypes } from '../../../library/types';
 
 export const modalSlice = createSlice({
    name: 'modals',
@@ -19,6 +20,8 @@ export const modalSlice = createSlice({
 
       modalIsSubmitting: false,
       categoryIsCreating: false,
+
+      deleteModalMode: null as DeleteModalTypes | null,
    },
 
    reducers: {
@@ -77,6 +80,10 @@ export const modalSlice = createSlice({
       setCategoryIsCreating: (state, { payload }) => {
          state.categoryIsCreating = payload;
       },
+
+      setDeleteModalMode: (state, { payload }) => {
+         state.deleteModalMode = payload;
+      },
    },
 });
 
@@ -95,5 +102,6 @@ export const {
    setTaskAddingColumn,
    setModalIsSubmitting,
    setCategoryIsCreating,
+   setDeleteModalMode,
 } = modalSlice.actions;
 export default modalSlice.reducer;

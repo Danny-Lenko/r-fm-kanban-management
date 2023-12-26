@@ -1,4 +1,10 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  Logger,
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 import { CreateBoardDto } from './dto/create-board.dto';
 import { FilterDto } from './dto/filter.dto';
@@ -109,6 +115,8 @@ export class BoardsService {
     return board;
   }
 
+  // ================================================ Create
+
   async createBoard(
     createBoardDto: CreateBoardDto,
     user: UserEntity,
@@ -126,6 +134,29 @@ export class BoardsService {
     }
     return;
   }
+
+  async createCategory({ category }, user: UserEntity): Promise<void> {
+    const existingBoard = await this.boardsRepository.findOne({
+      where: { user, category },
+    });
+
+    if (existingBoard) {
+      // throw new Error(`Board with category '${category}' already exists`);
+      throw new ConflictException(
+        `Board with category '${category}' already exists`,
+      );
+    }
+
+    const newBoard = {
+      category,
+      name: 'New Board',
+      columns: [{ name: 'Column 1' }],
+    };
+    const board = this.boardsRepository.create({ ...newBoard, user });
+    await this.boardsRepository.save(board);
+  }
+
+  // ====================================================== Update
 
   async updateNameById(
     id: string,
@@ -181,6 +212,33 @@ export class BoardsService {
       if (!dtoColumnIds.includes(id)) {
         await this.columnsService.deleteColumnById(id);
       }
+    }
+  }
+
+  // ======================================== Delete
+
+  async deleteBoardsByCategory(
+    category: string,
+    user: UserEntity,
+  ): Promise<void> {
+    const emptyOrNotCategory = category !== 'Uncategorized' ? category : '';
+
+    const existingBoards = await this.boardsRepository.find({
+      where: { category: emptyOrNotCategory, user },
+    });
+
+    if (!existingBoards || existingBoards.length === 0) {
+      throw new NotFoundException(
+        `No boards with category '${category}' found`,
+      );
+    }
+
+    try {
+      await this.boardsRepository.remove(existingBoards);
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Error deleting boards with category '${category}': ${error.message}`,
+      );
     }
   }
 }

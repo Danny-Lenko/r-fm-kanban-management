@@ -15,6 +15,8 @@ import {
    selectXsBoardsOpen,
    setCategoryIsCreating,
    selectCategoryIsCreating,
+   selectDeleteModalMode,
+   setDeleteModalMode,
 } from '../../../../../main/store';
 
 export enum ModalTypes {
@@ -28,40 +30,46 @@ export enum ModalTypes {
 export const useAppModal = () => {
    // task modals
    const taskEditing = useAppSelector(selectTaskAdding);
-   const taskDeleting = useAppSelector(selectTaskDeleting);
+   // const taskDeleting = useAppSelector(selectTaskDeleting);
    // board modals
    const boardEditing = useAppSelector(selectBoardEditing);
-   const boardDeleting = useAppSelector(selectBoardDeleting);
+   // const boardDeleting = useAppSelector(selectBoardDeleting);
 
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
    const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
 
+   const isDeleting = !!useAppSelector(selectDeleteModalMode) || false;
+
    const open =
       taskEditing ||
       boardEditing ||
-      boardDeleting ||
-      taskDeleting ||
+      // boardDeleting ||
+      // taskDeleting ||
       categoryIsCreating ||
-      xsBoardsOpen;
+      xsBoardsOpen ||
+      isDeleting;
 
    const dispatch = useAppDispatch();
 
-   const type = boardDeleting
-      ? ModalTypes.Remover
-      : taskEditing
-      ? ModalTypes.TaskEditor
-      : boardEditing
-      ? ModalTypes.BoardEditor
-      : categoryIsCreating
-      ? ModalTypes.CategoryCreator
-      : xsBoardsOpen
-      ? ModalTypes.XsBoards
-      : ModalTypes.Remover;
+   const type =
+      // boardDeleting
+      //    ? ModalTypes.Remover
+      //    :
+      taskEditing
+         ? ModalTypes.TaskEditor
+         : boardEditing
+         ? ModalTypes.BoardEditor
+         : categoryIsCreating
+         ? ModalTypes.CategoryCreator
+         : xsBoardsOpen
+         ? ModalTypes.XsBoards
+         : ModalTypes.Remover;
 
    function closeRemover() {
-      dispatch(setBoardDeleting(false));
-      dispatch(setTaskDeleting(false));
+      // dispatch(setBoardDeleting(false));
+      // dispatch(setTaskDeleting(false));
+      dispatch(setDeleteModalMode(null));
    }
 
    function closeTaskEditor() {

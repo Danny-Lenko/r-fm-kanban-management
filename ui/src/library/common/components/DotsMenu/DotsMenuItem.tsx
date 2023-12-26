@@ -1,26 +1,27 @@
-import { ListItemText, SvgIconTypeMap } from '@mui/material';
+import { OverridableComponent } from '@mui/material/OverridableComponent';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { ListItemText, SvgIconTypeMap, SvgIconProps } from '@mui/material';
+
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import TaskIcon from '@mui/icons-material/Task';
 import CloseIcon from '@mui/icons-material/Close';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-
-import { SvgIconProps } from '@mui/material';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
    setBoardIsExisting,
    setBoardEditing,
-   setBoardDeleting,
    setTaskDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
-} from '../../../../main/store/modals/modalSlice';
+   selectActiveTaskId,
+   setEditMode,
+   setDeleteModalMode,
+} from '../../../../main/store';
 
 import { CssListIcon, CssMenuItem } from './CssComponents';
-import { OverridableComponent } from '@mui/material/OverridableComponent';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { selectActiveTaskId } from '../../../../main/store';
 
 interface Props {
    option: string;
@@ -28,12 +29,17 @@ interface Props {
 }
 
 export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
-   const id = useAppSelector(selectActiveTaskId);
-   const dispatch = useAppDispatch();
-   const optionAction = option.split(' ')[0].toLowerCase();
-
    const navigate = useNavigate();
    const { pathname } = useLocation();
+
+   const id = useAppSelector(selectActiveTaskId);
+   const dispatch = useAppDispatch();
+
+   const optionAction = option
+      .split(' ')
+      // filter allows using the edit icon for edit mode
+      .filter((word) => word.toLowerCase() !== 'enter')[0]
+      .toLowerCase();
 
    const createIconComponent = (
       Component: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> & {
@@ -49,6 +55,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       close: createIconComponent(CloseIcon),
       delete: createIconComponent(DeleteForeverIcon, { color: 'warning' }),
       edit: createIconComponent(EditOutlinedIcon),
+      exit: createIconComponent(ExitToAppIcon),
    };
 
    const getIcon = (option: string) => {
@@ -61,7 +68,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    };
 
    const handleDeleteBoard = () => {
-      dispatch(setBoardDeleting(true));
+      dispatch(setDeleteModalMode('board'));
    };
 
    const handleRedirect = () => {
@@ -78,6 +85,14 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
       dispatch(setTaskDeleting(true));
    };
 
+   const handleEditMode = () => {
+      dispatch(setEditMode(true));
+   };
+
+   const handleExitEditMode = () => {
+      dispatch(setEditMode(false));
+   };
+
    const handleClick = () => {
       switch (option) {
          case 'Open Task Page':
@@ -91,6 +106,12 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
             break;
          case 'Delete Board':
             handleDeleteBoard();
+            break;
+         case 'Enter edit mode':
+            handleEditMode();
+            break;
+         case 'Exit edit mode':
+            handleExitEditMode();
             break;
          default:
             handleDeleteTask();

@@ -1,29 +1,16 @@
 import { Typography, Stack } from '@mui/material';
-import { AppBtn } from '../../../AppBtn';
-import { DeleteBtn, useDeleteModal } from '.';
+
+import { DeleteBtn, useMessage, useHandlers } from '.';
+import { AppBtn } from '../../..';
 
 export const DeleteModal: React.FC = () => {
-   const { boardDeleting, handleDelete, handleClose, name } = useDeleteModal();
+   const { mode, handleDelete, handleClose } = useHandlers();
+   const { message } = useMessage();
 
    return (
       <>
-         <Typography variant='h3'>
-            {boardDeleting ? 'Delete this board?' : 'Delete this task?'}
-         </Typography>
-         <Typography variant='body1'>
-            {boardDeleting ? (
-               <>
-                  Are you sure you want to delete the <b>‘${name}’</b> board?
-                  This action will remove all columns and tasks and cannot be
-                  reversed.
-               </>
-            ) : (
-               <>
-                  Are you sure you want to delete the <b>‘{name}’</b> task and
-                  its subtasks? This action cannot be reversed.
-               </>
-            )}
-         </Typography>
+         <Typography variant='h3'>{'Delete this ' + mode + '?'}</Typography>
+         <Typography variant='body1'>{message}</Typography>
          <Stack direction='row' spacing={2}>
             <DeleteBtn buttonSize='small' onClick={handleDelete}>
                Delete

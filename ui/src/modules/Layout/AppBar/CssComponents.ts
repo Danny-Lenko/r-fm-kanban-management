@@ -9,7 +9,7 @@ interface LogoWrapper extends BoxProps {
 }
 
 interface AppBarProps extends MuiAppBarProps {
-   isOpen?: boolean;
+   isOpen: boolean;
 }
 
 // mui docs: Persistent Drawer

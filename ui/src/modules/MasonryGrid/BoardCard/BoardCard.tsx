@@ -1,8 +1,20 @@
 import React from 'react';
 import { Typography } from '@mui/material';
 
-import { CssCard, CssTitle, CssSubtasks, CssStack } from '.';
+import {
+   CssCard,
+   CssTitle,
+   CssLabel,
+   CssStack,
+   CssDeleteBoardIcon,
+} from '.';
 import { IBoard } from '../../../library/interfaces';
+import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
+import {
+   selectEditMode,
+   setActiveBoardId,
+   setDeleteModalMode,
+} from '../../../main/store';
 
 interface Props {
    board: IBoard;
@@ -11,13 +23,22 @@ interface Props {
 
 export const BoardCard: React.FC<Props> = React.memo(
    ({ board, onDoubleClick }) => {
-      const { name, columns } = board;
+      const { name, columns, id } = board;
+
+      const dispatch = useAppDispatch();
+      const isEditMode = useAppSelector(selectEditMode);
+
+      const handleDelete = () => {
+         dispatch(setActiveBoardId(id));
+         dispatch(setDeleteModalMode('board'));
+      };
 
       return (
          <CssCard onDoubleClick={onDoubleClick}>
-            <CssSubtasks>{'Board:'}</CssSubtasks>
+            <CssLabel>{'Board:'}</CssLabel>
             <CssTitle>{name}</CssTitle>
-            <CssSubtasks>{'Columns:'}</CssSubtasks>
+            {isEditMode && <CssDeleteBoardIcon onClick={handleDelete} />}
+            <CssLabel>{'Columns:'}</CssLabel>
             <CssStack>
                {columns.map(({ name, id }) => (
                   <Typography key={id}>{name}</Typography>

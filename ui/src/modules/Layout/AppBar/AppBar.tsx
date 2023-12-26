@@ -4,31 +4,34 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 
 import {
-   getQueryNames,
-   useAppDispatch,
-   useAppSelector,
-   useGetQuery,
-} from '../../../library/common/hooks';
-import { setXsBoardsOpen } from '../../../main/store/modals/modalSlice';
-import { selectActiveBoardId } from '../../../main/store';
-
-import {
    ButtonsBox,
    CssAppBar,
    CssLogo,
    CssLogoWrapper,
    CssBoardTitle,
 } from '.';
+import {
+   getQueryNames,
+   useAppDispatch,
+   useAppSelector,
+   useGetQuery,
+} from '../../../library/common/hooks';
+import {
+   selectActiveBoardId,
+   selectDrawerIsOpen,
+   selectXsBoardsOpen,
+   setXsBoardsOpen,
+} from '../../../main/store';
+import { IBoard } from '../../../library/interfaces';
 
 import logoDark from '../../../resources/assets/logo-dark.svg';
 import logoLight from '../../../resources/assets/logo-light.svg';
 import logoMobile from '../../../resources/assets/logo-mobile.svg';
-import { IBoard } from '../../../library/interfaces';
 
 export const AppBar = ({ isHome }: { isHome: boolean }) => {
-   const { drawer, modals } = useAppSelector((state) => state);
-   const { open } = drawer;
-   const { xsBoardsOpen } = modals;
+   // const { drawer, modals } = useAppSelector((state) => state);
+   const drawerIsOpen = useAppSelector(selectDrawerIsOpen);
+   const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
 
    const id = useAppSelector(selectActiveBoardId);
 
@@ -64,9 +67,9 @@ export const AppBar = ({ isHome }: { isHome: boolean }) => {
       : data?.name;
 
    return (
-      <CssAppBar isOpen={open}>
+      <CssAppBar isOpen={drawerIsOpen}>
          <Toolbar>
-            <CssLogoWrapper to='/' isOpen={open}>
+            <CssLogoWrapper to='/' isOpen={drawerIsOpen}>
                <CssLogo src={logo} />
             </CssLogoWrapper>
 

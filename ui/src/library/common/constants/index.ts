@@ -12,8 +12,10 @@ export const columnColors = [
 export const BTNWIDTH = '255px';
 
 export const dotsMenuOptions = {
-   taskMenu: ['Open Task Page', 'Close Modal', 'Delete Task'],
+   categoryMenu: ['Enter edit mode'],
+   editCategoryMenu: ['Exit edit mode'],
    boardMenu: ['Edit Board', 'Delete Board'],
+   taskMenu: ['Open Task Page', 'Close Modal', 'Delete Task'],
 };
 
 export enum DrawerPaddingX {

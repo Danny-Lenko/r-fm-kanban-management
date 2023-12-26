@@ -24,6 +24,7 @@ export const AppBtn: React.FC<Props> = ({
       disableElevation: true,
       variant: 'contained' as 'contained',
       buttonsize: buttonSize,
+      color: 'primary' as 'primary',
 
       children: (
          <>

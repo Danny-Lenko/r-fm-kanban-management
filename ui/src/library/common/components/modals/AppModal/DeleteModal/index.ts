@@ -1,3 +1,4 @@
 export * from './DeleteModal';
 export * from './deleteModalStyles';
-export * from './useDeleteModal';
+export * from './useHandlers';
+export * from './useMessage';

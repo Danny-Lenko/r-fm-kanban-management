@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useTheme, useMediaQuery } from '@mui/material';
 
 import { useAppSelector, useAppDispatch } from '../../library/common/hooks';
-import { selectIsDrawerOpen, openDrawer } from '../../main/store';
+import { selectDrawerIsOpen, openDrawer } from '../../main/store';
 
 import { AppDrawer, AppBar, CssLayout, EyeBtn, CssMain } from '.';
 import { CssDrawerHeader } from '../../library/common/components';
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const Layout: React.FC<Props> = ({ children }) => {
-   const open = useAppSelector(selectIsDrawerOpen);
+   const open = useAppSelector(selectDrawerIsOpen);
    const theme = useTheme();
    const sxScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
