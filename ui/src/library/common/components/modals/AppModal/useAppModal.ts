@@ -13,6 +13,7 @@ import {
    selectCategoryIsCreating,
    selectDeleteModalMode,
    setDeleteModalMode,
+   setBoardCreating,
 } from '../../../../../main/store';
 
 export enum ModalTypes {
@@ -64,8 +65,7 @@ export const useAppModal = () => {
    }
 
    function closeBoardCreate() {
-      // dispatch()
-      // return null;
+      dispatch(setBoardCreating(false));
    }
 
    function closeTaskEditor() {

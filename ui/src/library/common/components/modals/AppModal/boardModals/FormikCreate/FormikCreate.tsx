@@ -1,56 +1,64 @@
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { useAppSelector } from '../../../../../hooks';
+import { selectActiveCategoryName } from '../../../../../../../main/store';
 
-import { useBoardFormik, BoardValues } from '.';
-
-export const schemaBoard = Yup.object().shape({
+const schemaBoard = Yup.object().shape({
    name: Yup.string().trim().required("Can't be empty"),
    columns: Yup.array().of(
       Yup.object().shape({
-         id: Yup.string().optional(),
          name: Yup.string().trim().required("Can't be empty"),
       }),
    ),
 });
 
-type FormikValues = FormikProps<BoardValues>;
-type SubmitColumn = {
-   id: string;
-   name: string;
-};
-type SubmitValues = {
-   name: string;
-   columns: SubmitColumn[];
+const initialValues = {
+   name: '',
+   category: '',
+   columns: [{ name: '' }, { name: '' }],
 };
 
+type CreateColumn = {
+   name: string;
+};
+
+type CreateValues = {
+   name: string;
+   category: string;
+   columns: CreateColumn[];
+};
+
+type FormikValues = FormikProps<CreateValues>;
+
 type Props = {
-   saveChanges: (values: SubmitValues) => void;
+   saveChanges: (values: CreateValues) => Promise<void>;
    children: (props: FormikValues) => React.ReactNode;
 };
 
-export const BoardFormik: React.FC<Props> = ({ children, saveChanges }) => {
-   const { initialValues } = useBoardFormik();
+export const FormikCreate: React.FC<Props> = ({ children, saveChanges }) => {
+   const category = useAppSelector(selectActiveCategoryName);
 
-   const submit = (values: BoardValues) => {
+   const createBoard = async (values: CreateValues) => {
       const { name, columns } = values;
 
       const submitColumns = columns.map((column) => ({
-         id: column.id,
          name: column.name,
       }));
+
       const submitValues = {
          name,
+         category,
          columns: submitColumns,
       };
 
-      saveChanges(submitValues);
+      await saveChanges(submitValues);
    };
 
    return (
       <Formik
          initialValues={initialValues}
          validationSchema={schemaBoard}
-         onSubmit={(values) => submit(values)}
+         onSubmit={(values) => createBoard(values)}
          enableReinitialize
       >
          {children}

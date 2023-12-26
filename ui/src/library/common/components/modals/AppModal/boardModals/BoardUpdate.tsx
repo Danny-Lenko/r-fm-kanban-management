@@ -2,7 +2,7 @@ import { Form } from 'formik';
 import { useQueryClient } from '@tanstack/react-query';
 import { Typography } from '@mui/material';
 
-import { BoardFormik, NameField, ColumnFields, CssButton } from '.';
+import { NameField, ColumnFields, CssButton, FormikUpdate } from '.';
 import { useAppSelector, putQueryNames, usePutQuery } from '../../../../hooks';
 import { selectActiveBoardId } from '../../../../../../main/store';
 import { LoadingOverlay } from '../../../LoadingOverlay/LoadingOverlay';
@@ -46,7 +46,7 @@ export const BoardUpdate: React.FC = () => {
       <>
          <Typography variant='h3'>{'Edit board'}</Typography>
 
-         <BoardFormik saveChanges={saveChanges}>
+         <FormikUpdate saveChanges={saveChanges}>
             {(props) => (
                <Form>
                   <NameField {...props} />
@@ -58,7 +58,7 @@ export const BoardUpdate: React.FC = () => {
                   {props.isSubmitting && <LoadingOverlay />}
                </Form>
             )}
-         </BoardFormik>
+         </FormikUpdate>
       </>
    );
 };

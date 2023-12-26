@@ -8,6 +8,8 @@ import { ICategory } from '../..';
 import { useAppDispatch, useAppSelector } from '../../../library/common/hooks';
 import {
    selectExpandedCategories,
+   setActiveCategoryName,
+   setBoardCreating,
    setExpandedCategories,
 } from '../../../main/store';
 
@@ -38,6 +40,11 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
       dispatch(setExpandedCategories([0]));
    }, []);
 
+   const handleCreate = () => {
+      dispatch(setBoardCreating(true));
+      dispatch(setActiveCategoryName(category));
+   };
+
    return (
       <Paper elevation={0}>
          <CssAccordion
@@ -56,7 +63,9 @@ export const Accordion: React.FC<Props> = ({ category: cat, idx }) => {
                      />
                   ))}
                </Stack>
-               <CssCreateButton>{'+ Create Board'}</CssCreateButton>
+               <CssCreateButton onClick={handleCreate}>
+                  {'+ Create Board'}
+               </CssCreateButton>
             </AccordionDetails>
          </CssAccordion>
       </Paper>
