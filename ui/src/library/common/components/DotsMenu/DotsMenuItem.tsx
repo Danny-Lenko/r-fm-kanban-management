@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
    setBoardIsExisting,
-   setBoardEditing,
+   setBoardUpdating,
    setTaskDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
@@ -64,7 +64,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
 
    const handleEditBoard = () => {
       dispatch(setBoardIsExisting(true));
-      dispatch(setBoardEditing(true));
+      dispatch(setBoardUpdating(true));
    };
 
    const handleDeleteBoard = () => {

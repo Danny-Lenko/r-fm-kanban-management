@@ -7,49 +7,42 @@ import {
    setXsBoardsOpen,
    selectTaskAdding,
    selectBoardUpdating,
-   selectBoardCreating,
    selectXsBoardsOpen,
    setCategoryIsCreating,
    selectCategoryIsCreating,
    selectDeleteModalMode,
    setDeleteModalMode,
+   setBoardCreating,
 } from '../../../../../main/store';
-
-export enum ModalTypes {
-   CategoryCreator,
-   BoardUpdate,
-   BoardCreate,
-   TaskEditor,
-   Remover,
-   XsBoards,
-}
+import { ModalTypes } from './useAppModal';
 
 export const useAppModal = () => {
-   const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
-   const boardUpdating = useAppSelector(selectBoardUpdating);
-   const boardCreating = useAppSelector(selectBoardCreating);
+   // task modals
    const taskEditing = useAppSelector(selectTaskAdding);
+   // board modals
+   const boardEditing = useAppSelector(selectBoardUpdating);
+
    const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
+
+   const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
+
    const isDeleting = !!useAppSelector(selectDeleteModalMode) || false;
 
    const open =
-      categoryIsCreating ||
-      boardUpdating ||
-      boardCreating ||
       taskEditing ||
+      boardEditing ||
+      categoryIsCreating ||
       xsBoardsOpen ||
       isDeleting;
 
    const dispatch = useAppDispatch();
 
-   const type = categoryIsCreating
-      ? ModalTypes.CategoryCreator
-      : boardUpdating
-      ? ModalTypes.BoardUpdate
-      : boardCreating
-      ? ModalTypes.BoardCreate
-      : taskEditing
+   const type = taskEditing
       ? ModalTypes.TaskEditor
+      : boardEditing
+      ? ModalTypes.BoardUpdate
+      : categoryIsCreating
+      ? ModalTypes.CategoryCreator
       : xsBoardsOpen
       ? ModalTypes.XsBoards
       : ModalTypes.Remover;
@@ -64,8 +57,7 @@ export const useAppModal = () => {
    }
 
    function closeBoardCreate() {
-      // dispatch()
-      // return null;
+      dispatch(setBoardCreating(false));
    }
 
    function closeTaskEditor() {

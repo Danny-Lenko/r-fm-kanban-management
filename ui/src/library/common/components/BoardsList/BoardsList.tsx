@@ -4,7 +4,7 @@ import { List } from '@mui/material';
 import {
    selectBoards,
    selectXsBoardsOpen,
-   setBoardEditing,
+   setBoardUpdating,
    setXsBoardsOpen,
 } from '../../../../main/store';
 import { useAppSelector, useAppDispatch } from '../../hooks';
@@ -25,7 +25,7 @@ export const BoardsList = () => {
    };
 
    const handleCreateBoardClick = () => {
-      dispatch(setBoardEditing(true));
+      dispatch(setBoardUpdating(true));
       dispatch(setXsBoardsOpen(false));
    };
 

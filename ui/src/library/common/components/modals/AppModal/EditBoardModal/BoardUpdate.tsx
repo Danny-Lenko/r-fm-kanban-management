@@ -16,7 +16,7 @@ interface SubmitValues {
    columns: SubmitColumn[];
 }
 
-export const EditBoardModal: React.FC = () => {
+export const BoardUpdate: React.FC = () => {
    const boardId = useAppSelector(selectActiveBoardId);
 
    const queryClient = useQueryClient();
@@ -41,7 +41,6 @@ export const EditBoardModal: React.FC = () => {
          },
       );
    };
-
 
    return (
       <>

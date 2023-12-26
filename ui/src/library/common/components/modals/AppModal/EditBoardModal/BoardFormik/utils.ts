@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import {
-   setBoardEditing,
+   setBoardUpdating,
    setBoardIsExisting,
 } from '../../../../../../../main/store/modals/modalSlice';
 import { setBoards, setActiveBoardId } from '../../../../../../../main/store';
@@ -48,7 +48,7 @@ interface Props extends ISumbissionParams {
 //    dispatch(setBoards(boardsUpdated));
 //    dispatch(setActiveBoardId(activeBoard.id));
 //    dispatch(setBoardIsExisting(false));
-//    dispatch(setBoardEditing(false));
+//    dispatch(setBoardUpdating(false));
 // };
 
 // createBoard
@@ -71,5 +71,5 @@ export const createBoard = ({ values, boards, dispatch }: Props) => {
 
    dispatch(setBoards(boardsUpdated));
    dispatch(setActiveBoardId(newBoard.id));
-   dispatch(setBoardEditing(false));
+   dispatch(setBoardUpdating(false));
 };
