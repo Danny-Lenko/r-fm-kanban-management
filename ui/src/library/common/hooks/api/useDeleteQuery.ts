@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { QueryData } from '../../../utilities';
 
@@ -17,7 +17,7 @@ export enum deleteQueryNames {
 export function useDeleteQuery(
    dataType: string,
    id?: string,
-   useQueryConfig?: Record<string, string | number>,
+   // useQueryConfig?: Record<string, string | number>,
 ) {
    const Category = new QueryData(
       'boardsByCategory',
@@ -43,6 +43,5 @@ export function useDeleteQuery(
       throw new Error(`Invalid dataType: ${dataType}`);
    }
 
-   // return useQuery(key, () => deleteData<T>(endpoint), useQueryConfig);
    return useMutation(() => deleteData(endpoint));
 }

@@ -14,9 +14,7 @@ const postData = async <T, R>(
    } catch (err) {
       const { response } = err as AxiosError;
       if (response?.status === 409) {
-         // return;
          throw new Error('Conflict');
-         // throw err;
       }
       throw new Error('Internal Server Error');
    }
