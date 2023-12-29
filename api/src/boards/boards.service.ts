@@ -215,6 +215,42 @@ export class BoardsService {
     }
   }
 
+  async renameCategory(
+    { initialCategory, newCategory },
+    user: UserEntity,
+  ): Promise<void> {
+    const boardsToUpdate = await this.boardsRepository.find({
+      where: { user, category: initialCategory },
+    });
+
+    if (!boardsToUpdate || boardsToUpdate.length === 0) {
+      throw new NotFoundException(
+        `No boards with category '${initialCategory}' found for the user`,
+      );
+    }
+
+    const boardWithNewCategory = await this.boardsRepository.findOne({
+      where: { user, category: newCategory },
+    });
+
+    if (boardWithNewCategory) {
+      throw new ConflictException(`The '${newCategory}' already exists`);
+    }
+
+    try {
+      // Update the category name for each board
+      for (const board of boardsToUpdate) {
+        board.category = newCategory;
+        await this.boardsRepository.save(board);
+      }
+    } catch (error) {
+      // Handle any potential errors during update
+      throw new InternalServerErrorException(
+        `Error updating the '${initialCategory}'`,
+      );
+    }
+  }
+
   // ======================================== Delete
 
   async deleteBoardsByCategory(

@@ -12,14 +12,17 @@ interface Props extends StandardTextFieldProps {
 export const CssSummary = styled(AccordionSummary)(({ theme }) => ({
    '& .MuiAccordionSummary-content': {
       alignItems: 'center',
+
+      '& form': {
+         width: '85%',
+      },
    },
 }));
 
 export const CssTitleField = styled(TextField, {
    shouldForwardProp: (prop) => prop !== 'isEditMode',
-   // shouldForwardProp: (prop) => prop !== 'isEditMode',
 })<Props>(({ theme, error, isEditMode }) => ({
-   width: '85%',
+   width: '100%',
    pointerEvents: !isEditMode ? 'none' : 'all',
    '& .MuiTextField-root': {
       position: 'relative',
@@ -35,13 +38,6 @@ export const CssTitleField = styled(TextField, {
       },
    },
    '& .MuiFormHelperText-root': {
-      // position: 'absolute',
-      // bottom: '-16px',
       margin: 0,
-      // userSelect: 'none',
-      // top: '50%',
-      // top: 0,
-      // transform: 'translateY(-50%)',
-      // right: 10,
    },
 }));

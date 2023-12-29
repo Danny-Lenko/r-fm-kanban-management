@@ -101,6 +101,15 @@ export class BoardsController {
     return this.boardsService.createCategory({ category }, user);
   }
 
+  @Put('/:id')
+  updateBoardById(
+    @Param('id') id: string,
+    @Body() updateBoardDto: UpdateBoardDto,
+    @GetUser() user: UserEntity,
+  ): Promise<void> {
+    return this.boardsService.updateBoardById(id, updateBoardDto, user);
+  }
+
   @Patch('/:id/name')
   updateNameById(
     @Param('id') id: string,
@@ -108,6 +117,18 @@ export class BoardsController {
     @GetUser() user: UserEntity,
   ): Promise<BoardsEntity> {
     return this.boardsService.updateNameById(id, name, user);
+  }
+
+  @Patch(':initialCategory/category')
+  async renameCategory(
+    @Param('initialCategory') initialCategory: string,
+    @Body('newCategory') newCategory: string,
+    @GetUser() user: UserEntity,
+  ): Promise<void> {
+    return this.boardsService.renameCategory(
+      { initialCategory, newCategory },
+      user,
+    );
   }
 
   @Delete('/:id')
@@ -124,14 +145,5 @@ export class BoardsController {
     @GetUser() user: UserEntity,
   ): Promise<void> {
     return this.boardsService.deleteBoardsByCategory(category, user);
-  }
-
-  @Put('/:id')
-  updateBoardById(
-    @Param('id') id: string,
-    @Body() updateBoardDto: UpdateBoardDto,
-    @GetUser() user: UserEntity,
-  ): Promise<void> {
-    return this.boardsService.updateBoardById(id, updateBoardDto, user);
   }
 }

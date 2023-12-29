@@ -5,8 +5,10 @@ import * as yup from 'yup';
 import { CssTitleField, CssSummary } from '.';
 import { CssDeleteIcon } from '../..';
 import {
+   patchQueryNames,
    useAppDispatch,
    useAppSelector,
+   usePatchQuery,
 } from '../../../../library/common/hooks';
 import {
    selectEditMode,
@@ -17,6 +19,7 @@ import {
    symbolsMessage,
    symbolsRegex,
 } from '../../../../library/common/constants';
+import { useQueryClient } from '@tanstack/react-query';
 
 const schema = yup.object().shape({
    category: yup
@@ -28,15 +31,32 @@ const schema = yup.object().shape({
       .max(40, 'Too long!'),
 });
 
+interface SubmitData {
+   newCategory: string;
+}
+
 export const Summary = ({ category }: { category: string }) => {
    const dispatch = useAppDispatch();
    const isEditMode = useAppSelector(selectEditMode);
+
+   const queryClient = useQueryClient();
+   const dataType = patchQueryNames.renameCategory;
+   const query = usePatchQuery<SubmitData, void>(dataType, category);
+   const renameCategory = async (newCategory: SubmitData) => {
+      await query.mutateAsync(newCategory, {
+         onSuccess: (data) => {
+            queryClient.invalidateQueries(['boards'], { exact: true });
+         },
+      });
+   };
 
    return (
       <CssSummary expandIcon={<ExpandMoreIcon />}>
          <Formik
             initialValues={{ category }}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={({ category }) =>
+               renameCategory({ newCategory: category })
+            }
             validationSchema={schema}
          >
             {(props) => {
@@ -60,7 +80,6 @@ export const Summary = ({ category }: { category: string }) => {
                               e.stopPropagation();
                            }
                         }}
-                        // onBlur={submitForm}
                         onBlur={(e) => {
                            handleBlur(e);
                            submitForm();
