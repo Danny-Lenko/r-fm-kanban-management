@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
 import { QueryData } from '../../../utilities';
@@ -11,7 +11,13 @@ const patchData = async <T, R>(
       const { data } = await axios.patch<R>(endpoint, bodyReq);
       return data;
    } catch (err) {
-      throw new Error('Internal Server Error');
+      const error = new Error();
+      if (isAxiosError(err) && err.response) {
+         error.message = err.response.data.message;
+         throw error;
+      } else {
+         console.log('Not Axios Error:', err);
+      }
    }
 };
 
