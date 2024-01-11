@@ -1,22 +1,24 @@
 import { Modal } from '@mui/material';
 import {
+   CategoryCreator,
+   BoardUpdate,
+   BoardCreate,
    useAppModal,
    ModalTypes,
    DeleteModal,
    CssContent,
    AddTaskModal,
-   EditBoardModal,
    XsBoardsModal,
-   CategoryCreator,
 } from '.';
 
 const getModal = (type: ModalTypes) =>
    ({
+      [ModalTypes.CategoryCreator]: CategoryCreator,
+      [ModalTypes.BoardUpdate]: BoardUpdate,
+      [ModalTypes.BoardCreate]: BoardCreate,
       [ModalTypes.TaskEditor]: AddTaskModal,
-      [ModalTypes.BoardEditor]: EditBoardModal,
       [ModalTypes.Remover]: DeleteModal,
       [ModalTypes.XsBoards]: XsBoardsModal,
-      [ModalTypes.CategoryCreator]: CategoryCreator,
    }[type]);
 
 interface Props {

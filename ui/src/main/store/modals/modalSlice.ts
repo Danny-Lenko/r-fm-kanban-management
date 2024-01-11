@@ -12,7 +12,9 @@ export const modalSlice = createSlice({
       taskModalExpansionId: '',
       taskCardWasDragged: false,
 
-      boardEditing: false,
+      boardUpdating: false,
+      boardCreating: false,
+
       submissionTrigger: false,
       boardIsExisting: false,
       boardDeleting: false,
@@ -41,8 +43,12 @@ export const modalSlice = createSlice({
          state.taskIsExisting = payload;
       },
 
-      setBoardEditing: (state, { payload }) => {
-         state.boardEditing = payload;
+      setBoardUpdating: (state, { payload }) => {
+         state.boardUpdating = payload;
+      },
+
+      setBoardCreating: (state, { payload }) => {
+         state.boardCreating = payload;
       },
 
       setSubmissionTrigger: (state, { payload }) => {
@@ -91,7 +97,8 @@ export const {
    setTaskManaging,
    setTaskAdding,
    setExistingTask,
-   setBoardEditing,
+   setBoardUpdating,
+   setBoardCreating,
    setSubmissionTrigger,
    setBoardIsExisting,
    setBoardDeleting,

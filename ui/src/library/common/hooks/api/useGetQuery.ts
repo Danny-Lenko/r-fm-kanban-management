@@ -8,7 +8,7 @@ const getData = async <T>(endpoint: string): Promise<T | undefined> => {
       const { data } = await axios.get<T>(endpoint);
       return data;
    } catch (err) {
-      console.error('An error occurred');
+      // console.error('An error occurred');
       throw new Error('Internal Server Error');
    }
 };

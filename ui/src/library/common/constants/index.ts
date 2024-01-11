@@ -31,3 +31,6 @@ export enum AppbarHeight {
    Xs = '48px',
    Sm = '56px',
 }
+
+export const symbolsRegex = new RegExp(/^[^<>&;'"(){}*?[\]]*$/);
+export const symbolsMessage = '-.,!@%_ symbols only';

@@ -1,2 +1,2 @@
 export * from './ColumnFields';
-export * from './Column';
+export * from '../Column';

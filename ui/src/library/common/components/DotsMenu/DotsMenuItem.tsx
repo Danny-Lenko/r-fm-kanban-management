@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
    setTaskManaging,
    setBoardIsExisting,
-   setBoardEditing,
+   setBoardUpdating,
    setTaskDeleting,
    setTaskModalExpansionId,
    setTaskCardWasDragged,
@@ -37,7 +37,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
 
    const optionAction = option
       .split(' ')
-      // filter allows using the edit icon for edit mode
+      // filter allows using the edit icon for categories edit mode
       .filter((word) => word.toLowerCase() !== 'enter')[0]
       .toLowerCase();
 
@@ -64,7 +64,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
 
    const handleEditBoard = () => {
       dispatch(setBoardIsExisting(true));
-      dispatch(setBoardEditing(true));
+      dispatch(setBoardUpdating(true));
    };
 
    const handleDeleteBoard = () => {
@@ -81,8 +81,7 @@ export const DotsMenuItem: React.FC<Props> = ({ option, handleClose }) => {
    };
 
    const handleDeleteTask = () => {
-      dispatch(setTaskManaging(false));
-      dispatch(setTaskDeleting(true));
+      dispatch(setDeleteModalMode('task'));
    };
 
    const handleEditMode = () => {

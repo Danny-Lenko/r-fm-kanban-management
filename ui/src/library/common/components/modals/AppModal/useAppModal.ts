@@ -1,75 +1,71 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
-   setBoardDeleting,
-   setTaskDeleting,
-   setSubmissionTrigger,
    setTaskAdding,
    setExistingTask,
-   setBoardEditing,
+   setBoardUpdating,
    setBoardIsExisting,
    setXsBoardsOpen,
    selectTaskAdding,
-   selectTaskDeleting,
-   selectBoardEditing,
-   selectBoardDeleting,
+   selectBoardUpdating,
+   selectBoardCreating,
    selectXsBoardsOpen,
    setCategoryIsCreating,
    selectCategoryIsCreating,
    selectDeleteModalMode,
    setDeleteModalMode,
+   setBoardCreating,
 } from '../../../../../main/store';
 
 export enum ModalTypes {
+   CategoryCreator,
+   BoardUpdate,
+   BoardCreate,
    TaskEditor,
-   BoardEditor,
    Remover,
    XsBoards,
-   CategoryCreator,
 }
 
 export const useAppModal = () => {
-   // task modals
-   const taskEditing = useAppSelector(selectTaskAdding);
-   // const taskDeleting = useAppSelector(selectTaskDeleting);
-   // board modals
-   const boardEditing = useAppSelector(selectBoardEditing);
-   // const boardDeleting = useAppSelector(selectBoardDeleting);
-
-   const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
-
    const categoryIsCreating = useAppSelector(selectCategoryIsCreating);
-
+   const boardUpdating = useAppSelector(selectBoardUpdating);
+   const boardCreating = useAppSelector(selectBoardCreating);
+   const taskEditing = useAppSelector(selectTaskAdding);
+   const xsBoardsOpen = useAppSelector(selectXsBoardsOpen);
    const isDeleting = !!useAppSelector(selectDeleteModalMode) || false;
 
    const open =
-      taskEditing ||
-      boardEditing ||
-      // boardDeleting ||
-      // taskDeleting ||
       categoryIsCreating ||
+      boardUpdating ||
+      boardCreating ||
+      taskEditing ||
       xsBoardsOpen ||
       isDeleting;
 
    const dispatch = useAppDispatch();
 
-   const type =
-      // boardDeleting
-      //    ? ModalTypes.Remover
-      //    :
-      taskEditing
-         ? ModalTypes.TaskEditor
-         : boardEditing
-         ? ModalTypes.BoardEditor
-         : categoryIsCreating
-         ? ModalTypes.CategoryCreator
-         : xsBoardsOpen
-         ? ModalTypes.XsBoards
-         : ModalTypes.Remover;
+   const type = categoryIsCreating
+      ? ModalTypes.CategoryCreator
+      : boardUpdating
+      ? ModalTypes.BoardUpdate
+      : boardCreating
+      ? ModalTypes.BoardCreate
+      : taskEditing
+      ? ModalTypes.TaskEditor
+      : xsBoardsOpen
+      ? ModalTypes.XsBoards
+      : ModalTypes.Remover;
 
-   function closeRemover() {
-      // dispatch(setBoardDeleting(false));
-      // dispatch(setTaskDeleting(false));
-      dispatch(setDeleteModalMode(null));
+   function closeCategoryCreator() {
+      dispatch(setCategoryIsCreating(false));
+   }
+
+   function closeBoardUpdate() {
+      dispatch(setBoardUpdating(false));
+      dispatch(setBoardIsExisting(false));
+   }
+
+   function closeBoardCreate() {
+      dispatch(setBoardCreating(false));
    }
 
    function closeTaskEditor() {
@@ -77,26 +73,22 @@ export const useAppModal = () => {
       dispatch(setExistingTask(false));
    }
 
-   function closeBoardEditor() {
-      dispatch(setBoardEditing(false));
-      dispatch(setBoardIsExisting(false));
+   function closeRemover() {
+      dispatch(setDeleteModalMode(null));
    }
 
    function closeXsBoards() {
       dispatch(setXsBoardsOpen(false));
    }
 
-   function closeCategoryCreator() {
-      dispatch(setCategoryIsCreating(false));
-   }
-
    const getOnClose = (type: ModalTypes) =>
       ({
-         [ModalTypes.Remover]: closeRemover,
-         [ModalTypes.TaskEditor]: closeTaskEditor,
-         [ModalTypes.BoardEditor]: closeBoardEditor,
-         [ModalTypes.XsBoards]: closeXsBoards,
          [ModalTypes.CategoryCreator]: closeCategoryCreator,
+         [ModalTypes.BoardUpdate]: closeBoardUpdate,
+         [ModalTypes.BoardCreate]: closeBoardCreate,
+         [ModalTypes.TaskEditor]: closeTaskEditor,
+         [ModalTypes.Remover]: closeRemover,
+         [ModalTypes.XsBoards]: closeXsBoards,
       }[type]);
 
    return { type, open, getOnClose };

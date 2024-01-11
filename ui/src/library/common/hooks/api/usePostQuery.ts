@@ -14,9 +14,7 @@ const postData = async <T, R>(
    } catch (err) {
       const { response } = err as AxiosError;
       if (response?.status === 409) {
-         // return;
          throw new Error('Conflict');
-         // throw err;
       }
       throw new Error('Internal Server Error');
    }
@@ -24,9 +22,10 @@ const postData = async <T, R>(
 
 export enum postQueryNames {
    signin = 'signin',
-   newTask = 'newTask',
-   newColumn = 'newColumn',
    newCategory = 'newCategory',
+   newBoard = 'newBoard',
+   newColumn = 'newColumn',
+   newTask = 'newTask',
 }
 
 export function usePostQuery<T, R>(
@@ -34,17 +33,19 @@ export function usePostQuery<T, R>(
    // id?: string,
 ) {
    const SignIn = new QueryData('signin', '/auth/signin', ['signin']);
-   const NewTask = new QueryData('newTask', '/tasks', ['task']);
-   const NewColumn = new QueryData('newColumn', '/columns', ['column']);
    const NewCategory = new QueryData('newCategory', 'boards/category', [
       'category',
    ]);
+   const NewBoard = new QueryData('newBoard', 'boards', ['boards']);
+   const NewColumn = new QueryData('newColumn', '/columns', ['column']);
+   const NewTask = new QueryData('newTask', '/tasks', ['task']);
 
    const postDataTypes = {
       signin: SignIn,
-      newTask: NewTask,
-      newColumn: NewColumn,
       newCategory: NewCategory,
+      newBoard: NewBoard,
+      newColumn: NewColumn,
+      newTask: NewTask,
    };
 
    const { endpoint } = postDataTypes[dataType];

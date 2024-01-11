@@ -15,9 +15,14 @@ export const selectXsBoardsOpen = createSelector(
 );
 
 // board selectors
-export const selectBoardEditing = createSelector(
+export const selectBoardUpdating = createSelector(
    [selectModalsReducer],
-   (modals) => modals.boardEditing,
+   (modals) => modals.boardUpdating,
+);
+
+export const selectBoardCreating = createSelector(
+   [selectModalsReducer],
+   (modals) => modals.boardCreating,
 );
 
 export const selectBoardDeleting = createSelector(

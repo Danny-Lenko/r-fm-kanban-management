@@ -5,6 +5,6 @@ export * from './AppModal';
 export * from './CssContent';
 export * from '../CssLabel';
 export * from './CssTextField';
-export * from './EditBoardModal';
+export * from './boardModals';
 export * from './XsBoardsModal';
 export { CategoryCreator } from './CategoryCreator';
