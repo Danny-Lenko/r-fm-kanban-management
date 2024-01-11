@@ -87,7 +87,6 @@ export const Summary = ({ category }: { category: string }) => {
                   errors,
                   dirty,
                } = props;
-               console.log('Dirty:', dirty);
                return (
                   <Form>
                      <CssTitleField
