@@ -8,9 +8,8 @@ import {
   TableRow,
 } from "@mui/material";
 
-import { Row } from ".";
+import { Row, useStyles } from ".";
 import { useCategories } from "..";
-import { useStyles } from "./Backlog.styles";
 
 export const Backlog = () => {
   const categories = useCategories();
@@ -24,14 +23,12 @@ export const Backlog = () => {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Categories</TableCell>
-            <TableCell align="left" scope="colgroup" colSpan={5}>
+            <TableCell className={classes.extendTh} />
+            <TableCell className={classes.categoryTh}>Categories</TableCell>
+            <TableCell align="left" scope="colgroup" colSpan={6}>
               Recent Boards
             </TableCell>
-            {/* <TableCell align="right">Fat&nbsp;(g)</TableCell> */}
-            {/* <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>
