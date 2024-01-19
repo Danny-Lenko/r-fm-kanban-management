@@ -22,13 +22,13 @@ export const Backlog = () => {
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
-            <TableCell />
+            <TableCell className={classes.paddingCell} />
             <TableCell className={classes.extendTh} />
             <TableCell className={classes.categoryTh}>Categories</TableCell>
             <TableCell align="left" scope="colgroup" colSpan={6}>
               Recent Boards
             </TableCell>
-            <TableCell />
+            <TableCell className={classes.paddingCell} />
           </TableRow>
         </TableHead>
         <TableBody>

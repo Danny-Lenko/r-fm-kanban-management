@@ -6,11 +6,13 @@ export const useStyles = makeStyles()(({ palette }) => ({
     "& .MuiTableCell-head": {
       borderColor: palette.divider,
     },
+  },
 
-    "& .MuiTableCell-head:first-child, .MuiTableCell-head:last-child": {
-      padding: "10px",
-      border: "none",
-    },
+  paddingCell: {
+    padding: "10px",
+    width: 0,
+    maxWidth: 0,
+    border: "none",
   },
 
   extendTh: {
@@ -20,5 +22,8 @@ export const useStyles = makeStyles()(({ palette }) => ({
 
   categoryTh: {
     width: "300px",
+    maxWidth: "300px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   },
 }));

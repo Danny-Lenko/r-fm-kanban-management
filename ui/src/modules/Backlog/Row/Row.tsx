@@ -23,8 +23,8 @@ interface Props {
 
 export const Row: React.FC<Props> = ({ category: cat }) => {
   const { category, boards } = cat;
-  const { classes } = useStyles();
   const [open, setOpen] = useState(false);
+  const { classes } = useStyles({ open });
 
   const recentBoards = boards.slice(0, 5);
   const paddedBoards = Array.from(
@@ -38,7 +38,7 @@ export const Row: React.FC<Props> = ({ category: cat }) => {
         sx={{ "& > *": { borderBottom: "unset" } }}
         className={classes.row}
       >
-        <TableCell />
+        <TableCell className={classes.paddingCell} />
         <TableCell>
           <IconButton className={classes.plusButton} size="small">
             <AddIcon />
@@ -60,15 +60,16 @@ export const Row: React.FC<Props> = ({ category: cat }) => {
             {!open && (name || "")}
           </TableCell>
         ))}
-        <TableCell />
+        <TableCell className={classes.paddingCell} />
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
+        <TableCell
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={7}
+          width="100%"
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
-                Boards
-              </Typography>
+            <Box sx={{ margin: "8px 48px" }}>
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
