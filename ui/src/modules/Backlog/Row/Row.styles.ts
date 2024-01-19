@@ -4,29 +4,20 @@ export const useStyles = makeStyles<{ open: boolean }>()(
   ({ palette }, { open }) => ({
     row: {
       "& .MuiTableCell-body": {
-        // borderColor: open ? "transparent" : palette.divider,
         borderColor: palette.divider,
         borderBottom: open ? "none" : "",
       },
     },
 
     paddingCell: {
-      padding: "10px",
-      width: 0,
-      maxWidth: 0,
+      padding: "unset",
       border: "none",
     },
 
     rowHead: {
       fontSize: open ? "1.3rem" : "1rem",
-      "& .MuiTableCell-root": {
-        width: "300px",
-        maxWidth: "300px",
-      },
-
-      width: "300px",
-      maxWidth: "300px",
-      boxSizing: "border-box",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
     },
 
     plusButton: {

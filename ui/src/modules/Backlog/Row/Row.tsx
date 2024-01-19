@@ -52,9 +52,7 @@ export const Row: React.FC<Props> = ({ category: cat }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" className={classes.rowHead}>
-          {category}
-        </TableCell>
+        <TableCell className={classes.rowHead}>{category}</TableCell>
         {paddedBoards.map(({ id, name }) => (
           <TableCell key={id} align="left" className={classes.boardCell}>
             {!open && (name || "")}

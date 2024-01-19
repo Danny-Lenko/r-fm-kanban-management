@@ -19,7 +19,10 @@ export const Backlog = () => {
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>
-      <Table aria-label="collapsible table">
+      <Table
+        aria-label="collapsible table"
+        sx={{ tableLayout: "fixed", minWidth: 600 }}
+      >
         <TableHead>
           <TableRow>
             <TableCell className={classes.paddingCell} />
