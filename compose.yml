@@ -1,6 +1,20 @@
 version: "3.8"
 
 services:
+  nginx:
+    build:
+      context: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "3050:80"
+    networks:
+      - node-network
+    depends_on:
+      - api
+      - ui
+
   ui:
     depends_on:
       - api
@@ -9,6 +23,8 @@ services:
       - 3000:3000
     environment:
       REACT_APP_API_BASE_URL: api
+    networks:
+      - node-network
 
     develop:
       watch:
@@ -27,11 +43,11 @@ services:
     build: ./api
 
     ports:
-      - 8000:8000
+      - 4000:4000
 
     environment:
       DB_HOST: db
-      # must disable this variable in code to launch api in docker 
+      # must disable this variable in code to launch api in docker
       DB_PORT: 4321
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
@@ -39,6 +55,9 @@ services:
       POSTGRES_DB: boards
       JWT_SECRET: snazzy-overlaid-statutory-appeasing-unharmed-student-plunging
       TEST_VALUE: helloworld
+
+    networks:
+      - node-network
 
     develop:
       watch:
@@ -60,8 +79,15 @@ services:
     ports:
       - 4321:5432
 
+    networks:
+      - node-network
+
     volumes:
       - kanban:/data/db
 
 volumes:
   kanban:
+
+networks:
+  node-network:
+    driver: bridge
