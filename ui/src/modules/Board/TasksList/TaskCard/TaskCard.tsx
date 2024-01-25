@@ -24,6 +24,7 @@ interface Props extends ITask {
 export const TaskCard: React.FC<Props> = React.memo(
    ({ title, subtasks, id, columnId, provided, snapshot }) => {
       // this expansionId ensures working animation
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const expansionId = useAppSelector(selectTaskModalExpansionId);
       const { isDragging } = snapshot;
       const dispatch = useAppDispatch();
@@ -41,7 +42,7 @@ export const TaskCard: React.FC<Props> = React.memo(
          if (isDragging) {
             dispatch(setTaskCardWasDragged(true));
          }
-      }, [isDragging]);
+      }, [isDragging, dispatch]);
 
       return (
          <Box
