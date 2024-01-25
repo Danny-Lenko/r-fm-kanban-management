@@ -54,8 +54,18 @@ export const Row: React.FC<Props> = ({ category: cat }) => {
         </TableCell>
         <TableCell className={classes.rowHead}>{category}</TableCell>
         {paddedBoards.map(({ id, name }) => (
-          <TableCell key={id} align="left" className={classes.boardCell}>
-            {!open && (name || "")}
+          <TableCell
+            key={id}
+            align="left"
+            className={[classes.boardCell, name && classes.existingBoard].join(
+              " "
+            )}
+          >
+            {!open && (
+              <Typography variant="h4" className={classes.boardTitle}>
+                {name || ""}
+              </Typography>
+            )}
           </TableCell>
         ))}
         <TableCell className={classes.paddingCell} />

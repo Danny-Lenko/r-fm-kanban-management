@@ -42,5 +42,34 @@ export const useStyles = makeStyles<{ open: boolean }>()(
       width: "12%",
       fontSize: "0.9rem",
     },
+
+    existingBoard: {
+      cursor: "pointer",
+
+      "&:hover": {
+        "& .MuiTypography-root.MuiTypography-h4": {
+          "&::after": {
+            background: "#000",
+          },
+        },
+      },
+    },
+
+    boardTitle: {
+      position: "relative",
+      width: "fit-content",
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: palette.background.paper,
+
+        width: "100%",
+        height: "1px",
+        transition: "background 0.3s ease-in-out",
+      },
+    },
   })
 );
