@@ -1,38 +1,40 @@
-import { useDispatch } from 'react-redux';
-import { dropColumn, dropTask } from '../../../main/store';
-import { OnDragEndResponder } from 'react-beautiful-dnd';
+// import { useDispatch } from "react-redux";
+// import { dropColumn, dropTask } from '../../../main/store';
+import { OnDragEndResponder } from "react-beautiful-dnd";
 
 export const useDragDrop = () => {
-   const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
 
-   const handleDragDrop: OnDragEndResponder = (results) => {
-      const { source, destination, type } = results;
+  const handleDragDrop: OnDragEndResponder = (results) => {
+    const { source, destination, type } = results;
 
-      if (!destination) return;
+    if (!destination) return;
 
-      if (
-         source.droppableId === destination.droppableId &&
-         source.index === destination.index
-      )
-         return;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
 
-      const sourceIndex = source.index;
-      const destinationIndex = destination.index;
-      const sourceColumnId = source.droppableId;
-      const destinationColumnId = destination.droppableId;
-      const indexes = { sourceIndex, destinationIndex };
-      const info = { ...indexes, sourceColumnId, destinationColumnId };
+    // const sourceIndex = source.index;
+    // const destinationIndex = destination.index;
+    // const sourceColumnId = source.droppableId;
+    // const destinationColumnId = destination.droppableId;
+    // const indexes = { sourceIndex, destinationIndex };
+    // const info = { ...indexes, sourceColumnId, destinationColumnId };
 
-      if (type === 'columns') {
-         dispatch(dropColumn(indexes));
-      }
+    if (type === "columns") {
+      // dispatch(dropColumn(indexes));
+      console.log("dropColumn");
+    }
 
-      if (type === 'tasks') {
-         dispatch(dropTask(info));
-      }
+    if (type === "tasks") {
+      // dispatch(dropTask(info));
+      console.log("dropTask");
+    }
 
-      console.log(results);
-   };
+    console.log(results);
+  };
 
-   return { handleDragDrop };
+  return { handleDragDrop };
 };

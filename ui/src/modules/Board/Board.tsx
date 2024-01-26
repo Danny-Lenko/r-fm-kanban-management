@@ -28,6 +28,11 @@ export const Board = () => {
   const { isLoading, data } = useGetQuery<IBoard>(boardDetails, id, {
     staleTime: 1000 * 60 * 20,
   });
+  // const boardDetails = getQueryNames.categories;
+
+  // console.log("BoardDetails:", boardDetails);
+
+  // const { isLoading, data } = useGetQuery<any>(boardDetails);
 
   useEffect(() => {
     dispatch(setEditMode(false));
@@ -36,6 +41,8 @@ export const Board = () => {
       dispatch(setActiveBoardId(id));
     }
   }, [id, dispatch]);
+
+  console.log("Data:", data);
 
   const { createColumn } = useNewColumn(data?.columns.length);
 

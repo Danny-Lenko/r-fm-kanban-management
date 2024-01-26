@@ -15,7 +15,7 @@ export const Backlog = () => {
   const categories = useCategories();
   const { classes } = useStyles();
 
-  console.log(categories);
+  console.log('Categories:', categories);
 
   return (
     <TableContainer component={Paper} className={classes.tableContainer}>

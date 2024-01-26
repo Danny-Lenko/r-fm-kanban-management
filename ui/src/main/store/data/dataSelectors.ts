@@ -20,7 +20,7 @@ export const selectActiveBoardId = createSelector(
    (data) => data.activeBoardId,
 );
 export const selectActiveBoard = createSelector([selectDataReducer], (data) => {
-   const { boards, activeBoardId } = data;
+   const { boards } = data;
    // mock to quikly fix activeBoardId
    return boards.find((board) => board.id === '0')!;
 });

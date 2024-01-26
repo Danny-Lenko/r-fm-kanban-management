@@ -1,8 +1,6 @@
-import { useEffect, useRef, createContext, useContext } from "react";
-// import axios from 'axios';
+import { useRef, createContext, useContext } from "react";
 import { setAuthHeader } from "../library/utilities/auth";
 
-import { apiBaseUrl } from "../library/common/constants";
 import { postQueryNames, usePostQuery } from "../library/common/hooks";
 
 type AuthContextType = {

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { QueryData } from "../../../utilities";
 
 const getData = async <T>(endpoint: string): Promise<T | undefined> => {
+  console.log('Endpoint:', endpoint)
   try {
     const { data } = await axios.get<T>(endpoint);
     return data;
