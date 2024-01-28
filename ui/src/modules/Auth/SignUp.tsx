@@ -12,8 +12,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 
-import { apiBaseUrl } from '../../library/common/constants';
-
 function Copyright(props: any) {
    return (
       <Typography

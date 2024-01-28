@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      context: nginx
+    container_name: nginx
+    restart: always
+    tty: true
+    ports:
+      - "3050:80"
+    networks:
+      - node-network
+    depends_on:
+      - api
+      - ui
+
+  ui:
+    depends_on:
+      - api
+    build: ./ui
+    ports:
+      - 3000:3000
+    environment:
+      REACT_APP_API_BASE_URL: api
+    networks:
+      - node-network
+
+    develop:
+      watch:
+        - path: ./ui/package.json
+          action: rebuild
+        - path: ./ui/package-lock.json
+          action: rebuild
+        - path: ./ui
+          target: /app
+          action: sync
+
+  api:
+    depends_on:
+      - db
+
+    build: ./api
+
+    ports:
+      - 4000:4000
+
+    environment:
+      DB_HOST: db
+      # must disable this variable in code to launch api in docker
+      DB_PORT: 4321
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: boards
+      POSTGRES_DB: boards
+      JWT_SECRET: snazzy-overlaid-statutory-appeasing-unharmed-student-plunging
+      TEST_VALUE: helloworld
+
+    networks:
+      - node-network
+
+    develop:
+      watch:
+        - path: ./api/package.json
+          action: rebuild
+        - path: ./api/package-lock.json
+          action: rebuild
+
+        - path: ./api
+          target: /app
+          action: sync
+
+  db:
+    image: devdanny14/boards
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: boards
+    ports:
+      - 4321:5432
+
+    networks:
+      - node-network
+
+    volumes:
+      - kanban:/data/db
+
+volumes:
+  kanban:
+
+networks:
+  node-network:
+    driver: bridge

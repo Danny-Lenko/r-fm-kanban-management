@@ -1,15 +1,45 @@
-import { Typography } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
-import { useCategories } from '..';
+import { Row, useStyles } from ".";
+import { useCategories } from "..";
 
 export const Backlog = () => {
-   const categories = useCategories();
+  const categories = useCategories();
+  const { classes } = useStyles();
 
-   console.log(categories)
+  console.log('Categories:', categories);
 
-   return (
-      <>
-         <Typography variant='h1'>Hello Backlog</Typography>
-      </>
-   );
+  return (
+    <TableContainer component={Paper} className={classes.tableContainer}>
+      <Table
+        aria-label="collapsible table"
+        sx={{ tableLayout: "fixed", minWidth: 600 }}
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell className={classes.paddingCell} />
+            <TableCell className={classes.extendTh} />
+            <TableCell className={classes.categoryTh}>Categories</TableCell>
+            <TableCell align="left" scope="colgroup" colSpan={6}>
+              Recent Boards
+            </TableCell>
+            <TableCell className={classes.paddingCell} />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {categories.map((category) => (
+            <Row key={crypto.randomUUID()} category={category} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 };

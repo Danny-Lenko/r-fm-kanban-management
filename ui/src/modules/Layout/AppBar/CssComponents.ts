@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppBar, Box, BoxProps, Typography } from '@mui/material';
+import { AppBar, BoxProps, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { DrawerWidth, AppbarHeight } from '../../../library/common/constants';

@@ -1,26 +1,29 @@
-import { useState, useMemo } from 'react';
-import { createTheme } from '@mui/material/styles';
-import { assembleThemeObj } from '../../utilities/themeConstructor';
+import { useState, useMemo } from "react";
+import { createTheme } from "@mui/material/styles";
+import { assembleThemeObj } from "../../utilities/themeConstructor";
 
 function useColorMode() {
-   const [mode, setMode] = useState<'light' | 'dark'>('light');
-   const defaultTheme = createTheme();
+  const [mode, setMode] = useState<"light" | "dark">("light");
+  // const defaultTheme = createTheme();
 
-   const colorMode = useMemo(
-      () => ({
-         toggleClrMode: () => {
-            setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-         },
-      }),
-      [],
-   );
+  const colorMode = useMemo(
+    () => ({
+      toggleClrMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
 
-   let theme = useMemo(
-      () => createTheme(assembleThemeObj(mode)),
-      [mode, defaultTheme],
-   );
+  let theme = useMemo(
+    () => createTheme(assembleThemeObj(mode)),
+    [
+      mode,
+      // defaultTheme
+    ]
+  );
 
-   return { colorMode, theme };
+  return { colorMode, theme };
 }
 
 export { useColorMode };

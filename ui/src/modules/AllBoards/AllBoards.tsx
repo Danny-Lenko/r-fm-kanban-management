@@ -47,7 +47,7 @@ export interface ICategory {
 
 export const AllBoards = () => {
    const categories = getQueryNames.categories;
-   const { isLoading, error, data } = useGetQuery<ICategory[]>(categories);
+   const { isLoading, data } = useGetQuery<ICategory[]>(categories);
 
    if (isLoading) return <h1>...Loading</h1>;
 

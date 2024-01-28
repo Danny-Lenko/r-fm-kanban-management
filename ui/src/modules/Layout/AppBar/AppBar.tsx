@@ -37,7 +37,7 @@ export const AppBar = ({ isHome }: { isHome: boolean }) => {
 
    const boardDetails = getQueryNames.boardDetails;
 
-   const { isLoading, data, isError } = useGetQuery<IBoard>(boardDetails, id, {
+   const { isLoading, data } = useGetQuery<IBoard>(boardDetails, id, {
       staleTime: 1000 * 60 * 20,
       enabled: !!id,
    });
